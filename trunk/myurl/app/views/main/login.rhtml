@@ -1,0 +1,23 @@
+
+    <% form_tag :controller=>"main", :action => 'trylogin' do %>
+      <table>
+        <tr height="50px">
+            <td class="bigc">账号名:</td>
+            <td><%= text_field_tag "name", "", :class=>"biginput2"%></td>
+        </tr>
+        <tr height="50px">
+            <td class="bigc">密码:</td>
+            <td><%= password_field_tag "password", "", :class=>"biginput2"%></td>
+        </tr>
+      </table>
+      &nbsp;&nbsp;&nbsp;<%= submit_tag "登录", :class=>"submit" %> 
+      &nbsp;&nbsp;&nbsp;<%= link_to '还未注册?', :controller=>"users", :action => 'register' %>
+    <% end %>
+
+    <script>
+        $(document).ready(function(){
+            $("#name").get(0).focus();
+        });
+        
+        
+    </script>

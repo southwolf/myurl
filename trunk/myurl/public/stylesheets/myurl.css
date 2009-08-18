@@ -1,0 +1,558 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body { background-color: #fff; color: #333; }
+
+body, p, ol, ul, td {
+  font-family: "宋体", verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+a { color: black; text-decoration: underline;}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+div.uploadStatus {
+  margin: 5px;
+}
+
+div.progressBar {
+  margin: 5px;
+}
+
+div.progressBar div.border {
+  background-color: #fff;
+  border: 1px solid grey;
+  width: 100%;
+}
+
+div.progressBar div.background {
+  background-color: #333;
+  height: 18px;
+  width: 0%;
+}
+
+img {
+  border: 0;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.5em;
+  margin: 0 0 0.5em 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 0 0 0.5em 0;
+  padding: 0;
+  color: black;
+}
+h3 {
+  font-size: 1.2em;
+  line-height: 1.5em;
+  margin: 0 0 0.5em 0;
+  padding:0;
+  color: black;
+}
+h4 {
+  font-size: 1.15em;
+  line-height: 1.3em;
+  margin: 0 0 0.25em 0;
+  padding: 0;
+  color: black;
+}
+h5 {
+  font-size: 1.1em;
+  line-height: 1.3em;
+  margin: 0 0 0.25em 0;
+  padding: 0;
+  color: black;
+}
+h6 {
+  font-size: 1em;
+  line-height: 1.3em;
+  margin: 0 0 0.25em 0;
+  padding: 0;
+  color: black;
+}
+
+table.admin {
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+
+table.admin thead {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+table.admin tbody td {
+    padding: 5px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+
+div.pagination span.current {
+    margin: 2px;
+    border: 1px solid #000099;
+    
+    font-weight: bold;
+    background-color: #000099;
+    color: #FFF;
+}
+
+div#nifty{
+ margin:0;
+ background:#9BD1FA;
+} 
+.nifty p {} 
+div.rtop {display:block;background:#fff} 
+div.rtop div {display:block;height:1px;overflow:hidden;background:#9BD1FA} 
+div.r1{margin:0 5px} 
+div.r2{margin:0 3px} 
+div.r3{margin:0 2px} 
+div.rtop div.r4 {margin:0 1px;height:2px} 
+.nifty_inner{margin:4px 10px 4px 10px}
+
+.bw_table
+{ 
+    background:url(/images/tfoot.png) repeat-x left bottom; 
+    color:black;
+    margin-bottom: 10px;
+}
+
+.bw_table th.middle{height:33px; line-height:33px; font-size:13px;background:url(/images/thead.png);background-repeat: repeat-x;}
+
+.bw_table th.left{padding-left:10px;background:url(/images/thead_left.png) no-repeat left top;}
+
+.bw_table th.right{background:url(/images/thead_right.png) no-repeat right top;}
+
+.bw_table td.tfoot_l{font-size:0; line-height:0; height:7px; background:url(/images/tfoot_l.png) no-repeat left;}
+
+.bw_table td.tfoot_r{font-size:0; line-height:0; height:7px; background:url(/images/tfoot_r.png) no-repeat right;}
+
+.bw_table .bw_inner{border-left:1px #acb9cf solid; border-right:1px #acb9cf solid;background-color:white;padding: 2pt 2pt 2pt 2pt;}
+
+#main
+{
+    width:1000px;
+    height: 100%;
+    border: 0px dashed #ddd;
+    margin: auto;
+}
+
+#application
+{
+    text-align: right;
+    margin-top: 4px;
+    padding-right: 10px;
+}
+
+#bar
+{
+    float:left;
+    margin-right: 20px;
+}
+
+#logo
+{
+}
+
+#top
+{
+    margin-top: 5px;
+    width: 100%;
+    height: 60px;
+    border: 0px dashed red;
+}
+
+#folder
+{
+    border: 0px dashed red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.biginput
+{
+    height: 30px;
+    font-size: 24px;
+    margin: 2px 5px 0px 2px;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+.biginput2
+{
+    height: 22px;
+    font-size: 18px;
+    margin: 2px 5px 0px 2px;
+    width: 250px;
+}
+
+.biginput3
+{
+    height: 22px;
+    font-size: 18px;
+    margin: 2px 5px 0px 2px;
+    width: 450px;
+}
+
+.folder_font
+{
+    font-size: 18px;
+    font-weight: bold;
+    color: navy;
+}
+
+input.submit {
+  background: #006699;
+  color: white;
+  cursor:pointer;
+  font-size: 16px;
+  height:32px;
+  padding:2px 5px;  
+  border:1px solid #d2f3fd;
+  vertical-align: middle;
+}
+
+input.bigbutton {
+  background: #006699;
+  color: white;
+  cursor:pointer;
+  font-size: 16px;
+  height:34px;
+  width: 100px;
+  border:1px solid #d2f3fd;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+#hot
+{
+    float: left;
+    margin-right: 18px;
+}
+
+#foot
+{
+    margin-top: 10px;
+    text-align: center;
+    clear: both;
+}
+
+.login_button
+{
+    border:0px solid #d2f3fd;
+    height: 60px;
+    width: 130px;
+    background:url(/images/login1.png) no-repeat left top; 
+    margin-bottom: 4px;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.login_button_active { 
+    border:0px solid #d2f3fd;
+    height: 60px;
+    width: 130px;
+    background:url(/images/login2.png) no-repeat left top; 
+    margin-bottom: 4px;
+    margin-top: 0px;
+    
+} 
+
+#register
+{
+    float: left;
+    border: 1px solid red;
+}
+
+.bigc
+{
+    font-size: 14px;
+}
+
+.folder_button
+{
+    border:0px solid #d2f3fd;
+    height: 60px;
+    width: 130px;
+    background:url(/images/myfolder1.png) no-repeat left top; 
+    margin-bottom: 4px;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.folder_button_active { 
+    border:0px solid #d2f3fd;
+    height: 60px;
+    width: 130px;
+    background:url(/images/myfolder2.png) no-repeat left top; 
+    margin-bottom: 4px;
+    margin-top: 0px;
+} 
+
+.main_button
+{
+    border:0px solid #d2f3fd;
+    height: 60px;
+    width: 130px;
+    background:url(/images/main1.png) no-repeat left top; 
+    margin-bottom: 4px;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.main_button_active { 
+    border:0px solid #d2f3fd;
+    height: 60px;
+    width: 130px;
+    background:url(/images/main2.png) no-repeat left top; 
+    margin-bottom: 4px;
+    margin-top: 0px;
+} 
+
+#recommands
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.web_title
+{
+    font-size: 17px;
+    font-family: '宋体';
+    color: navy;
+    font-weight: bold;
+}
+
+.web_count
+{
+    font-size: 12px;
+    color: gray;
+}
+
+.sort
+{
+    height: 550px;
+    width: 100%;
+    text-align: left;
+}
+
+.sort th
+{
+    text-align: center;
+    color: green;
+}
+
+.sort th, .sort b {
+    font-style:normal;
+    font-weight:normal;
+    margin:0;
+}
+
+.sort .s_widen a {
+    margin-right:16px;
+}
+
+.sort th a
+{
+    margin:0px;
+}
+
+.sort a {
+    margin-right:15px;
+}
+
+.sort th, .sort td {
+    font-size:14px;
+    height:24px;
+    line-height:24px;
+}
+
+.bg1
+{
+    background: #FFF8F0;
+}
+
+.bg2
+{
+    background: #F0F7FF;
+}
+
+.tg1
+{
+    background: #FFF8F0;
+}
+
+.tg2
+{
+    background: #F0F7FF;
+}
+
+.tg1 td
+{
+    padding: 2px;
+}
+
+.tg2 td
+{
+    padding: 2px;
+}
+
+ul
+{
+    margin-left: 20px;
+}
+
+li
+{
+    line-height: 24px;
+}
+
+.cata
+{
+    border-collapse:collapse;
+    margin-top: 40px;
+}
+
+.cata > tbody > tr > td
+{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding-top: 10px;
+    padding-left: 40px;
+}
+
+.directlink
+{
+     
+}
+
+.webdesc
+{
+    padding-top:10px
+}
+
+
+.active_url_row
+{
+    background-color: blue;
+}
+
+
+.active_url_row span
+{
+    background-color: red;
+}
+
+#left_recommand
+{
+    width: 40px;
+    float:left;
+}
+
+div.recommand_sites_title_div span a
+{
+    font-weight: bold;
+    color: navy;
+    font-size: 15px;
+}
+
+div.recommand-sites_memo_div
+{
+    font-size: 13px;
+    color: gray;
+    margin-top: 4px;
+}
+
+span.recommand_sites_function
+{
+    margin-left: 270px;
+}
+
+span.recommand_sites_function a
+{
+    color: gray;
+    font-size: 13px;
+}
+
+span.recommand_sites_memo
+{
+    color: gray;
+    font-size: 13px;
+}
+
+#recommand_sites_page
+{
+    text-align: right;
+}
+
+.share_desc
+{
+    font-size: 18px;
+    color: navy;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.share_tag
+{
+    margin-top: 20px;
+}
+
+.share_candidate_tag
+{
+    margin-top: 20px;
+    font-size: 14px;
+}

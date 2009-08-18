@@ -1,0 +1,24 @@
+<%= error_messages_for 'recommands' %>
+
+<script>
+    function gettitle()
+    {
+        $("#update").load("/main/get_web_title?field=recommands_name&url="+$("#recommands_address").val());
+    }
+</script>
+
+<div id="update">
+</div>
+
+<!--[form:recommands]-->
+<p><label for="recommands_address">地址：</label>
+<%= text_field 'recommands', 'address', :class=>"biginput", :size=>80, :onblur=>"gettitle()"  %></p>
+
+<p><label for="recommands_name">站名：</label>
+<%= text_field 'recommands', 'name', :class=>"biginput", :size=>80  %></p>
+
+<p><label for="recommands_name">分类：</label>
+<%= select("recommands", "label_id", Label.find_all.collect {|p| [ p.name, p.id ] }, {}, :class=>"biginput") %>
+</p>
+<!--[eoform:recommands]-->
+

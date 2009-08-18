@@ -1,0 +1,8 @@
+<h1>添加网页</h1>
+
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <br/>
+  <%= submit_tag "保存", :class=>"submit" %>
+<% end %>
+
