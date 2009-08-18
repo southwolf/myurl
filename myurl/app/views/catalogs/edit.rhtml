@@ -1,0 +1,9 @@
+<h1>Editing catalogs</h1>
+
+<% form_tag :action => 'update', :id => @catalogs do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @catalogs %> |
+<%= link_to 'Back', :action => 'list' %>

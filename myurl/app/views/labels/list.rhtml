@@ -1,0 +1,18 @@
+
+<table class="admin">
+<% for labels in @labels %>
+  <tr>
+  <% for column in Label.content_columns %>
+    <td width=150px><%=h labels.send(column.name) %></td>
+  <% end %>
+    <td width=40px><%= link_to '改名', :action => 'edit', :id => labels %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => labels }, :confirm => '确定删除吗?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @labels%>
+
+<br/>
+
+<%= link_to '新建标签', :action => 'new' %>

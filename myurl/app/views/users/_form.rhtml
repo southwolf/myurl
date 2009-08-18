@@ -1,0 +1,40 @@
+<%= error_messages_for 'user' %>
+
+<!--[form:user]-->
+
+<table width=100%>
+    <tr>
+        <td class="bigc" width=100px>登陆名：</td> 
+        <td width=300px><%= text_field 'user', 'name', :class=>"biginput2", :onblur=>"check_user()" %>
+        </td>
+        <td align="left">
+            <div id="update"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="bigc">密码：</td> 
+        <td colspan=2><%= password_field 'user', 'password', :class=>"biginput2" %></td>
+    </tr>
+    <tr>
+        <td class="bigc">再输一遍：</td> 
+        <td colspan=2><%= password_field_tag 'password_again', "",  :class=>"biginput2" %></td>
+    </tr>
+    <tr>
+        <td class="bigc">验证码：</td> 
+        <td colspan=2>
+            <div id="valid_pic">
+                <%= show_simple_captcha :label => '(输入上面图片中的字符)',:image_style => 'simply_red', :distortion => 'medium'%>
+            </div>
+       </td>
+    </tr>
+</table>
+
+<script>
+    function check_user()
+    {
+        $('#update').load("/users/check_unique?name="+$("#user_name").val());
+    }
+</script>
+
+<!--[eoform:user]-->
+

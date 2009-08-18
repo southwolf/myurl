@@ -1,0 +1,7 @@
+
+    <% form_tag :action => 'create' do %>
+      <%= render :partial => 'form' %>
+      &nbsp;&nbsp;&nbsp;<%= submit_tag "注册", :class=>"submit" %> 
+      &nbsp;&nbsp;&nbsp;<%= link_to '返回主页', :controller=>"main", :action => 'index' %>
+    <% end %>
+

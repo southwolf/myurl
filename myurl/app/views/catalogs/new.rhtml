@@ -1,0 +1,10 @@
+
+
+<% form_tag :action => 'create' do %>
+  <p><label for="catalogs_name">类别名称：</label>
+    <%= text_field 'catalogs', 'name'  %>
+    <%= submit_tag "保存", :class=>"submit" %></p>
+  
+<% end %>
+
+&nbsp;&nbsp;<%= link_to '返回', :controller=>"catalogs", :action => 'list' %>

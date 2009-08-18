@@ -1,0 +1,79 @@
+<%= stylesheet_link_tag "xtree" %>
+<%= javascript_include_tag 'xtree' %>
+
+<style>
+a{font-size:14px;}
+</style>
+
+<%= link_to '返回我的收藏', :controller=>"main", :action => 'myurl' %>
+
+<br/><br/>
+	
+<table width=100%>
+    <tr>
+        <td width=200px valign="top">	
+            <script>
+               <%= show_catalog_tree() %>
+            </script>  
+	    </td>
+	    <td valign="top">
+	       当前选中了
+	       <% if @catalog%>
+	           "<%=@catalog.name%>"
+	       <% else %>
+	           "收藏"
+	       <% end %>
+	       
+	       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	       <% if @catalog%>
+	         <%= link_to_function "修改名称", "show('edit_catalog')"%> |
+	       <% end %>
+	       
+	       <%= link_to_function '添加子节点', "show('new_catalog')" %>
+           
+           <% if @catalog%> 
+            |
+           <%= link_to '删除', { :action => 'destroy', :id => @catalog }, :confirm => '确定删除吗?', :method => :post %>
+            <% end %>	       
+           	       
+	       <% if @catalog%>
+	         <div id="edit_catalog" style="display:none">
+	           <% form_tag :action => 'update', :id=>@catalog do %>
+                    <%= text_field 'catalog', 'name', :class=>"biginput"  %>
+                    <%= submit_tag "改名", :class=>"submit" %>
+               <% end %>
+              </div>
+	       <% end %>
+	       
+           
+           <div id="new_catalog" style="display:none">
+            <% form_tag :action => 'create', :id=>@catalog do %>
+                <%= text_field 'new_catalog', 'name', :class=>"biginput"  %>
+                <%= submit_tag "添加", :class=>"submit"%>
+                
+                <% if @catalog%>
+                    <%= hidden_field_tag 'parent_id', @catalog.id%>
+                <% end %>
+            <% end %>
+           </div> 
+	    </td>
+	</tr>    
+</table>
+    
+<script>
+    function show(id)
+    {
+        var element = $("#" + id);
+        if (element.attr('ta') == undefined || element.attr('ta') == 0)
+        {
+            element.show();
+            element.attr('ta', 1)
+        }
+        else
+        {
+            element.hide();
+            element.attr('ta', 0);
+        }
+        
+    }
+</script>

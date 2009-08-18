@@ -1,0 +1,27 @@
+<h1>Listing weburls</h1>
+
+<table>
+  <tr>
+  <% for column in Weburls.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for weburls in @weburls %>
+  <tr>
+  <% for column in Weburls.content_columns %>
+    <td><%=h weburls.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => weburls %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => weburls %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => weburls }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @weburls_pages.current.previous } if @weburls_pages.current.previous %>
+<%= link_to 'Next page', { :page => @weburls_pages.current.next } if @weburls_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New weburls', :action => 'new' %>

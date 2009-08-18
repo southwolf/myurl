@@ -1,0 +1,50 @@
+<script>
+    var jQuery=$; 
+</script>
+
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag 'effects' %>
+<%= javascript_include_tag 'dragdrop' %>
+
+<%= link_to '添加新站', :action => 'new', :id=>params[:id] || 0 %>
+
+<%= image_tag '/images/indicator.gif', :id=>'indicator', :style=>'display:none' %>
+
+<table width=100% class="cata">
+    <tr>
+        <td  valign='top' align='center' width=180px style="border-right: 1px solid white;">
+            <%labels = Label.find(:all, :order=>"`order`")%>
+            <ul id="nodelist">
+            <% for label in labels%>
+                <li id="item_<%= label.id %>"><%=link_to label.name, :controller=>"recommands", :action=>"list", :id=>label%></li>
+            <% end %>
+            </ul>
+        </td>
+        <td valign='top'>
+            <table width=100% class="admin">
+                <% for recommand in @recommands%>
+                    <tr>
+                        <td>
+                            <div class="directlink"><a href="<%= recommand.address%>" target="_blank"><%= recommand.address%></a></div>
+                           <div class="webdesc"><%=recommand.name%></div> 
+                        </td>
+                        <td><%= link_to '修改', :action => 'edit', :id => recommand %></td>
+                        <td><%= link_to '删除', { :action => 'destroy', :id => recommand }, :confirm => '确定删除吗?', :method => :post %></td>
+                    </tr>
+                <% end %>
+            </table>
+            
+            <%= will_paginate @recommands%>
+        </td>
+    </tr>
+</table>
+
+<div id='response'>
+</div>
+
+<%= sortable_element 'nodelist', 
+      :update => 'response1',  
+      :loading => "Element.show('indicator')",
+      :complete => "Element.hide('indicator')",
+      :url => { :action => "order", :parent=>@node } %>
+

@@ -1,0 +1,10 @@
+<h1>修改网站信息</h1>
+
+<% form_tag :action => 'update', :id => @recommands do %>
+  <%= render :partial => 'form' %>
+  <br/>
+  <%= submit_tag '修改', :class=>'submit' %>
+  <%= link_to 'Back', :action => 'list' %>
+<% end %>
+
+

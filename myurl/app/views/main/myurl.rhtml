@@ -1,0 +1,100 @@
+<%= stylesheet_link_tag "xtree" %>
+<%= javascript_include_tag 'xtree' %>
+
+<style>
+a{font-size:14px;}
+</style>
+
+<script>
+    function gettitle()
+    {
+        if ($("#weburl_desc").val().length == 0)
+        {
+            $("#update").load("/main/get_web_title?field=weburl_desc&url="+$("#weburl_address").val());
+        }
+    }
+</script>
+<div style="text-align:center">
+    <% form_tag :controller=>"weburls", :action=>"create" do%>
+        <%= hidden_field 'weburl', 'recommand_id' %>
+        <div style="text-align:left; width:60%">
+        <table>
+            <tr>
+                <td width=60px>网&nbsp;&nbsp;址：</td>
+                <td><%= text_field 'weburl', 'address', :class=>"biginput3" %></td>
+                <td><div id='update'></div><a href="#" onclick="gettitle()">获得名称</a></td>
+            </tr>
+            <tr>
+                <td>名&nbsp;&nbsp;称：</td>
+                <td colspan=2><%= text_field 'weburl', 'desc', :class=>"biginput3" %></td>
+            </tr>
+            <tr>
+                <td>分&nbsp;&nbsp;类：</td>
+                <td>
+                    <select id="weburl_catalog_id" name="weburl[catalog_id]">
+                        <%= show_catalog_combo(params[:cata])%>
+                    </select>
+                    <%= link_to "分类管理", :controller=>"catalogs", :action=>"list"%>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag "收藏", :class=>"submit" %> </td>
+                </td> 
+            </tr>
+        </table>
+        <%= hidden_field 'weburl', 'logo'%>
+        </div>
+    <% end %>
+    <table width=96% height=300px class="cata">
+        <tr>
+            <td align="left" valign="top" width=20% style="border-right: 1px solid white; ">
+                <script>
+                <%= show_catalog_tree2%>
+                </script>
+            </td>
+            <td valign="top"  width=80% >
+                <div style="text-align:center">
+                    <%if !params[:cata] || params[:cata] == "0"%>
+                        <font color=red>未分类</font> 的网站数(<%= Weburl.count("catalog_id=0 and user_id = #{session[:user].id}")%>个)
+                    <% else %>
+                     <font color=red><%=Catalog.find(params[:cata]).name%></font> 类别下的网站(<%= Weburl.count("catalog_id=#{params[:cata]} and user_id = #{session[:user].id}")%>个)
+                    <% end %>
+                </div>
+                
+                <div style="text-align:left">       
+                <table class="admin" width=100%>
+                    <% for url in @weburls%>
+                    <tr  onmouseover="$('#u<%=url.id%>').show()"  onmouseout="$('#u<%=url.id%>').hide();">
+                        <td style="color:black; font-size: 14px;">
+                            <div>
+                                <a href="<%=url.address%>" target="_blank"><%= url.address %></a>
+                                <span id=u<%=url.id%> style="float:right;display:none;">
+                                    <%= link_to '分享', {:controller=>"main", :action=>"share", :id=>url, :cata=>params[:cata]},  :style=>"color:gray;text-decoration:none;" if !url.recommand_id%>
+                                    <%= link_to '修改', {:controller=>"main", :action=>"myurl", :id=>url, :cata=>params[:cata]},  :style=>"color:gray;text-decoration:none;"%>
+                                    <%= link_to '删除', {:controller=>"weburls", :action => 'destroy', :id => url }, :confirm => '确定删除吗?', :method => :post, :style=>"color:gray;text-decoration:none;" %>
+                                </span>
+                            </div>
+                            <div class="webdesc">
+                                <% if url.desc && url.desc.size > 0%>
+                                    <% if url.logo && url.logo.size > 0%>
+                                        <img src="<%=url.logo%>" />
+                                    <% end %>
+                                    <%= url.desc %>
+                                <% else %>
+                                    <% if url.logo && url.logo.size > 0%>
+                                        <img src="<%=url.logo%>" />
+                                    <% end %>
+                                        无描述
+                                <% end%>
+                            </div>
+                        </td> 
+                    </tr>
+                    <% end %>
+                </table>
+                </div>
+                <%= will_paginate @weburls, :cata=>params[:cata]%>
+            </td>
+        </tr>
+    </table>
+</div>    
+
+<script>
+    $("#weburl_address").get(0).focus();
+</script>
