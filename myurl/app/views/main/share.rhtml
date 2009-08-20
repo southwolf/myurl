@@ -11,14 +11,20 @@
                 <%= text_field_tag "label", "", :size=>60, :class=>"biginput"%>
             <td>
             <td>
-                <%= submit_tag "分享", :class=>"submit"%>
+                <%= submit_tag "分享", :class=>"submit"%> (标签之间用空格分开)
             </td>
            </table>
        <% end %>
        <div class="share_candidate_tag">
-          <% for tag in @pre_tags%>
+          <% for tag in @pre_tags[0,30]%>
             <a href="javascript:new_tag('<%=tag.name%>')"><%= tag.name%></a> 
           <% end %>
+          <a id="more_link" href="#" onclick="$('#more').toggle(); $('#more_link').toggle();">更多...</a>
+          <span id="more" style="display:none">
+            <% for tag in @pre_tags[31,100]%>
+                <a href="javascript:new_tag('<%=tag.name%>')"><%= tag.name%></a> 
+              <% end %>
+          </span>
        </div>
     </div>
 </div>

@@ -40,7 +40,7 @@ class MainController < ApplicationController
   
   def share
     @weburl = Weburl.find(params[:id])
-    @pre_tags = Tag.find_by_sql("select *, count(tag_id) c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by id  order by c desc limit 20")
+    @pre_tags = Tag.find_by_sql("select *, count(tag_id) c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by id  order by c desc limit 100")
   end
   
   def create_share
