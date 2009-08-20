@@ -10,7 +10,6 @@ class MainController < ApplicationController
     @month_recommands = Recommand.find_by_sql("select recommands.*,  count(weburls.id) as c from  recommands left join weburls on recommands.id=weburls.recommand_id where weburls.created_at > '#{month.strftime("%Y-%m-%d")}' group by recommands.id order by c desc limit 10")
     @tags = Tag.find_by_sql("select tags.*, count(tags.id) as c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by tags.id limit 100")
     @serial = @tags.collect{|t| t["c"].to_i}.sort.reverse
-    p @serial
     render :layout=>"main_index"
   end
   

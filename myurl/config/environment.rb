@@ -45,6 +45,14 @@ Rails::Initializer.run do |config|
   # See Rails::Configuration for more options
 end
 
+class String
+  def chars
+  ActiveSupport::Multibyte::Chars.new(self)
+  end
+  alias_method :mb_chars, :chars
+end
+
+
 class String   
  def to_gb2312 
   begin
