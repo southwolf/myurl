@@ -1,5 +1,6 @@
 require 'net/http'
 require 'EncodeUtil.rb'
+require 'base64'
 
 class MainController < ApplicationController
   before_filter :login_required, :only=>['myurl']
@@ -146,5 +147,61 @@ class MainController < ApplicationController
     
    
     render :layout=>false
+  end
+  
+  def remote_dir_post
+    begin
+      name = Base64.decode64(params[:name])
+      parent = Base64.decode64(params[:parent]) if params[:parent]
+      user = User.find(params[:id])
+      label = Catalog.find(:first, :conditions=>"name='#{name}'")
+      if !label
+        catalog = Catalog.new
+        catalog.name = name.to_utf8
+        catalog.user_id = user.id
+        if parent
+          p_cata = Catalog.find(:first, :conditions=>"name='#{parent}'")
+          catalog.parent_id = p_cata.id if p_cata
+        end
+        catalog.save
+      end
+     rescue Exception=>e
+      p e
+     end
+
+    render :text=>"1"
+  end
+  
+  def remote_post
+    begin
+    user = User.find(params[:id])
+    url = Weburl.find(:first, :conditions=>"address='#{Base64.decode64(params[:url])}' and user_id = #{user.id}")
+    if !url
+      url = Weburl.new
+      url.user_id = user.id
+      url.address = Base64.decode64(params[:url])
+ #     p Base64.decode64(params[:name])
+      url.desc = Base64.decode64(params[:name]).to_utf8
+ #     p url.desc
+ #     p "fuck"
+ #     if !url.desc.utf8?
+ #       url.desc = url.address
+ #     end
+      url.logo = Base64.decode64(params[:logo]) if params[:logo] && params[:logo].size > 0
+      url.catalog_id = 0
+      if params[:catalog] && params[:catalog].size > 0
+         catalog = Catalog.find(:first, :conditions=>"user_id = #{user.id} and name='#{Base64.decode64(params[:catalog]).to_utf8}'")
+         if catalog
+          url.catalog_id = catalog.id
+         end
+      end
+      url.save
+    end
+    rescue Exception => err
+      p err
+      p err.backtrace
+    end
+    
+    render :text=>"1"
   end
 end

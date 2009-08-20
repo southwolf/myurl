@@ -55,26 +55,38 @@ end
 
 
 class String   
- def to_gb2312 
-  begin
-  	Iconv.iconv("GB2312","UTF-8",self).to_s  
-  rescue
-  	self
-  end 
- end   
- 
- def to_utf8   
-   begin
-     Iconv.iconv("UTF-8","GB2312",self).to_s   
-   rescue
-  	 self
-   end
- end  
- 
- def utf8?     
-        unpack('U*') rescue return false     
-        true     
- end  
+   def to_gb2312 
+    begin
+      self.chars.collect{|c| 
+        begin
+          Iconv.iconv("GB2312","UTF-8",self)
+        rescue 
+          c
+        end
+      }.join
+    rescue
+      self
+    end
+   end  
+   
+   def to_utf8
+    begin
+      self.chars.collect{|c| 
+        begin
+          Iconv.iconv("UTF-8","GB2312",self)
+        rescue 
+          c
+        end
+      }.join
+    rescue
+      self
+    end
+   end 
+   
+   def utf8?     
+          unpack('U*') rescue return false     
+          true     
+   end  
 end
 
 # Add new inflection rules using the following format 

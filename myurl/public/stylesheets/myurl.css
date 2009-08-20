@@ -580,10 +580,21 @@ div.recommand_sites_memo
     margin-top: 20px;
 }
 
+#more_link
+{
+    color: blue;
+}
+
 .share_candidate_tag
 {
     margin-top: 20px;
     font-size: 14px;
+}
+
+.share_candidate_tag a
+{
+    line-height: 22px;
+    text-decoration: none;
 }
 
 .recent
