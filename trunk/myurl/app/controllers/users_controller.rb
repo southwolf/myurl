@@ -99,4 +99,14 @@ class UsersController < ApplicationController
       render :text=>"<font color='red'>这个昵称还没被注册，您可以使用!</font>"
     end
   end
+  
+  def remote_check
+    password = (Digest::MD5.new << params[:password]).hexdigest
+    user = User.find(:first, :conditions=>"name='#{params[:name]}' and password='#{password}'")
+    if user
+      render :text=> user.id.to_s
+    else
+      render :text=>"fail"
+    end
+  end
 end
