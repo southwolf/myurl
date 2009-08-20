@@ -9,6 +9,9 @@
                         <tr class="tg<%=index%2+1%>">
                             <td valign="top" >
                                 <div class="recommand_sites_title_div">
+                                    <%if recommand.logo && recommand.logo.size > 0%>
+                                        <div class="recommand_logo"><img src="<%=recommand.logo%>"/></div>
+                                    <% end %>
                                     <span class="recommand_sites_title"><a href="<%=recommand.address%>" target="_blank"><%= recommand.name%></a><span>
                                 </div>
                                 <div class="recommand-sites_memo_div">

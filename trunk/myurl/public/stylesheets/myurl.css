@@ -515,6 +515,12 @@ div.recommand_sites_title_div span a
     font-size: 14px;
 }
 
+.recommand_logo
+{
+    float:left;
+    margin-right: 5px;
+}
+
 span.recomamnd_tags
 {
     margin-left: 40px;

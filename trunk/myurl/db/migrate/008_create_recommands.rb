@@ -3,6 +3,7 @@ class CreateRecommands < ActiveRecord::Migration
     create_table :recommands do |t|
       t.column :address, :string, :limit=>250
       t.column :name, :string, :limit=>200
+      t.column :logo, :string, :limit=>250
       t.column :label_id, :integer
       t.column :user_id, :integer           #谁提交了这个网页
       t.column :adopt_count, :integer
