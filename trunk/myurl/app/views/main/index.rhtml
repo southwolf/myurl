@@ -2,26 +2,8 @@
     a {text-decoration:none}
 </style>
 
-    <div id="folder">
-        <% round_div "100%" do%>
-            <span class="folder_font">遇到心仪的网站，迅猛收藏起来！</span>
-            <form action="/main/myurl">
-               <table>
-               <tr>
-                    <td><input id="url" name="url" size="70" type="text" class="biginput" value="http://"/></td>
-                    <td><input name="commit" type="submit" value="收藏" class="bigbutton"/></td>
-               </tr> 
-               </table>
-            </form>
-        <% end%>
-    </div>
-    <br/>
-  
-    <table width=100%>
-        <tr>
-            <td width=39% valign='top'>
                 <% round_table "100%", "推荐收藏" do%>
-                    <TABLE id="recommand_sites" height=550px cellspacing="0" cellpadding="0" border=0 width=100%>
+                    <TABLE id="recommand_sites" height=550px cellspacing="0" cellpadding="0" border=0 width=100% class="admin">
                     <% index = 0%>
                     <% for recommand in @recommands%>
                         <tr class="tg<%=index%2+1%>">
@@ -30,9 +12,13 @@
                                     <span class="recommand_sites_title"><a href="<%=recommand.address%>" target="_blank"><%= recommand.name%></a><span>
                                 </div>
                                 <div class="recommand-sites_memo_div">
-                                    <span class="recommand_sites_memo"><%=recommand.weburls.size%>人收藏</span>
-                                    <span class="recommand_sites_function"><%= link_to "收藏", :controller=>"main", :action=>"myurl", :url=>recommand.address, :rid=>recommand.id%></span>
+                                    <div class="recommand_sites_memo">共<%=recommand.weburls.size%>人收藏 &nbsp;&nbsp;
+                                    
+                                        <%=recommand.user.nickname %>分享
+                                    </div>
+                                    <span class="recomamnd_tags"><%= recommand.tag_str %></span>
                                 </div>
+                                <div class="recommand_sites_function"><%= link_to "收藏", :controller=>"main", :action=>"myurl", :url=>recommand.address, :rid=>recommand.id%></div>
                             </td>
                         </tr>
                         <% index += 1%>
@@ -47,232 +33,6 @@
                     </table>    
                     
                 <% end %>
-            </td>
-            <td>    
-            <% round_table "100%", "名站导航" do %>    
-    <DIV class="recommands">
-
-    <TABLE class=sort cellspacing="0" cellpadding="0" border=0 width=100%>
-      <TBODY>
-      <TR class=bg1>
-        <TH width=60>[小 说]</TH>
-        <TD class=s_widen><A href="http://www.qidian.com/">起点</A><A 
-          href="http://www.readnovel.com/">小说阅读网</A><A 
-          href="http://www.xxsy.net/">潇湘书院</A><A class=f2 
-          href="http://www.hongxiu.com/">红袖添香</A><A 
-          href="http://www.zhulang.com/">逐浪小说网</A><A 
-          href="http://book.sina.com.cn/">新浪读书</A><A 
-          href="http://www.xs8.cn/">言情小说吧</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[游 戏]</TH>
-        <TD><A href="http://www.17173.com/">17173</A><A class=f2 
-          href="http://www.4399.net/">小游戏</A><A 
-          href="http://tl.sohu.com/?rcc_id=0864a706506bbe8af7f1fc77aca71cc0">天龙八部</A><A 
-          href="http://www.7k7k.com/">7k7k游戏</A><A 
-          href="http://my.91.com/intro/t4.shtml">魔域</A><A 
-          href="http://zt.ztgame.com/index123.shtml">征途</A><A 
-          href="http://wd.gyyx.cn/hao123.htm">问道</A><A 
-          href="http://han.70yx.com/zt/hao123/index3.html">成吉思汗</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[新 闻]</TH>
-        <TD class=s_widen><A href="http://news.sina.com.cn/">新浪新闻</A><A 
-          href="http://news.sohu.com/">搜狐新闻</A><A 
-          href="http://www.xinhuanet.com/">新华网</A><A 
-          href="http://www.zaobao.com/">联合早报</A><A class=f2 
-          href="http://cn.reuters.com/">路透中文网</A><A 
-          href="http://www.china.com.cn/">中国网</A><A 
-          href="http://news.qq.com/">腾讯新闻</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[军 事]</TH>
-        <TD class=s_big_widen><A 
-          href="http://military.china.com/zh_cn/">中华网军事</A><A 
-          href="http://mil.news.sina.com.cn/">新浪军事</A><A 
-          href="http://news.163.com/war/">网易军事</A><A 
-          href="http://www.tiexue.net/">铁血军事</A><A 
-          href="http://news.ifeng.com/mil/">凤凰网军事</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[音 乐]</TH>
-        <TD class=s_widen><A href="http://www.qq163.com/">QQ163音乐网</A><A 
-          href="http://www.1ting.com/">一听音乐</A><A 
-          href="http://www.aiting.com/">爱听音乐</A><A 
-          href="http://www.cococ.com/">可可西音乐</A><A 
-          href="http://mp3.baidu.com/">百度MP3</A><A 
-          href="http://www.koowo.com/pa_mbox/site/0044/index.html">酷我音乐盒</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[邮 箱]</TH>
-        <TD class=s_widen><A href="http://mail.163.com/">163邮箱</A><A 
-          href="http://mail.cn.yahoo.com/">雅虎邮箱</A><A 
-          href="http://www.126.com/">126邮箱</A><A 
-          href="http://mail.sina.com.cn/">新浪邮箱</A><A 
-          href="http://mail.qq.com/">QQ邮箱</A><A 
-          href="http://www.hotmail.com/">Hotmail</A><A 
-          href="http://mail.139.com/">139邮箱</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[视 频]</TH>
-        <TD class=s_widen><A href="http://www.youku.com/">优酷网</A> <A 
-          href="http://www.tudou.com/">土豆网</A><A 
-          href="http://video.sina.com.cn/?c=spr_web_sq_hao123_video">新浪视频</A> <A 
-          href="http://www.ku6.com/">酷6网</A> <A 
-          href="http://www.xunlei.com/">迅雷看看</A> <A 
-          href="http://www.funshion.com/">风行影视</A><A 
-          href="http://www.56.com/">56网</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[闪 游]</TH>
-        <TD><A href="http://www.4399.net/">4399游戏</A><A 
-          href="http://in.sg.kunlun.com/?u=191&amp;u2=hao123">三国风云</A><A 
-          href="http://in.wx.kunlun.com/?u=473&amp;u2=hao123">武侠风云</A><A class=f2 
-          href="http://jh.uume.com/hao123dg.php">帝国争霸</A><A 
-          href="http://www.91wan.com/">91玩游戏</A><A 
-          href="http://www.51mole.com/">摩尔庄园</A><A 
-          href="http://www.265g.com/">265G游戏</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[软 件]</TH>
-        <TD class=s_widen><A href="http://www.skycn.com/">天空软件</A><A 
-          href="http://www.onlinedown.net/">华军软件</A><A 
-          href="http://www.crsky.com/">非凡软件</A><A 
-          href="http://xiazai.zol.com.cn/">中关村下载</A><A 
-          href="http://dl.pconline.com.cn/">太平洋下载</A><A 
-          href="http://tech.sina.com.cn/down/">新浪下载</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[社 区]</TH>
-        <TD class=s_big_widen><A href="http://tieba.baidu.com/">百度贴吧</A><A 
-          href="http://www.tianya.cn/">天涯社区</A><A 
-          href="http://xiaoyou.qq.com/">QQ校友</A><A 
-          href="http://dzh.mop.com/">猫扑大杂烩</A><A 
-          href="http://www.chinaren.com/">ChinaRen</A><A 
-          href="http://www.kaixin001.com/">开心网</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[财 经]</TH>
-        <TD class=s_widen><A href="http://www.eastmoney.com/">东方财富网</A><A class=f2 
-          href="http://www.ftchinese.com/cpa_rde.php?ccode=2G090125&amp;pageurl=index.php">FT中文网</A><A 
-          href="http://www.jrj.com.cn/">金融界</A><A 
-          href="http://chinese.wsj.com/gb/index.asp">华尔街日报</A><A 
-          href="http://finance.sina.com.cn/">新浪财经</A><A 
-          href="http://finance.baidu.com/">百度财经</A><A 
-          href="http://finance.qq.com/">腾讯财经</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[交 友]</TH>
-        <TD class=s_widen><A href="http://www.jiayuan.com/">世纪佳缘</A><A 
-          href="http://www.zhenai.com/">珍爱婚恋网</A><A 
-          href="http://www.marry5.com/">嫁我网</A><A class=f2 
-          href="http://www.360quan.com/?afid=19&amp;lev1=child&amp;ac=XXXXX&amp;bc=XXXX">360圈交友</A><A 
-          href="http://www.9158.com/">9158交友</A><A 
-          href="http://www.ipart.cn/">爱情公寓</A><A 
-          href="http://www.zhiji.com/">知己交友</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[硬 件]</TH>
-        <TD class=s_widen><A href="http://www.pconline.com.cn/">太平洋电脑网</A><A 
-          href="http://www.zol.com.cn/">中关村在线</A><A 
-          href="http://www.pcpop.com/">泡泡网</A><A 
-          href="http://www.it168.com/">IT168网</A><A 
-          href="http://www.pchome.net/">电脑之家</A><A 
-          href="http://www.yesky.com/">天极网</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[空 间]</TH>
-        <TD class=s_big_widen><A href="http://qzone.qq.com/">QQ空间</A><A 
-          href="http://blog.163.com/">网易博客</A><A 
-          href="http://blog.sina.com.cn/">新浪博客</A><A class=f2 
-          href="http://www.51.com/">51博客</A><A 
-          href="http://hi.baidu.com/">百度空间</A><A 
-          href="http://blog.sohu.com/">搜狐博客</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[银 行]</TH>
-        <TD class=s_big_widen><A href="http://www.icbc.com.cn/">工商银行</A><A 
-          href="http://www.cmbchina.com/">招商银行</A><A 
-          href="http://www.abchina.com/">农业银行</A><A 
-          href="http://www.ccb.com/">建设银行</A><A href="http://www.boc.cn/">中国银行</A><A 
-          href="http://www.bankcomm.com/">交通银行</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[体 育]</TH>
-        <TD class=s_big_widen><A href="http://sports.sina.com.cn/">新浪体育</A><A 
-          href="http://sports.sohu.com/">搜狐体育</A><A 
-          href="http://www.lottery.gov.cn/">中国体彩网</A><A class=f2 
-          href="http://sports.qq.com/">腾讯体育</A><A 
-          href="http://nba.tom.com/">NBA中文网</A><A 
-          href="http://sports.tom.com/">鲨威体坛</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[购 物]</TH>
-        <TD class=s_widen><A 
-          href="http://central.dangdang.com/league/leagueref.asp?from=P-264749&amp;backurl=http://a.oadz.com/link/C/51/52650/hjCgraPk-gB3ddOv11XoQY0pPZo_/a/899?home.dangdang.com">当当网</A><A 
-          class=f2 href="http://www.redbaby.com.cn/?source=54874">红孩子商城</A><A 
-          href="http://www.360buy.com/union/union_default.asp?union_Id=35">京东商城</A><A 
-          href="http://www.togj.com/index.html?from=H123h">逛街网</A><A 
-          href="http://www.flowercn.com/?sid=fcn01">鲜花礼品网</A><A 
-          href="http://www.amazon.cn/?source=2009hao123kuzhan">卓越网</A><A 
-          href="http://youa.baidu.com/">百度有啊</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[手 机]</TH>
-        <TD class=s_widen><A href="http://tech.sina.com.cn/mobile/">新浪手机</A><A 
-          href="http://www.3533.com/">手机世界</A><A 
-          href="http://mobile.pcpop.com/">泡泡手机</A><A 
-          href="http://mobile.zol.com.cn/">ZOL手机</A><A 
-          href="http://mobile.pconline.com.cn/">太平洋手机</A><A 
-          href="http://www.imobile.com.cn/">手机之家</A><A 
-          href="http://www.cnmo.com/">手机中国</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[招 聘]</TH>
-        <TD class=s_widen><A href="http://www.chinahr.com/">中华英才网</A><A 
-          href="http://www.51job.com/">前程无忧</A><A 
-          href="http://www.zhaopin.com/">智联招聘</A><A 
-          href="http://www.cjol.com/">中国人才热线</A><A 
-          href="http://www.01job.cn/">上海第一招聘</A><A 
-          href="http://www.528.com.cn/">528招聘网</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[汽 车]</TH>
-        <TD class=s_widen><A href="http://www.pcauto.com.cn/">太平洋汽车</A><A 
-          href="http://auto.sina.com.cn/">新浪汽车</A><A 
-          href="http://www.autohome.com.cn/">汽车之家</A><A class=f2 
-          href="http://www.bitauto.com/">易车网</A><A 
-          href="http://www.che168.com/">车168网</A><A 
-          href="http://www.cheshi.com/">网上车市</A><A 
-          href="http://www.xcar.com.cn/">爱卡汽车网</A></TD>
-      </TR>
-      <TR class=bg1>
-        <TH>[酷 站]</TH>
-        <TD class=s_big_widen><A 
-          href="http://www.qunar.com/?dh=hotk_P0T0M0">Qunar机票</A><A class=f2 
-          href="http://eladies.sina.com.cn/?c=spr_web_sq_hao123_lady">新浪女性</A><A 
-          href="http://www.hudong.com/">互动百科</A><A 
-          href="http://www.onlylady.com/">女人志</A><A 
-          href="http://www.qianxun.com/">千寻服饰</A><A 
-          href="http://www.onefoundation.cn/">壹基金</A></TD>
-      </TR>
-      <TR class=bg2>
-        <TH>[生 活]</TH>
-        <TD class=s_widen><A href="http://58.com/">58同城生活</A><A 
-          href="http://www.55bbs.com/">我爱打折网</A><A 
-          href="http://www.rayli.com.cn/">瑞丽</A><A 
-          href="http://www.soufun.com/">搜房网</A><A 
-          href="http://www.baixing.com/">百姓网</A><A 
-          href="http://www.anjuke.com/">安居客</A><A 
-          href="http://www.pcbaby.com.cn/">太平洋亲子网</A></TD>
-       </TR></TBODY></TABLE>
-    </DIV>
-    <% end %>
-        </td>
-     </tr>
-   </table>     
-    
-    
 <script>
     $(document).ready(function(){
         $(".bg1 a").attr("target", "_blank");

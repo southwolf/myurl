@@ -12,6 +12,14 @@
         </td>
     </tr>
     <tr>
+        <td>昵称：</td>
+        <td><%= text_field 'user', 'nickname', :class=>"biginput2", :onblur=>"check_nick()" %>
+        </td>
+        <td align="left">
+            <div id="update2"></div>
+        </td>
+    </tr>
+    <tr>
         <td class="bigc">密码：</td> 
         <td colspan=2><%= password_field 'user', 'password', :class=>"biginput2" %></td>
     </tr>
@@ -33,6 +41,10 @@
     function check_user()
     {
         $('#update').load("/users/check_unique?name="+$("#user_name").val());
+    }
+    function check_nick()
+    {
+        $('#update2').load("/users/check_unique_nick?name="+$("#user_name").val());
     }
 </script>
 

@@ -14,7 +14,88 @@
 <div id="main">
     <%= render :partial=>"/share/top"%>
     
-        <%= yield  %>
+    <div id="folder">
+        <% round_div "100%" do%>
+            <span class="folder_font">遇到心仪的网站，迅猛收藏起来！</span>
+            <form action="/main/myurl">
+               <table>
+               <tr>
+                    <td><input id="url" name="url" size="70" type="text" class="biginput" value="http://"/></td>
+                    <td><input name="commit" type="submit" value="收藏" class="bigbutton"/></td>
+               </tr> 
+               </table>
+            </form>
+        <% end%>
+    </div>
+  
+    <table width=100%>
+        <tr>
+            <td width=65% valign='top' style="padding-right:5px">
+                <%= yield%>
+            </td>
+            <td valign='top'>    
+                <div>
+                    <% round_table "100%", "最近活跃用户" do%>
+                        <table width=100% height=200px class="admin">
+                            <% for recent in Recent.find(:all, :order=>"id desc", :limit=>6)%>
+                            <tr>
+                                <td>
+                                 <div class="recent">
+                                    <span class="recent_nickname"><%= recent.user.nickname%></span><%= distance_of_time_in_words1 recent.created_at%>前<%= {1=>"收藏了", 2=>"分享了"}[recent.kind]%>
+                                    <span class="recent_url">
+                                    <% if recent.kind == 1%>
+                                        <a href="<%= recent.weburl.address%>" target="_blank"><%= truncate(recent.weburl.desc, 25) %></a>
+                                    <% else %>
+                                        <a href="<%= recent.recommand.address%>" target="_blank"><%= truncate(recent.recommand.name, 25) %></a>
+                                    <% end %>
+                                    <span>
+                                  </div>  
+                                </td>
+                            </tr>
+                            <% end %>
+                        </table>
+                    <% end %>
+                </div>
+                <div>
+                    <% round_table "100%", "月度排行" do%>
+                        <table width=100% height=322px class="admin">
+                        <% index = 1%>
+                        <% for active in @month_recommands%>
+                        <tr class="tg<%=index%2 + 1%>">
+                            <td>
+                            <div class="active">
+                                <div class="active_site"><%=index%>. <span class="active_link"><a href="<%=active.address%>" target="_blank"><%=truncate(active.name, 20)%> (<%=active["c"]%>)</a></span></div>
+                                <div class="active_function">
+                                    <%= link_to "收藏", :controller=>"main", :action=>"myurl", :url=>active.address, :rid=>active.id%>
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
+                        <% index += 1%>
+                        <% end %>
+                        </table>
+                    <% end %>
+                </div>
+            </td>
+     </tr>
+   </table>     
+    
+    <div id="tag">
+        <% round_div "100%" do%>
+            <% for tag in @tags%>
+                <% p "#{order(@serial, tag['c'].to_i)}    #{tag['c']}"%>
+                
+                <% if order(@serial, tag['c'].to_i)<2%>
+                    <% c = "font1"%>
+                <% elsif order(@serial, tag['c'].to_i) <5%>
+                    <% c = "font2"%>
+                <% else%>
+                    <% c = "font3"%>
+                <% end %>
+                <a class="<%=c%>" href="/main/tag/<%=tag.id%>"><%= tag.name%></a> 
+            <% end %>
+        <% end %>
+    </div> 
     
     <div id="foot">
         Copyright 2009 www.myurl.com All Rights Reserved.<br/>

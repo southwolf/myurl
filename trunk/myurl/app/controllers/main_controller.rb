@@ -6,6 +6,11 @@ class MainController < ApplicationController
   
   def index
     @recommands = Recommand.paginate :page=>params[:page], :per_page=>10, :order=>"id desc"
+    month = Time.new.months_ago(1)
+    @month_recommands = Recommand.find_by_sql("select recommands.*,  count(weburls.id) as c from  recommands left join weburls on recommands.id=weburls.recommand_id where weburls.created_at > '#{month.strftime("%Y-%m-%d")}' group by recommands.id order by c desc limit 10")
+    @tags = Tag.find_by_sql("select tags.*, count(tags.id) as c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by tags.id limit 100")
+    @serial = @tags.collect{|t| t["c"].to_i}.sort.reverse
+    p @serial
     render :layout=>"main_index"
   end
   
@@ -22,6 +27,18 @@ class MainController < ApplicationController
     @weburls = Weburl.paginate :page=>params[:page], :per_page=>10, :order=>"id desc", :conditions=>"user_id = #{session[:user].id} and catalog_id=#{cata_id}"
   end
   
+  def tag
+    @tag = Tag.find(params[:id])
+    #@recommands = Recommand.find_by_sql("select * from recommands, recommand_tag where recommands.id = recommand_tag.recommand_id and recommand_tag.tag_id=#{params[:id]}")
+    @recommands = Recommand.paginate :page=>params[:page], :per_page=>10, :conditions=>"recommand_tag.tag_id=#{params[:id]}",:joins=>"left join recommand_tag on recommand_tag.recommand_id = id"
+  
+    month = Time.new.months_ago(1)
+    @month_recommands = Recommand.find_by_sql("select recommands.*,  count(weburls.id) as c from  recommands left join weburls on recommands.id=weburls.recommand_id where weburls.created_at > '#{month.strftime("%Y-%m-%d")}' group by recommands.id order by c desc limit 10")
+    @tags = Tag.find_by_sql("select tags.*, count(tags.id) as c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by tags.id limit 100")
+    @serial = @tags.collect{|t| t["c"].to_i}.sort.reverse
+    render :layout=>"main_index"
+  end
+  
   def share
     @weburl = Weburl.find(params[:id])
     @pre_tags = Tag.find_by_sql("select *, count(tag_id) c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by id  order by c desc limit 20")
@@ -32,9 +49,16 @@ class MainController < ApplicationController
     recommand = Recommand.new
     recommand.address = weburl.address
     recommand.name = weburl.desc
+    recommand.user_id = session[:user].id
     recommand.save
     weburl.recommand_id = recommand.id
     weburl.save
+    
+    recent = Recent.new
+    recent.user_id = session[:user].id
+    recent.kind = 2
+    recent.site_id = recommand.id
+    recent.save
     
     for tag in params[:label].split(" ").uniq
       t = Tag.find(:first, :conditions=>"name = '#{tag}'")
@@ -96,6 +120,7 @@ class MainController < ApplicationController
   def get_web_title
     begin
       response = Net::HTTP.get_response(URI.parse(params[:url]))
+      p response.body.size
       body = response.body.to_gb2312
       body.scan(/<title>(.*)<\/title>/i)
       @title = $1.to_utf8
