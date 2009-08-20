@@ -11,6 +11,7 @@ RAILS_GEM_VERSION = '1.2.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+  RAILS_DEFAULT_LOGGER = Logger.new("#{RAILS_ROOT}/log/#{RAILS_ENV}.log", 1, 2*1024*1024)
   config.action_controller.session_store = :active_record_store
   # Settings in config/environments/* take precedence over those specified here
   
