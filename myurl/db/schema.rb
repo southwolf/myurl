@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 12) do
 
   create_table "catalogs", :force => true do |t|
     t.column "user_id",   :integer
@@ -15,10 +15,11 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "order", :integer
   end
 
-  create_table "recent", :force => true do |t|
-    t.column "user_id",      :integer
-    t.column "recommand_id", :integer
-    t.column "created_at",   :datetime
+  create_table "recents", :force => true do |t|
+    t.column "user_id",    :integer
+    t.column "site_id",    :integer
+    t.column "created_at", :datetime
+    t.column "kind",       :integer
   end
 
   create_table "recommand_tag", :id => false, :force => true do |t|
@@ -40,6 +41,15 @@ ActiveRecord::Schema.define(:version => 11) do
     t.column "url_id",  :integer
     t.column "desc",    :string,  :limit => 200
   end
+
+  create_table "sessions", :force => true do |t|
+    t.column "session_id", :string
+    t.column "data",       :text
+    t.column "updated_at", :datetime
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "simple_captcha_data", :force => true do |t|
     t.column "key",        :string,   :limit => 40
