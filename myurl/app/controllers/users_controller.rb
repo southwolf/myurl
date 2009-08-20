@@ -85,9 +85,18 @@ class UsersController < ApplicationController
   def check_unique
     user = User.find(:first, :conditions=>"name='#{params[:name]}'")
     if user
-      render :text=>"<font color='red'>真不巧，这个用户名被别人使用了!</font>"
+      render :text=>"<font color='red'>真不巧，这个登录名被别人使用了!</font>"
     else
-      render :text=>"<font color='red'>这个用户名还没被注册，您可以使用!</font>"
+      render :text=>"<font color='red'>这个登录名还没被注册，您可以使用!</font>"
+    end
+  end
+  
+  def check_unique_nick
+    user = User.find(:first, :conditions=>"nickname='#{params[:name]}'")
+    if user
+      render :text=>"<font color='red'>真不巧，这个昵称被别人使用了!</font>"
+    else
+      render :text=>"<font color='red'>这个昵称还没被注册，您可以使用!</font>"
     end
   end
 end

@@ -218,6 +218,7 @@ div.rtop div.r4 {margin:0 1px;height:2px}
 {
     border: 0px dashed red;
     margin-top: 10px;
+    margin-bottom: 8px;
     text-align: center;
 }
 
@@ -430,7 +431,7 @@ input.bigbutton {
     background: #F0F7FF;
 }
 
-.tg1
+.tg11
 {
     background: #FFF8F0;
 }
@@ -502,35 +503,57 @@ li
     float:left;
 }
 
+div.recommand_sites_title_div
+{
+    margin-left:10px;
+}
+
 div.recommand_sites_title_div span a
 {
     font-weight: bold;
-    color: navy;
-    font-size: 15px;
+    color: black;
+    font-size: 14px;
+}
+
+span.recomamnd_tags
+{
+    margin-left: 40px;
+}
+
+span.recomamnd_tags a
+{
+    color: green;
+    font-size: 12px;
 }
 
 div.recommand-sites_memo_div
 {
     font-size: 13px;
     color: gray;
-    margin-top: 4px;
+    margin-top: 10px;
+    float: left;
+    margin-left: 10px;
 }
 
-span.recommand_sites_function
+div.recommand_sites_function
 {
-    margin-left: 270px;
+    float: right;
+    margin-right: 20px;
+    color: navy;
 }
 
-span.recommand_sites_function a
+div.recommand_sites_function a
 {
-    color: gray;
+    color: navy;
     font-size: 13px;
 }
 
-span.recommand_sites_memo
+div.recommand_sites_memo
 {
     color: gray;
     font-size: 13px;
+    width: 200px;
+    float: left;
 }
 
 #recommand_sites_page
@@ -555,4 +578,60 @@ span.recommand_sites_memo
 {
     margin-top: 20px;
     font-size: 14px;
+}
+
+.recent
+{
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.recent_nickname
+{
+    color: blue;
+}
+
+.recent_url a
+{
+    color: navy;
+}
+
+.active_site
+{
+    float: left;
+    margin-left: 5px;
+}
+
+.active_link a
+{
+    color: navy;
+}
+
+.active_function
+{
+    float: right;
+    margin-right: 10px;
+}
+
+.active_function a
+{
+    color: navy;
+}
+
+.font3
+{
+    font-size: 14px; 
+}
+
+.font2
+{
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+.font1
+{
+    font-size: 20px; 
+    font-weight: bold;
+    color: navy;
 }

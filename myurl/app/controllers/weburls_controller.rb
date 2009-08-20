@@ -44,6 +44,13 @@ class WeburlsController < ApplicationController
     end
     if @weburl.save
       flash[:notice] = '成功收藏了一个网站！'
+      
+      recent = Recent.new
+      recent.user_id = session[:user].id
+      recent.kind = 1
+      recent.site_id = @weburl.id
+      recent.save
+      
       redirect_to :controller=>"main", :action => 'myurl', :cata=>@weburl.catalog_id
     else
       render :action => 'new'
