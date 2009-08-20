@@ -47,6 +47,7 @@ class MainController < ApplicationController
     weburl = Weburl.find(params[:id])
     recommand = Recommand.new
     recommand.address = weburl.address
+    recommand.logo = weburl.logo
     recommand.name = weburl.desc
     recommand.user_id = session[:user].id
     recommand.save
@@ -130,6 +131,10 @@ class MainController < ApplicationController
         @logo = $&
         @logo.scan(/href.*=.*["']([\w\.\/:\\\&\+=%]*)["']/)
         @logo = $1
+        if !@logo.index("http")
+          @logo = params[:url] + @logo
+          @logo.gsub("\/\/", "/")
+        end
         p @logo
       rescue Exception=>e
          p e
