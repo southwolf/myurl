@@ -73,7 +73,7 @@ class String
     begin
       self.chars.collect{|c| 
         begin
-          Iconv.iconv("UTF-8","GB2312",self)
+          Iconv.iconv("UTF-8//IGNORE","GB2312//IGNORE", self)
         rescue 
           c
         end
