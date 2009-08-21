@@ -21,6 +21,7 @@ class MainController < ApplicationController
     else                #新加
       @weburl = Weburl.new
       @weburl.address = params[:url] if params[:url]
+      @weburl.desc = params[:title] if params[:title]
       cata_id = params[:cata] || 0
       @weburl.recommand_id = params[:rid] if params[:rid]
     end
@@ -197,5 +198,9 @@ class MainController < ApplicationController
     end
     
     render :text=>"1"
+  end
+  
+  def get
+    p params
   end
 end
