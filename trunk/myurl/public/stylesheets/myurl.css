@@ -341,6 +341,11 @@ input.bigbutton {
     margin-top: 0px;
 } 
 
+#weburl_catalog_id
+{
+    font-size: 18px;
+}
+
 .main_button
 {
     border:0px solid #d2f3fd;
