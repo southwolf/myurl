@@ -1,0 +1,6 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\MenuExt]
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\MenuExt\&添加到网页收藏专家]
+@="http://www.5789.com/main/get"
