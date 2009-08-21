@@ -652,3 +652,8 @@ div.recommand_sites_memo
     font-weight: bold;
     color: navy;
 }
+
+.local_tool_desc
+{
+    margin-left: 30px;
+}

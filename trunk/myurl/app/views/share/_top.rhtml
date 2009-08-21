@@ -5,6 +5,8 @@
             <span><%= session[:user].name%></span>
             <%= link_to "退出登录", :controller=>"users", :action=>"logout"%>
         <% end %>
+        
+        | <a href="/main/local">本地导入工具</a>
     </div>
     <div id="top">
         <div id="bar">
