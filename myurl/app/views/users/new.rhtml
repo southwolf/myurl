@@ -1,7 +1,36 @@
 
     <% form_tag :action => 'create' do %>
       <%= render :partial => 'form' %>
-      &nbsp;&nbsp;&nbsp;<%= submit_tag "注册", :class=>"submit" %> 
+      &nbsp;&nbsp;&nbsp;<%= submit_tag "注册", :onclick=>"return pre_check()", :class=>"submit" %> 
       &nbsp;&nbsp;&nbsp;<%= link_to '返回主页', :controller=>"main", :action => 'index' %>
     <% end %>
 
+<script>
+    function pre_check()
+    {
+        if ($("#user_name").val().length == 0)
+        {
+            alert("请输入登录名");
+            return false;
+        }
+        
+        if ($("#user_nickname").val().length == 0)
+        {
+            alert("请输入昵称");
+            return false;
+        }
+        
+        if ($("#user_password").val().length == 0)
+        {
+            alert("请输入密码");
+            return false;
+        }
+        
+        if ($("#user_password").val() != $("#password_again").val())
+        {
+            alert("对不起，两次密码不一致");
+            return false;
+        }
+    }
+    
+</script>
