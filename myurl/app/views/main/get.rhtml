@@ -1,0 +1,18 @@
+<script>
+
+if (external.menuArguments) 
+{
+  var parentwin = external.menuArguments;
+  var url = parentwin.location.href;
+  var title = parentwin.document.title;
+  if (parentwin.event.srcElement.tagName == "A") {
+    url = parentwin.event.srcElement.getAttribute("HREF");
+    title = parentwin.event.srcElement.innerText;
+  }
+  void(window.open('/main/myurl?url='+encodeURIComponent(url)+'&title='+encodeURIComponent(title),'网页收藏专家',"directories=0,height=500,width =1010,menubar=0,left=0,top=0,resizable =yes,status=1,titlebar=0,toolbar=0,scrollbars=yes,location=0"));
+}
+else
+{
+  history.go(-1);
+}
+</script>
