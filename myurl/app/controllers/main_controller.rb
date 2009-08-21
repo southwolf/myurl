@@ -199,8 +199,4 @@ class MainController < ApplicationController
     
     render :text=>"1"
   end
-  
-  def get
-    p params
-  end
 end
