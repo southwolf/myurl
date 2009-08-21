@@ -14,7 +14,7 @@ class MainController < ApplicationController
     render :layout=>"main_index"
   end
   
-  def myurl
+  def myurl 
     if params[:id]      #修改
       @weburl = Weburl.find(params[:id])
       cata_id = @weburl.catalog_id
@@ -180,13 +180,7 @@ class MainController < ApplicationController
       url = Weburl.new
       url.user_id = user.id
       url.address = Base64.decode64(params[:url])
- #     p Base64.decode64(params[:name])
-      url.desc = Base64.decode64(params[:name]).to_utf8
- #     p url.desc
- #     p "fuck"
- #     if !url.desc.utf8?
- #       url.desc = url.address
- #     end
+      url.desc = params[:name].to_utf8
       url.logo = Base64.decode64(params[:logo]) if params[:logo] && params[:logo].size > 0
       url.catalog_id = 0
       if params[:catalog] && params[:catalog].size > 0
