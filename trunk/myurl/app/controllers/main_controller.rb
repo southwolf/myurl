@@ -77,7 +77,7 @@ class MainController < ApplicationController
     end
     
     flash[:notice] = "成功分享了一个网站"
-    redirect_to :action=>"myurl", :id=>params[:id]
+    redirect_to :action=>"myurl", :cata=>weburl.id
   end
   
   def trylogin
