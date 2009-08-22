@@ -1,6 +1,10 @@
 <script>
-    $("#<%=params[:field]%>").val("<%=@title%>");
-    <% if @logo%>
-        $("#weburl_logo").val("<%=@logo%>");
+    <% if !@title || @title.size == 0 || @title == "301 Moved Permanently"%>
+        $("#title_notice").html("获得标题失败"); 
+    <% else %>
+        $("#<%=params[:field]%>").val("<%=@title%>");
+        <% if @logo%>
+            $("#weburl_logo").val("<%=@logo%>");
+        <% end %>
     <% end %>
 </script>
