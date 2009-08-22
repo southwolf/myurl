@@ -1,6 +1,6 @@
 <script>
     <% if !@title || @title.size == 0 || @title == "301 Moved Permanently"%>
-        $("#title_notice").html("获得标题失败"); 
+        $("#title_notice").html("获得名称失败"); 
     <% else %>
         $("#<%=params[:field]%>").val("<%=@title%>");
         <% if @logo%>
