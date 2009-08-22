@@ -121,7 +121,10 @@ class MainController < ApplicationController
   
   def get_web_title
     begin
-      response = Net::HTTP.get_response(URI.parse(params[:url]))
+      url = params[:url]
+      url = "http://" + url if url.scan(/http:\/\//i).size == 0
+      p url
+      response = Net::HTTP.get_response(URI.parse(url))
       p response.body.size
       body = response.body.to_gb2312
       body.scan(/<title>(.*)<\/title>/i)
