@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :admin_required, :only=>["list"]
   def index
     list
     render :action => 'list'
@@ -35,6 +36,12 @@ class UsersController < ApplicationController
       if @user.save
         flash[:notice] = '注册成功'
         session[:user] = @user
+        cookies[:name] = {:value=>@user.name, :expires=>300.days.from_now}
+        recent = Recent.new
+        recent.user_id = @user.id
+        recent.kind = 3
+        recent.desc = "#{@user.nickname}成为网站新用户"
+        recent.save
         redirect_to :controller=>"main", :action => 'index'
       else
         render :action => 'new'
