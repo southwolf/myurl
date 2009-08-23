@@ -40,7 +40,7 @@ class UsersController < ApplicationController
         recent = Recent.new
         recent.user_id = @user.id
         recent.kind = 3
-        recent.desc = "#{@user.nickname}成为网站新用户"
+        recent.desc = "成为网站新用户"
         recent.save
         redirect_to :controller=>"main", :action => 'index'
       else
