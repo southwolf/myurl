@@ -1,0 +1,25 @@
+<script>
+    function gettitle()
+    {
+        $("#update").load("/main/get_web_title?field=site_desc&url="+$("#site_address").val());
+    }
+</script>
+
+<div id="update">
+</div>
+
+<!--[form:recommands]-->
+<p><label for="site_address">地址：</label>
+<%= text_field 'site', 'address', :class=>"biginput", :size=>70, :onblur=>"gettitle()"  %></p>
+
+<p><label for="site_name">站名：</label>
+<%= text_field 'site', 'name', :class=>"biginput", :size=>70  %></p>
+
+<p><label for="site_name">描述：</label>
+<%= text_field 'site', 'desc', :class=>"biginput", :size=>70  %></p>
+
+<p><label for="recommands_name">分类：</label>
+<%= select("site", "label_id", Label.find_all.collect {|p| [ p.name, p.id ] }, {}, :class=>"biginput") %>
+</p>
+<!--[eoform:site]-->
+

@@ -1,0 +1,9 @@
+<h1>新加站点</h1>
+
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <br/>
+  <%= submit_tag "保存", :class=>"submit" %> 
+    <%= link_to '返回', :action => 'list' %>
+<% end %>
+
