@@ -109,7 +109,7 @@ class UsersController < ApplicationController
   
   def remote_check
     password = (Digest::MD5.new << params[:password]).hexdigest
-    user = User.find(:first, :conditions=>"name='#{params[:name]}' and password='#{password}'")
+    user = User.find(:first, :conditions=>"name='#{params[:name].to_utf8}' and password='#{password}'")
     if user
       render :text=> user.id.to_s
     else
