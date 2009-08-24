@@ -124,20 +124,23 @@ class MainController < ApplicationController
       url = params[:url]
       url = "http://" + url if url.scan(/http:\/\//i).size == 0
       url.delete!(' ')
+      @body = ''
       begin
-        Timeout::timeout(5) do |l|
+        Timeout::timeout(15) do |l|
           response = Net::HTTP.get_response(URI.parse(url))
+          @body = response.body.to_gb2312
         end
       rescue Exception => e
+        p e
         render :layout=>false
         return
       end
-      body = response.body.to_gb2312
-      body.scan(/<title>(.*)<\/title>/i)
+
+      @body.scan(/<title>(.*)<\/title>/i)
       @title = $1.to_utf8
       
       begin
-        body.scan(/<link .* type=["']image\/x-icon["'].*>/)
+        @body.scan(/<link .* type=["']image\/x-icon["'].*>/)
         @logo = $&
         @logo.scan(/href.*=.*["']([\w\.\/:\\\&\+=%]*)["']/)
         @logo = $1
