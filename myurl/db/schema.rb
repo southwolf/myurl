@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 14) do
 
   create_table "catalogs", :force => true do |t|
     t.column "user_id",   :integer
@@ -15,11 +15,17 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "order", :integer
   end
 
+  create_table "messages", :force => true do |t|
+    t.column "name", :string, :limit => 200
+    t.column "text", :string, :limit => 200
+  end
+
   create_table "recents", :force => true do |t|
     t.column "user_id",    :integer
     t.column "site_id",    :integer
     t.column "created_at", :datetime
     t.column "kind",       :integer
+    t.column "desc",       :string,   :limit => 250
   end
 
   create_table "recommand_tag", :id => false, :force => true do |t|
@@ -30,6 +36,7 @@ ActiveRecord::Schema.define(:version => 12) do
   create_table "recommands", :force => true do |t|
     t.column "address",     :string,   :limit => 250
     t.column "name",        :string,   :limit => 200
+    t.column "logo",        :string,   :limit => 250
     t.column "label_id",    :integer
     t.column "adopt_count", :integer
     t.column "user_id",     :integer
@@ -56,6 +63,12 @@ ActiveRecord::Schema.define(:version => 12) do
     t.column "value",      :string,   :limit => 6
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
+  end
+
+  create_table "sites", :force => true do |t|
+    t.column "address", :string, :limit => 200
+    t.column "name",    :string, :limit => 200
+    t.column "desc",    :string, :limit => 200
   end
 
   create_table "tags", :force => true do |t|
