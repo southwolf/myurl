@@ -142,6 +142,9 @@ class MainController < ApplicationController
       rescue Exception=>e
          p e
       end
+      
+      p @title
+      p @logo
     rescue Exception=>err
       p err
       p e.backtrace
