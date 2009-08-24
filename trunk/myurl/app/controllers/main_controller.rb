@@ -132,11 +132,9 @@ class MainController < ApplicationController
         render :layout=>false
         return
       end
-      p response.body.size
       body = response.body.to_gb2312
       body.scan(/<title>(.*)<\/title>/i)
       @title = $1.to_utf8
-      p @title
       
       begin
         body.scan(/<link .* type=["']image\/x-icon["'].*>/)
