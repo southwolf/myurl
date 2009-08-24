@@ -10,7 +10,7 @@ a{font-size:14px;}
     {
         if ($("#weburl_desc").val().length == 0)
         {
-            $("#update").load("/main/get_web_title?field=weburl_desc&url="+$("#weburl_address").val());
+            $("#update").load("/main/get_web_title?field=weburl_desc&url="+encodeURIComponent($("#weburl_address").val()));
         }
     }
 </script>
