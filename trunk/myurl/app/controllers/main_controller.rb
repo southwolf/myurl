@@ -123,13 +123,10 @@ class MainController < ApplicationController
     begin
       url = params[:url]
       url = "http://" + url if url.scan(/http:\/\//i).size == 0
-      p url
       response = Net::HTTP.get_response(URI.parse(url))
-      p response.body.size
-      body = response.body.to_gb2312
+      body = response.body
       body.scan(/<title>(.*)<\/title>/i)
       @title = $1.to_utf8
-      p @title
       
       begin
         body.scan(/<link .* type=["']image\/x-icon["'].*>/)
