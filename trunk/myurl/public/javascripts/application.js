@@ -5,7 +5,7 @@ function enablePngImages() {
     for(var i=0, j=imgArr.length; i<j; i++){
       if(imgArr[i].src.toLowerCase().lastIndexOf(".png") != -1){
         imgArr[i].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + imgArr[i].src + "', sizingMethod='scale')";
-        imgArr[i].src = "/img/clear.gif";
+  //      imgArr[i].src = "/img/clear.gif";
       }
    }   
  
