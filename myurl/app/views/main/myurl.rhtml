@@ -10,6 +10,8 @@ a{font-size:14px;}
     {
         if ($("#weburl_desc").val().length == 0)
         {
+            $("#indicator").show();
+            $("#title_notice").html(""); 
             $("#update").load("/main/get_web_title?field=weburl_desc&url="+encodeURIComponent($("#weburl_address").val()));
         }
     }
@@ -27,7 +29,7 @@ a{font-size:14px;}
             <tr>
                 <td>名&nbsp;&nbsp;称：</td>
                 <td><%= text_field 'weburl', 'desc', :class=>"biginput3" %></td>
-                <td><div id="title_notice"></div></td>
+                <td><div id="title_notice"></div><img id="indicator" style="display:none" src="/images/indicator.gif"></td>
             </tr>
             <tr>
                 <td>分&nbsp;&nbsp;类：</td>
