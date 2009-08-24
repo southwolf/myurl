@@ -122,12 +122,21 @@ class MainController < ApplicationController
   def get_web_title
     begin
       url = params[:url]
-      url.delete!(' ')
       url = "http://" + url if url.scan(/http:\/\//i).size == 0
-      response = Net::HTTP.get_response(URI.parse(url))
-      body = response.body
+      url.delete!(' ')
+      begin
+        Timeout::timeout(5) do |l|
+          response = Net::HTTP.get_response(URI.parse(url))
+        end
+      rescue Exception => e
+        render :layout=>false
+        return
+      end
+      p response.body.size
+      body = response.body.to_gb2312
       body.scan(/<title>(.*)<\/title>/i)
       @title = $1.to_utf8
+      p @title
       
       begin
         body.scan(/<link .* type=["']image\/x-icon["'].*>/)
@@ -142,9 +151,6 @@ class MainController < ApplicationController
       rescue Exception=>e
          p e
       end
-      
-      p @title
-      p @logo
     rescue Exception=>err
       p err
       p e.backtrace
