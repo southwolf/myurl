@@ -5,6 +5,7 @@ class CreateSites < ActiveRecord::Migration
       t.column :address, :string, :limit=>200
       t.column :name, :string, :limit=>200
       t.column :desc, :string, :limit=>200
+      t.column :green, :integer
     end
   end
 

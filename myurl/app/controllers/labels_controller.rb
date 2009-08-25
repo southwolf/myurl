@@ -39,8 +39,8 @@ class LabelsController < ApplicationController
   def update
     @labels = Label.find(params[:id])
     if @labels.update_attributes(params[:labels])
-      flash[:notice] = 'Labels was successfully updated.'
-      redirect_to :action => 'show', :id => @labels
+      flash[:notice] = '修改成功'
+      redirect_to :action => 'list'
     else
       render :action => 'edit'
     end

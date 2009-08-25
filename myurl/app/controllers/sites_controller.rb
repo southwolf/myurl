@@ -53,4 +53,28 @@ class SitesController < ApplicationController
     Site.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
+  
+  def tag
+    @site = Site.find(params[:id])
+    if @site.green == 1
+      @site.green = nil
+    else
+      @site.green = 1
+    end
+    
+    @site.save
+    redirect_to :action=>"list", :id=>@site.label_id
+  end
+  
+  def order
+    index = 1
+    for node in params[:nodelist]
+      child = Label.find(node)
+      child.order = index
+      child.save
+      index += 1
+    end
+    
+    render :text=>'排序成功'
+  end
 end

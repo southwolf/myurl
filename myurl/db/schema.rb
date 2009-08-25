@@ -2,12 +2,18 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 14) do
+ActiveRecord::Schema.define(:version => 15) do
 
   create_table "catalogs", :force => true do |t|
     t.column "user_id",   :integer
     t.column "name",      :string,  :limit => 50
     t.column "parent_id", :integer
+  end
+
+  create_table "hots", :force => true do |t|
+    t.column "user_id", :integer
+    t.column "address", :string,  :limit => 200
+    t.column "name",    :string,  :limit => 200
   end
 
   create_table "labels", :force => true do |t|
@@ -66,9 +72,11 @@ ActiveRecord::Schema.define(:version => 14) do
   end
 
   create_table "sites", :force => true do |t|
-    t.column "address", :string, :limit => 200
-    t.column "name",    :string, :limit => 200
-    t.column "desc",    :string, :limit => 200
+    t.column "label_id", :integer
+    t.column "address",  :string,  :limit => 200
+    t.column "name",     :string,  :limit => 200
+    t.column "desc",     :string,  :limit => 200
+    t.column "green",    :integer
   end
 
   create_table "tags", :force => true do |t|

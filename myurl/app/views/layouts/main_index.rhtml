@@ -48,6 +48,46 @@
                   src="http://unstat.baidu.com/bdun.bsc?tn=yangguang86_pg&cv=0&cid=1207328&csid=222&bgcr=ffffff&urlcr=0000ff&tbsz=210&defid=2&kwgp=0">
                 </iframe>
                 <% end %>
+                
+                <% round_table "100%", "常用站点" do%>
+                <div id="famous">
+                    <% if session[:user] && session[:user].hots.size > 0%>
+                        <% for hot in session[:user].hots%>
+                            <a target="_blank" href="<%=hot.address%>"><%= hot.name%></a> 
+                        <% end %>
+                    <% else %>
+                        <a target="_blank" href="http://www.baidu.com">百 &nbsp;度</a> 
+                        <a target="_blank" href="http://www.g.cn">谷 &nbsp;歌</a> 
+                        <a target="_blank" href="http://www.kaixin001.com">开心网</a> 
+                        <a target="_blank" href="http://www.tencent.com">腾&nbsp;讯</a>
+                        <a target="_blank" href="http://www.taobao.com">淘宝网</a>
+                        <a target="_blank" href="http://www.renren.com">人人网</a>
+                        <a target="_blank" href="http://www.sina.com.cn">新浪网</a>
+                        <a target="_blank" href="http://www.sohu.com">搜&nbsp;狐</a>
+                        <a target="_blank" href="http://www.163.com">网&nbsp;易</a>
+                        <a target="_blank" href="http://www.ganji.com">赶集网</a>
+                        <a target="_blank" href="http://www.ganji.com">智联招聘</a>
+                        <a target="_blank" href="http://www.eastmoney.com">东方财富</a>
+                        <a target="_blank" href="http://www.gov.cn">中国政府网</a>
+                        <a target="_blank" href="http://www.360.cn">360安全卫士</a>
+                        <a target="_blank" href="http://www.51.com">51个人空间</a>
+                        <a target="_blank" href="http://www.jiayuan.cn">世纪佳缘交友</a>
+                        <a target="_blank" href="http://www.icbc.com.cn/icbc/">工商银行</a>
+                        <a target="_blank" href="http://home.dangdang.com/">当当网</a>
+                        <a target="_blank" href="http://aion.sdo.com">永恒之塔</a>
+                        <a target="_blank" href="http://www.chinahr.com/index.htm">中华英才网</a>
+                        <a target="_blank" href="http://www.rayli.com.cn">瑞丽女性网</a>
+                        <a target="_blank" href="http://www.cctv.com/default.shtml">CCTV</a>
+                        <a target="_blank" href="http://www.youku.com">优酷网</a>
+                        <a target="_blank" href="http://www.tianya.cn">天涯社区</a>
+                        <a target="_blank" href="http://www.ctrip.com">携程</a>
+                        <a target="_blank" href="http://www.hexun.com">和讯</a>
+                        <a target="_blank" href="http://www.china.alibaba.com">阿里巴巴</a>
+                    <% end %>
+                    <br/>
+                    <span style="color:gray">点击<a style="color:blue;margin:0px;" href="/hots/list">定制</a>可以把自己经常访问的站放在这里!</span>
+                </div>
+                <% end %>
       
       
                 <div>
@@ -84,12 +124,12 @@
                 
                 
                 <div>
-                    <% round_table "100%", "月度排行" do%>
+                    <% round_table "100%", "收藏排行" do%>
                         <table width=100% height=152px class="admin">
                         <% index = 1%>
-                        <% for active in @month_recommands[0,6]%>
+                        <% for active in @month_recommands[0,10]%>
                         <tr class="tg<%=index%2 + 1%>">
-                            <td>
+                            <td height=30px>
                             <div class="active">
                                 <div class="active_site"><%=index%>. <span class="active_link"><a href="<%=active.address%>" target="_blank"><%=truncate(active.name, 20)%> (<%=active["c"]%>)</a></span></div>
                                 <div class="active_function">

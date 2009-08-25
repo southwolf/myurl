@@ -28,6 +28,12 @@
                             <div class="directlink"><a href="<%= recommand.address%>" target="_blank"><%= recommand.address%></a></div>
                            <div class="webdesc"><%=recommand.name%></div> 
                         </td>
+                        <td>
+                          <% if recommand.green%>  
+                            <%= link_to '恢复', :action => 'tag', :id => recommand %>
+                          <% else %>
+                            <%= link_to '变绿', :action => 'tag', :id => recommand %>
+                          <% end %></td>
                         <td><%= link_to '修改', :action => 'edit', :id => recommand %></td>
                         <td><%= link_to '删除', { :action => 'destroy', :id => recommand }, :confirm => '确定删除吗?', :method => :post %></td>
                     </tr>
