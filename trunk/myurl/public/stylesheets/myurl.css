@@ -135,7 +135,7 @@ table.admin thead {
 }
 
 table.admin tbody td {
-    padding: 5px 0;
+    padding: 2px 0;
     border-bottom: 1px dashed #ddd;
 }
 
@@ -517,7 +517,7 @@ div.recommand_sites_title_div span a
 {
     font-weight: bold;
     color: black;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .recommand_logo
@@ -541,7 +541,7 @@ div.recommand-sites_memo_div
 {
     font-size: 13px;
     color: gray;
-    margin-top: 10px;
+    margin-top: 5px;
     float: left;
     margin-left: 10px;
 }
@@ -669,4 +669,45 @@ div.recommand_sites_memo
 {
     margin-left: 30px;
     margin-bottom: 60px;
+}
+
+.cool_label
+{
+    border-right: 2px solid white;    
+}
+
+.cool_label a
+{
+    color: purple;    
+}
+
+.cool_site a
+{
+    margin-right: 7px;
+    margin-left: 4px;
+}
+
+#cool td
+{
+    height: 20px;
+}
+
+#famous
+{
+    margin: 4px;
+}
+
+#famous a, #famous span
+{
+    margin-left: 10px;
+    line-height: 25px;
+}
+
+a.hot_list
+{
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    margin-right: 40px;
 }

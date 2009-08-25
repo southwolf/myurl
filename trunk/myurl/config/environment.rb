@@ -48,7 +48,7 @@ end
 
 class String
   def chars
-  ActiveSupport::Multibyte::Chars.new(self)
+    ActiveSupport::Multibyte::Chars.new(self)
   end
   alias_method :mb_chars, :chars
 end

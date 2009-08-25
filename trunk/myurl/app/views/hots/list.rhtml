@@ -1,0 +1,35 @@
+<div style="text-align:center">
+    
+        <div style="text-align:left; width:70%">
+            <% form_tag :controller=>"hots", :action=>"create" do%>
+                <table>
+                    <tr>
+                        <td width=60px>网&nbsp;&nbsp;址：</td>
+                        <td colspan=2><%= text_field 'hot', 'address', :class=>"biginput3" %></td>
+                    </tr>
+                    <tr>
+                        <td>名&nbsp;&nbsp;称：</td>
+                        <td><%= text_field 'hot', 'name', :class=>"biginput3" %></td>
+                        <td><%= submit_tag "添加", :class=>"submit" %></td>
+                    </tr>
+                    
+                </table>
+            <% end %>
+            <br/><br/>
+            <table class="admin" width=100%>
+                <% for hot in @hots%>
+                    <tr valign='bottom'>
+                        <td height=30px>    
+                            <a class="hot_list" target="_blank" href="<%=hot.address%>"><%= hot.name%></a>  &nbsp;&nbsp;<%= hot.address%>
+                        </td>
+                        <td>
+                            <%= link_to '修改', :action => 'edit', :id => hot %>
+                            <%= link_to '删除', { :action => 'destroy', :id => hot }, :confirm => '确定删除吗?', :method => :post %>
+                        </td>
+                    </tr>
+                <% end %>
+            </table>
+            <%= will_paginate @hots%>
+        </div>
+
+</div>    
