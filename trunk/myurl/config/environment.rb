@@ -71,13 +71,7 @@ class String
    
    def to_utf8
     begin
-      self.chars.collect{|c| 
-        begin
-          Iconv.iconv("UTF-8//IGNORE","GB2312//IGNORE", self)
-        rescue 
-          c
-        end
-      }.join
+      Iconv.iconv("UTF-8//IGNORE","GB2312//IGNORE", self)
     rescue
       self
     end
