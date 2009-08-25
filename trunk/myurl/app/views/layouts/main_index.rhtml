@@ -60,9 +60,18 @@
                                     <span class="recent_nickname"><%= recent.user.nickname%></span><%= distance_of_time_in_words1 recent.created_at%>前<%= {1=>"收藏了", 2=>"分享了", 3=>recent.desc}[recent.kind]%>
                                     <span class="recent_url">
                                     <% if recent.kind == 1%>
-                                        <a href="<%= recent.weburl.address%>" target="_blank"><%= truncate(recent.weburl.desc, 25) %></a>
+                                        <%if recent.weburl.desc && recent.weburl.desc.size > 0%>
+                                            <a href="<%= recent.weburl.address%>" target="_blank"><%= truncate(recent.weburl.desc, 25) %></a>
+                                        <% else %>
+                                            <a href="<%= recent.weburl.address%>" target="_blank"><%= truncate(recent.weburl.address, 25) %></a>
+                                        <% end %>
                                     <% elsif recent.kind ==2 %>
-                                        <a href="<%= recent.recommand.address%>" target="_blank"><%= truncate(recent.recommand.name, 25) %></a>
+                                        <%if recommand.name && recommand.name.size > 0%>
+                                            <a href="<%= recent.recommand.address%>" target="_blank"><%= truncate(recent.recommand.name, 25) %></a>
+                                        <% else %>
+                                            <a href="<%= recent.recommand.address%>" target="_blank"><%= truncate(recent.recommand.address, 25) %></a>
+                                        <% end %>
+                                        
                                     <% end %>
                                     <span>
                                   </div>  
