@@ -71,7 +71,11 @@ class String
    
    def to_utf8
     begin
-      Iconv.iconv("UTF-8//IGNORE","GB2312//IGNORE", self)
+      if self.utf8?
+        self
+      else
+        Iconv.iconv("UTF-8//IGNORE","GB2312//IGNORE", self)
+      end
     rescue
       self
     end
