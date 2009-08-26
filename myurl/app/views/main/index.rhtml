@@ -3,6 +3,7 @@
     a {text-decoration:none}
 </style>
 
+<div id='update_tag' style="display:none"></div>
 <% round_table "100%", "实用酷站" do%>
     <table id="cool" width=100% cellspacing="0" cellpadding="0" border=0 width=100%>
         <% index = 0%>
@@ -58,9 +59,11 @@
                 <% end %>
 <script>
     $(document).ready(function(){
-        $(".bg1 a").attr("target", "_blank");
-        $(".bg2 a").attr("target", "_blank");
         $("#url").get(0).focus();
+        
+        $("#cool td a").click(function(){
+            $('#update_tag').load("/main/tick?url=" + encodeURIComponent(this));
+        })
     }); 
     
 </script>
