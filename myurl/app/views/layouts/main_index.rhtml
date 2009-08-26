@@ -124,16 +124,16 @@
                 
                 
                 <div>
-                    <% round_table "100%", "收藏排行" do%>
+                    <% round_table "100%", "点击排行" do%>
                         <table width=100% height=152px class="admin">
                         <% index = 1%>
-                        <% for active in @month_recommands[0,10]%>
+                        <% for active in Site.find(:all, :order=>"ticks desc", :limit=>10)%>
                         <tr class="tg<%=index%2 + 1%>">
                             <td height=30px>
                             <div class="active">
-                                <div class="active_site"><%=index%>. <span class="active_link"><a href="<%=active.address%>" target="_blank"><%=truncate(active.name, 20)%> (<%=active["c"]%>)</a></span></div>
+                                <div class="active_site"><%=index%>. <span class="active_link"><a href="<%=active.address%>" target="_blank"><%=truncate(active.name, 20)%> (<%=active.ticks%>)</a></span></div>
                                 <div class="active_function">
-                                    <%= link_to "收藏", :controller=>"main", :action=>"myurl", :url=>active.address, :rid=>active.id%>
+                                    <%= link_to "收藏", :controller=>"main", :action=>"myurl", :title=>active.desc, :url=>active.address, :rid=>active.id%>
                                 </div>
                             </div>
                             </td>
