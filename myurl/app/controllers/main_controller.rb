@@ -143,13 +143,22 @@ class MainController < ApplicationController
       @title = $1.to_utf8
       
       begin
-        @body.scan(/<link .* type=["']image\/x-icon["'].*>/)
-        @logo = $&
-        @logo.scan(/href.*=.*["']([\w\.\/:\\\&\+=%]*)["']/)
-        @logo = $1
-        if !@logo.index("http")
-          @logo = params[:url] + @logo
-          @logo.gsub("\/\/", "/")
+        succ = false
+        if @body.scan(/<link .* type=["']image\/x-icon["'].*>/i).size > 0
+        	@logo = $&
+        	succ = true
+        elsif @body.scan(/<link .* rel=['"]Shortcut icon['"].*>/i).size > 0
+        	@logo = $&
+        	succ = true
+        end
+        
+        if succ
+	        @logo.scan(/href.*=.*["']([\w\.\/:\\\&\+=%]*)["']/)
+	        @logo = $1
+	        if !@logo.index("http")
+	          @logo = params[:url] + @logo
+	          @logo.gsub("\/\/", "/")
+	        end
         end
         p @logo
       rescue Exception=>e
