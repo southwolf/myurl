@@ -8,12 +8,9 @@ a{font-size:14px;}
 <script>
     function gettitle()
     {
-        if ($("#weburl_desc").val().length == 0)
-        {
             $("#indicator").show();
             $("#title_notice").html(""); 
             $("#update").load("/main/get_web_title?field=weburl_desc&url="+encodeURIComponent($("#weburl_address").val()));
-        }
     }
 </script>
 <div style="text-align:center">
