@@ -129,7 +129,7 @@
                         <% index = 1%>
                         <% for active in Site.find(:all, :order=>"ticks desc", :limit=>10)%>
                         <tr class="tg<%=index%2 + 1%>">
-                            <td height=30px>
+                            <td height=28px>
                             <div class="active">
                                 <div class="active_site"><%=index%>. <span class="active_link"><a href="<%=active.address%>" target="_blank"><%=truncate(active.name, 20)%> (<%=active.ticks%>)</a></span></div>
                                 <div class="active_function">
