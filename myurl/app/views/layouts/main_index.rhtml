@@ -158,7 +158,6 @@
 <script>
     $(document).ready(function(){
         $("#famous a").click(function(){
-            alert("/main/tick?url=" + encodeURIComponent(this));
             $('#update_tag').load("/main/tick?url=" + encodeURIComponent(this));
         })
     }); 
