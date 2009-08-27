@@ -225,7 +225,7 @@ class MainController < ApplicationController
   
   def tick
     p params
-    site = Site.find(:first, :conditions=>"address='#{params[:url]}'")
+    site = Site.find(:first, :conditions=>"address='#{params[:url]}' or concat(address,'/') = '#{params[:url]}'")
     site.ticks = site.ticks.to_i + 1
     site.save
     render :text=>"1"
