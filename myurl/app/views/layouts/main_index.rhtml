@@ -9,7 +9,7 @@
   <%= stylesheet_link_tag 'myurl' %>
 </head>
 <body>
-
+<div id='update_tag' style="display:none"></div>
 <div id="main">
     <%= render :partial=>"/share/top"%>
     
@@ -56,33 +56,10 @@
                             <a target="_blank" href="<%=hot.address%>"><%= hot.name%></a> 
                         <% end %>
                     <% else %>
-                        <a target="_blank" href="http://www.baidu.com">百 &nbsp;度</a> 
-                        <a target="_blank" href="http://www.g.cn">谷 &nbsp;歌</a> 
-                        <a target="_blank" href="http://www.kaixin001.com">开心网</a> 
-                        <a target="_blank" href="http://www.tencent.com">腾&nbsp;讯</a>
-                        <a target="_blank" href="http://www.taobao.com">淘宝网</a>
-                        <a target="_blank" href="http://www.renren.com">人人网</a>
-                        <a target="_blank" href="http://www.sina.com.cn">新浪网</a>
-                        <a target="_blank" href="http://www.sohu.com">搜&nbsp;狐</a>
-                        <a target="_blank" href="http://www.163.com">网&nbsp;易</a>
-                        <a target="_blank" href="http://www.ganji.com">赶集网</a>
-                        <a target="_blank" href="http://www.ganji.com">智联招聘</a>
-                        <a target="_blank" href="http://www.eastmoney.com">东方财富</a>
-                        <a target="_blank" href="http://www.gov.cn">中国政府网</a>
-                        <a target="_blank" href="http://www.360.cn">360安全卫士</a>
-                        <a target="_blank" href="http://www.51.com">51个人空间</a>
-                        <a target="_blank" href="http://www.jiayuan.cn">世纪佳缘交友</a>
-                        <a target="_blank" href="http://www.icbc.com.cn/icbc/">工商银行</a>
-                        <a target="_blank" href="http://home.dangdang.com/">当当网</a>
-                        <a target="_blank" href="http://aion.sdo.com">永恒之塔</a>
-                        <a target="_blank" href="http://www.chinahr.com/index.htm">中华英才网</a>
-                        <a target="_blank" href="http://www.rayli.com.cn">瑞丽女性网</a>
-                        <a target="_blank" href="http://www.cctv.com/default.shtml">CCTV</a>
-                        <a target="_blank" href="http://www.youku.com">优酷网</a>
-                        <a target="_blank" href="http://www.tianya.cn">天涯社区</a>
-                        <a target="_blank" href="http://www.ctrip.com">携程</a>
-                        <a target="_blank" href="http://www.hexun.com">和讯</a>
-                        <a target="_blank" href="http://www.china.alibaba.com">阿里巴巴</a>
+                        <% for site in Site.find(:all, :conditions=>"label_id = 100")%>
+                            <a target="_blank" href="<%=site.address%>"><%=site.name%></a>
+                        <% end %>
+                        
                     <% end %>
                     <br/>
                     <span style="color:gray">点击<a style="color:blue;margin:0px;" href="/hots/list">定制</a>可以把自己经常访问的站放在这里!</span>
@@ -177,3 +154,13 @@
 
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        $("#famous a").click(function(){
+            alert("/main/tick?url=" + encodeURIComponent(this));
+            $('#update_tag').load("/main/tick?url=" + encodeURIComponent(this));
+        })
+    }); 
+    
+</script>
