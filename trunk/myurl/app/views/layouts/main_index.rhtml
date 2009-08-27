@@ -78,9 +78,9 @@
                                     <span class="recent_url">
                                     <% if recent.kind == 1%>
                                         <%if recent.weburl.desc && recent.weburl.desc.size > 0%>
-                                            <a href="<%= recent.weburl.address%>" target="_blank"><%= truncate(recent.weburl.desc, 25) %></a>
+                                            <a href="<%= recent.weburl.address_real%>" target="_blank"><%= truncate(recent.weburl.desc, 25) %></a>
                                         <% else %>
-                                            <a href="<%= recent.weburl.address%>" target="_blank"><%= truncate(recent.weburl.address, 25) %></a>
+                                            <a href="<%= recent.weburl.address_real%>" target="_blank"><%= truncate(recent.weburl.address, 25) %></a>
                                         <% end %>
                                     <% elsif recent.kind ==2 %>
                                         <%if recent.recommand.name && recent.recommand.name.size > 0%>
