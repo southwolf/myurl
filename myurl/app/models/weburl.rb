@@ -3,11 +3,11 @@ class Weburl < ActiveRecord::Base
     self.adopt_count || 0
   end
   
-  def address
-    if self.index('http') == nil
-      return "http://" + address
+  def address_real
+    if self.address && self.address.index('http') == nil
+      return "http://" + self.address
     end
     
-    return self
+    return self.address
   end
 end

@@ -64,7 +64,7 @@ a{font-size:14px;}
                     <tr  onmouseover="$('#u<%=url.id%>').show()"  onmouseout="$('#u<%=url.id%>').hide();">
                         <td style="color:black; font-size: 14px;">
                             <div>
-                                <a href="<%=url.address%>" target="_blank"><%= url.address %></a>
+                                <a href="<%=url.address_real%>" target="_blank"><%= url.address %></a>
                                 <span id=u<%=url.id%> style="float:right;display:none;">
                                     <%= link_to '分享', {:controller=>"main", :action=>"share", :id=>url, :cata=>params[:cata]},  :style=>"color:gray;text-decoration:none;" if !url.recommand_id%>
                                     <%= link_to '修改', {:controller=>"main", :action=>"myurl", :id=>url, :cata=>params[:cata]},  :style=>"color:gray;text-decoration:none;"%>
