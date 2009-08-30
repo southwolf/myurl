@@ -230,4 +230,16 @@ class MainController < ApplicationController
     site.save
     render :text=>"1"
   end
+  
+  def joke
+    @joke = Joke.find(params[:id])
+    
+    @recommands = Recommand.paginate :page=>params[:page], :per_page=>10, :order=>"id desc"
+    month = Time.new.months_ago(1)
+    @month_recommands = Recommand.find_by_sql("select recommands.*,  count(weburls.id) as c from  recommands left join weburls on recommands.id=weburls.recommand_id where weburls.created_at > '#{month.strftime("%Y-%m-%d")}' group by recommands.id order by c desc limit 10")
+    @tags = Tag.find_by_sql("select tags.*, count(tags.id) as c from tags left join recommand_tag on tags.id = recommand_tag.tag_id group by tags.id limit 100")
+    @serial = @tags.collect{|t| t["c"].to_i}.sort.reverse
+    
+    render :layout=>"main_index"
+  end
 end

@@ -60,4 +60,17 @@ module ApplicationHelper
 </table>
    !, block.binding        
   end  
+  
+  def fckeditor_textarea(object, field, options = {})
+        value = eval("@#{object}.#{field}")
+        value = value.nil? ? "" : value
+        #id = fckeditor_element_id(object, field)
+        id = "#{object}[#{field}]"
+      
+        width = options[:width].nil? ? '100%' : options[:width]
+        height = options[:height].nil? ? '100%' : options[:height]
+      
+        inputs  = "<textarea style='display:none' id='#{id}' name='#{id}'>#{value}</textarea>"
+        inputs += "<iframe id='editor_#{id}' src='/editor/editor.htm?id=#{id}' frameborder='0' scrolling='no' width='#{width}' height='#{height}'></iframe>"
+    end
 end
