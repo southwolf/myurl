@@ -749,3 +749,8 @@ a.hot_list
     font-size: 16px;
     margin-bottom: 20px;
 }
+
+#joke_body
+{
+    margin-bottom: 30px;
+}
