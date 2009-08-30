@@ -1,0 +1,12 @@
+
+
+<%= error_messages_for 'joke' %>
+
+<!--[form:joke]-->
+<p><label for="joke_title">Title</label><br/>
+<%= text_field 'joke', 'title'  %></p>
+
+<p><label for="joke_text">Text</label><br/>
+<%= fckeditor_textarea 'joke', 'text'  %></p>
+<!--[eoform:joke]-->
+

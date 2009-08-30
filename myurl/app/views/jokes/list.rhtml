@@ -1,0 +1,27 @@
+<h1>Listing jokes</h1>
+
+<table>
+  <tr>
+  <% for column in Joke.content_columns %>
+    <th><% column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for joke in @jokes %>
+  <tr>
+  <% for column in Joke.content_columns %>
+    <td><%= joke.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => joke %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => joke %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => joke }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @joke_pages.current.previous } if @joke_pages.current.previous %>
+<%= link_to 'Next page', { :page => @joke_pages.current.next } if @joke_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New joke', :action => 'new' %>
