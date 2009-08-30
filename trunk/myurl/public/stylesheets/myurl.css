@@ -711,3 +711,24 @@ a.hot_list
     color: black;
     margin-right: 40px;
 }
+
+
+#introduce
+{
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#left
+{
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    height: 100%;
+}
+#introduce ul li
+{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
