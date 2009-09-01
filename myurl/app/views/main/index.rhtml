@@ -1,7 +1,7 @@
 <div id='joke'>
    <% joke = Joke.find(:first, :order=>"id desc")%>
    <% if joke%>
-    每日一乐:<%= link_to joke.title, :controller=>"main", :action=>"joke", :id=>joke%>
+    每日一囧:<%= link_to joke.title, :controller=>"main", :action=>"joke", :id=>joke%>
    <% end %>
 </div>
 
