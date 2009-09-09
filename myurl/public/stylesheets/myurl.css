@@ -755,3 +755,7 @@ a.hot_list
 {
     margin-bottom: 30px;
 }
+
+table{
+    BORDER-COLLAPSE: collapse;
+}

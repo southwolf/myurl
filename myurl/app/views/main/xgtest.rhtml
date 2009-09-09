@@ -1,0 +1,647 @@
+<style>
+    #title
+    {
+        text-align: center;   
+    }
+    
+    #desc
+    {
+        padding: 0px 30px 0px 30px;
+    }
+    
+    .strong
+    {
+        color : red;
+    }
+    
+    td
+    {
+        padding: 4px;
+    }
+    
+    #body
+    {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<% @title = "超准的性格测试 | 老虎，孔雀，考拉，猫头鹰性格测试"%>
+
+<div id="title"><h1>性格特质旋律测评问卷</h1></div>
+<div id="desc">
+&nbsp;&nbsp;&nbsp;&nbsp;问卷中共有有28个问题，每道题有4组描述性的词汇，你需要从中分别选出一个<span class="strong">最接近</span>和<span class="strong">最不接近</span>你工作中的状态。这两个答案是不能相同的，如果你发现难以决定选择哪一项的时候，只需要靠你的直觉来回答即可，不用担心会导致结果不准确。问卷这样设计正是为了帮助你理清潜藏在心里的“真我”！
+</div>
+
+<div id="body">
+<% form_tag :controller=>"main", :action => 'xg' do %>
+    <table border="1" cellpadding="2" cellspacing="0" bordercolor="black" width=800px>
+        <tr>
+            <td>1</td>
+            <td>最接近</td>
+            <td>最不接近</td>
+            <td>2</td>
+            <td>最接近</td>
+            <td>最不接近</td>
+        </tr>
+        <tr>
+            <td align=left>
+                兴致勃勃：对事物感到兴奋<br/>
+                敢做敢为：勇于冒险<br/>
+                交往得体：彬彬有礼，尊重他人<br/>
+                满足：心满意足<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m1", "2"%><br/>
+                <%=radio_button_tag "m1", "1"%><br/>
+                <%=radio_button_tag "m1", "4"%><br/>
+                <%=radio_button_tag "m1", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l1", "2"%><br/>
+                <%=radio_button_tag "l1", "1"%><br/>
+                <%=radio_button_tag "l1", "4"%><br/>
+                <%=radio_button_tag "l1", "3"%><br/>
+            </td>
+            <td align=left>
+                谨慎：小心<br/>
+                有决心：持之以恒<br/>
+                有说服力：能使人赞同或相信<br/>
+                性情温和：善良，顺服<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m2", "4"%><br/>
+                <%=radio_button_tag "m2", "1"%><br/>
+                <%=radio_button_tag "m2", "2"%><br/>
+                <%=radio_button_tag "m2", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l2", "4"%><br/>
+                <%=radio_button_tag "l2", "1"%><br/>
+                <%=radio_button_tag "l2", "2"%><br/>
+                <%=radio_button_tag "l2", "5"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>3</td>
+            <td colspan=3>4</td>
+        </tr>
+        <tr>
+            <td align=left>
+                友善：乐于与人共处<br/>
+                精密正确：按照要求处理事情<br/>
+                坦率：说话毫不掩饰，无所顾忌<br/>
+                冷静：不易受外界干扰<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m3", "2"%><br/>
+                <%=radio_button_tag "m3", "4"%><br/>
+                <%=radio_button_tag "m3", "1"%><br/>
+                <%=radio_button_tag "m3", "5"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l3", "5"%><br/>
+                <%=radio_button_tag "l3", "4"%><br/>
+                <%=radio_button_tag "l3", "1"%><br/>
+                <%=radio_button_tag "l3", "3"%><br/>
+            </td>
+            <td align=left>
+                多话：滔滔不绝<br/>
+                自制力强：善于掩饰自己的情感<br/>
+                遵循惯例：惯于按常规方法行事<br/>
+                果断：速度速决<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m4", "2"%><br/>
+                <%=radio_button_tag "m4", "4"%><br/>
+                <%=radio_button_tag "m4", "3"%><br/>
+                <%=radio_button_tag "m4", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l4", "2"%><br/>
+                <%=radio_button_tag "l4", "4"%><br/>
+                <%=radio_button_tag "l4", "3"%><br/>
+                <%=radio_button_tag "l4", "1"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>5</td>
+            <td colspan=3>6</td>
+        </tr>
+        <tr>
+            <td align=left>
+                具有冒险精神：勇于尝试新事物<br/>
+                具有洞察力：能看清事实<br/>
+                善交际：乐于与人交往<br/>
+                适中：不偏激<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m5", "1"%><br/>
+                <%=radio_button_tag "m5", "4"%><br/>
+                <%=radio_button_tag "m5", "2"%><br/>
+                <%=radio_button_tag "m5", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l5", "1"%><br/>
+                <%=radio_button_tag "l5", "4"%><br/>
+                <%=radio_button_tag "l5", "2"%><br/>
+                <%=radio_button_tag "l5", "3"%><br/>
+            </td>
+            <td align=left>
+                温和：仁慈待人<br/>
+                有说服力：能说服他人<br/>
+                谦虚：不骄傲<br/>
+                善于创新：用新的方法处理事情<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m6", "2"%><br/>
+                <%=radio_button_tag "m6", "4"%><br/>
+                <%=radio_button_tag "m6", "3"%><br/>
+                <%=radio_button_tag "m6", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l6", "2"%><br/>
+                <%=radio_button_tag "l6", "4"%><br/>
+                <%=radio_button_tag "l6", "3"%><br/>
+                <%=radio_button_tag "l6", "1"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>7</td>
+            <td colspan=3>8</td>
+        </tr>
+        <tr>
+            <td align=left>
+                善于表达：懂得表现感情<br/>
+                认真：谨慎专注<br/>
+                支配欲强：喜欢处于控制地位<br/>
+                反应力强：对他人言行能快速反应<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m7", "2"%><br/>
+                <%=radio_button_tag "m7", "4"%><br/>
+                <%=radio_button_tag "m7", "1"%><br/>
+                <%=radio_button_tag "m7", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l7", "2"%><br/>
+                <%=radio_button_tag "l7", "4"%><br/>
+                <%=radio_button_tag "l7", "1"%><br/>
+                <%=radio_button_tag "l7", "3"%><br/>
+            </td>
+            <td align=left>
+                泰然自若：做事充满信心<br/>
+                敏锐的观察力：细心，善于观察<br/>
+                朴实：从不自吹自擂<br/>
+                性急：坐立不安，喜欢有所变化<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m8", "2"%><br/>
+                <%=radio_button_tag "m8", "4"%><br/>
+                <%=radio_button_tag "m8", "3"%><br/>
+                <%=radio_button_tag "m8", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l8", "2"%><br/>
+                <%=radio_button_tag "l8", "5"%><br/>
+                <%=radio_button_tag "l8", "3"%><br/>
+                <%=radio_button_tag "l8", "1"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>9</td>
+            <td colspan=3>10</td>
+        </tr>
+        <tr>
+            <td align=left>
+                圆滑：言辞谨慎<br/>
+                随和：愿意赞同别人的意见<br/>
+                有魅力：能够吸引他人<br/>
+                坚持观点：坚信自己的观点<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m9", "4"%><br/>
+                <%=radio_button_tag "m9", "3"%><br/>
+                <%=radio_button_tag "m9", "2"%><br/>
+                <%=radio_button_tag "m9", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l9", "4"%><br/>
+                <%=radio_button_tag "l9", "3"%><br/>
+                <%=radio_button_tag "l9", "2"%><br/>
+                <%=radio_button_tag "l9", "1"%><br/>
+            </td>
+            <td align=left>
+                勇敢：有勇气，无畏<br/>
+                善于鼓舞人：激励别人去做某事<br/>
+                乐于服从：顺从，温和<br/>
+                胆怯：缺乏信心<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m10", "1"%><br/>
+                <%=radio_button_tag "m10", "2"%><br/>
+                <%=radio_button_tag "m10", "3"%><br/>
+                <%=radio_button_tag "m10", "5"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l10", "1"%><br/>
+                <%=radio_button_tag "l10", "2"%><br/>
+                <%=radio_button_tag "l10", "3"%><br/>
+                <%=radio_button_tag "l10", "4"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>11</td>
+            <td colspan=3>12</td>
+        </tr>
+        <tr>
+            <td align=left>
+                拘谨：沉默寡言，自制<br/>
+                亲切：乐于助人<br/>
+                意志坚定：不轻易让步<br/>
+                活剥：快乐积极<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m11", "4"%><br/>
+                <%=radio_button_tag "m11", "3"%><br/>
+                <%=radio_button_tag "m11", "1"%><br/>
+                <%=radio_button_tag "m11", "2"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l11", "4"%><br/>
+                <%=radio_button_tag "l11", "3"%><br/>
+                <%=radio_button_tag "l11", "1"%><br/>
+                <%=radio_button_tag "l11", "2"%><br/>
+            </td>
+            <td align=left>
+                激发性：令人振奋<br/>
+                仁慈：愿意施予或分享<br/>
+                有洞察力：能够理解所发生的事情<br/>
+                独立性：不依赖别人<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m12", "2"%><br/>
+                <%=radio_button_tag "m12", "3"%><br/>
+                <%=radio_button_tag "m12", "4"%><br/>
+                <%=radio_button_tag "m12", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l12", "2"%><br/>
+                <%=radio_button_tag "l12", "3"%><br/>
+                <%=radio_button_tag "l12", "4"%><br/>
+                <%=radio_button_tag "l12", "1"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>13</td>
+            <td colspan=3>14</td>
+        </tr>
+        <tr>
+            <td align=left>
+                好胜：渴望获得胜利<br/>
+                体谅：关心别人<br/>
+                欢乐愉快：充满活力<br/>
+                隐秘的：不暴露想法<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m13", "1"%><br/>
+                <%=radio_button_tag "m13", "3"%><br/>
+                <%=radio_button_tag "m13", "2"%><br/>
+                <%=radio_button_tag "m13", "4"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l13", "1"%><br/>
+                <%=radio_button_tag "l13", "3"%><br/>
+                <%=radio_button_tag "l13", "2"%><br/>
+                <%=radio_button_tag "l13", "4"%><br/>
+            </td>
+            <td align=left>
+                挑剔：要求事物<br/>
+                顺从：愿意听从指挥<br/>
+                坚定：不改变主张、心愿<br/>
+                调皮：喜欢耍乐<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m14", "4"%><br/>
+                <%=radio_button_tag "m14", "3"%><br/>
+                <%=radio_button_tag "m14", "1"%><br/>
+                <%=radio_button_tag "m14", "2"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l14", "4"%><br/>
+                <%=radio_button_tag "l14", "3"%><br/>
+                <%=radio_button_tag "l14", "1"%><br/>
+                <%=radio_button_tag "l14", "2"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>15</td>
+            <td colspan=3>16</td>
+        </tr>
+        <tr>
+           <td align=left>
+                有吸引力：令人喜爱<br/>
+                自我省察：深思熟虑<br/>
+                固执：拒绝妥协<br/>
+                可预测的：始终如一<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m15", "2"%><br/>
+                <%=radio_button_tag "m15", "4"%><br/>
+                <%=radio_button_tag "m15", "1"%><br/>
+                <%=radio_button_tag "m15", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l15", "2"%><br/>
+                <%=radio_button_tag "l15", "4"%><br/>
+                <%=radio_button_tag "l15", "1"%><br/>
+                <%=radio_button_tag "l15", "3"%><br/>
+            </td>
+            <td align=left>
+                有逻辑性：仔细的考虑问题<br/>
+                大胆：敢于冒险<br/>
+                忠心：终于朋友<br/>
+                迷人：讨人喜欢，有吸引力<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m16", "4"%><br/>
+                <%=radio_button_tag "m16", "1"%><br/>
+                <%=radio_button_tag "m16", "3"%><br/>
+                <%=radio_button_tag "m16", "2"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l16", "4"%><br/>
+                <%=radio_button_tag "l16", "1"%><br/>
+                <%=radio_button_tag "l16", "3"%><br/>
+                <%=radio_button_tag "l16", "2"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>17</td>
+            <td colspan=3>18</td>
+        </tr>
+        <tr>
+            <td align=left>
+                平易近人：对人亲切<br/>
+                有耐心：心平气和<br/>
+                自信：相信自己<br/>
+                语气温和：说话轻声细语<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m17", "2"%><br/>
+                <%=radio_button_tag "m17", "3"%><br/>
+                <%=radio_button_tag "m17", "1"%><br/>
+                <%=radio_button_tag "m17", "4"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l17", "2"%><br/>
+                <%=radio_button_tag "l17", "3"%><br/>
+                <%=radio_button_tag "l17", "1"%><br/>
+                <%=radio_button_tag "l17", "4"%><br/>
+            </td>
+            <td align=left>
+                心甘乐意：乐于助人<br/>
+                热切渴望：有强烈的欲望要做某事<br/>
+                彻底：做事有始有终<br/>
+                情绪高昂：兴致高昂，精力充沛<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m18", "3"%><br/>
+                <%=radio_button_tag "m18", "1"%><br/>
+                <%=radio_button_tag "m18", "4"%><br/>
+                <%=radio_button_tag "m18", "2"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l18", "3"%><br/>
+                <%=radio_button_tag "l18", "5"%><br/>
+                <%=radio_button_tag "l18", "4"%><br/>
+                <%=radio_button_tag "l18", "2"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>19</td>
+            <td colspan=3>20</td>
+        </tr>
+        <tr>
+            <td align=left>
+                积极进取：行动强而有力<br/>
+                外向：爱交际、兴致勃勃<br/>
+                和蔼可亲：随和、真诚<br/>
+                瞻前顾后：顾虑重重，犹豫不决<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m19", "1"%><br/>
+                <%=radio_button_tag "m19", "2"%><br/>
+                <%=radio_button_tag "m19", "3"%><br/>
+                <%=radio_button_tag "m19", "5"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l19", "1"%><br/>
+                <%=radio_button_tag "l19", "2"%><br/>
+                <%=radio_button_tag "l19", "3"%><br/>
+                <%=radio_button_tag "l19", "4"%><br/>
+            </td>
+            <td align=left>
+                充满信心：有自信<br/>
+                有同情心：为他人的忧而忧<br/>
+                公正：平等的对台所有人<br/>
+                肯定的：确信且强有力<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m20", "2"%><br/>
+                <%=radio_button_tag "m20", "3"%><br/>
+                <%=radio_button_tag "m20", "5"%><br/>
+                <%=radio_button_tag "m20", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l20", "2"%><br/>
+                <%=radio_button_tag "l20", "3"%><br/>
+                <%=radio_button_tag "l20", "4"%><br/>
+                <%=radio_button_tag "l20", "1"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>21</td>
+            <td colspan=3>22</td>
+        </tr>
+        <tr>
+            <td align=left>
+                纪律严明：按照计划行事<br/>
+                慷慨大方：愿意与他人分享，毫不自私<br/>
+                生气勃勃：活泼主动，溢于言表<br/>
+                执着：不轻易放弃<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m21", "4"%><br/>
+                <%=radio_button_tag "m21", "3"%><br/>
+                <%=radio_button_tag "m21", "2"%><br/>
+                <%=radio_button_tag "m21", "1"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l21", "4"%><br/>
+                <%=radio_button_tag "l21", "3"%><br/>
+                <%=radio_button_tag "l21", "2"%><br/>
+                <%=radio_button_tag "l21", "1"%><br/>
+            </td>
+            <td align=left>
+                感情用事：行动不经过太多思考<br/>
+                内向：为人隐秘孤僻<br/>
+                坚强的：有魄力，有威信<br/>
+                悠游自在：不轻易感到心烦意乱<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m22", "2"%><br/>
+                <%=radio_button_tag "m22", "4"%><br/>
+                <%=radio_button_tag "m22", "1"%><br/>
+                <%=radio_button_tag "m22", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l22", "2"%><br/>
+                <%=radio_button_tag "l22", "4"%><br/>
+                <%=radio_button_tag "l22", "1"%><br/>
+                <%=radio_button_tag "l22", "3"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>23</td>
+            <td colspan=3>24</td>
+        </tr>
+        <tr>
+            <td align=left>
+                善于交际：喜爱与众人交往<br/>
+                优雅：具有良好的举止风度<br/>
+                精力充沛：行动强而有力<br/>
+                宽宏大量：慈悲为怀，宽容谅解<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m23", "2"%><br/>
+                <%=radio_button_tag "m23", "4"%><br/>
+                <%=radio_button_tag "m23", "1"%><br/>
+                <%=radio_button_tag "m23", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l23", "2"%><br/>
+                <%=radio_button_tag "l23", "4"%><br/>
+                <%=radio_button_tag "l23", "1"%><br/>
+                <%=radio_button_tag "l23", "3"%><br/>
+            </td>
+            <td align=left>
+                俘获人心：能够说服别人<br/>
+                安于现状：容易满足<br/>
+                渴求：利用强权达到目的<br/>
+                循规蹈矩：按规则行事<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m24", "2"%><br/>
+                <%=radio_button_tag "m24", "3"%><br/>
+                <%=radio_button_tag "m24", "1"%><br/>
+                <%=radio_button_tag "m24", "4"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l24", "2"%><br/>
+                <%=radio_button_tag "l24", "3"%><br/>
+                <%=radio_button_tag "l24", "1"%><br/>
+                <%=radio_button_tag "l24", "4"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>25</td>
+            <td colspan=3>26</td>
+        </tr>
+        <tr>
+            <td align=left>
+                爱辩论：喜欢争辩<br/>
+                有条理：做事思路清晰<br/>
+                愿意合作：能与他人融洽合作<br/>
+                心情开朗：无忧无虑，心情愉快<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m25", "1"%><br/>
+                <%=radio_button_tag "m25", "3"%><br/>
+                <%=radio_button_tag "m25", "4"%><br/>
+                <%=radio_button_tag "m25", "2"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l25", "1"%><br/>
+                <%=radio_button_tag "l25", "3"%><br/>
+                <%=radio_button_tag "l25", "4"%><br/>
+                <%=radio_button_tag "l25", "2"%><br/>
+            </td>
+            <td align=left>
+                快乐逍遥：乐观、积极的工作态度<br/>
+                精益求精：喜欢任何事物都准确无误<br/>
+                直截了当：大胆，坦率<br/>
+                脾气温和：不轻易发怒<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m26", "2"%><br/>
+                <%=radio_button_tag "m26", "4"%><br/>
+                <%=radio_button_tag "m26", "1"%><br/>
+                <%=radio_button_tag "m26", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l26", "2"%><br/>
+                <%=radio_button_tag "l26", "4"%><br/>
+                <%=radio_button_tag "l26", "1"%><br/>
+                <%=radio_button_tag "l26", "3"%><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3>27</td>
+            <td colspan=3>28</td>
+        </tr>
+        <tr>
+            <td align=left>
+                坐立不安：寻求改变<br/>
+                友善：有好，乐于助人<br/>
+                有感染力：有吸引力，讨人喜欢<br/>
+                小心谨慎：专注以避免犯错<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m27", "1"%><br/>
+                <%=radio_button_tag "m27", "3"%><br/>
+                <%=radio_button_tag "m27", "2"%><br/>
+                <%=radio_button_tag "m27", "4"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l27", "1"%><br/>
+                <%=radio_button_tag "l27", "3"%><br/>
+                <%=radio_button_tag "l27", "2"%><br/>
+                <%=radio_button_tag "l27", "4"%><br/>
+            </td>
+            <td align=left>
+                尊重他人：为他人着想<br/>
+                领导先锋：喜爱新事物<br/>
+                乐观：总是往好的一面看<br/>
+                乐于助人：喜爱帮助别人<br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "m28", "4"%><br/>
+                <%=radio_button_tag "m28", "1"%><br/>
+                <%=radio_button_tag "m28", "2"%><br/>
+                <%=radio_button_tag "m28", "3"%><br/>
+            </td>
+            <td align='center'>
+                <%=radio_button_tag "l28", "4"%><br/>
+                <%=radio_button_tag "l28", "1"%><br/>
+                <%=radio_button_tag "l28", "2"%><br/>
+                <%=radio_button_tag "l28", "3"%><br/>
+            </td>
+        </tr>
+    </table>
+    <br/>
+        <%= submit_tag "提交", :class=>"submit", :onclick=>"return check();"%>
+  <% end %>  
+</div>    
+
+<script>
+    function check()
+    {
+        var diff = 56 - $("input[checked='true']").length
+        if ( diff > 0)
+        {
+            alert("您有"+ diff +"道题漏选，请检查");
+            return false;
+        }
+    }
+</script>
