@@ -242,4 +242,50 @@ class MainController < ApplicationController
     
     render :layout=>"main_index"
   end
+  
+  def xg
+    p params
+    m={}
+    l={}
+    1.upto(28) do |i|
+      if m[params["m#{i}"]]
+        m[params["m#{i}"]] += 1
+      else
+        m[params["m#{i}"]] = 1
+      end
+      
+      if l[params["l#{i}"]]
+        l[params["l#{i}"]] += 1
+      else
+        l[params["l#{i}"]] = 1
+      end
+    end
+    
+    p m
+    p l
+  
+    
+    @result = {}
+    1.upto(4) do |i|
+      @result[i]= m[i.to_s] - l[i.to_s]
+    end
+    
+    max = -1
+    min = 10
+    @max_inddex = 0
+    1.upto(4) do |i|
+      if max < @result[i]
+        max = @result[i]
+        @max_index = i
+      end
+      
+      min = @result[i] if min > @result[i]
+    end
+    p max
+    p min
+    
+    @bsl = false
+    @bsl = true if max-min < 2
+    
+  end
 end
