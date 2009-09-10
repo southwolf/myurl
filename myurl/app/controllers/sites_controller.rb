@@ -28,6 +28,7 @@ class SitesController < ApplicationController
   def create
     @site = Site.new(params[:site])
     if @site.save
+      expire_page :controller=>"main", :action=>"index"
       flash[:notice] = '添加站点成功.'
       redirect_to :action => 'list', :id=>@site.label_id
     else

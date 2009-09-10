@@ -51,6 +51,8 @@ class WeburlsController < ApplicationController
       recent.site_id = @weburl.id
       recent.save
       
+      expire_page :controller=>"main", :action=>"index"
+      
       redirect_to :controller=>"main", :action => 'myurl', :cata=>@weburl.catalog_id
     else
       render :action => 'new'
