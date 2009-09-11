@@ -11,23 +11,25 @@
    <a href="/main/xgtest">超准的性格测试</a>
 </div>
 
-<% round_table "100%", "实用酷站" do%>
-    <table id="cool" width=100% cellspacing="0" cellpadding="0" border=0 width=100%>
-        <% index = 0%>
-        <% for label in Label.find(:all, :conditions=>"id <> 100", :order=>"`order`")%>
-            <tr class="tg<%=index%2+1%>">
-                <td class="cool_label" align='center' width=60px>
-                    <a><%= label.name%></a>
-                </td>
-                <td class="cool_site" align='center'>
-                   <% for site in Site.find(:all, :conditions=>"label_id = #{label.id} and label_id <> 100", :limit=>8)%>
-                    <a target="_blank" href="<%=site.address%>" <%='style="color:blue"' if site.green == 1%> ><%= site.name%></a>
-                   <% end %>
-                </td>
-            </tr>
-        <% index += 1%>
-        <% end %>
-    </table>
+<% cache do%>
+    <% round_table "100%", "实用酷站" do%>
+        <table id="cool" width=100% cellspacing="0" cellpadding="0" border=0 width=100%>
+            <% index = 0%>
+            <% for label in Label.find(:all, :conditions=>"id <> 100", :order=>"`order`")%>
+                <tr class="tg<%=index%2+1%>">
+                    <td class="cool_label" align='center' width=60px>
+                        <a><%= label.name%></a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       <% for site in Site.find(:all, :conditions=>"label_id = #{label.id} and label_id <> 100", :limit=>8)%>
+                        <a target="_blank" href="<%=site.address%>" <%='style="color:blue"' if site.green == 1%> ><%= site.name%></a>
+                       <% end %>
+                    </td>
+                </tr>
+            <% index += 1%>
+            <% end %>
+        </table>
+    <% end %>
 <% end %>
 
                 <% round_table "100%", "藏友分享" do%>
