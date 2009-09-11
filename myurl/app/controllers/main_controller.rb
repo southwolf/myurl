@@ -4,7 +4,7 @@ require 'base64'
 
 class MainController < ApplicationController
   before_filter :login_required, :only=>['myurl']
-  caches_page :index
+  #caches_page :index
   def index
     @recommands = Recommand.paginate :page=>params[:page], :per_page=>10, :order=>"id desc"
     month = Time.new.months_ago(1)

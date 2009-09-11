@@ -42,7 +42,7 @@ class UsersController < ApplicationController
         recent.kind = 3
         recent.desc = "成为网站新用户"
         recent.save
-        expire_page :controller=>"main", :action=>"index"
+ #       expire_page :controller=>"main", :action=>"index"
         redirect_to :controller=>"main", :action => 'index'
       else
         render :action => 'new'
