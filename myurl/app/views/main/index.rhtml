@@ -7,7 +7,7 @@
    <% end %>
 </div>
 
-<% cache do%>
+<% cache(:controller=>"main", :action=>"index", :part=>"cool") do%>
     <% round_table "100%", "实用酷站" do%>
         <table id="cool" width=100% cellspacing="0" cellpadding="0" border=0 width=100%>
             <% index = 0%>
@@ -28,6 +28,7 @@
     <% end %>
 <% end %>
 
+<% cache(:controller=>"main", :action=>"index", :part=>"share") do%>
                 <% round_table "100%", "藏友分享" do%>
                     <TABLE id="recommand_sites"  cellspacing="0" cellpadding="0" border=0 width=100% class="admin">
                     <% index = 0%>
@@ -62,6 +63,7 @@
                     </table>    
                     
                 <% end %>
+<% end %>                
 <script>
     $(document).ready(function(){
         $("#url").get(0).focus();
