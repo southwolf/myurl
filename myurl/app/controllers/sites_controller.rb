@@ -29,7 +29,7 @@ class SitesController < ApplicationController
     @site = Site.new(params[:site])
     if @site.save
 #      expire_page :controller=>"main", :action=>"index"
-      expire_flagment(:controller=>"main", :action=>"index")
+      expire_fragment(:controller=>"main", :action=>"index", :part=>"cool")
       flash[:notice] = '添加站点成功.'
       redirect_to :action => 'list', :id=>@site.label_id
     else

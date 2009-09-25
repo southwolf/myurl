@@ -78,6 +78,8 @@ class MainController < ApplicationController
     end
     
     flash[:notice] = "成功分享了一个网站"
+    
+    expire_fragment(:controller=>"main", :action=>"index", :part=>"share")
     redirect_to :action=>"myurl", :cata=>weburl.catalog_id
   end
   
