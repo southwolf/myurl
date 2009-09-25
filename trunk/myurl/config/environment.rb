@@ -13,6 +13,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   RAILS_DEFAULT_LOGGER = Logger.new("#{RAILS_ROOT}/log/#{RAILS_ENV}.log", 1, 2*1024*1024)
   config.action_controller.session_store = :active_record_store
+  ActionController::Base.fragment_cache_store = ActionController::Caching::Fragments::MemoryStore.new
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
