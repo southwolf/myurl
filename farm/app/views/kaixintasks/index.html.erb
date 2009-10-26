@@ -1,0 +1,24 @@
+<h1>Listing kaixintasks</h1>
+
+<table>
+  <tr>
+    <th>Tasktype</th>
+    <th>Kaixinscheduler</th>
+    <th>Kaixinuser</th>
+  </tr>
+
+<% @kaixintasks.each do |kaixintask| %>
+  <tr>
+    <td><%=h kaixintask.tasktype %></td>
+    <td><%=h kaixintask.kaixinscheduler_id %></td>
+    <td><%=h kaixintask.kaixinuser_id %></td>
+    <td><%= link_to 'Show', kaixintask %></td>
+    <td><%= link_to 'Edit', edit_kaixintask_path(kaixintask) %></td>
+    <td><%= link_to 'Destroy', kaixintask, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New kaixintask', new_kaixintask_path %>

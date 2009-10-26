@@ -1,0 +1,23 @@
+<h1>New kaixintask</h1>
+
+<% form_for(@kaixintask) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :tasktype %><br />
+    <%= f.text_field :tasktype %>
+  </p>
+  <p>
+    <%= f.label :kaixinscheduler_id %><br />
+    <%= f.text_field :kaixinscheduler_id %>
+  </p>
+  <p>
+    <%= f.label :kaixinuser_id %><br />
+    <%= f.text_field :kaixinuser_id %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', kaixintasks_path %>

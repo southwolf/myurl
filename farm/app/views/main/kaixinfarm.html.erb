@@ -1,0 +1,146 @@
+<%= stylesheet_link_tag "tab.webfx.css" %>
+<%= javascript_include_tag 'tabpane' %>
+
+<div id="begin" style="text-align:center; width:100%; margin:20px;">
+	<div id="button">
+		<% if session[:user].kaixinuser.executing == 1 %>
+			<%= link_to_remote(image_tag("/images/stop.png"), :update => "begin", :url => { :action => "kaixinfarm_stop" }) %>
+		<% else %>
+			<%= link_to_remote(image_tag("/images/begin.png"), :update => "begin", :url => { :action => "kaixinfarm_begin" }, :loading=>"$('button').hide();$('waiting').show();") %>
+		<% end %>
+	</div>
+	<img id="waiting" src="/images/indicator.gif" style="display:none"/>
+</div>
+
+<div class="tab-pane" id="public" height=100% width=100%>
+        <div class="tab-page" id="a2">
+            <h2 class="tab">我的菜地</h2>
+            <div id="my_farm">
+            <%= @mydoc.at("/conf/account/ranktip").inner_text if @mydoc.at("/conf/account/ranktip")%>
+            <table  border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90%>
+            	<% @mydoc.search("/conf/garden/item").each do |item| %>
+            	<% cropsid = item.at('cropsid').inner_text %>
+            		<tr>
+            			<td>
+            				地块<%= item.at('farmnum').inner_text%>
+            				<% if item.at('shared').inner_text == '1'%>
+            					<font color=red>(好友耕种地)</font>
+            				<% end %>
+            			</td>
+            			<% if cropsid == '0' %>
+            				<td colspan=2>空闲中</td>
+            			<% else %>
+            				<td><%= item.at('name').inner_text %></td>
+            				<% if item.at('crops') %>
+	            				<td><%= item.at('crops').inner_text.gsub("size='12'", "") %></td>
+	            			<% else %>
+	            				<td>已枯死</td>
+	            			<% end %>
+            			<% end %>
+            			
+            		</tr>
+            	<% end %>
+            </table>
+            </div>
+        </div>
+        <div class="tab-page" id="a3">
+            <h2 class="tab">好友的菜地</h2>
+            <div id="friend_farm">
+				
+				<table width=100% border=0>
+					<tr>
+						<td width=100px>
+							<div id=left stle="width:200px">
+								<%  ids = session[:user].kaixinuser.friendids.split(',') %>
+								<%  names = session[:user].kaixinuser.friendnames.split(',') %>
+								<ul>
+								<% 0.upto(ids.length-1) do |i| %>
+									<li> 
+							             <%= link_to_remote names[i], :update=>"friend_farm", :url=>{:controller=>"main", :action=>"friendfarm", :kaixinuser_id=>session[:user].kaixinuser_id, :id=>ids[i]}, :loading=>"$('waiting1').show();"%>
+							        </li>
+								<% end %>
+								</ul>
+							</div>
+						</td>
+						<td valign=top style="background-color:white">
+							<img id="waiting1" src="/images/indicator.gif" style="display:none"/>
+						</td>
+					</tr>
+				</table>	
+            </div>
+        </div>
+        <div class="tab-page" id="a3">
+            <h2 class="tab">正在托管的任务</h2>
+            <div id="tasks_to_execute">
+            	<p>
+            		<%= link_to_remote "刷新", :update=>"kaixinfarm_to_execute", :url=>{:action=>"kaixinfarm_to_execute"} %>
+            	</p>
+            	<div id="kaixinfarm_to_execute">
+            	
+<% @tasks = Kaixintask.find(:all, :conditions=>"kaixinuserid = #{session[:user].kaixinuser.code} and finished = 0 and stopflag = 0") %>            	
+<table  border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90%>
+	<tr class="exebar">
+		<th>序号</th>
+		<th>好友</th>
+		<th>菜地号</th>
+		<th>菜名</th>
+		<th>距离执行时间</th>
+	</tr>
+	<% index = 1%>
+	<% for task in @tasks %>
+		<tr>
+			<td align="center"><%= index %></td>
+			<td><%=task.kaixinfriendname%></td>
+			<td><%=task.farmnum%></td>
+			<td><%=task.fruitname%></td>
+			<td><%=distance_of_time_in_words1(task.occurtime)%></td>
+		</tr>
+		<% index += 1 %>
+	<% end %>
+</table>
+            	
+            	
+            	</div>
+            </div>
+        </div>
+        <div class="tab-page" id="a3">
+            <h2 class="tab">已经执行完的任务</h2>
+            <div id="tasks_that_finished">
+            	<p>
+            		<%= link_to_remote "刷新", :update=>"kaixinfarm_that_finished", :url=>{:action=>"kaixinfarm_that_finished"} %>
+            	</p>
+            	<div id="kaixinfarm_that_finished">
+
+<% @tasks = Kaixintask.find(:all, :conditions=>"kaixinuserid = #{session[:user].kaixinuser.code} and finished = 1") %>
+<table  border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90%>
+	<tr class="exebar">
+		<th>序号</th>
+		<th>好友</th>
+		<th>菜地号</th>
+		<th>菜名</th>
+		<th>描述</th>
+	</tr>
+	<% index = 1%>
+	<% for task in @tasks %>
+		<tr>
+			<td align="center"><%= index %></td>
+			<td><%=task.kaixinfriendname%></td>
+			<td><%=task.farmnum%></td>
+			<td><%=task.fruitname%></td>
+			<td><%=task.desc%></td>
+		</tr>
+		<% index += 1 %>
+	<% end %>
+</table>
+
+            	
+            	</div>
+            </div>
+        </div>
+        <div class="tab-page" id="a3">
+            <h2 class="tab">设置</h2>
+            <div id="config">
+            
+            </div>
+        </div>
+</div>        

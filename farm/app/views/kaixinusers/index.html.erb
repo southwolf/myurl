@@ -1,0 +1,18 @@
+<h1>Listing kaixinusers</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @kaixinusers.each do |kaixinuser| %>
+  <tr>
+    <td><%= link_to 'Show', kaixinuser %></td>
+    <td><%= link_to 'Edit', edit_kaixinuser_path(kaixinuser) %></td>
+    <td><%= link_to 'Destroy', kaixinuser, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New kaixinuser', new_kaixinuser_path %>

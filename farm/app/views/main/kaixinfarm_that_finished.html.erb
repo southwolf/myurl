@@ -1,0 +1,20 @@
+<table  border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90%>
+	<tr class="exebar">
+		<th>序号</th>
+		<th>好友</th>
+		<th>菜地号</th>
+		<th>菜名</th>
+		<th>描述</th>
+	</tr>
+	<% index = 1%>
+	<% for task in @tasks %>
+		<tr>
+			<td align="center"><%= index %></td>
+			<td><%=task.kaixinfriendname%></td>
+			<td><%=task.farmnum%></td>
+			<td><%=task.fruitname%></td>
+			<td><%=task.desc%></td>
+		</tr>
+		<% index += 1 %>
+	<% end %>
+</table>

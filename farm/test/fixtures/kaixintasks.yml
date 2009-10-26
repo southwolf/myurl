@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  tasktype: 1
+  kaixinscheduler_id: 1
+  kaixinuser_id: 1
+
+two:
+  tasktype: 1
+  kaixinscheduler_id: 1
+  kaixinuser_id: 1

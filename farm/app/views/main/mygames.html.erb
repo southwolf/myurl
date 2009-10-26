@@ -1,0 +1,58 @@
+<div id="ly" class="popup_back">
+</div>
+
+<div>
+	<p><h2>请从下面选择您想托管的游戏</h2></p>
+</div>
+
+
+<% popup_div 320, 200, "请输入您的开心网账号及密码", "profile" do%>
+        <div style="text-align:center; color:black;">
+            <%form_tag("/main/kaixinfarm") do %>
+            	<p style="text-align:left">
+            		&nbsp;&nbsp;&nbsp;&nbsp;“开心保姆”只会暂存您的开心网账号和密码，不会造成密码泄露，请放心使用。
+            	</p>
+            	<table width=96% height=100px>
+            		<tr>
+            			<td>账号：</td>
+            			<td>
+            			<% value = '' %>
+            			<% value = session[:user].kaixinuser.name if session[:user].kaixinuser %>
+            			<%= text_field_tag :name, value, :size=>30, :style=>"font-size:12px"%>
+            			</td>
+            		</tr>
+            		<tr>
+            			<td>密码：</td>
+            			<td><%= password_field_tag :password, "", :size=>32, :style=>"font-size:12px"%></td>
+            		</tr>
+            		<tr>
+            			<td colspan=2>
+            				<%=submit_tag "提交", :class=>"submit"%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            				<a href="#" onclick="Lock_CheckForm('profile')">取消</a>
+            			</td>
+            		</tr>
+            	</table>	
+            <% end %>
+        </div>
+    <% end %>
+
+<div width=950px style="text-align:center; margin-top: 30px;">
+	<table width=600px class=admin style="margin-left: 100px">
+		<tr>
+			<td width=200px><img src="/images/kaixinfarm.jpg" /></td>
+			<td align='center'><h2>开心网<br/>农场游戏</h2></td>
+			<td width=50%>
+				<a href="javascript:locking('profile');"">
+					<% if session[:user].kaixinuser_id %>
+						<img src="/images/enter.png"/><br/>
+					<% else %>
+						<img src="/images/start.png"/>
+					<% end %>
+				</a>
+				<% if session[:user] && session[:user].kaixinuser%>
+				 (<%= session[:user].kaixinuser.name%>)
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>

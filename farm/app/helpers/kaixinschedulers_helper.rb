@@ -1,0 +1,2 @@
+module KaixinschedulersHelper
+end

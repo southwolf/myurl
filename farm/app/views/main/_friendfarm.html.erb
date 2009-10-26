@@ -1,0 +1,52 @@
+<table width=100% border=0>
+	<tr>
+		<td width=100px valign='top'>
+			<div id=left stle="width:200px">
+				<%  ids = @kaixin_user.friendids.split(',') %>
+				<%  names = @kaixin_user.friendnames.split(',') %>
+				<ul>
+					<% 0.upto(ids.length-1) do |i| %>
+					<li <%='class="selected"' if ids[i]==params[:id]%>> 
+			             <%= link_to_remote names[i], :update=>"friend_farm", :url=>{:controller=>"main", :action=>"friendfarm", :kaixinuser_id=>session[:user].kaixinuser_id, :id=>ids[i]}, :loading=>"$('waiting1').show();"%>
+			        </li>
+					<% end %>
+				</ul>
+			</div>
+		</td>
+		<td valign=top style="background-color:white;">
+				<img id="waiting1" src="/images/indicator.gif" style="display:none"/>
+				<% if @doc.at("/conf/account/ranktip") %>	
+					<p style="margin:20px">
+						<%= @doc.at("/conf/account/ranktip").inner_text%>
+					</p>
+					<table  border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90% style="margin-left:20px">
+	            	<% @doc.search("/conf/garden/item").each do |item| %>
+	            	<% cropsid = item.at('cropsid').inner_text %>
+	            		<tr>
+	            			<td>
+	            				地块<%= item.at('farmnum').inner_text%>
+	            				<% if item.at('shared').inner_text == '1'%>
+	            					<font color=red>(好友耕种地)</font>
+	            				<% end %>
+	            			</td>
+	            			<% if cropsid == '0' %>
+	            				<td colspan=2>空闲中</td>
+	            			<% else %>
+	            				<td><%= item.at('name').inner_text %></td>
+	            				<% if item.at('crops') %>
+	            				<td><%= item.at('crops').inner_text.gsub("size='12'", "") %></td>
+	            				<% else %>
+	            				<td>已枯死</td>
+	            				<% end %>
+	            			<% end %>
+	            		</tr>
+	            	<% end %>
+	            	</table>
+	            <% else %>
+	            	 <p style="margin:20px">
+	            	 	他好像没有添加这个组件，在看看别人家的菜地吧。
+	            	 </p>
+	            <% end %>
+		</td>
+	</tr>
+</table>	

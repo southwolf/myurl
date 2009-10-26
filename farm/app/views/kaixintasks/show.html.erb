@@ -1,0 +1,18 @@
+<p>
+  <b>Tasktype:</b>
+  <%=h @kaixintask.tasktype %>
+</p>
+
+<p>
+  <b>Kaixinscheduler:</b>
+  <%=h @kaixintask.kaixinscheduler_id %>
+</p>
+
+<p>
+  <b>Kaixinuser:</b>
+  <%=h @kaixintask.kaixinuser_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_kaixintask_path(@kaixintask) %> |
+<%= link_to 'Back', kaixintasks_path %>

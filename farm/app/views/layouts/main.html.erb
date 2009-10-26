@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>开心保姆|农场托管|自动收菜|自动偷菜</title>
+<meta name="keywords" content="开心保姆|农场托管|自动收菜|自动偷菜" />
+<meta name="description" content="开心农场托管网站" />
+<%= stylesheet_link_tag 'style' %>
+<%= javascript_include_tag "application" %>
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag "effects" %>
+</head>
+<body>
+<div id="bg1">
+	<div id="header">
+		<div id="login">
+			<% if !session[:user] %>
+				<%= link_to '注册', :controller=>"main", :action=>"register" %> |
+				<%= link_to '登录', :controller=>"main", :action=>"login" %>
+			<% else %>
+				欢迎您回来:<%= session[:user].nickname %> |
+				<%= link_to '注销', :controller=>"main", :action=>"logout" %>
+			<% end %>
+			
+		</div>
+		
+		<% if flash[:notice] %>
+		<div id='flash'>
+			<%= flash[:notice]%>
+		</div>
+		<% end %>
+		
+		<h1><a href="/main">开心保姆</a></h1>
+		<h2>把农场交给我们，您可以去开心了！</h2>
+	</div>
+	<!-- end #header -->
+</div>
+<!-- end #bg1 -->
+<div id="bg2">
+	<div id="header2">
+		<div id="menu">
+			<ul>
+				<li><a href="/main">首页</a></li>
+				<li><a href="/main/mygames">我的托管</a></li>
+				<li><a href="#">论坛</a></li>
+				<li><a href="/main/about">关于我们</a></li>
+			</ul>
+		</div>
+		<!-- end #menu -->
+		<div id="search">
+			<form method="get" action="http://www.baidu.com/s">
+				<fieldset>
+				<input type="text" name="wd" value="百度搜索" id="q" class="text" />
+				<input type="submit" value="Search" class="button" />
+				</fieldset>
+			</form>
+		</div>
+		<!-- end #search -->
+	</div>
+	<!-- end #header2 -->
+</div>
+
+<div id="bg3">
+	<div id="bg4">
+		<div id="bg5">
+			<div id="page">
+					<%= yield %>
+				<!-- end #sidebar -->
+				<div style="clear: both; height: 40px;">&nbsp;</div>
+			</div>
+			<!-- end #page -->
+		</div>
+	</div>
+</div>
+
+
+<div id="footer">
+	<p>(c) 2009 www.farm888.com. 踏雪工作室版权所有</p>
+</div>
+</body>
+</html>
