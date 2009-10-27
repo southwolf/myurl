@@ -90,7 +90,6 @@ class MainController < ApplicationController
     if params[:id]
       @conf = $KAIXIN_FARM_CLIENT[session[:user].id].get_farm_conf(params[:id])
       @doc =  Hpricot(@conf)
-      dumpfile(@conf, 'd:\cc.xml')
     end
     render :partial=>"friendfarm", :layout=>false
   end
