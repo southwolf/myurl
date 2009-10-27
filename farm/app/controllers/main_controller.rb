@@ -46,6 +46,9 @@ class MainController < ApplicationController
   end
   
   def kaixinfarm
+    redirect_to :controller=>"main", :action=>"index"
+    return
+    
     @kaixin_user = Kaixinuser.find(:first, :conditions=>"name='#{params[:name]}'")
     if !@kaixin_user
       @kaixin_user = Kaixinuser.new
