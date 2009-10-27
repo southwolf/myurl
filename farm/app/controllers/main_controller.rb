@@ -64,8 +64,8 @@ class MainController < ApplicationController
     @farm = $KAIXIN_FARM_CLIENT[session[:user].id] || KaixinFarm.new
     if @farm.login(params[:name], params[:password])
       @friends = @farm.get_friends
-      @kaixin_user.friendids = @friends.collect{|f| f[0]}.join(',')
-      @kaixin_user.friendnames = @friends.collect{|f| f[1]}.join(',')
+      session[:user].kaixinuser.friendids   = @kaixin_user.friendids = @friends.collect{|f| f[0]}.join(',')
+      session[:user].kaixinuser.friendnames = @kaixin_user.friendnames = @friends.collect{|f| f[1]}.join(',')
       @kaixin_user.code = @farm.user_id
       @kaixin_user.save
       @myconf = @farm.get_farm_conf(@farm.user_id)
