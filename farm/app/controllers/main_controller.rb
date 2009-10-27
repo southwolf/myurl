@@ -62,8 +62,9 @@ class MainController < ApplicationController
       session[:user].save
     end
     
-    @farm = $KAIXIN_FARM_CLIENT[session[:user].id] || KaixinFarm.new
-    if @farm.login(params[:name], params[:password])
+    if true
+    #@farm = $KAIXIN_FARM_CLIENT[session[:user].id] || KaixinFarm.new
+    #if @farm.login(params[:name], params[:password])
       #@friends = @farm.get_friends
       #session[:user].kaixinuser.friendids   = @kaixin_user.friendids = @friends.collect{|f| f[0]}.join(',')
       #session[:user].kaixinuser.friendnames = @kaixin_user.friendnames = @friends.collect{|f| f[1]}.join(',')
@@ -72,7 +73,7 @@ class MainController < ApplicationController
       #@myconf = @farm.get_farm_conf(@farm.user_id)
       #@mydoc =  Hpricot(@myconf)
       flash[:notice] = '登陆开心网成功'
-      $KAIXIN_FARM_CLIENT[session[:user].id] = @farm
+      #$KAIXIN_FARM_CLIENT[session[:user].id] = @farm
     else
       flash[:notice] = '登陆开心网失败'
       render :action=>"mygames"
