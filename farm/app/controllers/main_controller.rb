@@ -54,6 +54,7 @@ class MainController < ApplicationController
       @kaixin_user.save
       session[:user].kaixinuser_id = @kaixin_user.id
       session[:user].save
+      session[:user].kaixinuser = @kaixin_user
     else
       @kaixin_user.password = params[:password]
       @kaixin_user.save
