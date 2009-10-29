@@ -23,7 +23,7 @@ class KaixinFarm
 		params["email"] = username
 		params['password'] = password
 		res = @clnt.post('http://www.kaixin001.com/login/login.php', params, @headers)
-#		dumpfile(res.body.content, 'kk.html')
+		dumpfile(res.body.content, 'kk.html')
 		if res.header['Location'] && res.header['Location'].size > 0
 			res.header['Location'][0].scan(/uid=(\d+)/)
 			@user_id = $1
@@ -36,6 +36,7 @@ class KaixinFarm
 	
 	def get_friends
 		content = @clnt.get_content("http://www.kaixin001.com/friend/?uid=#{@user_id}")
+		dumpfile(content, 'k2.html')
 		doc = Hpricot(content)
 		@myfriends = parse_friends(doc)
 		
