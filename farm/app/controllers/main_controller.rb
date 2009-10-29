@@ -46,9 +46,6 @@ class MainController < ApplicationController
   end
   
   def kaixinfarm
-    redirect_to :controller=>"main", :action=>"index"
-    return
-    
     @kaixin_user = Kaixinuser.find(:first, :conditions=>"name='#{params[:name]}'")
     if !@kaixin_user
       @kaixin_user = Kaixinuser.new
@@ -65,18 +62,17 @@ class MainController < ApplicationController
       session[:user].save
     end
     
-    if true
-    #@farm = $KAIXIN_FARM_CLIENT[session[:user].id] || KaixinFarm.new
-    #if @farm.login(params[:name], params[:password])
-      #@friends = @farm.get_friends
-      #session[:user].kaixinuser.friendids   = @kaixin_user.friendids = @friends.collect{|f| f[0]}.join(',')
-      #session[:user].kaixinuser.friendnames = @kaixin_user.friendnames = @friends.collect{|f| f[1]}.join(',')
-      #@kaixin_user.code = @farm.user_id
-      #@kaixin_user.save
-      #@myconf = @farm.get_farm_conf(@farm.user_id)
-      #@mydoc =  Hpricot(@myconf)
+    @farm = $KAIXIN_FARM_CLIENT[session[:user].id] || KaixinFarm.new
+    if @farm.login(params[:name], params[:password])
+      @friends = @farm.get_friends
+      session[:user].kaixinuser.friendids   = @kaixin_user.friendids = @friends.collect{|f| f[0]}.join(',')
+      session[:user].kaixinuser.friendnames = @kaixin_user.friendnames = @friends.collect{|f| f[1]}.join(',')
+      @kaixin_user.code = @farm.user_id
+      @kaixin_user.save
+      @myconf = @farm.get_farm_conf(@farm.user_id)
+      @mydoc =  Hpricot(@myconf)
       flash[:notice] = '登陆开心网成功'
-      #$KAIXIN_FARM_CLIENT[session[:user].id] = @farm
+      $KAIXIN_FARM_CLIENT[session[:user].id] = @farm
     else
       flash[:notice] = '登陆开心网失败'
       render :action=>"mygames"
@@ -94,6 +90,7 @@ class MainController < ApplicationController
     if params[:id]
       @conf = $KAIXIN_FARM_CLIENT[session[:user].id].get_farm_conf(params[:id])
       @doc =  Hpricot(@conf)
+  #    dumpfile(@conf, 'd:\cc.xml')
     end
     render :partial=>"friendfarm", :layout=>false
   end
