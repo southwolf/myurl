@@ -7,7 +7,10 @@ class KaixinFarm
 	def initialize
 		@clnt = HTTPClient.new
 		@clnt.set_cookie_store('cookie.dat')
-		@headers = [['User-Agent', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)']]
+		@headers = [['User-Agent', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)'],
+		            ['Referer', 'http://www.5e55.com/main/kaixinfarm'],
+		            ['Connection', 'Keep-Alive'],
+		            ['Accept', 'application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*']]
 	end
 	
 	def close
