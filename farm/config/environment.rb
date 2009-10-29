@@ -47,7 +47,7 @@ require 'kaixinfarm'
 require 'kaixinuser'
 
 scheduler = Rufus::Scheduler.start_new
-scheduler.every("10m") do
+scheduler.every("1m") do
    now = Time.new
    tasks = Kaixintask.find_by_sql("select * from kaixintasks where finished = 0 and stopflag = 0 and occurtime < '#{now.to_formatted_s(:db)}' group by kaixinuserid, occurtime order by occurtime")
    for task in tasks
