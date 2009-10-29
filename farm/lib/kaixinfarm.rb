@@ -8,7 +8,7 @@ class KaixinFarm
 		@clnt = HTTPClient.new
 		@clnt.set_cookie_store('cookie.dat')
 		@headers = [['User-Agent', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)'],
-		            ['Referer', 'http://www.5e55.com/main/kaixinfarm'],
+		            ['Referer', 'http://www.kaixin001.com'],
 		            ['Connection', 'Keep-Alive'],
 		            ['Accept', 'application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*']]
 	end
@@ -28,6 +28,7 @@ class KaixinFarm
 			res.header['Location'][0].scan(/uid=(\d+)/)
 			@user_id = $1
 			@clnt.get_content("http://www.kaixin001.com/home/?uid=#{@user_id}")
+			@headers[1] = ['Referer', "http://www.kaixin001.com/home/?uid=#{@user_id}"]
 			return true
 		else
 			return false
