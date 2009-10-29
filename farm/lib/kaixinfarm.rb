@@ -10,7 +10,8 @@ class KaixinFarm
 		@headers = [['User-Agent', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)'],
 		            ['Referer', 'http://www.kaixin001.com'],
 		            ['Connection', 'Keep-Alive'],
-		            ['Accept', 'application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*']]
+		            ['Accept', 'application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*'],
+		            ['Content-Type', 'application/x-www-form-urlencoded']]
 	end
 	
 	def close
