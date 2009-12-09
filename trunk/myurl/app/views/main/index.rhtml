@@ -10,20 +10,372 @@
 <% cache(:controller=>"main", :action=>"index", :part=>"cool") do%>
     <% round_table "100%", "实用酷站" do%>
         <table id="cool" width=100% cellspacing="0" cellpadding="0" border=0 width=100%>
-            <% index = 0%>
-            <% for label in Label.find(:all, :conditions=>"id <> 100", :order=>"`order`")%>
-                <tr class="tg<%=index%2+1%>">
+                <tr class="tg1">
                     <td class="cool_label" align='center' width=60px>
-                        <a><%= label.name%></a>
+                        <a>小说</a>
                     </td>
                     <td class="cool_site" align='center'>
-                       <% for site in Site.find(:all, :conditions=>"label_id = #{label.id} and label_id <> 100", :limit=>8)%>
-                        <a target="_blank" href="<%=site.address%>" <%='style="color:blue"' if site.green == 1%> ><%= site.name%></a>
-                       <% end %>
+                       
+                        <a target="_blank" href="http://www.zhulang.com/"  >逐浪小说</a>
+                       
+                        <a target="_blank" href="http://www.hongxiu.com/" style="color:blue" >红袖添香</a>
+                       
+                        <a target="_blank" href="http://www.readnovel.com/"  >小说阅读网</a>
+                       
+                        <a target="_blank" href="http://www.xxsy.net/"  >潇湘书院</a>
+                       
+                        <a target="_blank" href="http://www.qidian.com/Default.aspx"  >起点中文</a>
+                       
+                        <a target="_blank" href="http://www.69992.com/"  >港台言情网</a>
+                       
+                        <a target="_blank" href="http://www.xs8.cn/"  >言情小说吧</a>
+                       
                     </td>
                 </tr>
-            <% index += 1%>
-            <% end %>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>新闻</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.xinhuanet.com/"  >新华网</a>
+                       
+                        <a target="_blank" href="http://news.sina.com.cn/"  >新浪新闻</a>
+                       
+                        <a target="_blank" href="http://news.sohu.com/" style="color:blue" >搜狐新闻</a>
+                       
+                        <a target="_blank" href="http://news.ifeng.com/"  >凤凰资讯</a>
+                       
+                        <a target="_blank" href="http://www.zaobao.com/"  >联合早报</a>
+                       
+                        <a target="_blank" href="http://www.chinanews.com.cn/"  >中国新闻网</a>
+                       
+                        <a target="_blank" href="http://www.huanqiu.com/"  >环球时报</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>空间</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://qzone.qq.com/index.html"  >QQ空间</a>
+                       
+                        <a target="_blank" href="http://blog.163.com/"  >网易博客</a>
+                       
+                        <a target="_blank" href="http://blog.sina.com.cn/"  >新浪博客</a>
+                       
+                        <a target="_blank" href="http://www.51.com/"  >51博客</a>
+                       
+                        <a target="_blank" href="http://hi.baidu.com/" style="color:blue" >百度空间</a>
+                       
+                        <a target="_blank" href="http://blog.sohu.com/"  >搜狐博客</a>
+                       
+                        <a target="_blank" href="http://blog.hexun.com/"  >和讯博客</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>交友</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.jiayuan.com/"  ></a>
+                       
+                        <a target="_blank" href="http://www.zhenai.com/"  >珍爱婚恋网</a>
+                       
+                        <a target="_blank" href="http://www.marry5.com/"  >嫁我网</a>
+                       
+                        <a target="_blank" href="http://www.360quan.com/?afid=19&lev1=child&ac=XXXXX&bc=XXXX"  >360圈交友</a>
+                       
+                        <a target="_blank" href="http://www.9158.com/"  >9158视频社区</a>
+                       
+                        <a target="_blank" href="http://www.ipart.cn/"  >爱情公寓</a>
+                       
+                        <a target="_blank" href="http://www.baihe.com"  >百合网</a>
+                       
+                        <a target="_blank" href="http://www.renren.com/" style="color:blue" >人人网</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>手机</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.imobile.com.cn/"  >手机之家</a>
+                       
+                        <a target="_blank" href="http://www.cnmo.com/"  >手机中国</a>
+                       
+                        <a target="_blank" href="http://mobile.zol.com.cn/"  >中关村手机</a>
+                       
+                        <a target="_blank" href="http://mobile.pcpop.com/" style="color:blue" >泡泡手机</a>
+                       
+                        <a target="_blank" href="http://movement.12530.com/?u=4580&uu=4580_mini"  >12530彩铃</a>
+                       
+                        <a target="_blank" href="http://mmscode3.3bu.com/mmscode/fullscreen/04111359528687706205.htm?id=04111359528687706205&serviceId=100001&webownerId=11946"  >经典铃声</a>
+                       
+                        <a target="_blank" href="http://www.3533.com/"  >手机世界</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>购物</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://home.dangdang.com/"  >当当网</a>
+                       
+                        <a target="_blank" href="http://www.redbaby.com.cn/?source=54874"  >红孩子商城</a>
+                       
+                        <a target="_blank" href="http://www.360buy.com/"  >京东商城</a>
+                       
+                        <a target="_blank" href="http://www.togj.com/index.html?from=H123h"  >逛街网</a>
+                       
+                        <a target="_blank" href="http://www.flowercn.com/?sid=fcn01"  >鲜花礼品网</a>
+                       
+                        <a target="_blank" href="http://www.amazon.cn/?source=2009hao123kuzhan"  >卓越亚马逊</a>
+                       
+                        <a target="_blank" href="http://www.taobao.com" style="color:blue" >淘宝网</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>生活</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://58.com"  >58同城</a>
+                       
+                        <a target="_blank" href="http://www.55bbs.com/"  >我爱打折</a>
+                       
+                        <a target="_blank" href="http://www.rayli.com.cn/"  >瑞丽网</a>
+                       
+                        <a target="_blank" href="http://www.soufun.com/"  >搜房网</a>
+                       
+                        <a target="_blank" href="http://baixing.com"  >百姓网</a>
+                       
+                        <a target="_blank" href="http://www.anjuke.com"  >安居客</a>
+                       
+                        <a target="_blank" href="http://www.pcbaby.com.cn/"  >太平洋亲子网</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>游戏</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.17173.com/"  >17173</a>
+                       
+                        <a target="_blank" href="http://www.4399.net/" style="color:blue" >4399</a>
+                       
+                        <a target="_blank" href="http://tl.sohu.com/?rcc_id=0864a706506bbe8af7f1fc77aca71cc0"  >天龙八部</a>
+                       
+                        <a target="_blank" href="http://www.7k7k.com/"  >7k7k小游戏</a>
+                       
+                        <a target="_blank" href="http://my.91.com/intro/t4.shtml"  >魔域</a>
+                       
+                        <a target="_blank" href="http://zt.ztgame.com/index123.shtml"  >征途</a>
+                       
+                        <a target="_blank" href="http://wd.gyyx.cn/index_wd.aspx"  >问道</a>
+                       
+                        <a target="_blank" href="http://tg.70yx.com/quickreg/12/index.html"  >成吉思汗</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>酷站</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.qunar.com/?dh=hotk_P0T0M0"  >Qunar机票</a>
+                       
+                        <a target="_blank" href="http://eladies.sina.com.cn/?c=spr_web_sq_hao123_lady"  >新浪女性</a>
+                       
+                        <a target="_blank" href="http://www.hudong.com/"  >互动百科</a>
+                       
+                        <a target="_blank" href="http://www.onlylady.com/"  >女人志</a>
+                       
+                        <a target="_blank" href="http://www.qianxun.com/main.action"  >千寻服饰</a>
+                       
+                        <a target="_blank" href="http://www.onefoundation.cn/html/90/category-catid-90.html" style="color:blue" >壹基金</a>
+                       
+                        <a target="_blank" href="http://www.cscse.edu.cn/publish/portal0/tab40/default.htm"  >中国留学网</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>硬件</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.pconline.com.cn/"  >太平洋电脑网</a>
+                       
+                        <a target="_blank" href="http://www.zol.com.cn/" style="color:blue" >中关村在线</a>
+                       
+                        <a target="_blank" href="http://www.pcpop.com/"  >泡泡网</a>
+                       
+                        <a target="_blank" href="http://www.it168.com/"  >IT168网</a>
+                       
+                        <a target="_blank" href="http://www.pchome.net/"  >电脑之家</a>
+                       
+                        <a target="_blank" href="http://www.yesky.com/"  >天极网</a>
+                       
+                        <a target="_blank" href="http://www.bios.net.cn/"  >BIOS之家</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>软件编程</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.csdn.net/"  >CSDN</a>
+                       
+                        <a target="_blank" href="http://www.javaeye.com" style="color:blue" >JavaEye</a>
+                       
+                        <a target="_blank" href="http://www.mycodes.net/"  >源码之家</a>
+                       
+                        <a target="_blank" href="http://www.enet.com.cn/eschool/cxkf.shtml"  >eNet程序开发</a>
+                       
+                        <a target="_blank" href="http://msdn.microsoft.com/zh-cn/default.aspx"  >MSDN中文网站</a>
+                       
+                        <a target="_blank" href="http://linuxeden.com/"  >Linux伊甸园 </a>
+                       
+                        <a target="_blank" href="http://www.pediy.com/"  >看雪学院</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>视频</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.youku.com/"  >优酷网</a>
+                       
+                        <a target="_blank" href="http://www.tudou.com/"  >土豆网</a>
+                       
+                        <a target="_blank" href="http://video.sina.com.cn/"  >新浪视频</a>
+                       
+                        <a target="_blank" href="http://www.ku6.com"  >酷6网</a>
+                       
+                        <a target="_blank" href="http://www.xunlei.com/"  >迅雷看看</a>
+                       
+                        <a target="_blank" href="http://www.funshion.com/" style="color:blue" >风行影视</a>
+                       
+                        <a target="_blank" href="http://www.56.com/"  >56网</a>
+                       
+                        <a target="_blank" href="http://6.cn/"  >6间房</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>网页游戏</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.4399.net/"  >4399</a>
+                       
+                        <a target="_blank" href="http://in.sg.kunlun.com/template/txjhb/?u=191&u2=hao123"  >三国风云</a>
+                       
+                        <a target="_blank" href="http://in.wx.kunlun.com/template/tzjhmnb/?u=473&u2=hao123"  >武侠风云</a>
+                       
+                        <a target="_blank" href="http://in.dg.mop.com/t/dg10.html?f=994000702"  >帝国争霸</a>
+                       
+                        <a target="_blank" href="http://www.91wan.com/" style="color:blue" >91玩游戏</a>
+                       
+                        <a target="_blank" href="http://www.51mole.com/"  >摩尔庄园</a>
+                       
+                        <a target="_blank" href="http://www.265g.com/"  >265G游戏</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg2">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>音乐</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.qq163.com/"  >QQ163音乐网</a>
+                       
+                        <a target="_blank" href="http://www.1ting.com/" style="color:blue" >1听音乐</a>
+                       
+                        <a target="_blank" href="http://www.aiting.com/"  >爱听音乐</a>
+                       
+                        <a target="_blank" href="http://www.cococ.com/"  >可可西音乐</a>
+                       
+                        <a target="_blank" href="http://mp3.baidu.com/"  >百度MP3</a>
+                       
+                        <a target="_blank" href="http://www.kuwo.cn/pa_mbox/site/0044/index.html"  >酷我音乐盒</a>
+                       
+                        <a target="_blank" href="http://download.kugou.com/"  >酷狗</a>
+                       
+                    </td>
+                </tr>
+            
+            
+                <tr class="tg1">
+                    <td class="cool_label" align='center' width=60px>
+                        <a>汽车</a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       
+                        <a target="_blank" href="http://www.pcauto.com.cn/" style="color:blue" >太平洋汽车</a>
+                       
+                        <a target="_blank" href="http://auto.sina.com.cn/"  >新浪汽车</a>
+                       
+                        <a target="_blank" href="http://www.autohome.com.cn/"  >汽车之家</a>
+                       
+                        <a target="_blank" href="http://www.bitauto.com/"  >易车网</a>
+                       
+                        <a target="_blank" href="http://www.che168.com/"  >车168网</a>
+                       
+                        <a target="_blank" href="http://www.cheshi.com/"  >网上车市</a>
+                       
+                        <a target="_blank" href="http://www.xcar.com.cn/"  >爱卡汽车网</a>
+                       
+                    </td>
+                </tr>
+            
+            
         </table>
     <% end %>
 <% end %>

@@ -1,0 +1,76 @@
+
+<div id='joke'>
+   <% joke = Joke.find(:first, :order=>"id desc")%>
+   <a href="/main/xgtest">超准的性格测试</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <% if joke%>
+    每日一囧:<%= link_to joke.title, :controller=>"main", :action=>"joke", :id=>joke%>  
+   <% end %>
+</div>
+
+<% cache(:controller=>"main", :action=>"index", :part=>"cool") do%>
+    <% round_table "100%", "实用酷站" do%>
+        <table id="cool" width=100% cellspacing="0" cellpadding="0" border=0 width=100%>
+            <% index = 0%>
+            <% for label in Label.find(:all, :conditions=>"id <> 100", :order=>"`order`")%>
+                <tr class="tg<%=index%2+1%>">
+                    <td class="cool_label" align='center' width=60px>
+                        <a><%= label.name%></a>
+                    </td>
+                    <td class="cool_site" align='center'>
+                       <% for site in Site.find(:all, :conditions=>"label_id = #{label.id} and label_id <> 100", :limit=>8)%>
+                        <a target="_blank" href="<%=site.address%>" <%='style="color:blue"' if site.green == 1%> ><%= site.name%></a>
+                       <% end %>
+                    </td>
+                </tr>
+            <% index += 1%>
+            <% end %>
+        </table>
+    <% end %>
+<% end %>
+
+<% cache(:controller=>"main", :action=>"index", :part=>"share") do%>
+                <% round_table "100%", "藏友分享" do%>
+                    <TABLE id="recommand_sites"  cellspacing="0" cellpadding="0" border=0 width=100% class="admin">
+                    <% index = 0%>
+                    <% for recommand in @recommands%>
+                        <tr class="tg<%=index%2+1%>">
+                            <td valign="top" >
+                                <div class="recommand_sites_title_div">
+                                    <%if recommand.logo && recommand.logo.size > 0%>
+                                        <div class="recommand_logo"><img src="<%=recommand.logo%>"/></div>
+                                    <% end %>
+                                    <span class="recommand_sites_title"><a href="<%=recommand.address%>" target="_blank"><%= recommand.name%></a><span>
+                                </div>
+                                <div class="recommand-sites_memo_div">
+                                    <div class="recommand_sites_memo">共<%=recommand.weburls.size%>人收藏 &nbsp;&nbsp;
+                                    
+                                        <%=recommand.user.nickname %>分享
+                                    </div>
+                                    <span class="recomamnd_tags"><%= recommand.tag_str %></span>
+                                </div>
+                                <div class="recommand_sites_function"><%= link_to "收藏", :controller=>"main", :action=>"myurl", :title=>recommand.name, :url=>recommand.address, :rid=>recommand.id%></div>
+                            </td>
+                        </tr>
+                        <% index += 1%>
+                    <% end %>
+                    <tr>
+                        <td>
+                            <div id="recommand_sites_page">
+                                <%= will_paginate @recommands%>
+                            </div>
+                        </td>
+                    </tr>
+                    </table>    
+                    
+                <% end %>
+<% end %>                
+<script>
+    $(document).ready(function(){
+        $("#url").get(0).focus();
+        
+        $("#cool td a").click(function(){
+            $('#update_tag').load("/main/tick?url=" + encodeURIComponent(this));
+        })
+    }); 
+    
+</script>
