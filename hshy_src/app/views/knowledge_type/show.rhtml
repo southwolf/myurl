@@ -1,0 +1,8 @@
+<% for column in KnowledgeType.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @knowledge_type.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @knowledge_type %> |
+<%= link_to 'Back', :action => 'list' %>

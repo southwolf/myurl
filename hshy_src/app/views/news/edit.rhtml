@@ -1,0 +1,12 @@
+<%@title = '±à¼­Ìû×Ó' %>
+<%= start_form_tag :action => 'update', :id => @news %>
+  <%= render :partial => 'form' %>  
+<%= end_form_tag %>
+
+
+<script>
+  add_submit("±£´æ");
+  add_tab_button("/img/iconBack.png", "·µ»Ø", "/news/list");  
+  add_sep();
+  add_delete_button("/news/destroyfromedit/<%=@news.id%>");
+</script>

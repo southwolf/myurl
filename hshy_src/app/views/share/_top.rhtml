@@ -1,0 +1,131 @@
+<%= stylesheet_link_tag 'default' %> 
+<%= javascript_include_tag 'window'%>
+
+
+<% @config = YtwgSystem.find(:all, :limit=>1)[0] %>
+<table class="clsLogo" cellpadding="0" cellspacing="0" border=0>
+  <tr>
+    <td align='center' width=290 class=logo>
+        <%= image_tag(url_for_file_column("config", "logo")) if @config.logo%>
+    </td>
+   
+    <td  height=100% align="right" width=450px class=logotitle>
+      <span id='title'><FONT style="FONT-SIZE: 30pt; FILTER: glow(color=black); WIDTH: 100%; COLOR: #e4dc9b; LINE-HEIGHT: 150%; FONT-FAMILY: 华文彩云"><B><%=@config.title || "诚嘉永欣OA办公系统"%></B>&nbsp;</FONT></span>
+     
+    </td>
+    <td id='notice' align='center' width=100>
+    
+    </td>
+    <td align=right valign=bottom>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <% form_tag :controller=>"main", :action => 'style' do %>
+            <font color=white>界面风格:</font>
+            <select id=style name=style onchange="submit();">
+              <option value='Blue' <%="selected=true" if @user.style=='Blue'%> >蓝</option>  
+              <option value='Pink' <%="selected=true" if @user.style=='Pink'%> >粉</option>
+              <option value='Red' <%="selected=true" if @user.style=='Red'%> >红</option>         
+            </select>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td valign="buttom">
+            <font color=white>欢迎您:<%=session[:user].truename if session[:user]%></font>
+            <a href="#" onclick="var win = new Window( 'id', {left: 500, top: 100, width:320, height:340, title:'修改用户信息', url: '/ytwg_user/editprofile/<%=session[:user].id%>'} );  win.show();  win.setDestroyOnClose();"><img src='/img/nav_profile.gif' alt='修改个人信息' border="0" align="absmiddle" width="28" height="25" title='修改个人信息'/></a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table id='toolbar' width='100%' border="0" cellpadding="0" height=20>
+  <tr height=20 class="exebar">
+    <td align='left' width=200><span class='whitespan'>&nbsp;今天是:<%=Time.new().strftime("%Y-%m-%d")%> 星期<%= {1=>'一', 2=>'二', 3=>'三', 4=>'四', 5=>'五', 6=>'六', 0=>'日'}[Time.new().strftime("%w").to_i]%></span></td>
+    <td width='50%' valign='middle' color=black>
+      <marquee height=20.0  behavior="scroll" scrollAmount=2 direction="left" onMouseOver="this.stop();" onMouseOut="this.start()">
+        <%@news=Boardnews.find(:all, :order => "id desc", :limit=>3 )%>
+        <% for @new in @news%>
+          <%= link_to( @new.title, {:controller => 'ytwg_news', :action => 'show', :id => @new},{:target=>'content'})%>
+          &nbsp;&nbsp;&nbsp;
+        <% end%>
+        <%= link_to( "更多...", {:controller => 'ytwg_news', :action => 'list'},{:target=>'content'})%>
+      </marquee>
+    </td>
+    <td width=200 align='middle'><a href="javascript:show_message(0)" id="flag">即时聊天</a></td>
+    <td align='right'>
+      <%if controller.controller_name == 'main' && checkright('后台管理')%>
+        <%= link_to '后台管理&nbsp', {:controller=>'admin', :action=>'index'}%>
+      <%elsif controller.controller_name == 'admin'%>
+        <%= link_to '系统界面&nbsp', {:controller=>'main', :action=>'index'}%>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<bgsound   src="#"   id=music   loop=1   autostart="true"/>
+<%= render :partial=>"share/message" %>
+
+<script language="javascript">
+    function setNotice(notice)
+    {
+        var element = document.getElementById('notice');
+        element.innerHTML = "<fieldset align='center' id='notice1'><span style='color=red;'>" + notice + "</span></fieldset>";
+        setTimeout('new Effect.Fade(\'notice1\')', 10000);
+    }
+    function setError(notice)
+    {
+        var element = document.getElementById('notice');
+        element.innerHTML = "<fieldset align='center' id='notice1'><span style='color=red;'>" + notice + "</span></fieldset>";
+        setTimeout('new Effect.Fade(\'notice1\')', 10000);
+    }
+<% if @flash[:notice] %>
+      setNotice('<%=@flash[:notice]%>');
+<% end %>
+<% if @flash[:error] %>
+      setError('<%=@flash[:error]%>');
+<% end %>
+            
+    //修改个人信息
+    function personManager(){
+        url = '/ytwg_user/editprofile/<%=session[:user].id%>';
+        window.open(url,"childAdd","status=no,height=480,width=500,top=75,left=250");
+    }
+        
+    function Point(x,y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    
+    function GetXY(objTag){
+      var objTemp = objTag;
+      var pt = new Point(0,0);
+      while(objTemp.tagName.toUpperCase() != 'BODY')
+      {
+          pt.x += objTemp.offsetLeft;
+          pt.y += objTemp.offsetTop;
+          objTemp = objTemp.parentElement;
+      }
+      return pt;
+    }
+
+    function show_message(f)
+    {
+        var div = $('message');
+        var flag = $('flag');
+        var p = GetXY(flag);
+        div.style.pixelLeft = p.x-180;
+        div.style.pixelTop = p.y+16;
+        if (div.style.display == "none")
+       {
+            Effect.BlindDown('message');
+            if (f == 1)
+                alert('您在OA中有新的即时信息');
+       }      
+            
+        new Ajax.Updater('message_detail', '/message/mymessage', {asynchronous:true, evalScripts:true}); 
+    }
+
+</script>

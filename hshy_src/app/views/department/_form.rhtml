@@ -1,0 +1,65 @@
+<%= error_messages_for 'department' %>
+
+<!--[form:department]-->
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999">
+<tr>
+ <td > <label for="department_名称">名称</label></td>
+<td><%= text_field 'department', 'name'  %></td>
+</tr>
+
+<tr>
+ <td > <label for="department_电话">电话</label></td>
+<td><%= text_field 'department', 'phone'  %></td>
+</tr>
+
+<tr>
+ <td > <label for="department_传真">传真</label></td>
+<td><%= text_field 'department', 'fax'  %></td>
+</tr>
+
+<tr>
+ <td> <label for="department_名称">负责人</label></td>
+<td>
+  <select id="leader" name="leader">
+    <% leader_id = 0 %>
+    <% leader_id = @department.leader_id if @department %>
+   <%= options_from_collection_for_select(YtwgUser.find(:all), "id", "truename", leader_id) %>
+  </select>
+</td>
+</tr>
+
+<tr>
+ <td> <label for="department_上级部门">上级部门</label></td>
+<td>
+<%=select("department", "parent_id", Department.find_all.collect {|p| [ p.name, p.id ] }, { :include_blank => true })%>
+</td>
+</tr>
+
+<tr>
+ <td> <label for="department_上级主管领导">上级主管领导</label></td>
+<td>
+<%=select("department", "parent_leader", YtwgUser.find_all.collect {|p| [ p.truename, p.id ] }, { :include_blank => true })%>
+</td>
+</tr>
+
+<tr>
+ <td> <label for="department_描述">描述</label></td>
+<td><%= text_area 'department', 'desc', :rows=>10  %></td>
+</tr>
+
+<tr>
+    <td>查看房源权限</td>
+    <td>
+        <% for quyu in Quyu.find(:all) %>
+            <input type="checkbox" name="department[quyu_ids][]" 
+              value="<%= quyu.id %>" 
+              <% if  @department && @department.quyus.include?(quyu) %> checked="checked" <% end %> />
+        <%= quyu.name %>
+        <% end %>
+    </td>
+</tr>
+</table>
+
+
+<!--[eoform:department]-->
+

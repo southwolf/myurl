@@ -1,0 +1,37 @@
+<%= error_messages_for 'product_reject' %>
+
+<!--[form:product_reject]-->
+<p><label for="product_reject_dealer">经&nbsp;手&nbsp;人</label>
+<%= text_field 'product_reject', 'dealer'  %></p>
+
+<p><label for="product_reject_desc">备注信息</label>
+<%= text_field 'product_reject', 'desc'  %></p>
+
+
+<%= link_to_function "选择#{ProductCata.find(params[:id]).name}", "select('c')" %>
+    </p>
+    <div id=c style="display:none;OVERFLOW: auto;WIDTH: 90%; HEIGHT: 400" >
+    <script>
+      new Ajax.Updater('c', '/product/select_composite/<%=params[:id]%>?status=1', {asynchronous:true, evalScripts:true}); 
+    </script>
+</div>
+
+
+<script>
+function select(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>
+
+<!--[eoform:product_reject]-->
+

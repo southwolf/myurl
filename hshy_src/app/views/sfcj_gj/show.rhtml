@@ -1,0 +1,8 @@
+<% for column in SfcjGj.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @sfcj_gj.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @sfcj_gj %> |
+<%= link_to 'Back', :action => 'list' %>

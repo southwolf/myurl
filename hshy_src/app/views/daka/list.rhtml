@@ -1,0 +1,27 @@
+<h1>Listing dakas</h1>
+
+<table>
+  <tr>
+  <% for column in Daka.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for daka in @dakas %>
+  <tr>
+  <% for column in Daka.content_columns %>
+    <td><%=h daka.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => daka %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => daka %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => daka }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @daka_pages.current.previous } if @daka_pages.current.previous %>
+<%= link_to 'Next page', { :page => @daka_pages.current.next } if @daka_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New daka', :action => 'new' %>

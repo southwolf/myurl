@@ -1,0 +1,23 @@
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=50%>
+  <tr class="exebar">
+    <th>Â¥ÅÌÃû³Æ</th>
+  </tr>
+  
+<% index = 1 %>  
+<% for dic_dizhi in @dic_dizhis %>
+  <%=ColorRow(index, dic_dizhi.id)%>
+  <% for column in DicDizhi.content_columns %>
+    <td><%=h dic_dizhi.send(column.name) %></td>
+  <% end %>
+  </tr>
+  <% index += 1 %>
+<% end %>
+</table>
+
+<%= will_paginate @dic_dizhis %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "Ìí¼Ó", "/dic_dizhi/new"); 
+  add_sep();
+  add_dynamic_delete_button("/dic_dizhi/destroy/");  
+</script>

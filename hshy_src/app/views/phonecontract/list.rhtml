@@ -1,0 +1,35 @@
+<%=  image_wide_button '查找', "/phonecontract/find" %>
+<%=  image_wide_button '添加', "/phonecontract/new" %>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=90% >
+  <tr class="exebar">  
+    <th>单位</th>
+    <th>联系人</th>
+    <th>对方联系人</th>
+    <th>联系时间</th>
+    <th>联系电话</th>
+    <th>谈话内容</th>
+    <th colspan=3>操作</th>
+  </tr>
+ 
+<%index=1%>
+<% for phonecontract in @phonecontracts %>
+  <%=ColorRow(index)%>
+    <td><%= phonecontract.unit.name rescue nil%></td>
+    <td><%= phonecontract.user.truename %></td>
+    <td><%= phonecontract.linkman %></td>
+    <td><%= phonecontract.contracttime.to_date() %></td>
+    <td><%= phonecontract.telephone %></td>
+    <td><%= phonecontract.memo %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => phonecontract %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => phonecontract }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<%index+=1%>
+<% end %>
+</table>
+
+<%= link_to '上一页', { :page => @phonecontract_pages.current.previous } if @phonecontract_pages.current.previous %>
+<%= link_to '下一页', { :page => @phonecontract_pages.current.next } if @phonecontract_pages.current.next %> 
+
+
+
+

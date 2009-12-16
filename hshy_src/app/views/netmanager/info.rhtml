@@ -1,0 +1,82 @@
+<%= stylesheet_link_tag "tab.webfx.css" %>
+<%= javascript_include_tag 'tabpane' %>
+
+<div class="tab-pane" id="deviceinfo">
+  <div class="tab-page" id="a1">
+    <h2 class="tab">基本信息</h2>
+    <%= render :partial=>"page1" %>
+  </div>
+  <div class="tab-page" id="a2">
+    <h2 class="tab">网络信息</h2>
+    <% form_tag :action => 'update', :ip => get_value(@text, "net.ipaddr") do %>
+    <%= render :partial=>"page2" %>
+    <%= submit_tag '更新' %>
+    <% end %>
+  </div>
+  <div class="tab-page" id="a3">
+    <h2 class="tab">编码解码</h2>
+    <% form_tag :action => 'update', :ip => get_value(@text, "net.ipaddr") do %>
+    <% enc = get_value(@text, "sys.nencoders").to_i %>
+    <% dec = get_value(@text, "sys.ndecoders").to_i %>
+  <div class="tab-pane" id="enc">      
+    <% if enc > 0 %>
+      <% 0.upto(enc-1) do |i| %>
+          <div class="tab-page" id="enc<%=i%>">
+          <h2 class="tab">编码通道<%=i+1%></h2>      
+          <%= render :partial=>"encode", :locals=>{:index=>i} %>
+            </div>
+        <% end %>
+    <% end %>
+    
+
+    <% if dec > 0 %>
+      <% 0.upto(dec-1) do |i| %>
+        <div class="tab-page" id="dec<%=i%>">
+        <h2 class="tab">解码通道<%=i+1%></h2>      
+          <%= render :partial=>"decode", :locals=>{:index=>i} %>
+        </div>
+      <% end %>
+    <% end %>
+
+</div>
+
+    <%= submit_tag '更新' %>
+   <% end %>
+  </div>
+  <div class="tab-page" id="a6">
+    <h2 class="tab">串口</h2>
+    <% form_tag :action => 'update', :ip => get_value(@text, "net.ipaddr") do %>
+      <div class="tab-pane" id="serial">
+      <% for index in ["", "1"] %>
+          <div class="tab-page" id="<%=index.to_s.to_i%>">
+              <h2 class="tab">串口<%=index.to_s.to_i+1%></h2>
+              <%=render :partial=>"page6", :locals=>{:index=>index} %>
+          </div>
+      <% end %>
+      </div>
+      <%= submit_tag '更新' %>
+    <% end %>
+  </div>
+  <div class="tab-page" id="a7">
+    <h2 class="tab">数据输入</h2>
+  </div>
+  <div class="tab-page" id="a8">
+    <h2 class="tab">数据输出</h2>
+  </div>
+  <div class="tab-page" id="a9">
+    <h2 class="tab">设备升级</h2>
+    <%= render :partial=>"page9" %>
+  </div>
+</div>
+
+<div>
+  <%= link_to "重启", :action=>"sys_command", :command=>1, :ip=>get_value(@text, "net.ipaddr") %>
+<!--  
+<%= link_to "挂起设备", :action=>"sys_command", :command=>1, :ip=>get_value(@text, "net.ipaddr") %>|
+  <%= link_to "恢复", :action=>"sys_command", :command=>1, :ip=>get_value(@text, "net.ipaddr") %>
+-->
+</div>
+
+<script>
+    setupAllTabs();
+</script>

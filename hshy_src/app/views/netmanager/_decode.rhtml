@@ -1,0 +1,27 @@
+<div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td>流封装类型:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.stream_type") %></td>
+        <td>固件类型:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.fwtype") %></td>
+      </tr>
+      <tr>
+        <td>视频压缩算法:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.vid_coding") %></td>
+        <td>输入地址:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.stream_url") %></td>
+      </tr>
+      <tr>
+        <td>流转发地址:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.sout") %></td>
+        <td>视频制式:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.vid_mode") %></td>
+      </tr>
+      <tr>
+        <td>输出音量增益:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.aud_vol") %></td>
+        <td>播放类型:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.playmode") %></td>
+      </tr>
+      <tr>
+        <td>最大播放时间:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.playtime") %></td>
+        <td>视频延时:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.delay") %></td>
+      </tr>
+      <tr>
+        <td>无视频数据时的操作:</td><td><%= text_field_tag "name", get_value(@text, "dec#{index}.novideo") %></td>
+      </tr>
+    </table>
+  </div>

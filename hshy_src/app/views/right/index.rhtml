@@ -1,0 +1,24 @@
+<%= start_form_tag %>
+<table>
+    <tr>
+        <td>选择角色：
+            <select id="group_id" name="group_id" onchange="submit();">
+            <option value="">-- 无 --</option>
+            <% sel = 0 %>
+            <% sel = @group.id if @group%>
+            <%=options_from_collection_for_select(YtwgGroup.find(:all), "id", "name", sel) %>
+            </select>
+        </td>
+    </tr>
+    <tr>
+    </tr>
+</table>
+<%= end_form_tag %>
+
+<%= render :partial=>"group_allocation_form" if @group %>
+
+<% if @group %>
+<script>
+  $('separator').insert({before:'<td width=2%><a href="javascript:document.forms[1].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="保存" border="0" ></a></td>'});
+</script>
+<% end %>

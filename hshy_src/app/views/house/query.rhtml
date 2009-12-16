@@ -1,0 +1,119 @@
+<%= stylesheet_link_tag 'default' %> 
+<%= javascript_include_tag 'window'%>
+
+
+<% if checkright("房源修改") %>  
+    <% modify_right = true%>
+<% end%>
+
+<% if checkright("删除房源") %>
+    <% delete_right = true%>
+<% end %>
+
+<% if checkright("移库房源") %>
+   <% move_right = true%>
+<% end %>
+    
+<% if checkright("私盘管理") %>
+    <% private_right = true%>
+<% end %>
+查询结果:
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+     <th>编号</th>
+    <th>区域</th>
+    <th>地址</th>
+    <th>报价(万)</th>
+    <th>楼盘名称</th>
+    <th>面积</th>
+    <th>格局</th>
+    <th>总层</th>
+    <th>装修</th>
+    <th>建成年代</th>
+     <th>录入人</th>
+     <th>录入时间</th>
+     <th>操作</th>
+  </tr>
+  
+<% index = 0 %>  
+<% for house in @houses %>
+  <%= ColorRow(index, house.id) %>
+    <td><%=image_tag "/img/icon_7.png" if house.secret == 1%> 
+    <a href="javascript:show(<%=house.id%>)"><%=house.id%></a>
+    </td>    
+    <td><%=house.quyu.name%></td>
+    <td><%=house.xq%></td>
+    <td align=right><%=h house.price %></td>
+    <td><%=h house.lpmc %></td>
+    <td><%=h house.mj %></td>
+    <td><%=h house.s %></td>
+    <td><%=h "#{house.zc}(#{house.szc})" %></td>
+    <td><%=h house.zx %></td>
+    <td><%=h house.jcnd %></td>
+    <td><%=h house.inputer%></td>
+    <td><%=h house.inputtime.strftime("%Y-%m-%d")%></td>
+    <!--
+    <td><%= link_to "查看跟进", :controller=>"houselog", :action=>"list", :id=>house%></td>
+    -->
+    <td><a href="javascript:genjin(<%=house.id%>)">查看跟进</a>
+<%= link_to "定为永久私盘", :controller=>"house", :action=>"secrettag", :id=>house if (checkright("私盘管理") && house.secret==1 && !house.secrettag)%>
+    
+    
+<% if modify_right %>  
+  <%= link_to '修改',  :action => 'edit', :id => house %>
+ <% end %>
+      
+<% if delete_right %>
+  <%= link_to '删除', { :action => 'destroy', :id => house }, 
+                :confirm => '确认删除吗?', :method => :post%>
+<% end %>
+
+<% if move_right %>
+<a href="javascript:upload('form<%=house.id%>')">移库</a> 
+     <%= start_form_tag({:action => 'update', :id => house},{:style=>"display:none", :id=>"form"+house.id.to_s}) %>
+                    <%=select("house", "ku", [['有效房源',1], ['已租已售',2], ['待开发',3]])%>
+                    <%= submit_tag '保存' %>
+     <%= end_form_tag%>
+<% end %>
+
+
+</td>
+  </tr>
+<% index += 1 %>
+<% end %>
+</table>
+
+<script>
+  add_tab_button("/img/iconSearch.png", "重查", "/house/find");  
+</script>
+
+<script>
+function show(id)
+{
+    var win = new Window( 'hosueid', {left: 50, top: 20, width:920, height:540, title:'查看房源信息', url: '/house/show/'+id + "?search=true"} );  
+    win.show();  
+    win.setDestroyOnClose();
+}
+
+function genjin(id)
+{
+    var win = new Window( 'hosueid', {left: 50, top: 20, width:920, height:540, title:'查看房源信息', url: '/houselog/list/'+id + "?search=true"} );  
+    win.show();  
+    win.setDestroyOnClose();
+}
+
+function upload(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>

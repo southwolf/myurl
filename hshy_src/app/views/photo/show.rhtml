@@ -1,0 +1,6 @@
+ <%= image_tag "/photo/#{@photo.id}.jpg" %>
+
+<p> <%= image_tag formatted_photo_path(@photo, :jpg) %> </p>
+
+<%= link_to 'Edit', :action => 'edit', :id => @photo %> |
+<%= link_to 'Back', :action => 'list' %>

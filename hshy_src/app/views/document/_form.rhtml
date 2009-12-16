@@ -1,0 +1,23 @@
+<%= error_messages_for 'documentfile' %>
+
+<!--[form:document]-->
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999">
+
+<tr>
+ <td bgcolor="#999999"> <label for="document_name">文件名</label></td>
+<td><%= text_field 'documentfile', 'name', :class=>"required dojoValidateEmpty"    %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="document_desc">说明</label></td>
+<td><%= text_field 'documentfile', 'desc'  %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="document_path">文件路径</label></td>
+<td><%= file_column_field 'documentfile', 'path' %></td>
+</tr>
+
+</table>
+<!--[eoform:document]-->
+

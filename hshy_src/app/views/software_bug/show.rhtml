@@ -1,0 +1,27 @@
+<p>
+  <b>Bug发布人:</b> <%=h @software_bug.publisher %>
+</p>
+
+<p>
+  <b>发布时间:</b> <%=h @software_bug.publish_time.to_formatted_s(:db) %>
+</p>
+
+<p>
+  <b>问题描述:</b> <%= @software_bug.desc %>
+</p>
+
+<p>
+  <b>解决人:</b> <%= @software_bug.finisher %>
+</p>
+
+<p>
+  <b>解决时间:</b> <%= @software_bug.finish_time.to_formatted_s(:db) %>
+</p>
+<p>
+  <b>解决方案描述:</b> <%= @software_bug.finish_text %>
+</p>
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/software_bug/list/<%=@software_bug.software_id%>");  
+</script>

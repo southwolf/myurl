@@ -1,0 +1,15 @@
+
+<%= start_form_tag :action => 'update', :id=>@zlcj%>
+<%= @html %>
+  <input onclick="javascript:return submit_webtable('table_ZLCJ', this.form)" value="±£´æ" type="submit" />
+  
+<%= end_form_tag %>
+
+<script>
+var t = new WebTable($('table_ZLCJ'));
+</script>
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "·µ»Ø", "/zlcj/list");  
+</script>

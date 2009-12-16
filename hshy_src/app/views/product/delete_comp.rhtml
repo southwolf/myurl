@@ -1,0 +1,10 @@
+<% form_tag :action => 'destroy_comp', :id=>@product.id do %>
+    拆装原因：<%= text_field_tag "reason" %><br>
+    拆装时间：<%= select_date Time.new, {:use_month_numbers => true} %>
+<% end %>
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/product/list_detail/<%=@product._cata_id%>");  
+</script>
+

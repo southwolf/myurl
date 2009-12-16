@@ -1,0 +1,23 @@
+<%= error_messages_for 'filecata' %>
+
+<!--[form:filecata]-->
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999">
+
+<tr>
+ <td bgcolor="#999999"> <label for="filecata_name">名称</label></td>
+<td><%= text_field 'filecata', 'name'  %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="filecata_desc">说明</label></td>
+<td><%= text_field 'filecata', 'desc'  %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="filecata_desc">进入权限</label></td>
+<td><%= select "filecata", "read_right", YtwgRight.find(:all).collect{|r|[r.name, r.id]},  { :include_blank => true }%></td>
+</tr>
+
+</table>
+<!--[eoform:filecata]-->
+

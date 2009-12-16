@@ -1,0 +1,86 @@
+<%= start_form_tag :action => 'create_comp', :id=>params[:id],:tableid=>@tableid %>
+
+<p>条码:<%= text_field "product", "barcode" %>(不填写则自动生成)</p>
+<p>备注信息:<%= text_field "product", "desc" %></p>
+
+<%= hidden_field "product", "_pici" %>
+
+<% for c in @composites %>
+    <p>
+<%=c.num%>个&nbsp<%=c.material.name%> &nbsp;<%="(可选)" if c.selectable == 1%>: &nbsp;&nbsp;
+    <%= link_to_function "选择", "select('c_#{c.id}')" %>
+
+    </p>
+    <div id=sel_com name=sel_com sub="c<%=c.sub_id%>" material="<%=c.material.name%>" num=<%=c.num%> <%="selectable=1" if c.selectable==1%> >
+    <div id=c_<%=c.id%> style="display:none;OVERFLOW: auto;WIDTH: 90%; HEIGHT: 200" >
+    <script>
+      new Ajax.Updater('c_<%=c.id%>', '/product/select_composite/<%=c.sub_id%>?parent=<%=c.p_id%>', {asynchronous:true, evalScripts:true}); 
+    </script>
+    </div>
+    </div>
+<% end %>
+
+<%= @html %>
+
+<input onclick="if(!check_num()) return false;return submit_webtable('table_<%=@tableid%>', this.form)" value="组装入库" type="submit" />
+  
+<%= end_form_tag %>
+
+<script>
+var t = new WebTable($('table_<%=@tableid%>'));
+</script>
+
+<script>
+function check_num()
+{
+    var coms = document.getElementsByName("sel_com");
+    for(var i=0; i<coms.length; i++)
+    {
+         var com = coms[i];
+         var selected = 0;
+         subs = document.getElementsByName(com.getAttribute("sub")+"[]");
+         for (var j=0; j<subs.length; j++)
+         {
+            sub = subs[j];
+            if (sub.checked)
+                selected += 1;
+         }
+         if (com.getAttribute("selectable") != 1)
+         {
+            if (com.getAttribute("num") != selected)
+            {
+                alert(com.getAttribute("material")+"需要选择" + com.getAttribute("num") + "个");
+                return false;
+            }    
+         }
+         else
+         {
+            if (com.getAttribute("num") < selected)
+            {
+                alert(com.getAttribute("material")+"最多只能选择" + com.getAttribute("num") + "个");
+                return false;
+            }
+         }
+         
+    }
+    return true;
+}
+    
+function select(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/product/list_detail/<%=params[:id]%>");  
+</script>

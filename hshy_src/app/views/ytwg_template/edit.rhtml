@@ -1,0 +1,10 @@
+<h1>±à¼­ ytwg_template</h1>
+
+<%= start_form_tag :action => 'update', :id => @ytwg_template %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '±£´æ' %>
+  
+<%= end_form_tag %>
+
+<%= link_to 'É¾³ý', { :action => 'destroyfromedit', :id => @ytwg_template }, :confirm => 'ÄúÈ·¶¨É¾³ý±¾¼ÇÂ¼Âð?', :post => true %>|
+<%= link_to '·µ»Ø', :action => 'list' %>

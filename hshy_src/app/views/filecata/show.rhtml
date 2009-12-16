@@ -1,0 +1,8 @@
+<% for column in Filecata.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @filecata.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to '±à¼­', :action => 'edit', :id => @filecata %> |
+<%= link_to '·µ»Ø', :action => 'list' %>

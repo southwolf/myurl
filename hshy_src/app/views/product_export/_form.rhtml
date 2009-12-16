@@ -1,0 +1,44 @@
+<%= error_messages_for 'product_export' %>
+
+<!--[form:product_export]-->
+<p><label for="product_export_receiver">出库单代码：</label>
+<%= text_field 'product_export', 'code'  %></p>
+
+<p><label for="product_export_receiver">接收单位名称：</label>
+<%= text_field 'product_export', 'unitname'  %></p>
+
+<p><label for="product_export_receiver">接收人：</label>
+<%= text_field 'product_export', 'receiver'  %></p>
+
+<p><label for="product_export_dealer">出库人：</label>
+<%= text_field 'product_export', 'dealer'  %></p>
+
+<p><label for="product_export_dealer">备注：</label>
+<%= text_field 'product_export', 'desc'  %></p>
+
+<%= link_to_function "选择#{ProductCata.find(params[:id]).name}", "select('c')" %>
+    </p>
+    <div id=c style="display:none;OVERFLOW: auto;WIDTH: 90%; HEIGHT: 400" >
+    <script>
+      new Ajax.Updater('c', '/product/select_composite/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+    </script>
+</div>
+
+
+<script>
+function select(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>
+<!--[eoform:product_export]-->
+

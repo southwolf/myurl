@@ -1,0 +1,27 @@
+
+<div width=100%>  
+<% for picture in @pictures %>
+  <% @picture = picture %>
+    <div style="display:inline">
+      <table style="display:inline">
+      <tr><td>
+        <%= link_to(image_tag(url_for_file_column("picture", "path", "thumb")), url_for_file_column("picture", "path"), {:target=>"_blank"}) %>
+        </td>
+      </tr>
+      <td><%=picture.desc %><br>发布人:<%=picture.user.truename%><br>发布时间:<%=picture.publish_time.to_formatted_s(:db)%>
+      <br><%= link_to '删除', { :action => 'destroy', :id => picture }, :confirm => '确定删除记录吗?', :post => true if checkright("相册管理") %>
+        </td>
+      </tr>
+          </table>
+      </div>
+      &nbsp;&nbsp;
+<% end %>
+</div>
+
+<%= will_paginate @pictures %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "上传", "/picture/new/<%=params[:id]%>");  
+  add_tab_button("/img/iconBack.png", "返回","/albumn/index" );  
+
+</script>

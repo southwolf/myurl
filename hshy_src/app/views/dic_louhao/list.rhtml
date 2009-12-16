@@ -1,0 +1,20 @@
+<%= link_to_remote 'ÐÂ¼ÓÂ¥ºÅ', :update=>"lh_detail", :url=>{:controller=>"dic_louhao", :action => 'new', :id=>params[:id]} %>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90%>
+  <tr class="exebar">
+      <th>Â¥ºÅ</th>
+      <th colspan=2>²Ù×÷</th>
+  </tr>
+
+<% index = 1%>  
+<% for dic_louhao in @dic_louhaos %>
+  <%= ColorRow(index)%>
+  <% index += 1%>
+    <td><%=h dic_louhao.name %></td>
+    <td><%= link_to_remote 'É¾³ý', :update=>"lh_detail", :url=>{:controller=>"dic_louhao", :action => 'destroy', :id => dic_louhao }, :confirm => 'È·ÈÏÂð?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+
+

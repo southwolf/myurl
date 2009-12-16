@@ -1,0 +1,92 @@
+<%= stylesheet_link_tag 'default' %> 
+<%= javascript_include_tag 'window'%>
+
+<table width=100%>
+  <tr>
+    <td>
+<% if @vote %>
+    <% form_tag :controller=>"vote", :action => 'vote', :id => @vote do %>
+    <%= @vote.name %><br/>
+        <% for option in @vote.voteoptions %>
+            <%=check_box_tag "vote#{@vote.id}[]", option.id %><%=option.name%></br>
+         <% end %>
+     <%=submit_tag '提交' if !session[:user].vote_ids.include?(@vote.id)%>
+    <%= link_to_prototype_window "查看", "vote#{@vote.id}", :top=>100, :left=>100, :height=>200, :width=>300, :title=>'投票结果', :url=>"/vote/show/#{@vote.id}" %>
+  <% end %>
+  <% end %>
+</td>
+<td align='right'>
+
+<IFRAME ID=''ifm2'' WIDTH=''240'' HEIGHT=''160'' ALIGN=''CENTER'' MARGINWIDTH=''0'' MARGINHEIGHT=''0'' HSPACE=''0'' VSPACE=''0'' FRAMEBORDER=''0'' SCROLLING=''NO'' src="http://news.sina.com.cn/iframe/weather/jump4weather.html"></IFRAME>
+</td>
+</tr>
+</table>
+
+<%index=1%>
+<table width=100%>
+  <tr>
+    <td valign=top width=50%>
+      <% round_table "98%", "新闻" do%>
+         <table border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+  <% for column in %w(标题 发布时间 发布人) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% index = 0%>
+<% for ytwg_news in @news %>
+  <%=ColorRow(index)%>
+
+    <td><%=link_to ytwg_news.title, :controller=>"ytwg_news", :action => 'show', :id => ytwg_news %></td>
+    <td><%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%></td>  	
+    <td><%=YtwgUser.find(ytwg_news.user_id).truename rescue nil%></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+      <% end %>    
+      
+    <td valign=top width=50%>
+
+<% round_table "98%", "通知" do%>
+            <table border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+  <% for column in %w(标题 发布时间 发布人) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% index = 0%>
+<% for ytwg_news in @notice %>
+  <%=ColorRow(index)%>
+
+    <td><%=link_to ytwg_news.title, :controller=>"notice", :action => 'show', :id => ytwg_news %></td>
+    <td><%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%></td>  
+    <td><%=YtwgUser.find(ytwg_news.user_id).truename rescue nil%></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+       <% end %>                    
+    </td>
+  </tr>
+  <tr>
+    <td valign=top width=50%>
+      
+    <div id="show_email"><img src="/img/indicator.gif"/></div>
+        <script>
+          new Ajax.Updater('show_email', '/email/list_recent', {asynchronous:true, evalScripts:true}); 
+        </script>
+    </td>
+    </td>
+    <td valign=top width=50%>
+      <% round_table "99%", "待办流程" do%>
+        <div id="show_waiting_form"><img src="/img/indicator.gif"/></div>
+        <script>
+          new Ajax.Updater('show_waiting_form', '/ytwg_workflow/show_waiting_form_all', {asynchronous:true, evalScripts:true}); 
+        </script>
+      <% end %>      
+    </td>
+  </tr>
+</table>

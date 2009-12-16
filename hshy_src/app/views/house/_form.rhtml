@@ -1,0 +1,111 @@
+<%= error_messages_for 'house' %>
+
+ <%= javascript_include_tag 'time' %>
+<script >
+
+        var oCalendarEn=new PopupCalendar("oCalendarEn");
+        oCalendarEn.Init();
+        var oCalendarChs=new PopupCalendar("oCalendarChs");
+        oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+        oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+        oCalendarChs.oBtnTodayTitle="今天";
+        oCalendarChs.oBtnCancelTitle="取消";
+        oCalendarChs.Init();
+</script>
+
+<p>编号：<%= @house.id %></p>
+
+<!--[form:house]-->
+<p><label for="house_quyu_id">所在区域:</label>
+<%=select("house", "quyu_id", Quyu.find_all.collect {|p| [ p.name, p.id ] },{},{:onchange=>"changeDizhi(this.value);"})%>
+</p>
+
+<p>
+<div style="float:left" id="house_dizhi">
+<%=select("house", "xq", DicDizhi.find_all.collect {|p| [ p.name, p.name ] })%>
+</div>
+小区
+<!--
+<%= text_field 'house', 'qi', :size=>4  %>区(期)
+-->
+<%= text_field 'house', 'd', :size=>4  %>号楼(栋)
+<%= text_field 'house', 'danyuan',:size=>4 %>单元
+<%= text_field 'house', 'h',:size=>4  %>号</p>
+
+<p><label for="house_price">房屋报价:</label>
+<%= text_field 'house', 'price',:size=>10 %>
+<% if @house.tag == 1 %>
+万
+<% else %>
+元/月
+<%  end %>
+</p>
+
+<p><label for="house_mj">面积:</label>
+<%= text_field 'house', 'mj', :size=>10  %>平米
+<%=select("house", "s", DicGeju.find_all.collect {|p| [ p.name, p.name ] })%></p>
+
+<p><label for="house_zc">总层</label>
+<%= text_field 'house', 'zc', :size=>4  %>
+<label for="house_szc">，其中第</label>
+<%= text_field 'house', 'szc', :size=>4  %>层</p>
+
+<p><label for="house_zx">装修程度:</label>
+<%=select("house", "zx", [['毛坯', '毛坯'], ['简装', '简装'], ['中装', '中装'], ['精装', '精装']])%>
+</p>
+
+<p><label for="house_jcnd">建成年代:</label>
+<% options = []
+   1980.upto(2015) do |i|
+     options<<[i.to_s, i]
+   end
+%>
+<%=select("house", "jcnd", options)%>
+
+</p>
+
+<p><label for="house_lxr">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</label><%= text_field 'house', 'lxr',:size=>10  %>
+<label for="house_telephone">电话:</label><%= text_field 'house', 'telephone',:size=>20  %></p>
+
+<p><label for="house_kfsj">看房时间:</label>
+<%= text_field 'house', 'kfsj'  %></p>
+
+<p><label for="house_cqz">产权证下发日期:</label>
+<%= text_field 'house', 'cqz',:size=>15, :onclick=>'getDateString(this,oCalendarChs)'%> </p>
+
+<p><label for="house_dj">底价:</label>
+<%= text_field 'house', 'dj', :size=>10  %>
+<% if @house.tag == 1 %>
+万
+<% else %>
+元/月
+<%  end %></p>
+
+<p><label for="house_cqrxm">产权人姓名:</label>
+<%= text_field 'house', 'cqrxm', :size=>20  %></p>
+
+<p><label for="house_zsp">备注</label><br/>
+<%= text_area 'house', 'zsp', :rows=>5, :cols=>65  %></p>
+
+<p> 
+<%=radio_button("house", "secret", "") %>公盘
+<%=radio_button("house", "secret", "1") %>私盘
+&nbsp;&nbsp;&nbsp;私盘密码(公盘不填):<%= password_field 'house', 'password', :size=>10  %>
+&nbsp;&nbsp;&nbsp;<%=check_box 'house', 'haskey'%>有钥匙
+</p>
+
+<p>
+信息库：<%=select("house", "ku", [['有效房源',1], ['已租已售',2], ['待开发',3], ['无效信息库',4]])%>
+</p>
+
+<%= hidden_field 'house', 'tag' %>
+<!--[eoform:house]-->
+
+
+<script>
+function changeDizhi(groupid)
+{
+    new Ajax.Updater('house_dizhi', '/house/changedizhi?name='+groupid, {asynchronous:true, evalScripts:true}); 
+    return false;
+}
+</script>

@@ -1,0 +1,25 @@
+<tr>
+                <td width=20></td>
+                <td colspan=3>
+                    <table width=100% border=1 bordercolor="#999999" bgcolor=#FFCC99>
+                        <% replys = News.find(:all, :conditions=>"parentbbs = #{bbsmessage.id}")%>
+                        <% for reply in replys%>
+                            <tr >
+                            <td>
+                                <table border=0>
+                                   <tr>
+                                     <td width=50 class="bbspublisher"><%=h YtwgUser.find(reply.send('publisher')).truename rescue nil %></td>
+                                     <td width=80% align="left" class="bbspublishtime"><%=h reply.send('publishtime').strftime("%Y-%m-%d %H:%M:%S") %></td>
+                                     <td align='right'><%=link_to "&nbsp±à¼­", :action=>"edit",:id=>reply if reply.publisher == session[:user].id%></td>
+                                   </tr>
+                                   <tr>
+                                        <td colspan=3 class="bbscontent"><%= reply.send('content') %></td>
+                                   </tr>
+                                </table>
+                            </td>
+                            </tr>
+                            
+                        <% end%>
+                    </table>
+                </td>
+</tr>

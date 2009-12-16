@@ -1,0 +1,105 @@
+<%= javascript_include_tag 'dragdrop' %>
+
+<% form_tag :action => 'find' do %>
+<table align='center' height=200 width=400>
+  <tr>
+    <td>主题关键字：</td>
+    <td><%=  text_field_tag "title" %></td>
+  </tr>
+  <tr>
+    <td>内容关键字：</td>
+    <td><%=  text_field_tag "text" %></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:show_users(this, 'users')" id="flag">发件人:</a></td>
+    <td><span id="recv" width=100% ><a href="javascript:show_users(this, 'users')">选择</a></span></td>
+  </tr>
+  <tr>
+    <td>附件包含文字：</td>
+    <td><%=  text_field_tag "attach" %></td>
+  </tr>
+  <tr>
+    <td>邮箱：</td>
+    <td><%= select_tag "box", options_for_select([['收件箱', 1], ['已发送',2], ['草稿箱', 3], ['已删除', 4]]) %></td>
+  </tr>
+
+</table>
+
+<%= render :partial =>"/share/user_select", :locals=>{:address=>[], :divid=>"users", :name=>"sender[]", :accept=>"recv"} %>
+<%= draggable_element("users", :handle => "handle_users")%>
+
+<% end %>
+
+<script>
+    function show_users(obj, divid)
+    {
+        var div = $(divid);
+        var flag = $('flag');
+        div.style.pixelLeft = flag.offsetLeft;
+        div.style.pixelTop = flag.offsetTop+35;
+        Effect.BlindDown(divid);
+    }
+    
+     function hide_users(username, tagname, divid)
+    {
+        //alert(document.forms[0]);
+        var users = document.getElementsByName(username);
+        var recv = "";
+        for(var i=0; i<users.length; i++)
+        {
+            if (users[i].checked)
+            {
+                if (recv.length == 0)
+                    recv = users[i].text;
+                else
+                    recv = recv + "," + users[i].text;
+            }
+        }
+        $(tagname).innerHTML = recv;
+        Effect.BlindUp(divid);   
+    }
+    function select_all(form, tagname)
+    {
+        if ($("selectall"+tagname).checked)
+        {
+            for(var i=0; i<form.elements.length-1; i++)
+            {
+                if (form.elements[i].name == tagname)
+                    form.elements[i].checked = true;
+            }
+                                        
+        }
+        else
+        {
+            for(var i=0; i<form.elements.length-1; i++)
+            {
+                if (form.elements[i].name == tagname)
+                    form.elements[i].checked = false;
+            }
+        }
+    }
+    
+    function select_dep(departmentid)
+    {
+        checks = document.getElementsByTagName("INPUT");
+        if ($(departmentid).checked)
+        {
+            for(var i=0; i<checks.length-1; i++)
+            {
+                if (checks[i].id == "department" + departmentid)
+                    checks[i].checked = true;
+            }
+                                        
+        }
+        else
+        {
+            for(var i=0; i<checks.length-1; i++)
+            {
+                if (checks[i].id == "department" + departmentid)
+                    checks[i].checked = false;
+            }
+        }
+    }
+
+  add_submit("查找", "/img/iconSearch.png");  
+</script>

@@ -1,0 +1,31 @@
+<% form_tag :action => 'query' do %>
+  <label for="ytwg_eventlog_username">用户名</label>
+    <%= text_field 'ytwg_eventlog', 'username', :size=>10 %>
+
+    <label for="ytwg_eventlog_description">描述</label>
+    <%= text_field 'ytwg_eventlog', 'description', :size=>15  %>
+  <%= submit_tag '查询' %>
+<% end %>
+
+
+<% index = 1 %>
+<table border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100% >
+  <tr class="exebar"> 
+    <th><%=sort_column('发生时间', 'time_occured')%></th>
+    <th><%=sort_column('用户登录名', 'username')%></th>
+    <th><%=sort_column('描述', 'description')%></th>
+    <th><%=sort_column('IP', 'ip')%></th>
+    <th><%=sort_column('URL', 'url')%></th>
+  </tr>
+  
+<% for ytwg_eventlog in @events %>
+  <%=ColorRow(index)%>
+<% index+=1 %>
+  <td><%=h ytwg_eventlog.time_occured.to_formatted_s(:db) %></td>
+  <td><%=h ytwg_eventlog.username %></td>
+  <td><%=h ytwg_eventlog.description %></td>
+   <td><%=h ytwg_eventlog.ip %></td>
+    <td><%=h ytwg_eventlog.url %></td>
+  </tr>
+<% end %>
+</table>

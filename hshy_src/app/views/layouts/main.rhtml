@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title><%=YtwgSystem.find(:all, :limit=>1)[0].title||'滕王阁OA办公系统'%></title>
+<%= stylesheet_link_tag "scaffold" %>
+<%= stylesheet_link_tag "openbravo/#{@user.style||'Blue'}/Main/Main_Manual" %>
+<%= stylesheet_link_tag "lmx_#{@user.style || 'Blue'}" %>
+<%= stylesheet_link_tag "xtree" %>
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag 'effects' %>
+<%= javascript_include_tag 'dragdrop' %>
+<%= javascript_include_tag 'xtree' %>
+<%= javascript_include_tag 'xloadtree' %>
+<%= javascript_include_tag 'xmlextras' %>
+<%= javascript_include_tag 'application' %>
+
+</head>
+<script>
+var treeState='on';
+function closeTree()
+{
+	treebody.style.display="none";
+	//Effect.Fade('treebody');
+	closePic.style.display="none";
+	openPic.style.display="block";
+	treeState = "off";
+}
+function openTree()
+{
+	treebody.style.display="block";
+	//Effect.Appear('treebody');
+	closePic.style.display="block";
+	openPic.style.display="none";
+	//document.all("leftmenu").width=180;
+	//document.all("mainzb").width=790;
+	//mainzb.zbTitle.openTree.style.display="none";
+	treeState = "on";
+}
+
+function tr_mouseover(row)
+  {
+    row.old_color = row.style.backgroundColor;
+    row.style.backgroundColor = "#FFFDD7";
+  }
+  
+  function tr_mouseout(row)
+  {
+    row.style.backgroundColor = row.old_color;
+  }
+  
+  function tr_click(row)
+  {
+    var parent = row.parentNode;
+    if (parent.tagName == "TBODY")
+        parent = parent.parentNode;
+          
+    var child = parent.childNodes[0];
+    if (child.tagName == undefined)
+    {
+        child = parent.childNodes[1];
+    }
+        
+    $A(child.childNodes).each(function(node){
+        if (node.className == "TrSelected")
+        {
+            node.className = node.old_class;
+        }
+      });
+    row.old_class = row.className;
+    row.className = "TrSelected"; 
+    parent.data_id = row.id;
+  }
+</script>
+
+<body style="height:100%">
+    <%=render :partial=>'/share/top'%>
+    <table id="mainframe" style="padding:0pt 0pt 0pt 0pt;height:84%" width='100%'>
+    <tr height="100%">
+        <td id='treebody' width="15%" valign='top' height=100%>
+            <div id='unittree' height=100% class='clsTreeDiv'>
+            <SCRIPT type=text/javascript>
+                <% for root in @roots %>
+                    <%src = "/ytwg_function/getchildnode_action/#{root.id}"%>
+                    <%src = "" if root.children.size == 0%>
+                    <%action = "#{root.controller_name}"%>
+                    <%action = "" if !root.controller_name || root.controller_name==''%>
+                    var tree<%=root.id%> = new WebFXLoadTree('<%=root.text%>', '<%=src%>', '<%=action%>');     
+                    tree<%=root.id%>.icon = "/img/icon_9.png";
+                    tree<%=root.id%>.openIcon = "/img/icon_9.png"; 
+                    tree<%=root.id%>.setBehavior('classic');
+                    tree<%=root.id%>.target = 'content';
+                    document.write(tree<%=root.id%>);
+                <% end%>
+            </script>
+            </div>
+        </td>
+        <td class="Main_LeftTabsBar_bg_body" valign=middle align=center width=4 height=100% rowspan=2 >
+            <div id=openPic style="display:none"><a href="javaScript:openTree()"><img src="/img/jiantou2.jpg" width=6 height=23 border=0></a></div>
+            <div id=closePic><a href="javaScript:closeTree()"><img src="/img/jiantou1.jpg" width=6 height=23 border=0></a></div>
+             </td>
+        <td valign='top' height=100%>
+         <iframe SCROLLING=yes height="100%" width="100%" frameborder="0"  id="content" name="content" ></iframe>
+        </td>
+        <script>
+            content.location = '/main/welcome';
+        </script>
+    </tr>
+  </table> 
+    
+  <%=render :partial=>'/share/foot'%>
+    <div id=tick height=0></div>
+</body>
+  <%=periodically_call_remote :frequency=>10, :update=>"tick", :url=>{:controller=>"main", :action=>"tick", :id=>session[:user].id} %>
+</html>

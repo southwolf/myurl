@@ -1,0 +1,20 @@
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=50%>
+  <tr class="exebar">
+    <th>合同类型</th>
+  </tr>
+  
+<% for dic_contract in @dic_contracts %>
+  <tr>
+  <% for column in DicContract.content_columns %>
+    <td><%=h dic_contract.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to '修改', :action => 'edit', :id => dic_contract %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => dic_contract }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate  @dic_contracts %>
+<br />
+
+<%= link_to '添加', :action => 'new' %>

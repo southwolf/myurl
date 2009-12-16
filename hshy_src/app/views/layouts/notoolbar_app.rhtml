@@ -1,0 +1,142 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title><%=YtwgSystem.find(:all, :limit=>1)[0].title||'诚嘉永欣OA办公系统'%></title>
+<%= stylesheet_link_tag "scaffold" %>
+<%= stylesheet_link_tag "openbravo/#{session[:user].style||'Blue'}/Main/Main_Manual" %>
+<%= stylesheet_link_tag "lmx_#{session[:user].style || 'Blue'}" %>
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag 'effects' %>
+<%= javascript_include_tag 'fckeditor' %>
+<%= javascript_include_tag 'xtree' %>
+<%= javascript_include_tag 'xloadtree' %>
+<%= javascript_include_tag 'xmlextras' %>
+<%= javascript_include_tag 'application' %>
+</head>
+
+  <script language="javascript">
+    function setNotice(notice)
+    {
+        window.parent.setNotice(notice);
+    }
+    function setError(notice)
+    {
+        window.parent.setError(notice);
+    }
+  </script>  
+
+<%if @style%>
+<%= javascript_include_tag 'time1' %>
+<%= javascript_include_tag 'webtable' %>
+ <%=  EncodeUtil.change("GB2312", "UTF-8", @style) %>
+<script >
+
+  var oCalendarEn=new PopupCalendar("oCalendarEn");
+  oCalendarEn.Init();
+
+
+  var oCalendarChs=new PopupCalendar("oCalendarChs");
+  oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+  oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+  oCalendarChs.oBtnTodayTitle="今天";
+  oCalendarChs.oBtnCancelTitle="取消";
+  oCalendarChs.Init();
+</script>
+<% end %>
+
+<script>
+<% if flash[:notice] %>
+      window.parent.setNotice('<%=@flash[:notice]%>');
+      <%flash[:notice] = nil%>
+<% end %>
+<% if flash[:error] %>
+      window.parent.setError('<%=@flash[:error]%>');
+      <%flash[:error] = nil%>
+<% end %>
+</script>
+
+<script language = "javascript">
+  function tr_mouseover(row)
+  {
+    row.old_color = row.style.backgroundColor;
+    row.style.backgroundColor = "#FFFDD7";
+  }
+  
+  function tr_mouseout(row)
+  {
+      row.style.backgroundColor = row.old_color;
+  }
+  
+  function tr_click(row)
+  {
+    var parent = row.parentNode;
+    if (parent.tagName == "TBODY")
+        parent = parent.parentNode;
+          
+    var child = parent.childNodes[0];
+    if (child.tagName == undefined)
+    {
+        child = parent.childNodes[1];
+    }
+        
+    $A(child.childNodes).each(function(node){
+        if (node.className == "TrSelected")
+        {
+            node.className = node.old_class;
+        }
+      });
+    row.old_class = row.className;
+    row.className = "TrSelected"; 
+    parent.data_id = row.id;
+  }
+  
+  function geturl(path, element_id, refresh)
+  {
+    var result = path;
+    var data_id = $(element_id).data_id;
+    if (data_id == undefined)
+    {
+        alert("请选择一行记录");
+        return;
+    }
+    result += data_id;
+    if (refresh)
+       document.location = result;
+    return result;
+  }
+  
+  function close_round(obj)
+  {
+      var div = obj.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.nextSibling.children[2].children[0];
+      if (div.style.display == "none")
+      {
+         div.style.display = "block";
+         obj.children[0].src = "/img/i_jt1.gif";
+      }  
+      else
+      {
+        div.style.display = "none";        
+        obj.children[0].src = "/img/i_jt2.gif";
+      }
+        
+  }
+  
+  var noAppearEffect = false;
+</script>
+<body style="height:98%">   
+
+  <table  width="100%" height="100%">
+    <tr height=100%>
+    <td id='update'  width="100%" valign='top' height=100% style="display:none">
+       <!-- 
+        <div id='update' style="display:none" height=100%>
+        -->
+        <%= @content_for_layout  %>
+        <script>
+            Effect.Appear('update');
+        </script>
+    </td>
+    </tr>
+  </table>    
+</body>
+</html>

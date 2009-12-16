@@ -1,0 +1,18 @@
+<%= stylesheet_link_tag 'default' %> 
+<%= javascript_include_tag 'window'%>
+
+<% for vote in @votes %>
+ <% form_tag :action => 'vote', :id => vote do %>
+  <%= vote.name %><br/>
+        <% for option in vote.voteoptions %>
+            <%if vote.multi==1%>
+                <%=check_box_tag "vote#{vote.id}[]", option.id %><%=option.name%></br>
+            <% else %>
+                <%=radio_button_tag "vote#{vote.id}[]", option.id %><%=option.name%></br>
+            <% end %>
+         <% end %>
+     <%=submit_tag '提交' if !session[:user].vote_ids.include?(vote.id)%>
+
+<%= link_to_prototype_window "查看", "vote#{vote.id}", :top=>100, :left=>100, :height=>200, :width=>300, :title=>'投票结果', :url=>"/vote/show/#{vote.id}" %>
+  <% end %>
+<% end %>

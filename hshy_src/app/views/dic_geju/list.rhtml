@@ -1,0 +1,23 @@
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=50%>
+  <tr class="exebar">
+    <th>房屋格局</th>
+  </tr>
+  
+<% index = 1 %>  
+<% for dic_geju in @dic_gejus %>
+  <%=ColorRow(index, dic_geju.id)%>
+  <% for column in DicGeju.content_columns %>
+    <td><%=h dic_geju.send(column.name) %></td>
+  <% end %>
+  </tr>
+  <% index += 1 %>
+<% end %>
+</table>
+
+<%= will_paginate @dic_gejus %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/dic_geju/new"); 
+  add_sep();
+  add_dynamic_delete_button("/dic_geju/destroy/");  
+</script>

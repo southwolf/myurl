@@ -1,0 +1,222 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title><%=YtwgSystem.find(:all, :limit=>1)[0].title||'诚嘉永欣OA办公系统'%></title>
+    <%= stylesheet_link_tag "scaffold" %>
+    <%= stylesheet_link_tag "openbravo/#{session[:user].style||'Blue'}/Main/Main_Manual" %>
+    <%= stylesheet_link_tag "lmx_#{session[:user].style || 'Blue'}" %>
+    <%= javascript_include_tag 'prototype' %>
+    <%= javascript_include_tag 'effects' %>
+    <%= javascript_include_tag 'fckeditor' %>
+    <%= javascript_include_tag 'xtree' %>
+    <%= javascript_include_tag 'xloadtree' %>
+    <%= javascript_include_tag 'xmlextras' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+ 
+  
+  <%if @style%>
+    <%= javascript_include_tag 'time1' %>
+    <%= javascript_include_tag 'webtable' %>
+    <%=  EncodeUtil.change("GB2312", "UTF-8", @style) %>
+    <script >
+        var oCalendarEn=new PopupCalendar("oCalendarEn");
+        oCalendarEn.Init();
+        var oCalendarChs=new PopupCalendar("oCalendarChs");
+        oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+        oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+        oCalendarChs.oBtnTodayTitle="今天";
+        oCalendarChs.oBtnCancelTitle="取消";
+        oCalendarChs.Init();
+    </script>
+  <% end %>
+
+  <script language="javascript">
+    function setNotice(notice)
+    {
+        window.parent.setNotice(notice);
+    }
+    function setError(notice)
+    {
+        window.parent.setError(notice);
+    }
+  </script>  
+  
+  <script>
+<% if flash[:notice] %>
+      window.parent.setNotice('<%=@flash[:notice]%>');
+  <%flash[:notice] = nil%>
+<% end %>
+<% if flash[:error] %>
+      window.parent.setError('<%=@flash[:error]%>');
+  <%flash[:error] = nil%>
+<% end %>
+  </script>
+  
+  <script language = "javascript">
+      function tr_mouseover(row)
+      {
+          row.old_color = row.style.backgroundColor;
+          row.style.backgroundColor = "#FFFDD7";
+      }
+  
+      function tr_mouseout(row)
+      {
+          row.style.backgroundColor = row.old_color;
+      }
+  
+      function tr_click(row)
+      {
+          var parent = row.parentNode;
+          if (parent.tagName == "TBODY")
+              parent = parent.parentNode;
+          
+          var child = parent.childNodes[0];
+          if (child.tagName == undefined)
+          {
+              child = parent.childNodes[1];
+          }
+        
+          $A(child.childNodes).each(function(node){
+              if (node.className == "TrSelected")
+              {
+                  node.className = node.old_class;
+              }
+          });
+          row.old_class = row.className;
+          row.className = "TrSelected"; 
+          parent.data_id = row.id;
+      }
+  
+      function geturl(path, element_id, refresh)
+      {
+          var result = path;
+          var data_id = $(element_id).data_id;
+          if (data_id == undefined)
+          {
+              alert("请选择一行记录");
+              return;
+          }
+          result += data_id;
+          if (refresh)
+              document.location = result;
+          return result;
+      }
+  
+      function close_round(obj)
+      {
+          var div = obj.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.nextSibling.children[2].children[0];
+          if (div.style.display == "none")
+          {
+              div.style.display = "block";
+              obj.children[0].src = "/img/i_jt1.gif";
+          }  
+          else
+          {
+              div.style.display = "none";        
+              obj.children[0].src = "/img/i_jt2.gif";
+          }
+    }
+    
+    function add_tab_button(img, tip, link)
+    {
+        $('separator').insert({before:'<td width=2%><a href="'+link + '" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="'+img+'" title="'+tip+'" border="0" ></a></td>'});
+    }
+    
+    function add_sep()
+    {
+        $('separator').insert({before:'<td class="Main_ToolBar_Separator_cell"><IMG src="/img/blank.gif" class="Main_ToolBar_Separator"></td>'});
+    }
+    
+    function add_submit(tip, img)
+    {
+        img = img || "/img/iconSave.png";
+        $('separator').insert({before:'<td width=2%><a href="javascript:document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="'+img+'" title="'+tip+'" border="0" ></a></td>'});
+    }
+    
+    function add_delete_button(link)
+    {
+        onclikstr = "if (confirm('您确定删除本记录吗?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit(); };return false;";
+        $('separator').insert({before:'<td width=2%><a href="'+link+'" class="Main_ToolBar_Button" onclick="'+onclikstr+'"><img class="Main_ToolBar_Button_Icon" src="/img/iconErase.png" title="删除" border="0" ></a></td>'});
+    }
+    
+    function add_dynamic_delete_button(link, element_id, tip)
+    {
+        element_id = element_id || "table";
+        link = "geturl('"+ link + "', '" + element_id + "', false)";
+        
+        onclikstr = "if (confirm('您确定删除本记录吗?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; if("+link+"){ f.action = "+link+"; f.submit(); }};return false;";
+        //link = "javascript:"+link;
+        link = "#";
+        tip = tip || "删除"
+        $('separator').insert({before:'<td width=2%><a href="'+link+'" class="Main_ToolBar_Button" onclick="'+onclikstr+'"><img class="Main_ToolBar_Button_Icon" src="/img/iconErase.png" title="'+tip+'" border="0" ></a></td>'});
+    }
+    
+    function add_dynamic_button(img, tip, link, element_id)
+    {
+        element_id = element_id || "table";
+        link = "javascript:geturl('"+ link + "', '" + element_id + "', true);";
+        $('separator').insert({before:'<td width=2%><a href="'+link + '" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="'+img+'" title="'+tip+'" border="0" ></a></td>'});
+    }
+    
+      var noAppearEffect = false;
+      
+  </script>
+  <body style="height:100%">   
+    
+<table style="width:100%;height:100%">
+      <tr style="width:100%;height:100%">
+        <td id='update'  valign='top' style="display:none;width:100%;height:100%">
+          <table style="width:100%;height:100%">
+            <tr>
+              <TD valign="top" height=50%>
+                <TABLE width="100%" border="0" cellspacing="0" cellpadding="0" class="Main_ContentPane_Left">
+                  <TR><TD class="Main_ToolBar_bg_left" valign="top"></TD></TR>
+                  <TR><TD class="Main_Client_bg_left"></TD></TR>
+                  <TR><TD class="Main_Bottom_bg_left"></TD></TR>
+                </TABLE>
+              </TD>
+              <td valign=top style="width:100%;height:99%">
+                
+                <DIV class="Main_ContentPane_ToolBar" id="paramToolBar">
+                  <table class="Main_ContentPane_ToolBar Main_ToolBar_bg" id="tdToolBar">
+                    <tr>    
+                      <td class="Main_ToolBar_Separator_cell" id="separator"><IMG src="/img/blank.gif" class="Main_ToolBar_Separator"></td>
+                      <td class="Main_ToolBar_Space"></td>
+                      </tr>
+                  </table>
+                </DIV>
+                
+                <DIV style="height:93%;width:100%;overflow:auto" id="client">
+                  
+                  <%= @content_for_layout  %>
+                  
+                </DIV>
+              </td>
+              <td>
+                <TABLE width="100%" border="0" cellspacing="0" cellpadding="0" class="Main_ContentPane_Right" id="tdrightSeparator">
+                  <TR><TD class="Main_ToolBar_bg_right" valign="top"></TD></TR>
+                  <TR><TD class="Main_Client_bg_right"></TD></TR>
+                  <TR><TD class="Main_Bottom_bg_right"></TD></TR>
+                </TABLE>  
+              </td>
+            </tr>
+            <tr height=2  class="Main_ContentPane_Left"><td colspan=4 align=center></td></tr>
+          </table>
+          
+          
+          <script>
+             var version = parseFloat(navigator.appVersion.split("MSIE")[1]);
+             if (version == 6.0) {
+                 var  elements = $$(".Main_ToolBar_bg") ;
+                 for(var i=0; i<elements.length; i++){
+                      elements[i].className = "Main_ToolBar_bg_ie6";
+                  }
+             }
+              Effect.Appear('update');
+          </script>
+        </td>
+      </tr>
+    </table>  
+  </body>
+</html>

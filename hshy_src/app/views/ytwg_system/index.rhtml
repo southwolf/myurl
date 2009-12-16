@@ -1,0 +1,35 @@
+
+<% form_tag({:action => 'update'}, {:multipart => true}) do %>
+<table width=60%>
+  <tr>
+    <td>OA系统标题</td>
+    <td><%= text_field "config", 'title', :size=>40, :class=>"required"%></td>
+  </tr> 
+  <tr>
+    <td>Logo图片</td>
+    <td><%= file_field "config", "logo", :size=>40,  :class=>"required"%><%=image_button "删除LOGO", "/ytwg_system/delete"%></td>
+  </tr>
+  <tr>
+    <td>登陆次数</td>
+    <td><%= text_field "config", 'visitedtimes', :size=>40, :class=>"required"%></td>
+  </tr> 
+  <tr>
+    <td>语音聊天网址</td>
+    <td><%= text_field "config", 'voicechaturl', :size=>40, :class=>"required"%></td>
+  </tr> 
+  
+</table>
+
+<% end %>
+
+<br>
+
+<% form_tag({:action => 'reboot'}) do %>
+<%= submit_tag "重启OA" %>
+<% end %>
+
+<%= image_button "清空临时文件", "/ytwg_system/clear_session" %>
+
+<script>
+  add_submit("保存");
+</script>

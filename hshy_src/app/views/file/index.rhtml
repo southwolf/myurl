@@ -1,0 +1,33 @@
+<%=@current_dir%>
+<table border="1" bordercolor="#999999" class="clsContentTable" width=80%>
+<tr class="clsTrHeader">
+  <th>文件名称</th>
+  <th colspan=3>操作</th>
+  </tr>
+<%index=0%>
+<%for item in @files.keys.sort%>
+    <% value = @files[item] %>
+    <%=ColorRow(index)%>
+      <% if File.ftype(value) == 'directory'%>
+          <td><%= link_to item, :action=>'index', :dir => item, :current_dir =>@current_dir %></td>
+      <%else%>
+          <td><%= item %></td>
+      <% end%>
+    
+      <td>
+      <% if File.ftype(value) == 'directory'%>
+          &nbsp
+      <% else%>
+          <%= link_to '编辑', :action=>'edit', :name=>item, :current_dir=>@current_dir%>
+      <% end%>
+      </td>
+      <% if File.ftype(value) == 'directory'%>
+          <td>&nbsp</td>
+      <% else%>
+          <td><%= link_to '删除', :action=>'delete', :name=>item, :current_dir=>@current_dir%></td>
+      <% end%>
+      <%index+= 1%>
+    </tr>
+<%end%>
+
+</table>

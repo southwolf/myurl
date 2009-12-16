@@ -1,0 +1,507 @@
+<style>
+*{font-size:12px}
+/*样式class*/
+.dragTable{
+font-size:12px;
+border-top:1px solid #3366cc;
+margin-bottom: 10px;
+width:100%;
+background-color:#FFFFFF;
+}
+.dragTR{
+cursor:move;/*控制当鼠标移动到该行上时显示的样式*/
+color:#7787cc;
+background-color:#e5eef9;
+font-size:16px;
+font-family:"宋体";
+font-weight:bold;
+letter-spacing:1px;
+}
+/*利用tagName定义样式*/
+td{vertical-align:top;}
+/*#表示对id=parentTable元素的样式定义*/
+#parentTable{
+border-collapse:collapse;
+letter-spacing:25px;
+}
+</style>
+
+<script language ="javascript" type="text/javascript">
+//----设置Cookie------
+
+function setCookie(name,value,domain)
+
+{
+
+var value = escape(value);
+
+var nameString = "Drag_"+name + "=" + value; //给cookie变量增加前缀
+
+var extime = new Date(); 
+
+extime.setTime (extime.getTime () + 315360000);
+
+var expiryString = ";expires=" + extime.toGMTString();
+
+var domainString = "";
+
+var pathString = ";path=/"; 
+
+var setvalue = nameString + expiryString;
+
+document.cookie = setvalue;
+}
+
+//----设置Cookie 结束------
+
+//---读取Cookie-------
+
+function getcookie (name) 
+{
+var CookieFound = false;
+var start = 0;
+var end = 0;
+var CookieString = document.cookie;
+
+var i = 0;
+name="Drag_"+name; //增加前缀
+while (i <= CookieString.length) 
+{
+start = i ;
+end = start + name.length;
+if (CookieString.substring(start, end) == name)
+{
+CookieFound = true;
+break; 
+}
+i++;
+}
+
+if (CookieFound)
+{
+start = end + 1;
+end = CookieString.indexOf(";",start);
+if (end < start)
+end = CookieString.length;
+var getvalue = CookieString.substring(start, end);
+return unescape(getvalue);
+}
+return "";
+}
+
+//---读取Cookie 结束-------
+
+//检测是否禁用了cookie
+function isEnableCookie() { 
+try {
+var cookie_helper = new CookieHelper("");
+var test_cookie_name = "test_cookie_name";
+var test_cookie_value = "test_cookie_value";
+var test_cookie_value_ret = "";
+
+cookie_helper.writeCookie(test_cookie_name,test_cookie_value);
+test_cookie_value_ret = cookie_helper.getCookieValue(test_cookie_name); 
+
+if ( test_cookie_value_ret != null ) {
+cookie_helper.removeCookie(test_cookie_name);
+return true;
+} else { 
+return false;
+} 
+} catch (error) { 
+return false;
+}
+} 
+
+
+</script>
+
+<%= stylesheet_link_tag 'default' %> 
+<%= javascript_include_tag 'window'%>
+    
+
+<!--
+<table border="0" cellpadding="0" cellspacing="10" width="100%" height="100%" id="parentTable">
+  <tr >
+    <td width="30%" valign="top">
+      <table id ="st1" border=1 class="dragTable" cellspacing="0">
+        <tr><td>投票</td></tr>
+        <tr><td id="div1">
+      
+        
+        </td></tr>
+      </table>
+
+     <table style="display:none" class="dragTable"><tr><td></td></tr></table>
+      <table id="st2" border=1 class="dragTable" cellspacing="0">
+        <tr><td>天气</td></tr>
+        <tr><td id="div2">
+          <IFRAME ID=''ifm2'' WIDTH=''240'' HEIGHT=''160'' ALIGN=''CENTER'' MARGINWIDTH=''0'' MARGINHEIGHT=''0'' HSPACE=''0'' VSPACE=''0'' FRAMEBORDER=''0'' SCROLLING=''NO'' src="http://news.sina.com.cn/iframe/weather/jump4weather.html"></IFRAME>
+        </td></tr>
+      </table>
+    </td>
+    <td width=30%>
+      <table id="st3" border=1 class="dragTable" cellspacing="0">
+        <tr><td>待处理流程</td></tr>
+        <tr><td id="div3">
+          
+          
+          
+        </td></tr>
+      </table>
+<table style="display:none" class="dragTable"><tr><td></td></tr></table>
+      <table id="st5" border=1 class="dragTable" cellspacing="0">
+        <tr><td>通知</td></tr>
+        <tr><td id="div4" ></td></tr>
+      </table>
+    </td>
+    <td>
+      <table id="st6" border=1 class="dragTable" cellspacing="0">
+        <tr><td>通知</td></tr>
+        <tr><td id="div6" ></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+-->
+
+<table border="0" cellpadding="0" cellspacing="10" width="798" height=500 id="parentTable">
+  <tr >
+    <td width="266" valign="top">
+      <table id ="st1" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div1</td></tr>
+        <tr><td id="div1">asdfasdfasdf</td></tr>
+      </table>
+      <table style="display:none" class="dragTable"><tr><td></td></tr></table>
+      <table id="st2" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div2</td></tr>
+        <tr><td id="div2"></td></tr>
+      </table>
+          
+    </td>
+    <td width="266">
+      <table id="st3" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div3</td></tr>
+        <tr><td id="div3"></td></tr>
+      </table>
+      <table style="display:none" class="dragTable"><tr><td></td></tr></table>
+      <table id="st4" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div4</td></tr>
+        <tr><td id="div4" ></td></tr>
+      </table>
+          
+    </td>
+    <td width="266">
+      <table id="st5" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div5</td></tr>
+        <tr><td id="div5"></td></tr>
+      </table>
+      <table style="display:none" class="dragTable"><tr><td></td></tr></table>
+      <table id="st6" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div6</td></tr>
+        <tr align=center>
+          <td id="div6">
+            <table cellSpacing=0 cellPadding=0 border=0 >
+              <tr>
+                <td align=center>
+                    
+                </td>
+              </tr>
+            </table>
+        </td></tr>
+      </table>
+      <table style="display:none" class="dragTable" ID="Table1"><tr><td></td></tr></table>
+      <table id="st7" border=1 class="dragTable" cellspacing="0">
+        <tr><td>div7</td></tr>
+        <tr><td id="div7">
+            <table cellSpacing=0 cellPadding=0 width=260 border=0 ID="Table2">
+              <tr>
+                <td align="center">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+
+
+<table width=100%>
+  <tr>
+    <td>
+<% if @vote %>
+    <% form_tag :controller=>"vote", :action => 'vote', :id => @vote do %>
+    <%= @vote.name %><br/>
+        <% for option in @vote.voteoptions %>
+            <%=check_box_tag "vote#{@vote.id}[]", option.id %><%=option.name%></br>
+         <% end %>
+     <%=submit_tag '提交' if !session[:user].vote_ids.include?(@vote.id)%>
+    <%= link_to_prototype_window "查看", "vote#{@vote.id}", :top=>100, :left=>100, :height=>200, :width=>300, :title=>'投票结果', :url=>"/vote/show/#{@vote.id}" %>
+  <% end %>
+  <% end %>
+</td>
+<td align='right'>
+
+<IFRAME ID=''ifm2'' WIDTH=''240'' HEIGHT=''160'' ALIGN=''CENTER'' MARGINWIDTH=''0'' MARGINHEIGHT=''0'' HSPACE=''0'' VSPACE=''0'' FRAMEBORDER=''0'' SCROLLING=''NO'' src="http://news.sina.com.cn/iframe/weather/jump4weather.html"></IFRAME>
+</td>
+</tr>
+</table>
+
+
+<table width=100%>
+  <tr>
+    <td valign=top width=50%>
+      <% round_table "98%", "新闻" do%>
+         <table border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+  <% for column in %w(标题 发布时间 发布人) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% index = 0%>
+<% for ytwg_news in @news %>
+  <%=ColorRow(index)%>
+
+    <td><%=link_to ytwg_news.title, :controller=>"ytwg_news", :action => 'show', :id => ytwg_news %></td>
+    <td><%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%></td>  	
+    <td><%=YtwgUser.find(ytwg_news.user_id).truename rescue nil%></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+      <% end %>    
+      
+    <td valign=top width=50%>
+
+<% round_table "98%", "通知" do%>
+            <table border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+  <% for column in %w(标题 发布时间 发布人) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% index = 0%>
+<% for ytwg_news in @notice %>
+  <%=ColorRow(index)%>
+
+    <td><%=link_to ytwg_news.title, :controller=>"notice", :action => 'show', :id => ytwg_news %></td>
+    <td><%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%></td>  
+    <td><%=YtwgUser.find(ytwg_news.user_id).truename rescue nil%></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+       <% end %>                    
+    </td>
+  </tr>
+  <tr>
+    <td valign=top width=50%>
+      
+    <div id="show_email"><img src="/img/indicator.gif"/></div>
+        <script>
+          new Ajax.Updater('show_email', '/email/list_recent', {asynchronous:true, evalScripts:true}); 
+        </script>
+    </td>
+    </td>
+    <td valign=top width=50%>
+      <% round_table "99%", "待办流程" do%>
+        <div id="show_waiting_form"><img src="/img/indicator.gif"/></div>
+        <script>
+          new Ajax.Updater('show_waiting_form', '/ytwg_workflow/show_waiting_form_all', {asynchronous:true, evalScripts:true}); 
+        </script>
+      <% end %>      
+    </td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+<script language="javascript" defer>
+    <!--
+    /*
+实现拖拽的代码
+     */ 
+    var draged=false;
+    tdiv=null;
+    function dragStart(){
+        ao=event.srcElement; //设置或获取触发事件的对象,这里是可以移动的table对象的TD对象
+        if((ao.tagName=="TD")||(ao.tagName=="TR"))
+            ao=ao.offsetParent;//获取定义对象offsetTop和offsetLeft属性的容器对象的引用,这里是获取的被移动的table对象。
+        else 
+            return;
+        draged=true;
+        tdiv=document.createElement("div");
+        tdiv.innerHTML=ao.outerHTML;
+        tdiv.style.display="block";
+        tdiv.style.position="absolute";
+        tdiv.style.filter="alpha(opacity=70)";
+        tdiv.style.cursor="move";
+        tdiv.style.width=ao.offsetWidth;//被移动table对象的高度
+        tdiv.style.height=ao.offsetHeight;
+        tdiv.style.top=getInfo(ao).top;
+        tdiv.style.left=getInfo(ao).left;
+        document.body.appendChild(tdiv);
+        lastX=event.clientX;
+        lastY=event.clientY;
+        lastLeft=tdiv.style.left;
+        lastTop=tdiv.style.top;
+        try{
+            ao.dragDrop(); //初始化拖曳事件
+        }catch(e)
+        {}
+    }
+    function draging(){//重要:判断MOUSE的位置
+        if(!draged)return;
+        var tX=event.clientX;
+        var tY=event.clientY;
+        tdiv.style.left=parseInt(lastLeft)+tX-lastX;//
+        tdiv.style.top=parseInt(lastTop)+tY-lastY;
+        for(var i=0;i<parentTable.cells.length;i++){//for1
+            var parentCell=getInfo(parentTable.cells[i]);
+            if(tX>=parentCell.left&&tX<=parentCell.right&&tY>=parentCell.top&&tY<=parentCell.bottom)//判断鼠标的位置是否移动到父表的某个列中
+            {//if1
+                var subTables=parentTable.cells[i].getElementsByTagName("table");
+                if(subTables.length==0)//如果鼠标所在的列中没有没有子表，直接增加子对象（table）
+                {
+                    if(tX>=parentCell.left&&tX<=parentCell.right&&tY>=parentCell.top&&tY<=parentCell.bottom)
+                    {parentTable.cells[i].appendChild(ao);}
+                    break;
+                }
+                for(var j=0;j<subTables.length;j++)//列中存在子表的处理
+                {
+                    var subTable=getInfo(subTables[j]);
+                    if(tX>=subTable.left&&tX<=subTable.right&&tY>=subTable.top&&tY<=subTable.bottom)
+                    {
+                        parentTable.cells[i].insertBefore(ao,subTables[j]);
+                        break;
+                    }else{
+                        parentTable.cells[i].appendChild(ao);
+                    } 
+                }
+            }//if1
+        }//for1
+    }
+    function dragEnd(){
+        if(!draged)return;
+        draged=false;
+        //---save sub table position---
+        var pttyle="";
+        for(var i=0;i<parentTable.cells.length;i++){//for1
+            var subTables=parentTable.cells[i].getElementsByTagName("table");
+            
+            if(subTables.length==0)
+            {
+                pttyle+="|";
+                break;
+            }else{
+                for(var j=0;j<subTables.length;j++)//列中存在子表的处理
+                {
+                    if(subTables[j].className!="dragTable") continue; //这里仅仅对className==dragTable的表处理，排除组织页面中使用的table
+                    pttyle+=subTables[j].id+","+subTables[j].rows[0].cells[0].innerText+":";
+                }
+                pttyle+="|";
+            }
+        }//for1
+        setCookie("pttyle",pttyle,"");
+        //---save sub table position end---
+        mm=ff(150,15);//
+    }
+    function getInfo(o){//取得对象的绝对坐标
+        var to=new Object();
+        to.left=to.right=to.top=to.bottom=0;
+        var twidth=o.offsetWidth;
+        var theight=o.offsetHeight;
+        while(o!=document.body){
+            to.left+=o.offsetLeft;
+            to.top+=o.offsetTop;
+            o=o.offsetParent;
+        }
+        to.right=to.left+twidth;
+        to.bottom=to.top+theight;
+        return to;
+    }
+    function ff(aa,ab){//用于恢复位置，来自该死的GOOGLE网站；aa/ab其值越大恢复的速度越快
+        var ac=parseInt(getInfo(tdiv).left);
+        var ad=parseInt(getInfo(tdiv).top);
+        var ae=(ac-getInfo(ao).left)/ab;
+        var af=(ad-getInfo(ao).top)/ab;
+        return setInterval(function(){if(ab<1){
+                clearInterval(mm);
+                tdiv.removeNode(true);
+                ao=null;
+                return
+            }
+            ab--;
+            ac-=ae;
+            ad-=af;
+            tdiv.style.left=parseInt(ac)+"px";
+            tdiv.style.top=parseInt(ad)+"px"
+        }
+        ,aa/ab)
+    }
+    function inint(){//初始化
+        /*根据cookie组织父表*/
+        var pttyle=getcookie("pttyle");
+        
+        if (pttyle.length>0){
+            //*****获得父表中所有的子表对象***/
+            var ctCount=0; //计数器
+            var stObjects=new Array();//保存子表对象
+            
+            for(var i=0;i<parentTable.cells.length;i++){
+                var subTables=parentTable.cells[i].getElementsByTagName("table");//获得子表 
+                for(var j=0;j<subTables.length;j++){ 
+                    stObjects[ctCount]=subTables[j];
+                    ctCount++; 
+                    parentTable.cells[i].removeChild(subTables[j]); //删除列中的子表对象 
+                }
+            }
+            
+            //读取cookie中子表对象id 
+            var tempCells=pttyle.split("|");//因为格式为pttyle=stid,stt:stid,stt:|stid,stt:stid,stt:|
+            
+            //begin for2
+            for(var i=0; i<tempCells.length-1;i++)//拆成数组时存在一个多余的元素，故循环减去1 
+            {
+                var tempSTs=tempCells[i].split(":"); 
+                for (var j=0;j<tempSTs.length-1;j++)//遍历子表信息,
+                { 
+                    for(var n=0;n<stObjects.length;n++)//从子表对象数组中查询子表对象
+                    {
+                        if(tempSTs[j].indexOf(stObjects[n].id)!=-1)//id值存在
+                        {
+                            parentTable.cells[i].appendChild(stObjects[n]);break;
+                        } 
+                    }
+                }
+            }//end for2 
+        }//pttyle.length>0 End
+        
+        /*根据cookie组织父表结束*/
+        
+        /*设置拖拽的样式和事件*/
+        for(var i=0;i<parentTable.cells.length;i++){
+            var subTables=parentTable.cells[i].getElementsByTagName("table");//获得子表
+            for(var j=0;j<subTables.length;j++){
+                if(subTables[j].className!="dragTable") continue;
+                subTables[j].rows[0].className="dragTR";//给行添加表示可以移动的样式
+                subTables[j].rows[0].attachEvent("onmousedown",dragStart);//将指定函数绑定到事件，以便每当该事件在对象上触发时都调用该函数
+                subTables[j].attachEvent("ondrag",draging);//将draging函数邦定到进行拖曳操作时，在源对象上持续触发的事件。
+                subTables[j].attachEvent("ondragend",dragEnd);//ondragend事件：当用户在拖曳操作结束后释放鼠标时在源对象上触发。
+            }
+        } 
+        /*设置拖拽的样式和事件结束*/
+    }
+    inint();
+</script>

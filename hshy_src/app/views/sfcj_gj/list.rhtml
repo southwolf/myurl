@@ -1,0 +1,16 @@
+
+<table border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>跟进人</th>
+    <th>跟进时间</th>
+    <th>跟进内容</th>
+  </tr>
+  
+<% for sfcj_gj in @sfcj_gjs %>
+  <tr>
+    <td><%=h sfcj_gj.publisher %></td>
+    <td><%=h sfcj_gj.publish_time.strftime("%Y-%m-%d") %></td>
+    <td><%=h sfcj_gj.text %></td>
+  </tr>
+<% end %>
+</table>

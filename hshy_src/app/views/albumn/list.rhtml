@@ -1,0 +1,34 @@
+
+
+<table border="1" cellpadding="2" cellspacing="0" bordercolor="#666666" width=80%>
+  <tr class="exebar">
+    <th width=60%>名称</th>
+    <th>建立人</th>
+    <th>建立时间</th>
+    <th>操作</th>
+  </tr>
+ 
+<% index = 1 %> 
+<% for album in @albumns %>
+  <%= ColorRow(index)  %>
+  <% index += 1 %>
+    <td><%= link_to album.name, :controller=>"picture", :action=>"list", :id=>album %></td>
+    <td><%=h album.user.truename %></td>
+    <td><%=h album.made_time.to_formatted_s(:db) %></td>
+    <td><%= link_to image_tag("/img/iconErase.png",:border => 0), { :action => 'destroy', :id => album }, :confirm => 'Are you sure?', :method => :post if checkright("相册管理")%></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @albumns %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "新建相册", "/albumn/new");  
+  
+  <% if checkright('相册管理')%>
+    add_sep();
+    add_dynamic_delete_button("/albumn/destroy/");  
+  <% end %>
+</script>
+
+

@@ -1,0 +1,23 @@
+<%= error_messages_for 'product_batch' %>
+
+<!--[form:product_batch]-->
+
+<%= hidden_field 'product_batch', '_cata_id'  %>
+
+<p><label for="product_batch_name">编号</label>
+<%= text_field 'product_batch', 'name'  %></p>
+
+<p><label for="product_batch_num">数量</label>
+<%= text_field 'product_batch', 'num'  %></p>
+
+<p><label for="product_batch_factory">外协厂家</label>
+<%= text_field 'product_batch', 'factory'  %></p>
+
+<p><label for="product_batch_date">生产日期</label>
+<%= date_select 'product_batch', 'date', {:use_month_numbers => true}  %></p>
+
+<p><label for="product_batch_delaer">负责人</label>
+<%= text_field 'product_batch', 'dealer'  %></p>
+
+<!--[eoform:product_batch]-->
+

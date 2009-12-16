@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title><%=YtwgSystem.find(:all, :limit=>1)[0].title||'诚嘉永欣OA办公系统'%></title>
+<%= stylesheet_link_tag "scaffold" %>
+<%= stylesheet_link_tag "openbravo/#{session[:user].style||'Blue'}/Main/Main_Manual" %>
+<%= stylesheet_link_tag "lmx_#{session[:user].style || 'Blue'}" %>
+<%= stylesheet_link_tag "xtree" %>
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag 'effects' %>
+<%= javascript_include_tag 'dragdrop' %>
+<%= javascript_include_tag 'xtree' %>
+<%= javascript_include_tag 'application' %>
+
+</head>
+<script>
+var treeState='on';
+function closeTree()
+{
+	treebody.style.display="none";
+	closePic.style.display="none";
+	openPic.style.display="block";
+	treeState = "off";
+}
+function openTree()
+{
+	treebody.style.display="block";
+	closePic.style.display="block";
+	openPic.style.display="none";
+	treeState = "on";
+}
+</script>
+<body>
+    <%=render :partial=>'/share/top'%>
+    
+    <table  width="100%" height=79%>
+    <tr height="100%">
+    <td id='treebody' width="20%" valign='top' height=450px >
+       <div id='unittree' height=100% class='clsTreeDiv'>
+       <SCRIPT LANGUAGE="JavaScript">
+        var tree = new WebFXTree('管理功能');
+<!--         安全管理                   -->
+        var security = new WebFXTreeItem('安全管理')
+        tree.add(security);
+        
+        node = security.add(new WebFXTreeItem('组管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'Ytwg_Group', :action=>'list'%>";
+        
+        node = security.add(new WebFXTreeItem('用户管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'Ytwg_User', :action=>'list'%>";
+        
+        node = security.add(new WebFXTreeItem('权限管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'Ytwg_Right', :action=>'index'%>";
+        
+        node = security.add(new WebFXTreeItem('权限分配'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'Right', :action=>'index'%>";
+        
+<!--          数据管理                  -->       
+        var data = new WebFXTreeItem('数据库管理')
+        tree.add(data);
+        
+        node = data.add(new WebFXTreeItem('结构管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'migratemanager', :action=>'index'%>";
+        
+        node = data.add(new WebFXTreeItem('数据管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'datamanager', :action=>'index'%>";
+        
+        node = data.add(new WebFXTreeItem('数据备份'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_backup', :action=>'index'%>";
+        
+        node = data.add(new WebFXTreeItem('数据恢复'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_backup', :action=>'restore'%>";
+        
+<!--          代码管理                  -->             
+        var code = new WebFXTreeItem('代码管理')
+        tree.add(code);
+        
+        node = code.add(new WebFXTreeItem('执行后台命令'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'command', :action=>'index'%>";
+          
+        node = code.add(new WebFXTreeItem('代码文件管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'file', :action=>'index'%>";
+        
+<!--          模块管理                  --> 
+        var module = new WebFXTreeItem('功能管理')
+        tree.add(module);
+        
+        node = module.add(new WebFXTreeItem('功能节点管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_function', :action=>'index'%>";
+        
+        node = module.add(new WebFXTreeItem('模板管理'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_template', :action=>'index'%>";
+        
+        var workflow = new WebFXTreeItem('工作流管理')
+        tree.add(workflow);
+        
+        node = workflow.add(new WebFXTreeItem('流程定义'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_workflow', :action=>'index'%>";
+        
+        node = workflow.add(new WebFXTreeItem('状态界面'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_workflow', :action=>'listinterface'%>";        
+        
+        node = workflow.add(new WebFXTreeItem('我的单据'));
+        node.target = 'content';
+        node.action="<%= url_for :controller=>'ytwg_workflow', :action=>'myform'%>";        
+        
+        
+        document.write(tree);
+        tree.expandAll();
+        
+          </script>  
+        </div> 
+    </td>    
+    <td class="Main_LeftTabsBar_bg_body" valign=center align='center' width=4 height=100% rowspan=2>
+			<div id=openPic style="display:none"><a href="javaScript:openTree()"><img src="/img/jiantou2.jpg" width=6 height=23 border=0></a></div>
+			<div id=closePic><a href="javaScript:closeTree()"><img src="/img/jiantou1.jpg" width=6 height=23 border=0></a></div>
+	</td>
+    <td valign='top' height=100%>
+        <iframe SCROLLING=yes height="100%" width="100%" FRAMEBORDER="0" id="content" name="content"></iframe>
+    </td>
+    </tr>
+  </table>    
+  
+   <script>
+            content.location = '/admin/welcome';
+   </script>
+  
+  <%=render :partial=>'/share/foot'%>
+</body>
+</html>
+
+

@@ -1,0 +1,33 @@
+<%@title = session[:topic]["名称"] %>
+
+
+<% indexFlag = 1 %>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=70%>
+  <tr class="exebar">
+    <th>标题</th>
+    <th>发布时间</th>
+    <th>发布人</th>
+    <th colspan=2>操作</th>
+  </tr>
+  
+<% for news in @news %>
+  <%=ColorRow(indexFlag)%>
+  <% indexFlag += 1%>
+    <td><%= link_to news.send("标题"), :action=>"show", :id=>news%></td>
+    <td><%= news.send("发布时间").strftime("%Y-%m-%d %H:%M:%S")%></td>
+    <td><%= YtwgUser.find(news["发布人"])["truename"] %></td>
+    <% if session[:user].id == news['发布人'] %>
+      <td><%= link_to '编辑', :action => 'edit', :id => news %></td>
+    <% end %>
+    <% if checkright("讨论区管理") %>
+    <td><%= link_to '删除', { :action => 'destroy', :id => news }, :confirm => 'Are you sure?', :post => true %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @newws %>
+<br />
+
+<%= link_to '发帖', :action => 'new' %> |
+<%= link_to '返回', {:controller => 'topic', :action => 'index'} %>

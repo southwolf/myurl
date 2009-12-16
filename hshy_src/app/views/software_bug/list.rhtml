@@ -1,0 +1,48 @@
+<% require 'URI' %>
+
+<% $status = {1=>"新上报", 2=>"成功解决", 3=>"无法解决", 4=>"延迟解决"} %>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>发布时间</th>
+    <th>发布人</th>
+    <th>bug状态</th>
+    <th>问题描述</th>
+    <th>截图</th>
+    <th>解决人</th>
+    <th>解决方案描述</th>
+    <th colspan=3>操作</th>
+  </tr>
+
+<% index = 1 %>  
+<% for software_bug in @software_bugs %>
+  <%= ColorRow(index, software_bug.id) %>
+  <% index += 1 %>
+    <td><%=h software_bug.publish_time.to_formatted_s(:db) %></td>
+    <td><%=h software_bug.publisher %></td>
+    <td><%= $status[software_bug.status] %></td>
+    <td><%= software_bug.desc %></td>
+    <% @software_bug = software_bug %>
+    <td><%= link_to image_tag("/img/picture.gif",:border => 0), URI.escape(url_for_file_column("software_bug", "photo")) if software_bug.photo %></td>
+    <td><%= software_bug.finisher %> </td>
+     <td><%= software_bug.finish_text %> </td>
+    <% if software_bug.status != 2 %>
+        <td><%= link_to '解决', :action => 'finish', :id => software_bug %></td>
+    <% else %>
+        <td><%= link_to '查看', :action => 'show', :id => software_bug %></td>
+    <% end %>
+    <td><%= link_to '删除', { :action => 'destroy', :id => software_bug }, :confirm => 'Are you sure?', :method => :post if software_bug.publisher == session[:user].truename%></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @software_bugs %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/software_bug/new/<%=params[:id]%>");  
+  add_tab_button("/img/iconBack.png", "返回", "/software/list");  
+  
+  <% if checkright('Bug管理')%>
+    add_sep();
+    add_dynamic_delete_button("/software_bug/destroy/");  
+  <% end %>
+</script>

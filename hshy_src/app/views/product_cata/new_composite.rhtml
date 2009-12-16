@@ -1,0 +1,16 @@
+<h2>为<%= ProductCata.find(params[:id]).name %>添加原材料组件<br></h2><br>
+
+<% form_tag :action => 'create_composite',:id=>params[:id] do %>
+  <p>原材料名称:<%=select("composite", "sub_id", ProductCata.find_all.collect {|p| [ p.name, p.id ] })%></p>
+  <p>原材料个数:<%= text_field("composite", "num") %></p>
+  <p>可选装:
+    <%=radio_button("composite", "selectable", "1")%>选装
+    <%=radio_button("composite", "selectable", "0")%>必装
+  </p>
+  <p>描述<br><%= text_area("composite", "desc") %></p>
+<% end %>
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/product_cata/composite/<%=params[:id]%>");  
+</script>

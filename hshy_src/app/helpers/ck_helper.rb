@@ -1,0 +1,2 @@
+module CkHelper
+end

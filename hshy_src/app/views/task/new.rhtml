@@ -1,0 +1,9 @@
+
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+<% end %>
+
+<script>
+  add_submit("下发任务");
+  add_tab_button("/img/iconBack.png", "返回", "/task/list");  
+</script>

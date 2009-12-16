@@ -1,0 +1,32 @@
+<form   action="/ytwg_workflow/print/<%=params[:id]%>"   target="w"   method="post"   onsubmit="window.open('','w','')">
+
+    <table border="1" bordercolor="#999999" class="clsContentTable" width=100%>
+    <tr class="clsTrHeader">
+        <th>选择</th>
+        <th>标识</th>
+        <th>流程类型</th>
+        <th>流程发起人</th>
+        <th>现在状态</th>
+        <th>提交时间</th>
+        <th>上次处理时间</th>
+        <th>操作</th>
+    </tr>
+    <% index = 0%>
+    <% for form in @forms%>
+        <%index+=1%>
+        <%=ColorRow(index)%>
+            <td align="center"><input type="checkbox" name="forms[]" value="<%=form.id%>" </td>
+            <td><%=link_to form.id, :action=>'show_form', :flowid=>form.flowid, :formid=>form.id%></td>
+            <td><%=YtwgWorkflow.find(form.flowid).name rescue nil%></td>
+            <td><%=YtwgUser.find(form.userid).truename rescue nil%></td>
+            <td><%=form._state%></td>
+            <td><%=form._madetime.strftime("%Y-%m-%d %H:%M:%S")%></td>
+            <td><%=form._lastprocesstime.strftime("%Y-%m-%d %H:%M:%S")%></td>
+            <td><%=link_to "删除", :action=>"delete_a_form", :flow=>form.flowid, :id=>form.id if form._state != "结束"%></td>
+        </tr>
+    <% end%>
+    </table>
+
+<%= submit_tag '打印', :image=>"iconPrint.png" %>
+
+</form>

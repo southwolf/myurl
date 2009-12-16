@@ -1,0 +1,31 @@
+<%@title = '参与项目'%>
+
+<% indexFlag = 1 %>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999">
+  <tr bgcolor="#CECFCE">
+  <% for column in Unit.content_columns %>
+    <%next if ['最后修改时间'].include?(column.human_name)%>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for unit in @units %>
+  <%= if indexFlag % 2 == 0
+  			'<tr bgcolor = "#EFEBFE">'
+  	  else
+  	  	'<tr>'
+  	  end
+   %>
+   <% indexFlag=indexFlag+1 %>
+
+  <% for column in Unit.content_columns %>
+    <%next if ['最后修改时间'].include?(column.human_name)%>
+    <td><%= unit.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to '联系人', :controller=>"linkman", :action => 'index', :unit => unit %></td>
+    <td><%= link_to '删除联系', { :action => 'destroy_project_relation', :id => unit }, :confirm => '确定删除吗?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to '添加联系单位', :action=>'add_project_unit'%>|
+<%= link_to '返回', :controller=>'project', :action=>'index'%>

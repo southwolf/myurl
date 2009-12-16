@@ -1,0 +1,27 @@
+<h1>Listing product_attrs</h1>
+
+<table>
+  <tr>
+  <% for column in ProductAttr.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for product_attr in @product_attrs %>
+  <tr>
+  <% for column in ProductAttr.content_columns %>
+    <td><%=h product_attr.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => product_attr %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => product_attr %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => product_attr }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @product_attr_pages.current.previous } if @product_attr_pages.current.previous %>
+<%= link_to 'Next page', { :page => @product_attr_pages.current.next } if @product_attr_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New product_attr', :action => 'new' %>

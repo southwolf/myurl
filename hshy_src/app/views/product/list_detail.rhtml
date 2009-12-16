@@ -1,0 +1,68 @@
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>条码</th>
+    <th>状态</th>
+    <% for key in @cells.keys.sort %>
+      <th><%= @cells[key] %></th>
+    <% end %>
+    <th>备注</th>
+    <th>操作</th>
+  </tr>
+  
+  <% index = 1 %>
+<% for p in @products %>
+  <%= ColorRow(index, p.id) %>
+  <% index += 1 %>
+    <td><%= link_to p.barcode, :action=>"show_product", :id=>p.id %></td>
+    <td><%= $PRODUCT_STATUS[p._status] %></td>
+  <% for column in @cells.keys.sort %>
+     <% if p.send(column).class == Time%>
+        <td><%=h p.send(column).to_date %></td>
+     <% else %>
+        <td><%=h p.send(column) %></td>
+     <% end %>
+  <% end %>
+    <td><%=h p.desc %></td>
+    <% if p.cata.composite.size > 0 && (p._status == 0 || p._status == nil )%>
+      <td><%= link_to "拆装", :action=>"delete_comp", :id=>p %></td>
+    <% else %>
+         <td></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @products, :order=>params[:order] %>
+
+<script>
+add_tab_button("/img/iconBack.png", "返回", "/product/list");
+add_sep();
+  add_tab_button("/img/iconNew.png", "采购入库", "/product/new_batch/<%=params[:id]%>");  
+  add_sep();
+add_dynamic_button("/img/iconProject.png", "变动记录", "/product_log/list/");  
+    add_sep();
+  add_tab_button("/img/smile_grin_48.png", "出库", "/product_export/new/<%=params[:id]%>");    
+  add_sep();
+  add_tab_button("/img/smile_sad_48.png", "退货", "/product_reject/new/<%=params[:id]%>");    
+  add_sep();
+  add_dynamic_button("/img/thumbs_down_48.png", "报损", "/product/breakdown/");   
+  add_sep();
+  add_dynamic_button("/img/spanner_48.png", "维修", "/product/repair/");   
+</script>
+
+<script>
+function select(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>

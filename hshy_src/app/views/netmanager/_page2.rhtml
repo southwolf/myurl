@@ -1,0 +1,48 @@
+<% round_table("80%", "LAN") do %>
+  <div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td>IP:</td><td><%= text_field_tag "name", get_value(@text, "net.ipaddr") %></td>
+        <td>网关:</td><td><%= text_field_tag "name", get_value(@text, "net.gateway") %></td>
+      </tr>
+      <tr>
+        <td>掩码:</td><td><%= text_field_tag "name", get_value(@text, "net.netmask") %></td>
+        <td>DNS:</td><td><%= text_field_tag "name", get_value(@text, "net.dns") %></td>
+      </tr>
+      <tr>
+        <td><%=check_box_tag "name", 0%>DHCP</td>        
+      </tr>
+    </table>
+  </div> 
+<% end %>
+<br>
+<% round_table("80%", "PPPoE") do %>
+  <div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td>用户名:</td><td><%= text_field_tag "name", get_value(@text, "ppp.user") %></td>
+        <td>密码:</td><td><%= text_field_tag "name", get_value(@text, "ppp.pass") %></td>
+      </tr>
+      <tr>
+        <td>拨号方式:</td><td><select id="name"></select></td>
+        <td><input type="submit" value="拨号" /><input type="submit" value="断开" /></td>
+      </tr>
+    </table>
+  
+  </div>
+<% end %>
+<br>
+<% round_table("80%", "DDNS") do %>
+<div style="BACKGROUND-COLOR: white;">
+  <table width=100%>
+    <tr>
+     <td>域名:</td><td><%= text_field_tag "name", get_value(@text, "ddns.sp") %></td>
+     <td>主机:</td><td><%= text_field_tag "name", get_value(@text, "ddns.host") %></td>
+    </tr>
+    <tr>
+      <td>用户名:</td><td><%= text_field_tag "name",get_value(@text, "ddns.user") %></td>
+      <td>密码:</td><td><%= text_field_tag "name", get_value(@text, "ddns.pass") %></td>
+    </tr>
+  </table>
+</div>
+<% end %>

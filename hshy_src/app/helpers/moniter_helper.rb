@@ -1,0 +1,2 @@
+module MoniterHelper
+end

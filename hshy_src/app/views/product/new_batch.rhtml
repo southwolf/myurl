@@ -1,0 +1,18 @@
+<b><%= ProductCata.find(params[:id]).name %></b>&nbsp;采购入库
+
+<%= start_form_tag :action => 'create_batch', :id=>params[:id] %>
+  数量:<%= text_field_tag "num", "10"  %><br>
+公共属性：<br>
+<%= @html %>
+  <input onclick="javascript:return submit_webtable('table_<%=@tableid%>', this.form)" value="入库" type="submit" />
+  
+<%= end_form_tag %>
+
+<script>
+var t = new WebTable($('table_<%=@tableid%>'));
+</script>
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/product_cata/list");  
+</script>

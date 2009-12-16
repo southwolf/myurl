@@ -1,0 +1,37 @@
+<%=  image_button '新建', "/ytwg_workflow/write_form?flowid=#{params[:id]}" %>
+
+<div class="tab-pane" id="workflow">
+    <div class="tab-page" id="a1">
+        <h2 class="tab">我建立的流程</h2>
+        <div id="flow_ibuild">
+          <img src="/img/indicator.gif"/>
+        </div>
+    </div>
+    <div class="tab-page" id="a1">
+        <h2 class="tab">等待我处理的<%=@flow.name%></h2>
+        <div id="show_waiting_form"><img src="/img/indicator.gif"/></div>
+    </div>
+    <div class="tab-page" id="a3">
+        <h2 class="tab">我处理过的流程</h2>
+        <div id="show_history"><img src="/img/indicator.gif"/></div>
+    </div>
+    <div class="tab-page" id="a4">
+        <h2 class="tab">归档在我处的流程</h2>
+        <div id="show_finished_history"><img src="/img/indicator.gif"/></div>
+    </div>
+    <div class="tab-page" id="a5">
+        <h2 class="tab">等待我处理的所有流程</h2>
+        <div id="show_waiting_form_all"><img src="/img/indicator.gif"/></div>
+    </div>
+</div>
+
+<script>
+  setupAllTabs();
+  new Ajax.Updater('flow_ibuild', '/ytwg_workflow/flow_ibuild/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+  new Ajax.Updater('show_history', '/ytwg_workflow/show_history/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+  new Ajax.Updater('show_finished_history', '/ytwg_workflow/show_finished_history/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+  new Ajax.Updater('show_waiting_form', '/ytwg_workflow/show_waiting_form/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+  new Ajax.Updater('show_waiting_form_all', '/ytwg_workflow/show_waiting_form_all/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+</script>
+
+<a href="/ytwg_workflow/graph_vml/<%=params[:id]%>" target='_blank'>查看流程</a>

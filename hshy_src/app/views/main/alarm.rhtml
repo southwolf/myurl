@@ -1,0 +1,19 @@
+<% form_tag :action => 'send_alarm', :id => params[:socket] do %>
+ 
+  选择摄像头
+  <select id="cameraid" name="cameraid">
+    <% for info in @infos %>
+    <option value=<%=info.cameraid%>><%=Camera.find(info.cameraid).sourcename rescue nil%></option>
+    <% end %>
+  </select>
+  <br>
+  
+  输入报警信息
+  <%=text_area_tag "message", "", :rows=>10, :cols=>20 %>
+<br>
+
+
+
+
+  <%= submit_tag '发送' %>
+<% end %>

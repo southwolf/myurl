@@ -1,0 +1,234 @@
+<%=@style%>
+
+<%if !@print%>
+<script>
+function toggle( id, showName, hideName ) 
+{
+    if( showName == null 
+    	|| showName.length == 0 )
+    	showName = "显示";
+    
+    if( hideName == null 
+    	|| hideName.length == 0 )
+    	hideName = "隐藏";
+    	
+    var element = document.getElementById(id);
+    with (element.style) {
+        if ( display == "none" ){
+            display = ""
+        } else{
+            display = "none"
+        }
+    }
+    var text = document.getElementById(id + "-switch").firstChild;
+    if (text.nodeValue == showName) {
+        text.nodeValue = hideName;
+    } else {
+        text.nodeValue = showName;
+    }
+}
+	
+function placeErrorFlag(cellstr)
+{
+    var cells = cellstr.split(",");
+    var elements = document.getElementsByTagName('td');
+    for(var j=0; j<elements.length; j++)
+    {
+         if (elements[j].expression && elements[j].expression.length>0)
+         {
+            elements[j].style.backgroundColor = "white";
+            for(var i=0; i<cells.length; i++)
+            {
+                var cell = cells[i];
+                if (elements[j].expression.toLowerCase() == cell.toLowerCase() && cell.length>0)
+                {
+                   elements[j].style.backgroundColor = "red";
+                   break;
+                }
+            }
+         }
+     }
+}
+
+function placeWarnFlag(cellstr)
+{
+    var cells = cellstr.split(",");
+    var elements = document.getElementsByTagName('td');
+    for(var j=0; j<elements.length; j++)
+    {
+         if (elements[j].expression && elements[j].expression.length>0)
+         {
+            elements[j].style.backgroundColor = "white";
+            for(var i=0; i<cells.length; i++)
+            {
+                var cell = cells[i];
+                if (elements[j].expression == cell && cell.length>0)
+                {
+                   elements[j].style.backgroundColor = "pink";
+                   break;
+                }
+            }
+         }
+     }
+}
+</script>
+
+<table>
+    <tr>
+        <% if @double_mode &&  @edit_able%>
+          <td><%=link_to_remote '添加行', 
+                :update=>"tablecontent", 
+                :url=>{:action=>'add_float_row', :tablename=>params[:tablename], :id=>params[:id], :keyname=>params[:keyname], :function_id=>params[:function_id], :float_tablename=>params[:float_tablename], :float_keyname=>params[:float_keyname], :float_foreignkeyname=>params[:float_foreignkeyname], :foreign_key=>@record.id},
+                :complete =>"init_edit()" %></td>
+        <%end%>
+<!--
+        <td><%=link_to(image_tag("/img/calc.gif", :alt=>'运算', :border => 0, :align=>"absmiddle" ), :action=>'calc', :tablename=>params[:tablename], :id=>params[:id], :keyname=>params[:keyname], :function_id=>params[:function_id])%></td>
+        <td><%=link_to_remote(image_tag("/img/audit.gif", :alt=>'审核', :border => 0, :align=>"absmiddle" ), :update=>'auditresult', :url=>{:action=>'audit', :tablename=>params[:tablename], :id=>params[:id], :keyname=>params[:keyname], :function_id=>params[:function_id]},
+            :loading=>"Element.hide('auditresult');Element.show('indicator');",
+                :complete=>"Element.hide('indicator');Effect.Appear('auditresult');")%>&nbsp;&nbsp;</td>
+-->
+        <td><%=link_to(image_tag("/img/excel.png", :alt=>'导出到Excel', :border => 0, :align=>"absmiddle" ), :action=>'down_excel', :tablename=>params[:tablename], :id=>params[:id], :keyname=>params[:keyname], :function_id=>params[:function_id])%>&nbsp;&nbsp;</td>
+        <td><%=link_to(image_tag("/img/pdf.bmp", :alt=>'导出到PDF', :border => 0, :align=>"absmiddle" ), :action=>'down_pdf', :tablename=>params[:tablename], :id=>params[:id], :keyname=>params[:keyname], :function_id=>params[:function_id])%>&nbsp;&nbsp;</td>
+        <td><%=link_to(image_tag("/img/print.bmp", :alt=>'导出到PDF', :border => 0, :align=>"absmiddle" ), {:action=>'print_double_table', :tablename=>params[:tablename], :id=>params[:id], :keyname=>params[:keyname], :function_id=>params[:function_id]}, :target=>"_blank")%>&nbsp;&nbsp;</td>
+        <td><%=link_to_function(image_tag("/img/back.gif", :alt=>'返回', :border => 0, :align=>"absmiddle" ), "history.back()")%>&nbsp;&nbsp;</td>
+        <td>
+        <%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none;' %>
+        </td>
+    </tr>
+</table>
+<%end%>
+
+<div id='auditresult'></div>
+
+<% if @print%>
+    <div align='center'>
+<% end%>
+
+<div id='tablecontent'>
+<%=@html%>
+</div>
+
+
+<% if @print%>
+    </div>
+<% end%>
+
+<% if @edit_able%>
+<script>
+function cellBlur()
+{
+    input = window.event.srcElement;
+    var value = input.value;
+    element = input.parentElement;   
+    if (element.tagName == "DIV")
+        element = element.parentElement;
+
+    element.innerHTML = value;
+    element.onclick=element.oldclick;
+    element.oldclick="";    
+    
+    if (input.oldvalue != value)
+    {
+        var row = element.parentElement;
+        if (row.floattpl)
+        {
+            <% if @double_mode &&  @edit_able%>
+            new Ajax.Updater(element.expression+row.floatindex, encodeURI("/main/update_floatcell?value="+value+"&cell="+element.expression+"&floattpl="+row.floattpl+"&floatindex="+row.floatindex+"&float_foreignkeyname=<%=params[:float_foreignkeyname]%>&foreign_key=<%=@record.id%>&float_tablename=<%=params[:float_tablename]%>&float_keyname=<%=params[:float_keyname]%>"), 
+             {asynchronous:true, 
+              evalScripts:true,
+              onLoaded:function(request){Element.hide('indicator')}, 
+              onLoading:function(request){Element.show('indicator')}
+              }
+            );
+            <% end%>
+        }
+        else
+        {
+            new Ajax.Updater(element.expression, encodeURI("/main/updatecell?value="+value+"&cell="+element.expression+"&key="+<%=@record.id%>), 
+             {asynchronous:true, 
+              evalScripts:true,
+              onLoaded:function(request){Element.hide('indicator')}, 
+              onLoading:function(request){Element.show('indicator')}
+              }
+            );
+        }        
+    }
+}
+
+function selectBlur()
+{
+    alert('fuck');
+}
+
+function cellClick()
+{
+    element = window.event.srcElement;
+    parentelement = element.parentElement
+    if (parentelement.floatindex)
+    {
+        element.id = element.expression + parentelement.floatindex;
+    }
+    else
+    {
+        element.id = element.expression;
+    }
+    
+    if (element.readonly=='true')
+        return
+    
+    var oldvalue = element.innerText;
+    var input;
+    if (element.dict)
+    {
+        element.innerHTML = "<div id='input-" + element.id+ "'><select id='select-" + "' style='background-color:#FFFF99;BORDER-BOTTOM: solid 0px; BORDER-LEFT: dashed 0px; BORDER-RIGHT: dashed 0px; BORDER-TOP: dashed 0px;height=100%; width=100%;margin:-1pt 0pt 0pt 0pt '/></div>";
+        new Ajax.Updater('input-' + element.id, encodeURI("/main/getdict?dictid="+element.dict+"&cell="+element.expression+"&function_id="+<%=params[:function_id]%>), 
+             {asynchronous:true, 
+              evalScripts:true,
+              onLoaded:function(request){Element.hide('indicator')}, 
+              onLoading:function(request){Element.show('indicator')}
+              });
+        input = document.getElementById('select-');
+    }
+    else
+    {
+        if (element.date == "true")
+        {
+        	element.innerHTML = "<input id='input-" + element.id+ "' type=text onclick='getDateString(this,oCalendarChs)' style='background-color:#FFFF99;BORDER-BOTTOM: solid 0px; BORDER-LEFT: dashed 0px; BORDER-RIGHT: dashed 0px; BORDER-TOP: dashed 0px;height=100%; width=100%;margin:-1pt 0pt 0pt 0pt '/>";
+        	getDateString(element.children[0], oCalendarChs);
+        	input = element.children[0];        	
+        }
+        else
+        {
+        	element.innerHTML = "<input id='input-" + element.id+ "' type=text style='background-color:#FFFF99;BORDER-BOTTOM: solid 0px; BORDER-LEFT: dashed 0px; BORDER-RIGHT: dashed 0px; BORDER-TOP: dashed 0px;height=100%; width=100%;margin:-1pt 0pt 0pt 0pt '/>";
+        	input = element.children[0];
+        	input.onblur=cellBlur;
+        }
+        input = element.children[0]
+    }    
+    
+    input.value = oldvalue;
+    input.oldvalue = oldvalue;
+    element.oldclick = element.onclick;
+    element.onclick="";
+    
+    if (!element.dict)
+    {
+        input.select();  
+        input.focus();
+    }
+}
+function init_edit()
+{
+    elements = document.getElementsByTagName('td')
+    for(var i=0; i<elements.length; i++)
+    {
+        if (elements[i].expression)
+        {
+            elements[i].onclick = cellClick;
+        }
+    }
+}
+
+init_edit();
+</script>
+<% end%>

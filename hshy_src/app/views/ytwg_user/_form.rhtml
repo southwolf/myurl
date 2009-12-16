@@ -1,0 +1,65 @@
+<%= error_messages_for 'ytwg_user' %>
+
+<!--[form:ytwg_user]-->
+<table cellpadding="3" >
+  <tr>
+    <td><label for="ytwg_user_name">登陆名</label></td>
+  <td><%= text_field 'ytwg_user', 'name'  %></d>
+  </tr>
+
+    <tr>
+      <td><label for="ytwg_user_truename">真实名字</label></td>
+      <td><%= text_field 'ytwg_user', 'truename'  %></td>
+    </tr>
+
+    <tr>
+      <td><label for="ytwg_user_unitname">所属部门</label></td>
+      <td><select id="ytwg_user[department_id]" name="ytwg_user[department_id]">
+    <option value="">-- 无 --</option>
+    <%=options_from_collection_for_select(Department.find(:all), "id", "name", @ytwg_user.department_id) %>
+  </select></td>
+    </tr>
+    
+     <tr>
+      <td><label for="ytwg_user_password">密码</label></td>
+      <td><%= password_field 'ytwg_user', 'password'  %></td>
+    </tr>
+    
+     <tr>
+      <td><label for="ytwg_user_name">手机号</label></td>
+      <td><%= text_field 'ytwg_user', 'mobile'  %></td>
+    </tr>
+    
+     <tr>
+      <td><label for="ytwg_user_name">qq</label></td>
+      <td><%= text_field 'ytwg_user', 'qq'  %></td>
+    </tr>
+    
+     <tr>
+      <td><label for="ytwg_user_name">mail</label></td>
+      <td><%= text_field 'ytwg_user', 'msn'  %></td>
+    </tr>
+    
+     <tr>
+      <td><label for="ytwg_user_password">分机</label></td>
+      <td><%= text_field 'ytwg_user', 'fj'  %></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_user_password">IP</label></td>
+      <td><%= text_field 'ytwg_user', 'ip'  %></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_user_password">相片</label></td>
+      <td><%= file_column_field 'ytwg_user', 'photo', :size=>20  %></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_user_password">自我介绍</label></td>
+      <td><%= text_area 'ytwg_user', 'introduce', :rows=>5, :cols=>30  %></td>
+    </tr>
+
+</table>
+
+<!--[eoform:ytwg_user]-->

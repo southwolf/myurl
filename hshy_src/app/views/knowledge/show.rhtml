@@ -1,0 +1,23 @@
+
+<b>知识发布人:</b> <%=h @knowledge.publisher %>&nbsp;
+<b>发布时间:</b> <%=h @knowledge.publish_time.to_formatted_s(:db) %><br>
+<b>标题:</b> <%=h @knowledge.title %><br>
+<b>附件:</b>
+  <% if @knowledge.attach1%>
+    <%= link_to File.basename(@knowledge.attach1), :action=>"download_attach1", :id=>@knowledge.id %>
+  <% end %>
+  <% if @knowledge.attach2%>
+    <%= link_to File.basename(@knowledge.attach2), :action=>"download_attach2", :id=>@knowledge.id %>
+  <% end %>
+  <% if @knowledge.attach3%>
+    <%= link_to File.basename(@knowledge.attach3), :action=>"download_attach3", :id=>@knowledge.id %>
+  <% end %>
+
+<p>
+  <%= @knowledge.content %>
+</p>
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/knowledge/list/<%=@knowledge.type_id%>");   
+</script>

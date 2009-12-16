@@ -1,0 +1,8 @@
+<% form_tag :action => 'edit_breakdown', :id=>params[:id] do %>
+  报损信息：<%= text_area_tag "text", '', {:cols=>30, :rows=>10} %>
+<% end %>
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/product/show_product/<%=params[:id]%>");  
+</script>

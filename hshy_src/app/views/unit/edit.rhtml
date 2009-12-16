@@ -1,0 +1,9 @@
+<%@title = '编辑单位'%>
+<%= start_form_tag :action => 'update', :id => @unit %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %>
+  
+<%= end_form_tag %>
+
+<%= link_to '删除', { :action => 'destroyfromedit', :id => @unit }, :confirm => '您确定删除本记录吗?', :post => true %>|
+<%= link_to '返回', :action => 'list' %>

@@ -1,0 +1,19 @@
+  <div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td>波特率:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.baudrate") %></td>
+        <td>数据位:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.databits") %></td>
+      </tr>
+      <tr>
+        <td>校验位:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.parity") %></td>
+        <td>停止位:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.stopbits") %></td>
+      </tr>
+      <tr>
+        <td>流控:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.flowctrl") %></td>
+        <td>对方IP地址:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.peeraddr") %></td>
+      </tr>
+      <tr>
+        <td>接收标志:</td><td><%= text_field_tag "name", get_value(@text, "tdc#{index}.flags") %></td>
+      </tr>
+    </table>
+  </div>

@@ -1,0 +1,8 @@
+<% for column in Work.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%= @work.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to '±à¼­', :action => 'edit', :id => @work %> |
+<%= link_to '·µ»Ø', :action => 'list' %>

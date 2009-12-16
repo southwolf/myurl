@@ -1,0 +1,53 @@
+<table height=100% width=100%>
+  <tr height=100%>
+    <td width=30%>
+      <SCRIPT LANGUAGE="JavaScript">
+          var tree = new WebFXTree('搜索到的设备');
+          var encode = new WebFXTreeItem('编码器')
+          tree.add(encode);
+          
+          var decode = new WebFXTreeItem('解码器')
+          tree.add(decode);
+          
+          document.write(tree);
+          tree.expandAll();
+      </SCRIPT>
+    </td>
+    <td width=70%>
+      
+    </td>
+  </tr>
+</table>
+
+
+
+<table width=100%>
+  <tr>
+    <td width=60%>
+<% round_table '100%', ["搜索到的设备 (共#{@texts.size}个)", link_to_function("关闭", "Effect.BlindUp('search')")] do %> 
+ <table id="table" border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+    <th>IP</th>
+    <th>Mac地址</th>
+    <th>子网掩码</th>
+    <th>网关</th>
+    <th>设备控制器</th>
+    <th>修改</th>
+  </tr>
+  <%index=1%>
+  <%for text in @texts.sort%>
+  <%= ColorRow(index) %>
+  <td><%=get_value(text, 'net.ipaddr')%></td>
+
+  <td><%=link_to_remote "修改", :update=>"modify", :url=>{:action=>"modify_search", :ip=>parse_ip(text), :mac=>parse_mac(text), :netmask=>parse_netmask(text), :gateway=>parse_gateway(text)}%></td>
+  </tr>
+  <% index+=1 %>
+  <% end %>
+</table>
+<% end %>
+  <td>
+  <td valign='top'>
+    <div id="modify" style="display:none"></div>
+  </td>
+</tr>
+</table>

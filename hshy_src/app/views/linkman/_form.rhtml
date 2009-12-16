@@ -1,0 +1,30 @@
+<%= error_messages_for 'linkman' %>
+
+<!--[form:linkman]-->
+<p><label for="linkman_name">客户姓名</label>
+<%= text_field 'linkman', 'name', :size=>12 %>
+
+<label for="linkman_phone">联系电话</label>
+<%= text_field 'linkman', 'phone', :size=>15  %></p>
+
+<fieldset>
+    <legend>客户需求</legend>
+
+<p><label for="linkman_price">价格需求</label>
+<%= text_field 'linkman', 'price', :size=>15  %>
+
+<label for="linkman_direction">朝向需求</label>
+<%= text_field 'linkman', 'direction', :size=>15  %></p>
+
+<p><label for="linkman_jushi">居室需求</label>
+<%= text_field 'linkman', 'jushi', :size=>15  %>
+
+<label for="linkman_area">面积需求</label>
+<%= text_field 'linkman', 'area', :size=>15  %></p>
+
+<p><label for="linkman_xq">小区需求</label>
+<%= text_field 'linkman', 'xq'  %></p>
+</fieldset>
+
+<!--[eoform:linkman]-->
+

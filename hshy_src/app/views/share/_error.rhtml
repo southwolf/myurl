@@ -1,0 +1,16 @@
+<b>非常抱歉，出现内部错误，请联系管理员，以下是错误内容。<b>
+<br/>
+  <%= exception  %>
+  <table>
+    <tr class="exebar">
+        <td>错误提示</td>
+    </tr>
+    <% trace = exception.backtrace%>
+    <% index = 1%>
+    <% for err in trace%>
+    <%= ColorRow(index)%>    
+        <td><%= err%></td>
+        <% index += 1%>
+    </tr>    
+    <% end %>
+  </table>

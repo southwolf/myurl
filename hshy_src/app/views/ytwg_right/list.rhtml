@@ -1,0 +1,46 @@
+
+<table id='table' border="1" bordercolor="#999999" class="clsContentTable" width=80%>
+  <tr class="clsTrHeader">
+  <th><%=sort_column('名称', 'name')%></th>
+  <th><%=sort_column('描述', 'description')%></th>
+  <th colspan=2>操作</th>
+  </tr>
+  
+<%index=0%>
+<% for righttype in Righttype.find(:all) %>
+    <tr>
+      <td colspan=4 align=center><%= righttype.name %></td>
+      <% for right in righttype.rights %>
+      <%= ColorRow(index, right.id) %>
+      <% index += 1 %>
+        <td><%= link_to right.name, :action=>"edit", :id=>right %></td>
+        <td><%=h right.description %></td>
+        <td><%= link_to '删除', { :action => 'destroy', :id => right }, :confirm => '确定删除吗?', :method => :post %></td>
+
+      </tr>
+      <% end %>
+    </tr>  
+<% end %>
+
+<% for ytwg_right in YtwgRight.find(:all, :conditions=>"cata_id is null") %>
+  <tr>
+    <td><%= link_to ytwg_right.name, :action=>"edit", :id=>ytwg_right %></td>
+    <td><%=h ytwg_right.description %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => ytwg_right %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => ytwg_right }, :confirm => '确定删除吗?', :method => :post %></td>
+  </tr>
+
+<% end %>
+</table>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/ytwg_right/new");  
+  add_tab_button("/img/iconOrder.png", "调整顺序", "/ytwg_right/reorder");  
+  add_sep();
+  add_tab_button("/img/iconNewcata.png", "新建权限种类", "/righttype/new");  
+  
+    add_sep();
+    add_dynamic_delete_button("/ytwg_right/destroy/");  
+  
+</script>
+

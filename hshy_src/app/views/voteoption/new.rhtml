@@ -1,0 +1,9 @@
+
+<% form_remote_tag :update=>"option", :url=>{:controller=>"voteoption", :action => 'create', :id=>params[:id]} do %>
+  <%= render :partial => 'form' %>
+  <%= remote_submit_tag "±£´æ" %>
+<% end %>
+
+<script>
+    Effect.BlindDown("add");
+</script>

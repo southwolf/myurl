@@ -1,0 +1,37 @@
+<%= error_messages_for 'contract' %>
+
+<!--[form:contract]-->
+<p><label for="contract_code">合同编号</label><br/>
+<%= text_field 'contract', 'code'  %></p>
+
+<p><label for="contract_code">合同类型</label><br/>
+<%=select("contract", "contract_type", DicContract.find_all.collect {|p| [ p.name, p.id ] })%></p>
+
+<p><label for="contract_status">合同状态</label><br/>
+<select id="contract_status" name="contract[status]">
+  <% $CONTRACT_STATUS.each{|key, value| %>
+      <% next if !key%>
+      <option value = "<%= key%>" <%='selected="selected"' if key==@contract.status%> ><%= value%></option>
+  <% } %>
+</select>
+</p>
+
+<p><label for="contract_department_id">领用门店</label><br/>
+<%=select("contract", "department_id", Department.find_all.collect {|p| [ p.name, p.id ] })%></p>
+
+<p><label for="contract_user_id">确认人</label><br/>
+<% users = YtwgUsergroup.find(:all, :conditions=>"group_id=1 or group_id =2") %>
+<% user_ids = users.collect{|p| p.user_id}.join(',') %>
+<%=select("contract", "user_id", YtwgUser.find(:all, :conditions=>"id in (#{user_ids})").collect {|p| [ p.truename, p.id ] })%></p>
+
+<p><%=  check_box("contract", "needcheck") %>需要接收人确认</p>
+
+<br>
+<p>领用时间<br>
+<%=  date_select("contract", "use_time", :use_month_numbers => true) %></p>
+
+<br>
+  
+  
+<!--[eoform:contract]-->
+

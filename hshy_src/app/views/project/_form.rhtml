@@ -1,0 +1,57 @@
+<%= error_messages_for 'project' %>
+
+
+
+<!--[form:project]-->
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width="80%">
+
+<tr>
+ <td bgcolor="#999999"> <label for="project_名称">名称</label></td>
+<td><%= text_field 'project', 'name'  %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="project_立项时间">立项时间</label></td>
+<td><%= date_select 'project', 'lxsj',:use_month_numbers => true  %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="project_优先级">优先级</label></td>
+<td>
+    <select id="project[yxj]" name="project[yxj]">
+        <% %w(高 中 低).each {|item|%>
+            <option value=<%=item%>><%=item%></option>
+        <% }%>
+    </select>
+</td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="project_营销负责人">营销负责人</label></td>
+<td>
+    <select id="project[yxfzr]" name="project[yxfzr]">
+        <%=options_from_collection_for_select(YtwgUser.find(:all), "truename", "truename", @project.yxfzr) %>
+    </select>
+</td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="project_研发负责人">研发负责人</label></td>
+<td>
+    <select id="project[yffzr]" name="project[yffzr]">
+        <%=options_from_collection_for_select(YtwgUser.find(:all), "truename", "truename", @project.yffzr) %>
+    </select>
+</td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="project_描述">描述</label></td>
+<td><%= fckeditor_textarea("project", "desc",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %></td>
+</td>
+</tr>
+
+
+
+</table>
+<!--[eoform:project]-->
+

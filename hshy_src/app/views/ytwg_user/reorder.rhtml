@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'dragdrop' %>
+<div id='orderdiv'>
+    托拽节点进行排序<%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %>
+    <ul id="nodelist" style="margin-top:-2px">
+    <% for child in @nodes%>
+        <li id="item_<%= child.id %>" style="font-size:9pt" width="100%" onmouseover="this.style.backgroundColor ='edebea'"  onmouseout="this.style.color='';this.style.backgroundColor =''"><%=child.name%></li>
+    <%end%>
+    </ul>
+</div>
+
+<div id='response'>
+</div>
+
+<a href="/ytwg_user/list_detail/<%=params[:id]%>">返回</a>
+<%= sortable_element 'nodelist', 
+      :update => 'response1',  
+      :loading => "Element.show('indicator')",
+      :complete => "Element.hide('indicator')",
+      :url => { :action => "order", :parent=>@node } %>

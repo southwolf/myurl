@@ -1,0 +1,78 @@
+<%= javascript_include_tag 'time' %>
+<script >
+        var oCalendarEn=new PopupCalendar("oCalendarEn");
+        oCalendarEn.Init();
+        var oCalendarChs=new PopupCalendar("oCalendarChs");
+        oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+        oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+        oCalendarChs.oBtnTodayTitle="今天";
+        oCalendarChs.oBtnCancelTitle="取消";
+        oCalendarChs.Init();
+    </script>
+
+<% round_table '60%', "查询条件" do %>
+    <% form_tag :action => 'query' do %>
+<p>编号:
+        <%= text_field_tag "id", "", :size=>5 %>
+
+租售:<select name=tag><option value=1>售房</option><option value=2>租房</option></select></p>
+      <p>区域:
+        <select id=quyu name=quyu onchange="changeDizhi(this.value);">
+          <option></option>
+          <%=options_for_select Quyu.find(:all).collect{|q|[q.name, q.id]} %>
+        </select>
+       
+       
+       <div style="float:left" id="xq">
+            小区:<select id=xq name=xq>
+              <option></option>
+              <%=options_for_select Quyu.find(:first).dic_dizhis.collect{|q|[q.name, q.name]} %>
+            </select>
+        </div>
+      
+        
+
+      <p>价格:<select name=jg>
+          <option></option>
+          <%=options_for_select [["30万以内", "0-30"],["30-40", "30-40"],["40-50", "40-50"],["50-60", "50-60"], 
+            ["60-70", "60-70"], ["70-80", "70-80"], ["80-90", "80-90"], ["90-100", "90-100"], ["100以上", "100-10000"]] %>
+        </select>万
+        面积:
+        <select name=mj>
+          <option></option>
+          <%=options_for_select [["60以下", "0-60"],["60-80", "60-80"],["80-100", "80-100"],["100-140", "100-140"], ["140以上", "140-10000"]] %>
+        </select>
+      </p>
+      
+      <p>楼层:
+        <%= text_field_tag "szc1", "", :size=>5 %>层至
+        <%= text_field_tag "szc2", "", :size=>5 %>层
+         格局:
+         <select id=gj name=gj>
+          <option></option>
+          <%=options_for_select DicGeju.find(:all).collect{|q|[q.name, q.name]} %>
+        </select>
+      </p>
+      
+      <p>
+        录入人:<select id=user name=user>
+              <option></option>
+              <%=options_for_select YtwgUser.find(:all, :order=>"department_id").collect{|q|[q.truename, q.truename]} %>
+            </select>
+      </p>
+      
+      <p>
+        录入时间大于:<%= text_field_tag "inputtime", "", :size=>10, :onclick=>"getDateString(this,oCalendarChs)" %>
+        小于: <%= text_field_tag "inputtime2", "", :size=>10, :onclick=>"getDateString(this,oCalendarChs)" %>
+      </p>
+    <%= submit_tag "查询" %>
+  <% end %>
+<% end %>
+
+<script>
+function changeDizhi(groupid)
+{
+    new Ajax.Updater('xq', '/house/changexq?name='+groupid, {asynchronous:true, evalScripts:true}); 
+    return false;
+}
+</script>

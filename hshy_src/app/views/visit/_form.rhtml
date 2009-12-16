@@ -1,0 +1,24 @@
+<%= error_messages_for 'visit' %>
+
+<!--[form:visit]-->
+<label for="phonecontract_linkman">联系单位</label>
+    <select id="visit[unit_id]" name="visit[unit_id]">
+    <option value="-1"></option>    
+    <%=options_from_collection_for_select(Unit.find(:all), "id", "name", @visit.unit_id) %>
+    </select>
+<br/>
+
+<label for="phonecontract_linkman">接待人</label>
+<%= text_field 'visit', 'linkman'  %><br/>
+
+<label for="phonecontract_linkman">单位地址</label>
+<%= text_field 'visit', 'address'  %><br/>
+
+<label for="visit_visittime">拜访时间</label>
+<%= date_select 'visit', 'visittime',:use_month_numbers => true  %><br/>
+
+<label for="visit_memo">交谈内容</label><br/>
+<%= fckeditor_textarea("visit", "memo",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %>
+
+<!--[eoform:visit]-->
+

@@ -1,0 +1,32 @@
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=90% >
+  <tr class="exebar">  
+    <th>单位</th>
+    <th>联系人</th>
+    <th>对方接待人</th>
+    <th>拜访时间</th>
+    <th>单位地址</th>
+    <th>谈话内容</th>
+    <th colspan=3>操作</th>
+  </tr>
+<%index=1%>  
+<% for visit in @visits %>
+  <%=ColorRow(index)%>
+    <td><%= visit.unit.name rescue nil %></td>
+    <td><%= visit.user.truename%></td>
+    <td><%= visit.linkman %></td>
+    <td><%= visit.visittime.to_date %></td>
+    <td><%= visit.address %></td>
+    <td><%= visit.memo %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => visit %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => visit }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<%index+=1%>
+<% end %>
+</table>
+
+<%= link_to '上一页', { :page => @visit_pages.current.previous } if @visit_pages.current.previous %>
+<%= link_to '下一页', { :page => @visit_pages.current.next } if @visit_pages.current.next %> 
+
+<br />
+<%= link_to '查找', :action => 'find' %>|
+<%= link_to '添加', :action => 'new' %>

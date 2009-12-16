@@ -1,0 +1,27 @@
+<h1>Listing wupins</h1>
+
+<table>
+  <tr>
+  <% for column in Wupin.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for wupin in @wupins %>
+  <tr>
+  <% for column in Wupin.content_columns %>
+    <td><%=h wupin.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => wupin %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => wupin %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => wupin }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @wupin_pages.current.previous } if @wupin_pages.current.previous %>
+<%= link_to 'Next page', { :page => @wupin_pages.current.next } if @wupin_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New wupin', :action => 'new' %>

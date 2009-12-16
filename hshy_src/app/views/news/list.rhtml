@@ -1,0 +1,52 @@
+
+&nbsp;&nbsp;&nbsp;
+
+
+<table border="1" bordercolor="#999999" class="clsContentTable" width=100%>
+<% index = 0%>   
+<% for bbsmessage in @news %>
+  <tr>
+  <%index+=1%>
+    <td>
+        <table width=100%>
+            <tr>
+                <td width=50 class="bbspublisher"><%=h YtwgUser.find(bbsmessage.send('publisher')).truename rescue nil%></td>
+                <td width=60% align="left" class="bbspublishtime"><%=h bbsmessage.send('publishtime').strftime("%Y-%m-%d %H:%M:%S") %></td>
+                <td align="right" >
+                <%replys = News.find(:all, :conditions=>"parentbbs = #{bbsmessage.id}").size%>
+                <%=link_to_remote "回复(#{replys})", :update=>"reply#{bbsmessage.id}", :url=>{ :action=>'reply', :id=>bbsmessage}%>  
+                </td>
+                <td><%=link_to "&nbsp编辑", :action=>"edit",:id=>bbsmessage if bbsmessage.publisher == session[:user].id%></td>
+            </tr>
+            <tr>
+                <td colspan=4 class="bbstitle"><%=h bbsmessage.send('title') %></td>
+            </tr>
+            <tr>
+                <td colspan=4 class="littlefont"><%= bbsmessage.send('content') %></td>
+            </tr>
+            <!-- 回帖-->
+            <div id="replay_area<%=bbsmessage.id%>">
+                <%=render :partial=>"reply", :locals =>{ :bbsmessage => bbsmessage } %>
+            </div>
+            <tr>
+                <td colspan=4 align='right'><div id="reply<%=bbsmessage.id%>"></div></td>
+            </tr>
+        </table>
+    </td>
+  </tr>
+<% end %>
+
+<%if @news.size ==0 %>
+<tr><td><font color=red>没有新贴</font></td></tr>
+<%end%>
+
+</table>
+
+<%=will_paginate @news%>
+
+<div id = 'ff'></div>
+
+<script>
+  add_tab_button("/img/iconNew.png", "发贴", "/news/new");  
+  add_tab_button("/img/iconBack.png", "返回", "/topic/list");  
+</script>

@@ -1,0 +1,41 @@
+<% indexFlag = 1 %>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100% >
+  <tr class="exebar">  
+    <th>项目</th>
+    <th>类型</th>
+    <th>标题</th>
+    <th>内容</th>
+    <th>日期</th>
+    <th>小时</th>
+    <th>评价</th>
+  </tr>
+
+  
+<% for work in @works %>
+  <%=ColorRow(indexFlag, work.id)%>
+  <% indexFlag += 1%>
+    <td><%= 
+            if work.project_id
+                Project.find(work.project_id).name
+            else
+                "&nbsp;"
+            end  
+    %></td>
+    <td><%= Logtype.find(work.logtype).name if work.logtype%></td>
+    <td><%= work.title%></td>
+    <td><%= work.context%></td>
+    <td><%= work.uptime.strftime("%Y-%m-%d")%></td>
+    <td align=right><%= work.hours%></td>
+    <td><%= work.remark%></td>
+</tr>
+<% end %>
+</table>
+<%= will_paginate @works%>
+
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加日志", "/work/new");  
+  add_dynamic_button("/img/iconEdit.png", "修改", "/work/edit/");
+  add_sep();
+  add_dynamic_delete_button("/work/destroy/");  
+</script>

@@ -1,0 +1,51 @@
+
+<p>
+  <b>出库单代码:</b> <%=h @product_export.code %>
+</p>
+
+<p>
+  <b>客户名称:</b> <%=h @product_export.unitname %>
+</p>
+
+<p>
+  <b>接收人:</b> <%=h @product_export.receiver %>
+</p>
+
+<p>
+  <b>出库时间:</b> <%=h @product_export.dealtime.to_date %>
+</p>
+
+<p>
+  <b>出库人:</b> <%=h @product_export.dealer %>
+</p>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>条码</th>
+    <% for key in @cells.keys.sort %>
+      <th><%= @cells[key] %></th>
+    <% end %>
+    <th>备注</th>
+  </tr>
+  
+  <% index = 1 %>
+<% for p in @product_export.product %>
+  <%= ColorRow(index, p.id) %>
+  <% index += 1 %>
+    <td><%= link_to p.barcode, :action=>"show_product", :id=>p.id %></td>
+  <% for column in @cells.keys.sort %>
+     <% if p.send(column).class == Time%>
+        <td><%=h p.send(column).to_date %></td>
+     <% else %>
+        <td><%=h p.send(column) %></td>
+     <% end %>
+  <% end %>
+    <td><%=h p.desc %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/product_export/list");  
+</script>

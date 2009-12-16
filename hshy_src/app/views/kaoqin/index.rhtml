@@ -1,0 +1,37 @@
+<% form_tag :action => 'index' do %>
+<select id=user name="user" onchange="form.submit()">
+  <% for employer in session[:user].employer %>
+    <option value="<%=employer.id%>" <%="selected=true" if employer.id == @user.id %>><%=employer.truename%></option>
+  <% end %>
+</select>
+<%end%>
+<br>
+<%=@user.truename%> <%=@now.strftime("%m")%>月份考勤记录表
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width="50%">
+  <tr class="exebar">
+    <th>日期</th>
+    <th>到达时间</th>
+  </tr>
+
+<% index = 0 %>   
+<% t = @from %>
+<% while t < @now %>
+  <%= ColorRow(index) %>
+    <td><%=t.to_date%></td>
+    <% flag = false %>
+    <% @logs.each {|log|  %>
+        <% if log.ticktime > t && log.ticktime<t.tomorrow %>
+            <td><%=log.ticktime.strftime("%H:%M:%S")%></td>
+            <% flag = true %>
+            <% break %>
+        <% end %>
+    <% } %>
+    <% if flag == false %>
+              <td></td>
+    <% end %>
+  </tr>
+<% index += 1 %>
+<% t = t.tomorrow %>
+<% end %>
+</table>

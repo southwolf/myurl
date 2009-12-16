@@ -1,0 +1,2 @@
+module ProductLogHelper
+end

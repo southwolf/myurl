@@ -1,0 +1,25 @@
+<font class=color size="3"><strong>未读邮件</strong></font>
+<table border="1" cellpadding="2" cellspacing="0" bordercolor="#666666" width=100%>
+  <tr class="exebar">
+    <th>发送人</th>
+    <th width=50%>邮件标题</th>
+    <th>收件人</th>
+    <th>发送时间</th>
+  </tr>
+
+<%index=1%>  
+<% for email in @emails %>
+    <% next if @read_tag.include?(email.id) || email.readuser_ids.include?(session[:user].id)%>
+  <%=ColorRow(index)%>  
+    <td  height=24><%=link_to YtwgUser.find(email.from_id).truename, :controller=>"email", :action => 'show', :id => email%></td>
+    <td><%=link_to email.title||"无标题", :controller=>"email", :action => 'show', :id => email%></td>
+    <% if email.recv.index(',') %>
+        <td><%=email.recv[0,email.recv.index(',')] + "..." %></td>
+    <% else %>
+        <td><%=email.recv%></td>
+    <% end %>
+    <td><%=email.sendtime.strftime("%m月%d日 %H点%M分") rescue nil%></td>
+  </tr>
+  <%index+=1%>
+<% end %>
+</table>

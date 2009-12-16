@@ -1,0 +1,36 @@
+<%= javascript_include_tag 'dragdrop' %>
+
+<% indexFlag = 1 %>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in ['名称', '发布时间', '发布人', '文档数', '说明'] %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% for filecata in @filecatas %>
+  <%=ColorRow(indexFlag, filecata.id)%>
+  <% indexFlag += 1%>
+
+    <td><%= link_to_if !filecata.read_right || checkright('店长工具箱'),  filecata.name, {:controller => 'document', :action => 'index', :id => filecata} %></td>
+    <td><%=h filecata.publish_time.strftime("%Y-%m-%d") %></td>
+    <td><%=h filecata.publisher %></td>
+    <td align=right><%=h filecata.documentfiles.size %> </td>
+    <td><%=h filecata.desc %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @filecatas %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加类别", "/filecata/new");  
+  
+  <% if checkright('共享文档管理')%>
+    add_tab_button("/img/iconOrder.png", "调整共享文档顺序", "/filecata/reorder");  
+    add_dynamic_button("/img/iconEdit.png", "修改", "/filecata/edit/");
+    add_sep();
+    add_dynamic_delete_button("/filecata/destroy/");  
+  <% end %>
+  
+</script>

@@ -1,0 +1,59 @@
+<table width=100%>
+  <tr>
+    <td width=30% valign=top>
+        <%= link_to '新加区域', :action => 'new' %>
+        <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+          <tr class="exebar">
+            <th>名称</th>
+            <th colspan=2>操作</th>
+          </tr>
+          
+        <% index = 0%>  
+        <% for quyu in @quyus %>
+          <%=ColorRow(index, quyu.id, :onclick=>"ShowDetail(#{quyu.id});")%>
+          <% index += 1%>
+          <% for column in Quyu.content_columns %>
+            <td><%=h quyu.send(column.name) %></td>
+          <% end %>
+            <td><%= link_to '修改', :action => 'edit', :id => quyu %></td>
+            <td><%= link_to '删除', { :action => 'destroy', :id => quyu }, :confirm => '确认吗?', :method => :post %></td>
+          </tr>
+        <% end %>
+        </table>
+    </td>
+    <td width=10px>&nbsp;</td>
+    <td valign=top width=34%>
+      <div id='xq_detail'>
+      <!--
+        <%= link_to '新加小区', :controller=>"dic_dizhi", :action => 'new' %>
+        <%=render :partial=>"detail", :locals=>{:dic_dizhis=>DicDizhi.find(:all, :conditions=>"quyu_id=1")}%>    
+      -->
+      </div>
+    
+    </td>
+    <td width=36% valign='top'>
+        <div id='lh_detail'>
+            
+      
+        </div>
+    </td>
+  </tr>
+</table>    
+
+
+
+
+
+<script>
+function ShowDetail(groupid)
+{
+    new Ajax.Updater('xq_detail', '/quyu/detail/'+groupid, {asynchronous:true, evalScripts:true}); 
+    return false;
+}
+
+function ShowLhDetail(groupid)
+{
+    new Ajax.Updater('lh_detail', '/dic_louhao/list/'+groupid, {asynchronous:true, evalScripts:true}); 
+    return false;
+}
+</script>

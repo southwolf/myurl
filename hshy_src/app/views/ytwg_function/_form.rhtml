@@ -1,0 +1,37 @@
+<%= error_messages_for 'ytwg_function' %>
+<!--[form:ytwg_function]-->
+
+<table>
+    <tr>
+      <td><label for="ytwg_function_text">名&nbsp;&nbsp;&nbsp;称：</label></td>
+      <td><%= text_field 'ytwg_function', 'text'  %></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_function_controller_name">URL地址：</label></td>
+      <td><%= text_field 'ytwg_function', 'controller_name'  %></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_function_list_right">读权限：</label></td>
+      <td><%=select("ytwg_function", "list_right", YtwgRight.find_all.collect {|p| [ p.name, p.id ] }, { :include_blank => true })%></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_function_edit_right">写权限：</label></td>
+      <td><%=select("ytwg_function", "edit_right", YtwgRight.find_all.collect {|p| [ p.name, p.id ] }, { :include_blank => true })%></td>
+    </tr>
+    
+    <tr>
+      <td><label for="ytwg_function_edit_right">父节点：</label></td>
+      <td><%=select("ytwg_function", "parent_id", YtwgFunction.find_all.collect {|p| [ p.text, p.id ] }, { :include_blank => true })%></td>
+    </tr>
+
+
+    <tr>
+      <td><label for="ytwg_function_edit_right">隐藏：</label></td>
+      <td><%=select("ytwg_function", "hide", [['是', 1], ['否', 0]], { :include_blank => true })%></td>
+    </tr>
+  </table>
+<!--[eoform:ytwg_function]-->
+

@@ -1,0 +1,39 @@
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th><%=sort_column('姓名', 'name')%></th>
+    <th><%=sort_column('公司名', 'companyname')%></th>
+    <th><%=sort_column('联系固话', 'telephone')%></th>
+    <th><%=sort_column('手机', 'mobile')%></th>
+    <th><%=sort_column('联系地址', 'address')%></th>
+    <th>说明</th>
+    <th><%=sort_column('发布人', 'publisher')%></th>
+    <th><%=sort_column('发布时间', 'publish_time')%></th>
+    <th colspan=2>操作</th>
+  </tr>
+  
+  <% index = 1 %>
+<% for provider in @providers %>
+  <%= ColorRow(index, provider.id) %>
+  <% index += 1 %>
+  <% for column in %w(name companyname telephone mobile address desc publisher) %>
+    <td><%=h provider.send(column) %></td>
+  <% end %>
+  <td><%= provider.publish_time.to_formatted_s(:db) %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => provider if provider.publisher == session[:user].truename%></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @providers, :order=>params[:order] %>
+
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/provider/new");  
+  
+  <% if checkright('供应商管理')%>
+    add_dynamic_button("/img/iconEdit.png", "更新", "/provider/edit/");
+    add_sep();
+    add_dynamic_delete_button("/provider/destroy/");  
+  <% end %>
+</script>

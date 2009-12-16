@@ -1,0 +1,35 @@
+<%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %>
+
+<% indexFlag = 1 %>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in ['文件名', '说明', '创建人', '创建时间'] %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% for document in @documents %>
+   <% @document = document %> 
+  <%=ColorRow(indexFlag, document.id)%>
+  <% indexFlag += 1%>
+
+
+    <td><%= link_to document.name, :action=>"download", :id=>document %></td>
+<!--
+    <td><%= link_to  document.name, URI.escape(url_for_file_column("document", "path"))  %></td>
+    -->
+    <td><%=h document.desc %></td>
+    <td><%=h document.publisher %></td>
+    <td><%= document['publish_time'].strftime("%Y-%m-%d")%></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @documents %>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/filecata/list");    
+  add_tab_button("/img/iconNew.png", "添加", "/document/new/<%=params[:id]%>");   
+  add_sep();
+  add_dynamic_delete_button("/document/destroy/");  
+</script>

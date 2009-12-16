@@ -1,0 +1,36 @@
+<% form_tag({:action => 'create'}, :multipart => true)do %>
+<table width=100%>
+<tr width=100%>
+<td width=40% valign='top'>
+  <%= render :partial => 'form' %>
+</td>
+<td>
+&nbsp
+</td>
+<td valign='top'>
+  选择所在组：<br>
+  <table border="1" bordercolor="#999999" class="clsContentTable" width=100% %>
+  <tr class="clsTrHeader">
+    <th>组名称</th>
+    <th>选择</th>
+  </tr>
+     <%index = 0%>
+     <% YtwgGroup.find(:all, :order=>'id').each do |group| %>
+         <%=ColorRow(index)%>
+         <td><%= group.name %></td>
+         <td align='center'><input type="checkbox" name="ytwg_user[group_ids][]" 
+          value="<%= group.id %>" 
+          <% if @ytwg_user.groups.include?(group) %> checked="checked" <% end %> />
+         </td> 
+    <%index += 1%>
+    <% end %>
+</table>
+</td>
+</tr>
+</table>
+<% end %>
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/ytwg_user/list");  
+</script>

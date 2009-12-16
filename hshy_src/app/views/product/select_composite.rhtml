@@ -1,0 +1,29 @@
+<table border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>选择</th>
+    <th>条码</th>
+    <th>状态</th>
+    <% for key in @cells.keys.sort %>
+      <th><%= @cells[key] %></th>
+    <% end %>
+    <th>备注</th>
+  </tr>
+  
+  <% index = 1 %>
+<% for p in @products %>
+  <%= ColorRow(index, p.id) %>
+  <% index += 1 %>
+    <td><input id='c<%=params[:id]%>[]' type="checkbox" name='c<%=params[:id]%>[]' value="<%=p.id%>"></td>
+    <td><%=h p.barcode %></td>
+    <td><%= {nil=>"库存", 0=>"库存", 1=>"售出", 2=>"报废", 3=>"损坏", 4=>"被组装"}[p._status] %></td>
+  <% for column in @cells.keys.sort %>
+     <% if p.send(column).class == Time%>
+        <td><%=h p.send(column).to_date %></td>
+     <% else %>
+        <td><%=h p.send(column) %></td>
+     <% end %>
+  <% end %>
+    <td><%=h p.desc %></td>
+  </tr>
+<% end %>
+</table>

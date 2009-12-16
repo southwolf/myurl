@@ -1,0 +1,30 @@
+<br>
+<h2><%=@product_cata.name%>的产品组成</h2><br>
+
+<table id='table' border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(原料名称 是否必装 数量 备注 ) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+  <%index = 0%>
+  <% for c in @composites %>
+    <%= ColorRow(index, c.id) %>
+        <td><%= c.material.name %></td>
+        <td><%={1=>'否', 0=>'是'}[c.selectable]%></td>
+        <td align=right><%=c.num%></td>
+        <td><%= c.desc %></td>
+        <td></td>
+    </tr>
+    <% index += 1 %>
+  <% end %>
+
+</table>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/product_cata/new_composite/<%=@product_cata.id%>");    
+  add_tab_button("/img/iconBack.png", "返回", "/product_cata/list");  
+  add_sep();
+  add_dynamic_delete_button("/product_cata/delete_composite/");
+</script>

@@ -1,0 +1,247 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv=refresh content=600>
+<!--多少秒钟后刷新本页-->
+<TITLE>MeChat语音视频聊天服务器</TITLE>
+<SCRIPT LANGUAGE=javascript>
+
+<% @config = YtwgSystem.find(:all, :limit=>1)[0] %>
+
+<!--
+/*以下为系统变量和函数库，可以灵活调用,但不推荐修改*/
+var StartTime= '2008-10-27 09:40:06'
+var StartDays= '0'
+var StartHours= '0'
+var StartMinutes= '6'
+var StartSeconds= '50'
+
+/*以下为功能模块，允许调整界面时适当修改*/
+var iOpenWindowName="MeChat1";
+var nRecord=1;
+function OnLoginLockedRoom()
+{
+
+	if(!validstr(login.Alias))return ;
+	var Room = Server.GetRoomObject(nRecord);	
+	if(Room.State == -1)
+	{//when room is full ,administrator is allowed to login
+		if(login.Password.value.length <1)
+		{
+		  alert("已经满员，谢绝登录") ;
+		  return;
+		}
+		//If not guest,let server check it;
+	}
+	var strBox = "" ;
+	strBox = "&boxfunc=off" ;
+	var strSex = "&Sex=" + login.Sex.value ;
+
+	//iOpenWindowName+=1;//new
+	window.open("about:blank", iOpenWindowName, "toolbar=no,location=no,directories=no,menubar=no,resizable=yes") ;
+	login.target = iOpenWindowName ;
+	login.action = Room.URL + "Login" ;
+	login.RoomID.value=Room.RoomID;
+	login.submit();
+        
+	return;
+	
+}
+
+function OnLogin(n) // 登录聊天室
+{
+	if(!validstr(login.Alias))return ;
+	var Room = Server.GetRoomObject(n);
+	if(Room.State == -1)
+	{
+		if(login.Password.value.length <1)
+		{
+		  alert("已经满员，谢绝登录") ;
+		  return;
+		}
+	}
+	var strBox = "" ;
+	strBox = "&boxfunc=off" ;
+	var strSex = "&Sex=" + login.Sex.value ;
+	nRecord=n;	
+	if( Room.Locked==1)
+	{
+        	window.open("inputroompasword.htm", "inputroompassword", "toolbar=no,location=no,directories=no,menubar=no,resizable=yes") ;
+        	return;
+	}	
+	
+	var w = screen.availWidth ;
+	var h = screen.availHeight-20 ;
+	var strPos = "toolbar=no,location=no,directories=no,menubar=no,resizable=yes,top=0,left=0,width=" + w + ",height=" + h ;	
+
+
+	if(1==1)
+	{	
+		var pwin = window.open("about:blank", iOpenWindowName, strPos);
+		if(pwin != null)
+			pwin.resizeTo(screen.availWidth, screen.availHeight) ;
+	}
+	else
+	{
+		window.open("about:blank", iOpenWindowName, "toolbar=no,location=no,directories=no,menubar=no,resizable=yes") ;
+	}
+		
+	login.target = iOpenWindowName ;
+	login.action = "<%=@config.voicechaturl%>/Login" ;
+	login.RoomID.value=Room.RoomID;
+	login.submit() ;		
+
+	//window.open(Room.URL+"Login?RoomID="+Room.RoomID+"&Alias="+login.user.value+"&Password="+escape(login.pass.value) + strSex + strBox + "&r=" + Math.random(),iOpenWindowName,"toolbar=no,location=no,directories=no,menubar=no,resizable=yes");
+	//window.open(Room.URL+"Login?roomid="+Room.RoomID+"&user="+login.user.value+"&pass="+escape(login.pass.value) + strSex + strBox + "&r=" + Math.random(),"MeChatMain","toolbar=no,location=no,directories=no,menubar=no,resizable=yes");
+}
+
+function OnRegister() // 注册呢称 
+{	window.open("regist.htm","regist","toolbar=no,location=no,directories=no,menubar=no,scrollbars=no,resizable=yes,width=270,height=500");
+}
+function OnPrivate() // 打开自建聊天室窗口
+{	
+	//if(Server.RoomsCount() > 0)
+	window.open("buildprivate.htm","_Private","toolbar=no,location=no,directories=no,menubar=no,scrollbars=yes,resizable=yes");
+}
+
+function OnAllUsers() // 显示在线用户总列表
+{
+	if(Server.RoomsCount() > 0)
+	window.open(Server.GetRoomObject(0).URL+"AllUsers?r=" + Math.random(),"_AllUsers","toolbar=no,location=no,directories=no,menubar=no,scrollbars=yes,resizable=yes");
+}
+function OnFindUser() // 显示在线用户总列表
+{
+	if(Server.RoomsCount() <= 0)	return;
+	var strUserName = prompt("请输入您要查找的用户名?", "找谁?") ;
+	if(strUserName == null || strUserName == "找谁?" || strUserName.length <1)	return ;
+	window.open("finduser.htm?FindUser="+strUserName,"_FindUser","toolbar=no,location=no,directories=no,menubar=no,scrollbars=yes,resizable=yes");
+}
+function validstr(str) // 验证用户名
+{ var s,i,j; s=" +=|'#&<>%*`^/\\\";,."; str1=str.value.toString();
+  if (str.value.length <1){alert("用户名不能为空！");str.focus(); return false;}
+  for (i=0; i<str1.length; i++)
+  {	for(j=0;j<s.length;j++)
+	{if (str1.charAt(i) == s.charAt(j))
+     {	alert("名字中不能包含特殊字符: +=|'#&<>%*`^/\\\";,.空格.");
+ 		str.focus(); return false;
+  }}}return true;
+}
+function OnUserList(n) // 查询在线用户列表
+{	
+	var Room = Server.GetRoomObject(n);
+}
+function OnClick(str)
+{
+	alert(str);
+}
+
+/** 系统用脚本定义开始，普通用户不建议修改 **/
+
+function ChatRoom()
+{
+	this.RoomID		;       //房间RoomID
+	this.RoomName		;	// 房间名称
+	this.URL		;	// 登录地址
+	this.UserCount	;	// 在线人数
+	this.MaxOnline	;	// 最高在线
+	this.State		;	// 满员状态	0=正常 1=热闹 -1=满员禁止登录
+	this.Topic		;	// 当前话题
+	this.AdminNames ;	// 管理员名单
+	this.RoomArea=0;	//  地区	
+	this.RoomType	;	// 房间分类ID
+	this.Private = 0 ; // 是否自建  1:是，0:否
+	this.Locked = 0 ;  // 是否加锁  1:是，0：否
+	this.SupportAudio=0;// 是否支持语音  1:是，0:否
+	this.SupportVideo=0;// 是否支持视频  1:是，0:否	
+	this.RoomDisplay=1;
+	this.Other=0;		
+	this.Reserve="";
+	this.UserList = null;	
+}
+function ChatServer()
+{
+	this.MaxOnline = 0 ;	// 最高在线
+	this.RegUsers = 0 ;		// 总注册人数
+	this.TotalUsers = 0 ;	// 当前在线人数
+	
+	this.m_pChatRoom	= new Array();
+	this.RoomsCount = function(){return this.m_pChatRoom.length;}	// 房间数
+	this.GetRoomObject = function(n) // 取得房间对象
+	{	if(n < this.RoomsCount()) return this.m_pChatRoom[n];
+		return null;
+	}
+	this.SortRule= function(a, b)
+	{	var n1 = a.UserCount ;
+		var n2 = b.UserCount ;
+		if(n1 == n2)	return 0 ;
+		if(n1 > n2)		return -1 ;
+		if(n1 < n2)		return 1;
+	}
+	this.Sort= function(){this.m_pChatRoom.sort(this.SortRule);}
+	this.Add = function(nRoomID,strRoomName, strURL, nUserCount, nMax, nState, strTopic, strAdmins, nRoomArea,nRoomType, bPrivate, bLocked,nSupportAudio,nSupportVideo,nRoomDisplay,nOther,strReserve)
+	{
+		var obj = new ChatRoom() ;
+		obj.RoomID		= nRoomID ;	// 房间名称
+		obj.RoomName		= strRoomName ;	// 房间名称
+		obj.URL			= strURL;		// 登录地址
+		obj.UserCount	= nUserCount ;	// 在线人数
+		obj.MaxOnline	= nMax ;		// 最高在线
+		obj.State		= nState ;		// 满员状态	0=正常 1=超员 -1=满员禁止登录
+		obj.Topic		= strTopic ;	// 当前话题
+		obj.AdminNames	= strAdmins ;	// 管理员名单
+		obj.RoomArea = nRoomArea;		
+		obj.RoomType	= nRoomType ;	// 房间分类ID
+		obj.Private		= bPrivate ;	// 是否自建
+		obj.Locked		= bLocked ;		// 是否加锁
+		obj.SupportAudio = nSupportAudio;
+		obj.SupportVideo = nSupportVideo;
+		obj.RoomDisplay = nRoomDisplay;
+		obj.Other = nOther;	
+		obj.Reserve = strReserve		
+		this.m_pChatRoom[this.RoomsCount()] = obj ;
+	}
+	this.SetCount = function(nMax, nReg, nTotal)
+	{	this.MaxOnline	= nMax ;
+		this.RegUsers	= nReg ;
+		this.TotalUsers = nTotal ;
+	}
+} 
+var Server = new ChatServer() ;
+Server.Add(101,'演示聊天室','/1/',0,1,0,'欢迎大家来聊天','bbb,yyy',0,1,0,0,1,1,1,0,'');
+Server.SetCount(1,11,0);
+
+/*脚本定义完毕*/
+//-->
+</SCRIPT>
+<style type="text/css">
+<!--
+body {  font-size: 11pt}
+table {  font-size: 10.5pt}
+a {  text-decoration: none}
+a:visited {  color: #0000FF; text-decoration: none}
+a:hover {  color: #FF0033; text-decoration: none}
+-->
+</style>
+<meta name="keywords" content="语音聊天">
+<meta name="keywords" content="视频聊天">
+<meta name="keywords" content="语音视频聊天">
+<meta name="keywords" content="可视语音聊天">
+</HEAD>
+<BODY>
+  
+  <br>
+  <p align=center>首次进入语音聊天室前请先<a href="<%=@config.voicechaturl%>/video/MeChatUser6.exe">下载插件</a></p>
+  <br>
+  <p align=center><a href="javascript:OnLogin(0)">进入聊天室</a></p>
+  
+<form name="login" action="/" method="post" onSubmit="return false;">
+        <input type="hidden" name="Alias" maxlength=10 size=10 value=<%=session[:user].truename%>>
+        <input type="hidden" name="Password" maxlength=10 size=10>
+        <input type="hidden" name="RoomID" >
+        <input type="hidden" name="RoomPassword"  value="">
+	<input type="hidden" name="boxfunc"  value="off">
+        <input type="hidden" name="Sex" value=2>
+</form>
+
+</BODY>
+</HTML>

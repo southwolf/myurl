@@ -1,0 +1,151 @@
+<style>
+  *{font-size:12px}
+ 
+  /*利用tagName定义样式*/
+  td{vertical-align:top;}
+  /*#表示对id=parentTable元素的样式定义*/
+  #parentTable{
+    border-collapse:collapse;
+  }
+</style>
+
+
+    
+
+<table border="0" cellpadding="0" cellspacing="10" style="width:100%; height:70% "id="parentTable">
+    <tr>
+    <td colspan=3 align=center><%= image_button "房源查询", "/house/find" %><br></td>
+  </tr>
+    <tr height=30%>
+    <td>
+      <table id="st4" border=1 class="dragTable" cellspacing="0">
+        <tr class=dragTR><td>未读邮件</td></tr>
+        <tr><td id="div4" >
+          <div id="show_email"><img src="/img/indicator.gif"/></div>
+          <script>
+              new Ajax.Updater('show_email', '/email/list_recent2', {asynchronous:true, evalScripts:true}); 
+          </script>
+        </td></tr>
+      </table>
+    </td>
+    <td>
+      <table id="st5" border=1 class="dragTable" cellspacing="0" width=100%>
+        <tr class=dragTR><td width=100%>最新通知</td></tr>
+        <tr><td id="div5">
+              <table border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+              <tr class="clsTrHeader">
+                <% for column in %w(标题 发布时间 发布人) %>
+                  <th><%= column %></th>
+                <% end %>
+              </tr>
+
+              <% index = 0%>
+              <% for ytwg_news in @notice %>
+                <%=ColorRow(index)%>
+								<% if index == 0 %>
+                	<td><%=link_to ytwg_news.title, {:controller=>"notice", :action => 'show', :id => ytwg_news}, {:style=>"color:red"} %></td>
+                <% else %>
+                	<td><%=link_to ytwg_news.title, {:controller=>"notice", :action => 'show', :id => ytwg_news} %></td>
+                <% end %>
+                <td><%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%></td>  
+                <td><%=YtwgUser.find(ytwg_news.user_id).truename rescue nil%></td>
+                </tr>
+                <% index += 1%>  
+              <% end %>
+            </table>
+        </td></tr>
+      </table>
+    </td>
+    <td> <!--
+      <table id="st6" border=1 class="dragTable" cellspacing="0" width=160px>
+        <tr class=dragTR><td></td></tr>
+        <tr><td id="div6">
+                <div id=AdRotator></div>
+               
+        </td></tr>
+      </table> -->
+    </td>
+  </tr>
+  <tr height=30%>
+    <td>
+      <table id="st7" border=1 class="dragTable" cellspacing="0">
+        <tr class=dragTR><td>公司喜报</td></tr>
+        <tr><td id="div7">
+          <table border="1" bordercolor="#666666" class="clsContentTable" width=100%>
+            <tr class="clsTrHeader">
+              <% for column in %w(标题 发布时间 发布人) %>
+                <th><%= column %></th>
+              <% end %>
+            </tr>
+
+            <% index = 0%>
+            <% for ytwg_news in @news %>
+              <%=ColorRow(index)%>
+							<% if index == 0 %>
+              	<td><%=link_to ytwg_news.title, {:controller=>"ytwg_news", :action => 'show', :id => ytwg_news}, {:style=>"color:red"} %></td>
+              <% else %>
+              	<td><%=link_to ytwg_news.title, :controller=>"ytwg_news", :action => 'show', :id => ytwg_news %></td>
+              <% end %>
+              <td><%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%></td>  	
+              <td><%=YtwgUser.find(ytwg_news.user_id).truename rescue nil%></td>
+            </tr>
+            <% index += 1%>  
+          <% end %>
+          <tr>
+            	<td colspan=3><%=link_to "更多...", :controller=>"ytwg_news", :action => 'list'%></td>
+            </tr>
+          </table>
+        </td></tr>
+      </table>
+    </td>
+    <td>
+      <table id="st8" border=1 class="dragTable" cellspacing="0" width=100%>
+        <tr class=dragTR><td>经理推荐</td></tr>
+        <tr><td id="div8" height=200>
+            
+            <marquee height=200  behavior="scroll" scrollAmount=2 direction="up" onMouseOver="this.stop();" onMouseOut="this.start()">
+		        <% @notices = Notice1.find(:all, :order=>"id desc", :limit=>5)%>
+		        <% for ytwg_news in @notices%>
+		          <%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%> 
+<%=YtwgUser.find(ytwg_news.user_id).truename%> <%= link_to ytwg_news.title, :controller=>"notice1", :action => 'show', :id => ytwg_news%><br>
+		        <% end%>
+		        <%= link_to( "更多...", {:controller => 'notice1', :action => 'list'})%>
+		      </marquee>
+        </td></tr>
+      </table>
+    </td>
+    <td>
+      <!--
+      <table id="st9" border=1 class="dragTable" cellspacing="0" width=100%>
+        <tr class=dragTR><td>打卡器</td></tr>
+        <tr><td id="div9">
+          <div>
+            <br>
+            <%= image_button "打&nbsp;&nbsp;卡", "/main/daka" %><br>
+            <%= image_button "请&nbsp;&nbsp;假", "/ytwg_workflow/write_form?flowid=1" %><br>
+          </div>
+        </td></tr>
+      </table>
+      -->
+    </td>
+  </tr>
+    <tr>
+    <td colspan=3 align="left">
+<form action="http://www.baidu.com/s" method="get" name="bdfm" target="_blank" id="bdfm" autocomplete="on">
+<span id="bdi"><input type="hidden" name="tn" value="jingfang33_pg" /><input type="hidden" name="lm" value="-1" /></span>
+<a id="srh_a" href="http://baidu.com/index.php?tn=jingfang33_pg"><img src="http://2345.com/i/srh_1.gif" alt="点击打开" border="0" id="srh_i" /></a>
+
+<span class="sugdiv">
+	<input name="word" id="search1" class="search11" type="text" size="33" />
+    <input type="submit" value="搜 索" class="sbutton"  />
+	<div id="sug" style="display:none"></div>
+</span>
+</form>
+
+
+    </td>
+  </tr>
+</table>
+
+
+

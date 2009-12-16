@@ -1,0 +1,8 @@
+<% for column in YtwgEventlog.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @ytwg_eventlog.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @ytwg_eventlog %> |
+<%= link_to 'Back', :action => 'list' %>

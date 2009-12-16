@@ -1,0 +1,2 @@
+module VoicechatHelper
+end

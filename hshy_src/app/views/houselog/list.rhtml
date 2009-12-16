@@ -1,0 +1,33 @@
+房源编号:<%=@house.id%>  录入人:<%=@house.inputer%>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>跟进人</th>
+    <th>跟进时间</th>
+    <th width=60%>内容</th>
+  </tr>
+
+<%index = 1%>  
+<% for houselog in @houselogs %>
+  <%=ColorRow(index, houselog.id)%>
+    <td><%=h houselog.inputer %></td>
+    <td><%=h houselog.inputtime.to_formatted_s(:db) %></td>
+    <td><%= houselog.text %></td>
+  <% index += 1 %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @houselogs, :id=>params[:id] %>
+
+<script>
+  <% house = House.find(params[:id]) %>
+ // add_tab_button("/img/iconBack.png", "返回", "javascript:history.back()");  
+ // add_sep();
+ // add_tab_button("/img/iconNew.png", "添加", "/houselog/new/<%=params[:id]%>"); 
+  <% if checkright("删除跟进内容") %>
+    add_sep();
+    add_dynamic_button("/img/iconEdit.png", "修改", "/houselog/edit/"); 
+    add_sep();
+    add_dynamic_delete_button("/houselog/destroy/");  
+  <% end %>
+</script>

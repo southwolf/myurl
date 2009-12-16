@@ -1,0 +1,13 @@
+<%= error_messages_for 'software_bug' %>
+
+<!--[form:software_bug]-->
+
+<p><label for="software_bug_desc">ฮสฬโร่ส๖</label><br/>
+<%= fckeditor_textarea("software_bug", "desc",  :toolbarSet => 'Simple', :width => '100%', :height => '360px') %>
+
+</p>
+
+<p><label for="software_bug_photo">ฝุอผ</label><br/>
+<%= file_column_field 'software_bug', 'photo'  %></p>
+<!--[eoform:software_bug]-->
+

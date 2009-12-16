@@ -1,0 +1,29 @@
+<%= start_form_tag %>
+<table border="1" bordercolor="#999999" class="clsContentTable" width=80%>
+  <tr class="clsTrHeader">
+    <th>权限名称</th>
+    <th>选择</th>
+  </tr>
+  
+<%index = 0%>
+<% for right_type in Righttype.find(:all) %>
+    <%=ColorRow(index)%>  
+        <td colspan=2 align=center><%=right_type.name%></td>
+    </tr>
+  <% index+=1 %>
+  <% for r in right_type.rights %>
+    <%=ColorRow(index)%>
+      <td><%= r.name %></td>
+      <td align='center'><input type="checkbox" name="group[right_ids][]" 
+              value="<%= r.id %>" 
+              <% if @group.rights.include?(r) %> checked="checked" <% end %> />
+      </td> 
+      <% index+=1  %>
+    </tr>
+  <% end %>
+<% end %>
+
+<%= hidden_field_tag("commit", "") %>
+<%= hidden_field_tag("id", @group.id) %>
+</table>
+<%= end_form_tag %>

@@ -1,0 +1,8 @@
+<% for column in Wupin.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @wupin.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @wupin %> |
+<%= link_to 'Back', :action => 'list' %>

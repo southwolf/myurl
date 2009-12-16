@@ -1,0 +1,3 @@
+<% form_tag :action => 'command' do%>
+输入生成器命令:<%=text_field_tag('command', params[:text], {:size=>80})%><%= submit_tag '保存' %>
+<% end%>

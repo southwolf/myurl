@@ -1,0 +1,13 @@
+<%= error_messages_for 'ytwg_right' %>
+
+<!--[form:ytwg_right]-->
+<p><label for="ytwg_right_name">名称</label><br/>
+<%= text_field 'ytwg_right', 'name'  %></p>
+
+<p><label for="ytwg_right_description">所属种类</label><br/>
+<%= select('ytwg_right', 'cata_id', Righttype.find(:all).collect {|p| [ p.name, p.id ] }, { :include_blank => true })%> </p>
+
+<p><label for="ytwg_right_description">描述</label><br/>
+<%= text_field 'ytwg_right', 'description'  %></p>
+<!--[eoform:ytwg_right]-->
+

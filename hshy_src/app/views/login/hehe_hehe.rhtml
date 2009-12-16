@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <%= stylesheet_link_tag 'main' %>
+    <%= javascript_include_tag 'prototype' %>
+    <%= javascript_include_tag 'effects' %>
+    <title><%=YtwgSystem.find(:all, :limit=>1)[0].title||'OA办公系统'%></title>
+    
+    <script language="JavaScript">
+        function isNull(inputStr) {
+            if (inputStr == null || inputStr == "") {
+                return true;
+            }
+            return false;
+        }
+
+
+        /**判断字符串str中是否含有系统保留（如",(,),[,],',<,>）的字符。
+         * 如果含有非法字符则返回true，否则返回false.
+         */
+        function hasIllegalChar(str){
+            regexp = /^.*['"<>\[\]()].*$/;
+            return regexp.test( str );
+        }
+
+        //ie版本判断,其他浏览器没有判断版本
+        function judgeVersionOfBrowser(){
+            var IS = new Object();
+            IS.apv = navigator.appVersion.toLowerCase();
+            IS.major = parseInt(IS.apv);
+            IS.ie = ((IS.apv.indexOf("msie") != -1) && (IS.apv.indexOf('opera')==-1) && (IS.apv.indexOf('msn')==-1)) ;
+            IS.notIE = (IS.apv.indexOf("msie") == -1);
+            //ie版本5.0以上
+            IS.ieOfThisSystem = (IS.ie && (IS.apv.indexOf("msie 4.")==-1) && (IS.major >= 4) && (IS.apv.indexOf("msie 5.0")==-1));
+            if(IS.ieOfThisSystem || IS.notIE){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        /**去除父帧。解决在有帧（frame或者iframe）的情况下，需要返回主页或者重新登录会出现在某个帧而不是整个窗口的问题。*/
+        function getRidOfParentFrame(){
+            if(window.top.location != window.location)
+                window.top.location = window.location;
+        }
+
+        getRidOfParentFrame();
+ 
+        function checkvalue()
+        {
+            if(isNull(document.frmLogin.account.value)==true)
+            {
+                alert("用户名不能为空");
+                document.frmLogin.account.focus();
+                return false;
+            }
+            if((hasIllegalChar(document.frmLogin.account.value))==true)
+            {
+                alert("用户名有非法字符");
+                document.frmLogin.account.focus();
+                return false;
+            }
+            if((isNull(document.frmLogin.password.value))==true)
+            {
+                //      alert("密码不能为空!");
+                //      document.frmLogin.password.focus();
+                //      return false;
+            }
+
+            if(judgeVersionOfBrowser()==false){
+                alert("本系统需要IE5.5或以上才能正常使用,请升级你的IE浏览器!");
+                return false;
+            }
+    
+            return true;
+        }
+
+    </script>
+    <!--************************************************-->
+  </head>
+  <body bgcolor="#ffffff">
+    <!--登录表单开始-->
+    
+    <div align="center">
+      <table width="1000" height="600" border=0 background='/img/1.gif' style="background-repeat:no-repeat">
+        <form id="frmLogin" name="frmLogin"  method="post" action="/login/trylogin">
+          <!--
+  <form id="frmLogin" name="frmLogin"  method="post" action="http://localhost:8080/WebRoot/servlet/login?operation=login">
+  -->
+    <!--DWLayoutTable-->
+          <tr>
+            <td  height="333" align=center valign=middle colspan=5>
+              <br><br><br>
+              <span id='title'><FONT style="FONT-SIZE: 40pt; FILTER: glow(color=black); WIDTH: 100%; COLOR: #e4dc9b; LINE-HEIGHT: 150%; FONT-FAMILY: 华文彩云"><B><%= @config.title || "滕王阁协同办公系统"%></B></FONT></span>
+            </td>
+          </tr>
+          <tr>
+            <td width=40% height="21" align=right>用户名：</td>
+            <td width=27 colspan="3" align="left" valign="baseline"><input name="account" size=18 style="background:#FFFFFF; font-size:15px; color:#17549B"></td>
+            <td width=105><div id="notice" align="center"></div>
+              <script language="javascript">
+                  function setNotice(notice)
+                  {
+                      var element = document.getElementById('notice')
+                      element.innerHTML = "<span id ='notice1'>" + notice + "</span>";
+                      setTimeout('new Effect.Fade(\'notice1\')', 2250)
+                  }
+<% if @flash[:notice] %>
+      setNotice('<%=@flash[:notice]%>')
+<% end %>
+              </script>
+            </td>
+          </tr>
+          <tr>
+            <td height="11"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td height="20" align=right>密码：</td>
+            <td colspan="3" align="left" valign="baseline"><input name="password" size=18 type=password style="background:#FFFFFF; font-size:15px; color:#17549B"></td>
+            <td align="left" ></td>
+          </tr>
+          <tr>
+            <td height="35">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"></td>
+            
+            <!--
+          <td valign="top"><img src="1_09.gif" width="105" height="28" border="0" onclick="javascript:return checkvalue();"></td>
+          -->
+            <td colspan = 3 width="105" height="28" align="left">
+              <input type="submit" class="button" value="登录"  onclick="javascript:return checkvalue();">
+              &nbsp;<INPUT class=button onClick="javascript:window.location='http://10.13.8.8/';" type=button value=退出> 
+              <!--<a href="../rmrb/cab/YotopTableCtrl.exe">客户端软件下载</a>-->
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="138" >
+              
+            </td>
+            <td>&nbsp;</td>
+            
+            <td valign=top align='center'></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </form>
+      </table>
+    </div>
+    
+    <!--登录表单结束-->
+    <script language="javascript">
+        //让用户名输入框获得焦点
+        frmLogin.account.focus();
+    </script>
+  </body>
+</html>

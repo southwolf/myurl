@@ -1,0 +1,60 @@
+我下发的任务
+<table id='table' border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(任务名称 接收人 下发时间 开始时间 截止时间 任务描述 回复 状态) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+<%index=0%>
+<% for task in @tasks_from_me %>
+  <%=ColorRow(task.id, task.id)%>
+  <%index+=1%>
+    <td><%= task.name %></td>
+    <td><%= task.receiver.truename %></td>
+    <td><%= task.publish_time.to_formatted_s(:db) %></td>
+    <td><%= task.begin_time.to_date %></td>
+    <td><%= task.end_time.to_date %></td>
+    <td><%= task.desc %></td>
+    <td><%= task.reply %></td>
+    <td><%= {1=>"新下发", 2=>"已接受", 3=>"无法完成", 4=>"顺利完成", 5=>"拒绝"}[task.status] %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+我接收的任务
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(任务名称 接收人 下发时间 开始时间 截止时间 任务描述 回复 状态 操作) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+<%index=0%>
+<% for task in @tasks_to_me %>
+  <%=ColorRow(task.id)%>
+  <%index+=1%>
+    <td><%= task.name %></td>
+    <td><%= task.receiver.truename %></td>
+    <td><%= task.publish_time.to_formatted_s(:db) %></td>
+    <td><%= task.begin_time.to_date %></td>
+    <td><%= task.end_time.to_date %></td>
+    <td><%= task.desc %></td>
+    <td><%= task.reply %></td>
+    <td><%= {1=>"新下发", 2=>"已接受", 3=>"无法完成", 4=>"顺利完成", 5=>"拒绝"}[task.status] %></td>
+    
+  <td><% if task.status == 1 %>
+        <%= link_to '接受任务', :action => 'accept', :id => task %>
+        <%= link_to '拒绝任务', :action => 'accept', :id => task, :flag=>"refuse" %>
+    <% elsif task.status == 2 %>
+        <%= link_to '完成', :action => 'complete', :id => task %>
+        <%= link_to '无法完成', :action => 'complete', :id => task, :flag=>"notcomplete" %>
+    <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<script>
+  add_tab_button("/img/iconNew.png", "新增任务计划", "/task/new");  
+  add_dynamic_delete_button("/task/destroy/", "table", "删除我下发的任务");  
+</script>

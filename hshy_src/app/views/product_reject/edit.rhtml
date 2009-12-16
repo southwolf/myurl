@@ -1,0 +1,9 @@
+<h1>Editing product_reject</h1>
+
+<% form_tag :action => 'update', :id => @product_reject do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @product_reject %> |
+<%= link_to 'Back', :action => 'list' %>

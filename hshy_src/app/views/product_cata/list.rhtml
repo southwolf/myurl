@@ -1,0 +1,60 @@
+<table id='table' border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(ID 名称 类型 备注) %>
+    <th><%= column %></th>
+  <% end %>
+    <th colspan=3>操作</th>
+  </tr>
+<% index = 0  %>  
+<% for product_cata in @product_catas %>
+  <%= ColorRow(index, product_cata.id) %>
+      <td><%=h product_cata.id%></td>
+      <td><%=h product_cata.name%></td>
+      <% if product_cata.is_material==1%>
+        <td>原材料</td>
+      <% else %>
+        <td>产品</td>
+      <% end %>
+      <td><%=h product_cata.desc%></td>
+      <td><%= link_to "产品组成", :action=>"composite", :id=>product_cata %></td>
+      <% if !product_cata.product_attr %>
+        <td><a href="javascript:upload('form<%=product_cata.id%>')">上传产品属性</a> 
+
+<%= start_form_tag({:action => 'new_prop', :id => product_cata},{:enctype=>"multipart/form-data", :style=>"display:none", :id=>"form"+product_cata.id.to_s}) %>
+    <%= file_field_tag("product_attr") %>
+         <%= submit_tag '上传' %>
+  <%= end_form_tag%>
+
+</td>
+      <% else %>
+        <td>
+            <%= link_to "查看产品属性", {:action=>"view_prop", :id=>product_cata}, {:target=>"_blank"} %>
+            <%= link_to '删除产品属性', { :action => 'delete_prop', :id => product_cata }, :confirm => '删除产品属性后产品无法入库，继续吗?', :post => true %>
+        </td>
+      <% end %>
+  </tr>
+  <% index += 1 %>
+<% end %>
+</table>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/product_cata/new");    
+  add_dynamic_button("/img/iconEdit.png", "修改", "/product_cata/edit/");
+  add_sep();
+  add_dynamic_delete_button("/product_cata/destroy/");
+</script>
+<script>
+function upload(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>

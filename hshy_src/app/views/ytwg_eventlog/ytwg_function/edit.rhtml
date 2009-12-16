@@ -1,0 +1,9 @@
+
+<%=link_to_remote '新建子节点', :update=>'editdiv', :url=>{:action=>'new', :parent=>@ytwg_function}%>
+&nbsp;&nbsp;
+<%=link_to '调整子节点顺序', {:action=>'reorder', :id=>@ytwg_function} if @ytwg_function.children.size > 0%>
+<% form_tag :action => 'update', :id => @ytwg_function do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %>
+  <%= link_to '删除', {:action=>'destroy', :id=>@ytwg_function}, :confirm=>"确定删除该节点吗？", :method => :post%>
+<% end %>

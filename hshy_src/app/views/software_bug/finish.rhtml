@@ -1,0 +1,16 @@
+<% form_tag :action => 'finish_submit', :id => @software_bug do %>
+<p>
+  <b>问题描述:</b> <%=h @software_bug.desc %>
+</p>
+
+  <p>问题状态:<br/>
+<%=select("software_bug", "status", [["新上报", 1, ], ["成功解决", 2], ["无法解决",3], ["延迟解决", 4]]) %>
+</p>
+    
+  <p><label for="software_finish_text">解决方法描述:</label><br/>
+<%= text_area 'software_bug', 'finish_text'  %></p>
+
+  <%= submit_tag '解决' %>
+<%= image_button '返回', '/software_bug/list' %>
+<% end %>
+

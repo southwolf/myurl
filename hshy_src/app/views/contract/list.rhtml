@@ -1,0 +1,105 @@
+<% if checkright("合同管理")%>
+    <% contract_manage = true;%>
+<% end %>
+
+<%= start_form_tag %>
+<table>
+    <tr>
+        <td>选择状态：
+            <select id="status" name="status" onchange="submit();">
+            <% for key in $CONTRACT_STATUS.keys %>
+            <% next if  !key %>
+            <option value=<%=key%> <%='selected="selected"' if key==@status.to_s.to_i%> ><%= $CONTRACT_STATUS[key]%></option>
+            <% end %>
+            </select>
+            选择部门：
+            <select id="department" name="department" onchange="submit();">
+            <%=options_from_collection_for_select(Department.find(:all), "id", "name", @department_id.to_s.to_i)%>
+            </select>
+            选择类型：
+            <select id="contracttype" name="contracttype" onchange="submit();">
+            <%=options_from_collection_for_select(DicContract.find(:all), "id", "name", @contracttype.to_s.to_i)%>
+            </select>
+            请输入合同号:<%= text_field_tag "code", ""%> 
+            <%= submit_tag "查询"%>
+        </td>
+        <td>
+            共有此类合同数:<%=@count%>
+        </td>
+    </tr>
+    <tr>
+    </tr>
+</table>
+<%= end_form_tag %>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>合同编号</th>
+    <th>合同类型</th>
+    <th>录入人</th>
+    <th>状态</th>
+    <th>领用部门</th>
+    <th>领用人</th>
+    <th>领用时间</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% index = 1 %>  
+<% for contract in @contracts %>
+  <%= ColorRow(index, contract.id) %>
+  <% index += 1 %>
+    <td><%=h contract.code %></td>
+    <td><%=h DicContract.find(contract.contract_type).name rescue nil %></td>
+    <td><%=h contract.publisher  %> </td>
+    <td><%=h $CONTRACT_STATUS[contract.status] %> </td>
+    <td><%=h contract.department.name if contract.department%> </td>
+    <td><%=h contract.user.truename if contract.user %> </td>
+    <td><%=h contract.use_time.strftime("%Y-%m-%d") if contract.use_time %> </td>
+    <td>
+        <% if contract.user_id == session[:user].id && contract.needcheck == 1 %>
+          <%= link_to '确认', :action => 'check', :id => contract %>
+        <% end %>
+        
+        <% if (contract.user_id == session[:user].id && contract.needcheck == 0 && contract.status == 1) || contract_manage%>
+        <a href="javascript:upload('form<%=contract.id%>')">转移</a> 
+        <%= start_form_tag({:action => 'transfer', :id => contract},{:style=>"display:none", :id=>"form"+contract.id.to_s}) %>
+              
+              <% users = YtwgUsergroup.find(:all, :conditions=>"group_id=1 or group_id =2") %>
+              <% user_ids = users.collect{|p| p.user_id}.join(',') %>
+              <%=select("contract", "user_id", YtwgUser.find(:all, :conditions=>"id in (#{user_ids})").collect {|p| [ p.truename, p.id ] })%></p>
+                              
+              <%= submit_tag '保存' %>
+        <%= end_form_tag%>
+        <% end%>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @contracts, :params=>{:status => @status, :department=>@department_id, :contracttype=>params[:contracttype]} %>
+
+<% if checkright("合同管理") %>
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/contract/new?page=<%=params[:page]%>"); 
+  add_sep();
+  add_dynamic_button("/img/iconEdit.png", "修改", "/contract/edit/"); 
+  add_sep();
+  add_dynamic_delete_button("/contract/destroy/");  
+</script>
+<% end %>
+
+<script>
+function upload(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>

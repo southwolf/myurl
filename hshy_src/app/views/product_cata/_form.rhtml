@@ -1,0 +1,15 @@
+<%= error_messages_for 'product_cata' %>
+
+<!--[form:product_cata]-->
+<p>
+  <%=radio_button("product_cata", "is_material", "1")%>原材料
+  <%=radio_button("product_cata", "is_material", "0")%>产品
+</p>
+
+<p><label for="product_cata_name">名称</label>
+<%= text_field 'product_cata', 'name'  %></p>
+
+<p><label for="product_cata_desc">描述(100字以内)</label><br/>
+<%= text_area 'product_cata', 'desc'  %></p>
+<!--[eoform:product_cata]-->
+

@@ -1,0 +1,9 @@
+<%@title = '编辑文档类型'%>
+<%= start_form_tag :action => 'update', :id => @filecata %>
+  <%= render :partial => 'form' %>  
+<%= end_form_tag %>
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/filecata/list");  
+</script>

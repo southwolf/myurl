@@ -1,0 +1,28 @@
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width="100%">
+  <tr class="exebar">
+    <th>控制器</th>
+    <th>行为</th>
+    <th>存入日志</th>
+    <th>描述</th>
+  </tr>
+  
+  <%index = 1%>
+<% for logfilter in @logfilters %>
+  <%=ColorRow(index, logfilter.id)%>
+  <%index += 1%>
+  <td><%=h logfilter.controller %></td>
+  <td><%=h logfilter.action %></td>
+  <td><%=h '是' if logfilter.log == 1 %></td>
+  <td><%=h logfilter.desc %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @logfilters %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/logfilter/new");   
+  add_dynamic_button("/img/iconEdit.png", "修改", "/logfilter/edit/");
+  add_sep();
+  add_dynamic_delete_button("/logfilter/destroy/");  
+</script>

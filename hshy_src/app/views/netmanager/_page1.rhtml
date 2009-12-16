@@ -1,0 +1,59 @@
+<% form_tag :action => 'update', :ip => get_value(@text, "net.ipaddr") do %>
+<% round_table("80%", "设备信息") do %>
+  <div style="BACKGROUND-COLOR: white;">
+    <table border="1" bordercolor="#999999" class="clsContentTable" width=100%>
+      <tr>
+        <td>设备类型:</td><td colspan = 3><%=get_value(@text, "sys.dtyp")%></td>
+      </tr>
+      <tr>
+        <td>设备名称:</td><td><%= get_value(@text, "sys.name")%></td>
+        <td>编码路数:</td><td><%= get_value(@text, "sys.nencoders") %></td>
+      </tr>
+      <tr>
+        <td>解码路数:</td><td><%= get_value(@text, "sys.ndecoders") %></td>
+        <td>软件版本:</td><td><%= get_value(@text, "sys._swver") %></td>
+      </tr>
+      <tr>
+        <td>转码路数:</td><td><%= get_value(@text, "sys.ntranscoders") %></td>
+        <td>硬件版本:</td><td><%= get_value(@text, "sys._hwver") %></td>
+      </tr>
+      <tr>
+        <td>标志:</td><td><%= get_value(@text, "sys.flags") %></td>
+        <td>Linux内核版本:</td><td><%= get_value(@text, "sys._kerver") %></td>
+      </tr>
+    </table>
+  </div> 
+<% end %>
+<br>
+<% round_table("80%", "设备管理器设置") do %>
+ <div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td>设备管理服务器IP:</td><td><%= text_field_tag "nman.server", get_value(@text, "nman.server") %></td>
+        <td>用户名:</td><td><%= text_field_tag "nman.user", get_value(@text, "nman.user") %></td>
+      </tr>
+      <tr>
+        <td>密码:</td><td><%= text_field_tag "nman.pass", get_value(@text, "nman.pass") %></td>
+      </tr>
+    </table>
+  </div>
+<% end %>
+
+<%= submit_tag '更新' %>
+<% end %>
+
+<% round_table("80%", "日期时间") do %>
+  <div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td><%=button_to "同步", :action=>'time_syn', :ip=>get_value(@text, "net.ipaddr")%> </td>
+      </tr>
+      <!--
+      <tr>
+        <td>运行总时间:<%= text_field_tag "name", '' %></td>
+      </tr>
+      -->
+    </table>
+  
+  </div>
+<% end %>

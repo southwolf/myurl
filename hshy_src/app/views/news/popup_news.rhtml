@@ -1,0 +1,5 @@
+<% for column in News.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%= @news.send(column.name) %>
+</p>
+<% end %>

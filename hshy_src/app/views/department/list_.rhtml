@@ -1,0 +1,25 @@
+
+<%=  image_wide_button '新建部门', "/department/new" %>
+
+<% indexFlag = 1 %>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=50%>
+  <tr class="exebar">
+  <th>名称</th>
+  <th>描述</th>
+  <th>负责人</th>
+  <th colspan=2>操作</th>
+  </tr>
+  
+<% for department in @departments %>
+  <%=ColorRow(indexFlag)%>
+  <% indexFlag += 1%>
+        <td><%=h department.name %></td>
+        <td><%=h department.desc %></td>
+        <td><%=h department.leader.truename rescue nil %></td>
+    <td><%= link_to '编辑', :action => 'edit', :id => department %></td>
+    <td><%= link_to image_tag("/img/iconErase.png",:border => 0), { :action => 'destroy', :id => department }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @departments %>

@@ -1,0 +1,13 @@
+<%= error_messages_for 'dic_dizhi' %>
+
+<!--[form:dic_geju]-->
+<p><label for="dic_dizhi_name">Ãû³Æ</label><br/>
+<%= text_field 'dic_dizhi', 'name'  %></p>
+
+<p><label for="dic_dizhi_quyu_id">Ãû³Æ</label><br/>
+<%= select("dic_dizhi", "quyu_id", Quyu.find_all.collect {|p| [ p.name, p.id ] }) %>
+
+</p>
+
+<!--[eoform:dic_geju]-->
+

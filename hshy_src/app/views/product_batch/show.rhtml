@@ -1,0 +1,39 @@
+<p><label for="product_batch_name">编号:</label>
+<%= @product_batch.name%></p>
+
+<p><label for="product_batch_num">数量:</label>
+<%= @product_batch.num%></p>
+
+<p><label for="product_batch_factory">外协厂家:</label>
+<%= @product_batch.factory%></p>
+
+<p><label for="product_batch_date">生产日期:</label>
+<%= @product_batch.date.to_date%></p>
+
+<p><label for="product_batch_delaer">负责人:</label>
+<%= @product_batch.dealer%></p>
+
+<%=@html%>
+
+<br>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>条码</th>
+    <th>状态</th>
+    <th>备注</th>
+  </tr>
+  
+  <% index = 1 %>
+<% for p in @products %>
+  <%= ColorRow(index, p.id) %>
+  <% index += 1 %>
+    <td><%= link_to p.barcode, :action=>"show_product", :id=>p.id %></td>
+    <td><%= $PRODUCT_STATUS[p._status] %></td>
+    <td><%=h p.desc %></td>
+  </tr>
+<% end %>
+</table>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/product_batch/list");  
+</script>

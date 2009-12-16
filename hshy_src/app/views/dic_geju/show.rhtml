@@ -1,0 +1,8 @@
+<% for column in DicGeju.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @dic_geju.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @dic_geju %> |
+<%= link_to 'Back', :action => 'list' %>

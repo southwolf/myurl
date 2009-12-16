@@ -1,0 +1,12 @@
+<%= error_messages_for 'ytwg_report' %>
+
+<!--[form:ytwg_report]-->
+
+<p><label for="ytwg_report_content">报表模板</label><br/>
+<%= file_field 'ytwg_report', 'content'  %></p>
+
+<p>
+<%= check_box 'ytwg_report', 'flow', {}, "1", "0"  %>工作流报表</p>
+
+<!--[eoform:ytwg_report]-->
+

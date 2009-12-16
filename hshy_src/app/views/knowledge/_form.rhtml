@@ -1,0 +1,19 @@
+<%= error_messages_for 'knowledge' %>
+
+<!--[form:knowledge]-->
+<label for="knowledge_title">标题</label>
+<%= text_field 'knowledge', 'title', :size=>100  %><br>
+
+
+<%= fckeditor_textarea("knowledge", "content",  :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
+
+<label for="knowledge_attach1">附件</label>
+<%= file_column_field 'knowledge', 'attach1'  %><br>
+
+<label for="knowledge_attach2">附件</label>
+<%= file_column_field 'knowledge', 'attach2'  %><br>
+
+<label for="knowledge_attach3">附件</label>
+<%= file_column_field 'knowledge', 'attach3'  %><br>
+<!--[eoform:knowledge]-->
+

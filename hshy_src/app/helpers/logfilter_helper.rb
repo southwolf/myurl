@@ -1,0 +1,2 @@
+module LogfilterHelper
+end

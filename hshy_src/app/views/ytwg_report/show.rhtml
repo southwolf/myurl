@@ -1,0 +1,8 @@
+<% for column in YtwgReport.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @ytwg_report.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @ytwg_report %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,45 @@
+
+<p>
+  <b>退货单位:</b> <%=h @product_reject.unitname %>
+</p>
+<p>
+  <b>经手人:</b> <%=h @product_reject.dealer %>
+</p>
+<p>
+  <b>退货时间:</b> <%=h @product_reject.dealtime.to_date %>
+</p>
+<p>
+  <b>退货原因:</b> <%=h @product_reject.desc %>
+</p>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>条码</th>
+    <% for key in @cells.keys.sort %>
+      <th><%= @cells[key] %></th>
+    <% end %>
+    <th>备注</th>
+  </tr>
+  
+  <% index = 1 %>
+<% for p in @product_reject.product %>
+  <%= ColorRow(index, p.id) %>
+  <% index += 1 %>
+    <td><%= link_to p.barcode, :controller=>"product", :action=>"show_product", :id=>p.id %></td>
+  <% for column in @cells.keys.sort %>
+     <% if p.send(column).class == Time%>
+        <td><%=h p.send(column).to_date %></td>
+     <% else %>
+        <td><%=h p.send(column) %></td>
+     <% end %>
+  <% end %>
+    <td><%=h p.desc %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/product_reject/list");  
+</script>

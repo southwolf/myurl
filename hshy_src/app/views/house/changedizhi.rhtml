@@ -1,0 +1,1 @@
+<%=select("house", "xq", DicDizhi.find(:all, :conditions=>"quyu_id = #{@quyu.id}").collect {|p| [ p.name, p.name ] })%>

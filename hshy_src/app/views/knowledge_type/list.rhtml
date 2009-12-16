@@ -1,0 +1,30 @@
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width="60%">
+  <tr class="exebar">
+    <th width=50%>类别</th>
+    <th>建立时间</th>
+    <th>建立人</th>
+  </tr>
+
+<% index = 1 %>  
+<% for knowledge_type in @knowledge_types %>
+  <%= ColorRow(index, knowledge_type.id)  %>
+  <% index += 1 %>
+    <td><%= link_to knowledge_type.name, :controller=>"knowledge", :action=>"list", :id=>knowledge_type %></td>
+    <td><%=h knowledge_type.made_time.to_formatted_s(:db) %></td>
+    <td><%=h knowledge_type.user %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @knowledge_types %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/knowledge_type/new");  
+  
+  <%  if checkright('知识管理') %>
+    add_dynamic_button("/img/iconEdit.png", "修改", "/knowledge_type/edit/");
+    add_sep();
+    add_dynamic_delete_button("/knowledge_type/destroy/");  
+ <% end %>
+</script>
+

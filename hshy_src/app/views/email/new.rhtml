@@ -1,0 +1,14 @@
+
+<% form_tag({:action => 'create'}, :multipart => true)do %>
+  <%= render :partial => 'form' %>
+<% end %>
+
+
+<script>
+//  add_submit("·¢ËÍ");
+//  add_tab_button("/img/iconBack.png", "±£´æµ½²İ¸åÏä", "/email/list");  
+  
+  $('separator').insert({before:'<td width=2%><a href="javascript:document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSend.png" title="·¢ËÍ" border="0" ></a></td>'});
+  add_sep();
+  $('separator').insert({before:'<td width=2%><a href="javascript:document.forms[0].email_cg.value=1;document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="±£´æµ½²İ¸åÏä" border="0" ></a></td>'});
+</script>

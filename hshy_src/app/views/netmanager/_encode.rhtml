@@ -1,0 +1,54 @@
+
+<div style="BACKGROUND-COLOR: white;">
+    <table width=100%>
+      <tr>
+        <td>流封装类型:</td><td><%= text_field_tag "enc#{index}.stream_type", get_value(@text, "enc#{index}.stream_type") %></td>
+        <td>视频码率:</td><td><%= text_field_tag "enc#{index}.vid_bitrate", get_value(@text, "enc#{index}.vid_bitrate") %></td>
+      </tr>
+      <tr>
+        <td>压缩算法:</td><td><%= text_field_tag "enc#{index}.vid_coding", get_value(@text, "enc#{index}.vid_coding") %></td>
+        <td>分辨率:</td><td><%= text_field_tag "enc#{index}.vid_res", get_value(@text, "enc#{index}.vid_res") %></td>
+      </tr>
+      <tr>
+        <td>输出地址:</td><td><%= text_field_tag "enc#{index}.stream_url", get_value(@text, "enc#{index}.stream_url") %></td>
+        <td>视频亮度:</td><td><%= text_field_tag "enc#{index}.vid_brightness", get_value(@text, "enc#{index}.vid_brightness") %></td>
+      </tr>
+      <tr>
+        <td>视频对比度:</td><td><%= text_field_tag "enc#{index}.vid_contrast", get_value(@text, "enc#{index}.vid_contrast") %></td>
+        <td>视频饱和度:</td><td><%= text_field_tag "enc#{index}.vid_brightness", get_value(@text, "enc#{index}.vid_brightness") %></td>
+      </tr>
+      <tr>
+        <td>视频色度:</td><td><%= text_field_tag "enc#{index}.vid_hue", get_value(@text, "enc#{index}.vid_hue") %></td>
+        <td>视频清晰度:</td><td><%= text_field_tag "enc#{index}.vid_sharpness", get_value(@text, "enc#{index}.vid_sharpness") %></td>
+      </tr>
+      <tr>
+        <td>视频可变码率比</td><td><%= text_field_tag "enc#{index}.vid_vbr", get_value(@text, "enc#{index}.vid_vbr") %></td>
+        <td>GOP:</td><td><%= text_field_tag "enc#{index}.vid_gop", get_value(@text, "enc#{index}.vid_gop") %></td>
+      </tr>
+      <tr>
+        <td>视频制式:</td><td><%= text_field_tag "enc#{index}.vid_mode", get_value(@text, "enc#{index}.vid_mode") %></td>
+        <td>视频输入通道:</td><td><%= text_field_tag "enc#{index}.vid_input", get_value(@text, "enc#{index}.vid_input") %></td>
+      </tr>
+      <tr>
+        <td>音频模式:</td><td><%= text_field_tag "enc#{index}.aud_mode", get_value(@text, "enc#{index}.aud_mode") %></td>
+        <td>音频码率:</td><td><%= text_field_tag "enc#{index}.aud_bitrate", get_value(@text, "enc#{index}.aud_bitrate") %></td>
+      </tr>
+      <tr>
+        <td>音频输入增益:</td><td><%= text_field_tag "enc#{index}.aud_gain", get_value(@text, "enc#{index}.aud_gain") %></td>
+        <td>视频检测:</td><td><%= text_field_tag "enc#{index}.vid_md", get_value(@text, "enc#{index}.vid_md") %></td>
+      </tr>
+      <tr>
+        <td>运动侦测设置:</td><td><%= text_field_tag "enc#{index}.vid_mdx", get_value(@text, "enc#{index}.vid_mdx") %></td>
+        <td>流名称:</td><td><%= text_field_tag "enc#{index}.name", get_value(@text, "enc#{index}.name") %></td>
+      </tr>
+      <tr>
+        <td>VBV buffer设置:</td><td><%= text_field_tag "enc#{index}.vid_vbvbuf", get_value(@text, "enc#{index}.vid_vbvbuf") %></td>
+        <td>包大小:</td><td><%= text_field_tag "enc#{index}.pkt_size", get_value(@text, "enc#{index}.pkt_size") %></td>
+      </tr>
+      <tr>
+        <td>预录像时间:</td><td><%= text_field_tag "enc#{index}.prec", get_value(@text, "enc#{index}.prec") %></td>
+
+      </tr>
+    </table>
+  </div> 
+

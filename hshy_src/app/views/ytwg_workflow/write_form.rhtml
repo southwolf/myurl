@@ -1,0 +1,47 @@
+
+<% if @historys %>
+<table>
+      <tr>
+        <th>处理人</th>
+        <th>处理时间</th>
+        <th>说明</th>
+      </tr>
+<% for history in @historys %>
+      <tr>
+        <td><%=YtwgUser.find(history.userid).truename%></td>
+        <td><%=history.process_time.to_formatted_s(:db)%></td>
+        <td><%=history.remark%></td>
+      </tr>
+<% end %>
+</table>
+<% end %>
+
+
+<%= start_form_tag :action => 'update_form', :id=>@flow, :formid=>params[:formid] %>
+<%= @html %>
+
+说明(少于80字)：<%= text_area_tag("remark", "", {:rows=>6, :cols=>60})%>
+<br/>
+  <input onclick="javascript:return submit_webtable('table_<%=@flow.formtable%>', this.form)" value="上报" type="submit" />
+  
+<%= end_form_tag %>
+
+<script>
+var t = new WebTable($('table_<%=@flow.formtable%>'));
+</script>
+
+<script>
+  $('separator').insert({before:'<td width=2%><a href="#" onclick="javascript:if (submit_webtable(\'table_<%=@flow.formtable%>\', document.forms[0])) document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="上报" border="0" ></a></td>'});
+  add_sep();
+  add_tab_button("/img/iconBack.png", "返回", "/ytwg_workflow/myform");  
+  
+  <% if @historys && @historys.size > 0 %>
+  add_sep();
+  var link =  "/ytwg_workflow/print/<%=@flow.id%>?forms=<%=params[:formid]%>";
+  $('separator').insert({before:'<td width=2%><a href="'+link + '" class="Main_ToolBar_Button" target=_blank><img class="Main_ToolBar_Button_Icon" src="/img/iconPrint.png" title="打印表单" border="0" ></a></td>'});
+  <% end %>
+  add_sep();
+  add_tab_button("/img/iconExportExcel.png", "导出Excel", "/ytwg_workflow/to_excel/<%=params[:formid]%>?flowid=<%=@flow.id%>");  
+  add_sep();
+  add_tab_button("/img/iconExportPdf.png", "导出PDF", "/ytwg_workflow/to_pdf/<%=params[:formid]%>?flowid=<%=@flow.id%>");  
+</script>

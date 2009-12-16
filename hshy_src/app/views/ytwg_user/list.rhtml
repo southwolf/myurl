@@ -1,0 +1,38 @@
+<% form_tag :action => 'find' do %>
+<font color=red>红色</font>&nbsp;在线 |
+<font color=black>黑色</font>&nbsp;不在线|
+<font color=blue>蓝色</font>&nbsp;离职&nbsp;
+姓名：<%= text_field_tag 'name', nil, :size=>5  %>
+部门: <select id="department" name="department">
+    <option value=""></option>
+    <%=options_from_collection_for_select(Department.find(:all), "id", "name") %>   
+  </select>
+  &nbsp;
+
+<% end %>
+<br>
+  
+<table width=100% height=100%>
+  <tr>
+    <td width=25% valign=top>
+      <script>
+        <%= show_departmenttree '/ytwg_user/list_detail', 'users' %>
+      </script>
+    </td>
+    <td valign=top height=100%>
+<iframe SCROLLING=yes  FRAMEBORDER="0" height="100%" width="100%" id="users" name="users" class=""></iframe>
+    </td>
+  </tr>  
+  
+</table>
+
+<script>
+users.location = '/ytwg_user/list_detail/-1';
+</script>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加员工", "/ytwg_user/new");  
+  add_submit("查找员工", "/img/iconSearch.png");
+
+</script>
+

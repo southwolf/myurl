@@ -1,0 +1,44 @@
+<p>条码:<%=@product.barcode%></p>
+<p>备注:<%=@product.desc%></p>
+<p>状态:<%=$PRODUCT_STATUS[@product._status]%></p>
+<% if @product.parent  %>
+    <p>被用于组建设备<%= link_to @product.parent.barcode, :action=>"show_product", :id=>@product.parent.id%><p>
+<% end %>
+<%= @html %>
+
+<% for c in @composites %>
+    <%=c.num%>个&nbsp;<%=c.material.name%><br>
+
+<table border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>条码</th>
+    <% for key in @cells.keys.sort %>
+      <th><%= @cells[key] %></th>
+    <% end %>
+    <th>备注</th>
+  </tr>
+  <% index = 1 %>
+<% for p in @product.children %>
+   <% next if p._cata_id != c.sub_id %>
+  <%= ColorRow(index, p.id) %>
+  <% index += 1 %>
+    <td><%= link_to p.barcode, :action=>"show_product", :id=>p.id %></td>
+  <% for column in @cells.keys.sort %>
+     <% if p.send(column).class == Time%>
+        <td><%=h p.send(column).to_date %></td>
+     <% else %>
+        <td><%=h p.send(column) %></td>
+     <% end %>
+  <% end %>
+    <td><%=h p.desc %></td>
+  </tr>
+<% end %>
+</table>
+<br>
+<% end %>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "javascript:history.back()");
+  add_sep();
+  add_tab_button("/img/iconProject.png", "变动记录", "/product_log/list/<%=@product.id%>");
+</script>

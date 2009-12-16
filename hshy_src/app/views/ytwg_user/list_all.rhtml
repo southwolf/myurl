@@ -1,0 +1,46 @@
+<font color=red>红色</font>&nbsp;在线 |
+<font color=black>黑色</font>&nbsp;不在线
+<table border="1" bordercolor="#999999" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+  <th>真实姓名</th>
+  <th>部门</th>
+  <th>手机</th>
+  <th>qq</th>
+  <th>mail</th>
+  <th>分机</th>
+  <th>IP</th>
+  </tr>
+  
+  
+<%index=0%>
+<% departments = Department.find(:all, :order=>"parent_id, position") %>
+<% for department in departments %>
+    <tr class="clsLogo">
+      <td colspan=7 align=center><%=department.name%></td>
+      <% for ytwg_user in department.users %>
+      <% next if ytwg_user.resign == 1 %>
+      <%=ColorRow(index)%>
+        <% if ytwg_user.last_tick && Time.new-ytwg_user.last_tick<31  %>
+            <td>
+              <a href="/ytwg_user/show/<%=ytwg_user.id%>"><font color=red><%= ytwg_user.truename%></font></a>
+              <%= image_tag "/img/picture.gif" if ytwg_user.photo %>
+            </td>
+        <% else %>
+          <td><a href="/ytwg_user/show/<%=ytwg_user.id%>"><font color=black><%= ytwg_user.truename%></font></a>
+          <%= image_tag "/img/picture.gif" if ytwg_user.photo %></td>
+        <% end %>    
+        <td><%= Department.find(ytwg_user.department_id).name rescue nil %></td>
+        <td><%= ytwg_user.mobile %></td>
+        <td><%= ytwg_user.qq %></td>
+        <td><%= ytwg_user.msn %></td>
+        <td><%= ytwg_user.fj %></td>
+        <td><%= ytwg_user.ip %></td>
+      </tr>
+      <%index+=1%>
+    <% end %>
+    </tr>
+<% end %>
+
+
+
+</table>

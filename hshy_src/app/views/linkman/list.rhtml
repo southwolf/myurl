@@ -1,0 +1,31 @@
+<h1>联系人</h1>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+      <th width=80px>名字</th>
+      <th width=80px>联系电话</th>
+      <th>需求</th>
+      <th>录入时间</th>
+      <th>录入人</th>
+      <th>操作</th>
+  </tr>
+  
+<% index = 1%>  
+<% for linkman in @linkmen %>
+  <%= ColorRow(index)%>
+  <% index += 1%>
+  <td><%=h linkman.name %></td>
+  <td><%=h linkman.phone %></td>
+  <td><%=h [linkman.price, linkman.direction, linkman.jushi, linkman.area, linkman.xq].join('  ') %></td>
+  <td><%=h linkman.inputtime.strftime("%Y-%m-%d") %></td>
+  <td><%=h linkman.user.truename %></td>
+  <td><%= link_to '修改', :action => 'edit', :id => linkman %></td>
+    </tr>
+<% end %>
+</table>
+
+<%= will_paginate @linkmen%>
+
+<br />
+
+<%= link_to '添加联系人', :action => 'new' %>

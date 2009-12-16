@@ -1,0 +1,16 @@
+姓名：<%=@ytwg_user.truename %><br>
+登陆名：<%=@ytwg_user.name %><br>
+部门：<%= @ytwg_user.department.name rescue nil %><br>
+
+角色：<%=  @ytwg_user.groups.collect {|g| g.name}.join(',') %><br>
+手机：<%= @ytwg_user.mobile %><br>
+qq：<%= @ytwg_user.qq %><br>
+mail：<%= @ytwg_user.msn %><br>
+自我介绍：<%= @ytwg_user.introduce %><br>
+  <% require "uri" %>
+  
+  <%=  image_tag( URI.escape(url_for_file_column("ytwg_user", "photo"))) if @ytwg_user.photo %>
+
+<br>
+<a href="javascript:history.back(); ">返回</a>
+

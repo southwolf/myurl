@@ -1,0 +1,38 @@
+<%= link_to "员工排序", :controller=>"ytwg_user", :action=>"reorder", :id=>params[:id]%>
+
+<table border="1" bordercolor="#999999" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+  <th>登陆名</th>
+  <th>真实姓名</th>
+  <th>部门</th>
+  <th>上次登陆时间</th>
+  <th>角色</th>
+  <th colspan=3>操作</th>
+  </tr>
+  
+<%index=0%>
+<% for ytwg_user in @ytwg_users %>
+  <%=ColorRow(index)%>
+    <td><%= ytwg_user.name %></td>
+    <% if ytwg_user.last_tick && Time.new-ytwg_user.last_tick<31  %>
+        <td><font color=red><%= ytwg_user.truename %></font></td>
+    <% else %>
+      <%  if ytwg_user.resign==1 %>
+        <td><font color=blue><%= ytwg_user.truename %></font></td>
+      <% else %>
+        <td><font color=black><%= ytwg_user.truename %></font></td>
+      <% end %>      
+    <% end %>    
+    <td><%= Department.find(ytwg_user.department_id).name rescue nil %></td>
+    <td><%= ytwg_user.last_login %></td>
+    <td><%= ytwg_user.groups.collect {|g| g.name}.join(',')%></td>
+    <td><%= link_to '修改', :action => 'edit', :id => ytwg_user %></td>
+    <td><%= link_to '离职', :action => 'resign', :id => ytwg_user if ytwg_user.resign!=1 && checkright('员工管理') %></td>
+  </tr>
+  <%index+=1%>
+<% end %>
+</table>
+
+<%= will_paginate @ytwg_users, :order=>params[:order] %>  
+
+<%= image_button "返回", "/ytwg_user/list" if @return %>

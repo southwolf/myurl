@@ -1,0 +1,40 @@
+<table width=100%>
+  <tr>
+  <td valign='top' width=50%>
+<% round_table '100%', "详细信息" do %>
+  <% form_tag :action => '' do %>
+    <%= render :partial => 'form' %>
+  <% end %>
+<% end %>
+
+    </td>
+    <td>&nbsp</td>
+    <td valign='top' width=50%>
+      <% round_table '100%', "跟进信息 #{link_to '查看全部', :controller=>'houselog', :action=>'list', :id=>@house.id if Houselog.count("house_id=#{@house.id}") > 5}" do %>
+        <table width=100%>
+        <% for houselog in @houselogs %>
+        <tr>
+          <td width=100%>
+            <hr>
+            <%="#{houselog.inputer}于#{houselog.inputtime.to_formatted_s(:db)}跟进:" %><br>
+            <%= houselog.text %>
+          </td>
+        </tr>
+        <% end %>
+        <% if @houselogs.size == 0%>
+        <tr><td>暂时没有跟进内容</td></tr>
+        <% end%>
+        </table>
+        <br>
+        <% form_tag :controller=>'houselog', :action => 'create', :id=>@house.id, :search=>params[:search]||"false" do %>
+          <%= render :partial => '/houselog/form' %>
+        <%= submit_tag '提交跟进' %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "javascript:history.back()");
+</script>

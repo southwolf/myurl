@@ -1,0 +1,9 @@
+<h1>Editing product_attr</h1>
+
+<% form_tag :action => 'update', :id => @product_attr do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @product_attr %> |
+<%= link_to 'Back', :action => 'list' %>

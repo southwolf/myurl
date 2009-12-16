@@ -1,0 +1,13 @@
+<p>选择单据</p>
+<table border="1" bordercolor="#999999" class="clsContentTable" width=90%>
+ 
+<% index = 0%>
+<% for ytwg_workflow in @ytwg_workflows %>
+  <%=ColorRow(index)%>
+    <% next if !checkright($Workflows[ytwg_workflow.name].start.right)%>
+    <td><%=h ytwg_workflow.name %></td>
+    <td><%= link_to '新写单据', :action => 'download', :id => ytwg_workflow%></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>

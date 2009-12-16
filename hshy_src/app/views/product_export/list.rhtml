@@ -1,0 +1,23 @@
+<table id='table' border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(编号 出库设备数 客户单位名称 客户单位接收人 出库时间 出库人) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+
+<% index = 1 %>  
+<% for product_export in @product_exports %>
+  <%= ColorRow(index)  %>
+    <td><%= link_to product_export.code||"查看", :controller=>"product", :action=>"show", :id=>product_export %></td>
+    <td align=right><%=h product_export.product.size %></td>
+    <td><%=h product_export.unitname %></td>
+    <td><%=h product_export.receiver %></td>
+    <td><%=h product_export.dealtime.to_date %></td>
+    <td><%=h product_export.dealer %></td>
+  </tr>
+  <%index += 1%>
+<% end %>
+</table>
+
+<%= will_paginate @product_exports %>
+

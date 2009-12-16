@@ -1,0 +1,8 @@
+<% for column in ProductAttr.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @product_attr.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @product_attr %> |
+<%= link_to 'Back', :action => 'list' %>

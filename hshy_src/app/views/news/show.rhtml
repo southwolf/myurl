@@ -1,0 +1,20 @@
+<p>
+    <b>栏目:</b><%= Topic.find(@news['栏目'])['名称'] %>
+</p>
+<p>
+    <b>标题:</b><%= @news['标题'] %>
+</p>
+<p>
+    <b>内容:</b><%= @news['context'] %>
+</p>
+
+<b>发布人:</b><%= YtwgUser.find(@news['发布人'])['truename'] %>
+&nbsp;&nbsp;
+<b>发布时间:</b><%= @news['发布时间'].strftime("%Y-%m-%d %H:%M:%S") %>
+
+<br>
+<br>
+<hr>
+
+<%= link_to '编辑', :action => 'edit', :id => @news if @news['发布人'] == session[:user].id %> &nbsp;
+<%= link_to '返回', :action => 'list' %>

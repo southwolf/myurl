@@ -1,0 +1,223 @@
+<%= stylesheet_link_tag "tab.webfx.css" %>
+<%= javascript_include_tag 'tabpane' %>
+
+<%= stylesheet_link_tag "prototip" %>
+<%= javascript_include_tag "prototip" %>
+
+
+<% if checkright("信贷跟进")%>
+    <%xd_right = true;%>
+<% end %>
+
+<% if checkright("会计审核")%>
+    <%kj_right = true;%>
+<% end %>
+
+<% if checkright("经理审核")%>
+    <%jl_right = true;%>
+<% end %>
+
+<div class="tab-pane" id="bg" height=100%>
+    <div class="tab-page" id="a1">
+        <h2 class="tab">已上传的报告</h2>
+        <div>
+ 
+        <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>编号</th>
+    <th>产权证地址</th>
+    <th>录入人</th>
+    <th>交易价格</th>
+    <th>签约日期</th>
+    <th>服务费金额</th>
+    <th>门店</th>
+    <th>置业顾问</th>
+    <th>会计审核</th>
+  </tr>
+
+<% index = 1 %>  
+<% for sfcj in @sfcj1 %>
+  <%=ColorRow(index, sfcj.id)%>
+    <td><%=sfcj.id%></td>
+    <td><%= link_to_if checkright("查看成交报告"), sfcj.a1, :action=>"show", :id=>sfcj %></td>
+    <td><%= YtwgUser.find(sfcj.inputer).truename%></td>
+    <td><%=h sfcj.a7 %></td>
+    <% if sfcj.e13 %>
+        <td><%=h sfcj.e13.strftime("%Y-%m-%d") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <td><%=h sfcj.b17 %></td>
+    <td><%=h sfcj.e15 %></td>
+    <td><%=h sfcj.e16 %></td>
+    <td><%= link_to_if kj_right==true, "通过", :controller=>"sfcj", :action=>"tip", :id=>sfcj, :status=>1 %></td>
+  </tr>
+<% index += 1 %>
+<% end %>
+</table>
+
+<%= will_paginate @sfcj1 %>
+         </div>
+     </div>    
+
+     <div class="tab-page" id="a2">
+        <h2 class="tab">办理中报告</h2>
+        <div>
+                
+                 <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>编号</th>
+    <th>产权证地址</th>
+    <th>录入人</th>
+    <th>交易价格</th>
+    <th>签约日期</th>
+    <th>服务费金额</th>
+    <th>门店</th>
+    <th>置业顾问</th>
+    <th>信贷跟进</th>
+    <th>经理审核</th>
+  </tr>
+
+<% index = 1 %>  
+<% for sfcj in @sfcj2 %>
+  <%=ColorRow(index, sfcj.id)%>
+    <td><%=sfcj.id%></td>
+    <td><%= link_to sfcj.a1, :action=>"show", :id=>sfcj %></td>
+    <td><%= YtwgUser.find(sfcj.inputer).truename%></td>
+    <td><%=h sfcj.a7 %></td>
+    <% if sfcj.e13 %>
+        <td><%=h sfcj.e13.strftime("%Y-%m-%d") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <td><%=h sfcj.b17 %></td>
+    <td><%=h sfcj.e15 %></td>
+    <td><%=h sfcj.e16 %></td>
+    <td>
+    <a href="#" id="aaa<%=sfcj.id%>">查看</a>
+    <%= link_to_if xd_right==true, "跟进", {:controller=>"sfcj_gj", :action=>"new", :id=>sfcj} %></td>
+    <td><%= link_to_if jl_right==true, "审核通过", :controller=>"sfcj", :action=>"tip", :id=>sfcj, :status=>2%></td>
+  </tr>
+<% index += 1 %>
+<% end %>
+</table>
+
+<%= will_paginate @sfcj2 %>
+                
+        </div>
+     </div>   
+    
+     <div class="tab-page" id="a3">
+        <h2 class="tab">已存档报告</h2>
+        <div>
+        
+        <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>编号</th>
+    <th>产权证地址</th>
+    <th>录入人</th>
+    <th>交易价格</th>
+    <th>签约日期</th>
+    <th>服务费金额</th>
+    <th>门店</th>
+    <th>置业顾问</th>
+    <th>跟进记录</th>
+  </tr>
+
+<% index = 1 %>  
+<% for sfcj in @sfcj3 %>
+  <%=ColorRow(index, sfcj.id)%>
+    <td><%=sfcj.id%></td>
+    <td><%= link_to sfcj.a1, :action=>"show", :id=>sfcj %></td>
+    <td><%= YtwgUser.find(sfcj.inputer).truename%></td>
+    <td><%=h sfcj.a7 %></td>
+    <% if sfcj.e13 %>
+        <td><%=h sfcj.e13.strftime("%Y-%m-%d") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <td><%=h sfcj.b17 %></td>
+    <td><%=h sfcj.e15 %></td>
+    <td><%=h sfcj.e16 %></td>
+    <td>
+    <a href="#" id="bbb<%=sfcj.id%>">查看</a>
+    </td>
+  </tr>
+<% index += 1 %>
+<% end %>
+</table>
+
+<%= will_paginate @sfcj3 %>
+        
+        </div>
+     
+     </div>
+</div>      
+
+
+<script>
+  setupAllTabs();
+</script>
+
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加售房业务单笔成交报告", "/sfcj/new");  
+  <% if checkright("删除售房业务成交报告") %>
+    add_sep();
+    add_dynamic_button("/img/iconEdit.png", "修改", "/sfcj/edit/");
+    add_dynamic_delete_button("/sfcj/destroy/");  
+  <% end %>
+</script>
+
+<div style="display:none">
+<% for sfcj in @sfcj2 %>
+ <div id="sfcj<%=sfcj.id%>">
+    
+ </div>
+ <% end%>
+ 
+ <% for sfcj in @sfcj3 %>
+ <div id="sfcj2<%=sfcj.id%>">
+    
+ </div>
+ <% end%>
+</div>
+
+<script>
+<% for sfcj in @sfcj2 %>
+new Tip('aaa<%=sfcj.id%>', $('sfcj<%=sfcj.id%>'), {
+                	  title : '跟进信息',
+                	  ajax: {
+                	    url: '/sfcj_gj/list/<%=sfcj.id%>',
+                		options: {
+                		  onComplete: function(transport) {
+                		  }
+                		}
+                      },
+                      closeButton: true,
+                      showOn: 'click',
+	                  hideOn: { element: '.close', event: 'click'},
+                	  className: 'pinktip',
+                	  hook: {target:'bottomLeft', tip:'topRight'}
+                	});    
+
+<% end %>     
+
+<% for sfcj in @sfcj3 %>
+new Tip('bbb<%=sfcj.id%>', $('sfcj2<%=sfcj.id%>'), {
+                	  title : '跟进信息',
+                	  ajax: {
+                	    url: '/sfcj_gj/list/<%=sfcj.id%>',
+                		options: {
+                		  onComplete: function(transport) {
+                		  }
+                		}
+                      },
+                      closeButton: true,
+                      showOn: 'click',
+	                  hideOn: { element: '.close', event: 'click'},
+                	  className: 'pinktip',
+                	  hook: {target:'bottomLeft', tip:'topRight'}
+                	});    
+<% end%>           	
+</script>

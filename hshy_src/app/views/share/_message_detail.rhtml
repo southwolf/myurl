@@ -1,0 +1,63 @@
+<% form_remote_tag :update=>"message_detail", :url=>{:controller=>"message", :action => 'create'} do %>
+  <table>
+    <tr>
+      <td valign='middle'>
+  <% users = YtwgUser.find(:all) %>
+<select id="message_to_id" name="message[to_id]">
+  <% for user in users %>
+    <option value="<%=user.id%>" <%= "style='background-color:red'" if user.last_tick && Time.new-user.last_tick<20 %> ><%=user.truename%></option>
+  <% end %>
+</select>
+<%= text_field("message", "text", :size=>36)  %>
+</td>
+<td>
+  
+<%= remote_submit_tag "发送" %>
+</tr>
+</table>
+<% end %>
+
+
+<div id='mymessage' style="overflow:		auto;
+     height:		387px;
+     SCROLLBAR-FACE-COLOR: #CCCCCC; 
+     SCROLLBAR-HIGHLIGHT-COLOR: #AAAAAA;
+     SCROLLBAR-SHADOW-COLOR: #AAAAAA; 
+     SCROLLBAR-3DLIGHT-COLOR: #AAAAAA; 
+     SCROLLBAR-ARROW-COLOR: #AAAAAA; 
+     SCROLLBAR-TRACK-COLOR: #AAAAAA;
+     SCROLLBAR-DARKSHADOW-COLOR: #AAAAAA;">
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#999999">          
+  
+  <%index=0%>
+
+  <%if messages.size == 0%>
+    <tr><td colspan=4>还没有人给您发信息..</td></tr>
+  <%else%>
+    <% for message in messages%>
+      <%=ColorRow(index)%>
+      <% from_name = YtwgUser.find(message.from_id).truename rescue nil%>
+      <% to_name   = YtwgUser.find(message.to_id).truename%>
+      <td><%=message.sendtime.strftime("%m月%d日 %H:%M:%S")%>&nbsp;<%=link_to_function from_name, "select(#{message.from_id})"%>
+-> <%=link_to_function to_name, "select(#{message.to_id})"%>:<%=message.text%></td>
+      </tr>
+      <%index+=1%>
+    <% end %>
+  
+  <%end%>
+</table>
+</div>
+
+<script>
+  $(music).src="/img/type.wav";
+  <% if messages.size > 0 %>
+      <%  for message in messages %>
+        <% if message.from_id == session[:user].id %>
+          select(<%=message.to_id%>);
+        <% else %>
+            select(<%= message.from_id %>);
+            <% break %>
+        <% end %>
+      <%  end %>
+  <% end %>    
+</script>

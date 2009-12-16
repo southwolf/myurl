@@ -1,0 +1,16 @@
+<html>
+  <META http-equiv=Content-Type content="text/html; charset=gb2312">
+  <body>
+    adsf
+    <OBJECT id=MaxClient height=2 width=2 classid="CLSID:AE871F87-6B76-40E8-826A-A9D621E29162"></OBJECT>
+    <!--
+        <OBJECT id=MaxClient height=2 width=2 classid="CLSID:1C5D6A0C-324B-476A-A5C3-A6F090A08E94"></OBJECT>
+        -->
+    <script>
+        //alert(MaxClient.login);
+        var ret=MaxClient.login("192.168.1.81", "admin", "password");
+        alert(ret);
+        alert(MaxClient.classid);
+    </script>
+  </body>
+</html> 

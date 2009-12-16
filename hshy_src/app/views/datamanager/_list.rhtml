@@ -1,0 +1,83 @@
+
+<table id="<%=params[:name]%>" border="1" bordercolor="#999999" class="clsContentTable" width=80%>
+  <tr class="clsTrHeader">
+   <% for column in @columns%>
+    <th><%=column%></th>
+   <% end%>
+  </tr>
+<% index = 0%>  
+<% for ytwg_cell in @ytwg_cells %>
+  <%=ColorRow(index, ytwg_cell[@id_field])%>
+  <% for column in @columns %>
+    <td id='<%=ytwg_cell[@id_field].to_s + "_"+column%>' field='<%=column%>'><%=h ytwg_cell[column] %></td>
+  <% end %>
+  <td align='center'><%=link_to('删除', {:action=>'delete', :table=>params[:name], :key=>@id_field,:id=>ytwg_cell[@id_field]}, :confirm => '确定删除选中组吗?', :method => :post)%>
+  </td>
+  </tr>
+  <%index += 1%>
+<% end %>
+</table>
+
+<%= link_to '上一页', { :page => @ytwg_cell_pages.current.previous } if @ytwg_cell_pages.current.previous %>
+<%= link_to '下一页', { :page => @ytwg_cell_pages.current.next } if @ytwg_cell_pages.current.next %> 
+
+<br><br>
+<% form_tag :action => 'execute_sql' do %>
+<%=hidden_field_tag :table, params[:name]%>
+用SQL语句更新数据<%= submit_tag '执行' %><br>
+<%=text_area_tag 'sql', params[:sql], {:cols=>92, :rows=>10}%>
+<% end%>
+
+<script>
+function cellBlur()
+{
+    input = window.event.srcElement;
+    value = input.value;
+    element = input.parentElement;    
+    element.innerHTML = value;
+    element.onclick=element.oldclick;
+    element.oldclick="";
+    if (input.oldvalue != value)
+    {
+        row = element.parentElement;
+
+        new Ajax.Updater(element.id, encodeURI("/datamanager/update?value="+value+"&id="+element.parentElement.id+"&field="+element.field+"&tablename=<%=params[:name]%>&key=<%=@id_field%>"), {asynchronous:true, evalScripts:true,
+        onLoaded:function(request){Element.hide('indicator')}, 
+        onLoading:function(request){Element.show('indicator')}});      
+    }
+}
+
+function cellClick()
+{
+    element = window.event.srcElement;
+    parentelement = element.parentElement
+    if (parentelement.floatindex)
+    {
+        element.id = element.expression + parentelement.floatindex;
+    }
+    else
+    {
+        element.id = element.expression;
+    }
+    
+    var oldvalue = element.innerText;
+    element.innerHTML = "<input id='input-" + element.id+ "' type=text style='background-color:#FFFF99;BORDER-BOTTOM: solid 0px; BORDER-LEFT: dashed 0px; BORDER-RIGHT: dashed 0px; BORDER-TOP: dashed 0px;height=100%; width=100%;margin:-1pt 0pt 0pt 0pt '/>";
+    input = element.children[0];
+    input.onblur=cellBlur;
+    input.value = oldvalue;
+    input.oldvalue = oldvalue;
+    element.oldclick = element.onclick;
+    element.onclick="";
+    input.focus();
+    input.select();
+}
+
+    elements = document.getElementsByTagName('td')
+    for(var i=0; i<elements.length; i++)
+    {
+        if (elements[i].parentElement.id && elements[i].id )
+        {
+            elements[i].onclick = cellClick;
+        }
+    }
+</script>

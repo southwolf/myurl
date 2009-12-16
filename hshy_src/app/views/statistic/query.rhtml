@@ -1,0 +1,42 @@
+<%= javascript_include_tag 'controls' %>
+
+<% for work in @works %>
+<b>日期:</b>
+<%= work.uptime %>
+
+<b>项目名称:</b>
+<%= if work.project_id 
+        Project.find(work.project_id).name
+    else
+        "&nbsp;"
+    end
+%>
+
+<b>员工名称:</b>
+<%= if work.person_id
+        YtwgUser.find(work.person_id).truename
+    else
+        "&nbsp;"
+    end
+%>
+
+<b>小时数:</b>
+<%= work.hours%>
+
+<b>工作标题:</b>
+<%= work.title %>
+<br>
+
+<b>工作内容:</b>
+<%= work.context %>
+
+<br>
+<font color=blue><span id="id<%=work.id%>">评论:<%=work.remark%></span></font>
+<%= in_place_editor "id#{work.id}", :url=>{:controller=>'statistic', :action=>'remark', :id=>work}, :save_text=>'保存', :cancel_text=>'取消' %>
+<hr>
+
+<% end %>
+
+<script>
+    add_tab_button("/img/iconBack.png", "返回", "/statistic/index");  
+</script>

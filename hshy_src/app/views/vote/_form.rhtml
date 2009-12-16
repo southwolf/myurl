@@ -1,0 +1,14 @@
+<%= error_messages_for 'vote' %>
+
+<!--[form:vote]-->
+<p><label for="vote_name">名称</label><br/>
+<%= text_area 'vote', 'name', :rows=>10  %></p>
+
+<p><label for="vote_multi">选择方式</label><br/>
+<%= select("vote", "multi", [['多选', 1], ['单选', 0]]) %>
+</p>
+
+<p><label for="vote_name">备注</label><br/>
+<%= text_field 'vote', 'remark'  %></p>
+<!--[eoform:vote]-->
+

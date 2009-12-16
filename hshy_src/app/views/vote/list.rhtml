@@ -1,0 +1,44 @@
+
+<table width=100%>
+  <tr>
+    <td width=60% valign="top">
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100% >
+  <tr class="exebar">  
+    <th>名称</th>
+    <th>备注</th>
+    <th>建立时间</th>
+  </tr>
+<%index=1%>  
+<% for vote in @votes %>
+  <%=ColorRow(index, vote.id, :onclick=>"ShowOption(#{vote.id});")%>
+    <td><%=h vote.name %></td>
+    <td><%=h vote.remark %></td>
+    <td><%=h vote.borndate.to_date %></td>
+    </tr>
+<%index+=1%>
+<% end %>
+</table>
+
+<%= will_paginate @votes %>
+
+</td>
+<td width=40% valign='top'>
+  <div id="option"></div>
+</td>
+</tr>
+</table>
+
+
+<div id="add"></div>
+
+<script>
+    function ShowOption(id)
+    {
+         new Ajax.Updater('option', '/voteoption/list/'+id, {asynchronous:true, evalScripts:true}); 
+        return false;
+    }
+    
+    add_tab_button("/img/iconNew.png", "添加", "/vote/new");  
+    add_sep();
+    add_dynamic_delete_button("/vote/destroy/");  
+</script>

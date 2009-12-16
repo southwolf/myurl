@@ -1,0 +1,7 @@
+<%@title = '新建单位'%>
+<%= start_form_tag :action => 'create' %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "创建" %>
+<%= end_form_tag %>
+
+<%=  image_wide_button '返回', "/unit/list" %>

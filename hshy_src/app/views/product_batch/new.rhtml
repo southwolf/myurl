@@ -1,0 +1,19 @@
+<br>
+<h1>新建批次</h1>
+<br>
+
+<% form_tag :action => 'create', :id=>params[:id], :tableid=>@tableid do %>
+  <%= render :partial => 'form' %>
+<br>
+<%= @html %>
+
+<input onclick="javascript:return submit_webtable('table_<%=@tableid%>', this.form)" value="保存" type="submit" />
+<% end %>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/product_batch/list");  
+</script>
+
+<script>
+var t = new WebTable($('table_<%=@tableid%>'));
+</script>

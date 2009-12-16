@@ -1,0 +1,13 @@
+
+<% form_remote_tag :update=>"upgradediv", :url=>{:action=>'upgrade', :ip => get_value(@text, "net.ipaddr")}, :loading=>"Element.show('upgradediv')" do%>
+    <select id="image" name="image">
+    <%=options_for_select(Fileimage.find(:all, :order=>"id desc").collect{|f| [File.basename(f.path), f.id]}) %>
+  </select>
+    <%= remote_submit_tag '升级' %>
+<% end %>
+    
+
+<div id='upgradediv' style="display:none">
+  <img src="/img/indicator.gif"><br>
+  请停止任何操作，直到升级完成
+</div>

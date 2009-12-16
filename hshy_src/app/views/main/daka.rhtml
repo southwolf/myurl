@@ -1,0 +1,17 @@
+
+<%= start_form_tag :action => 'do_daka' %>
+<p>
+    ¥Úø®»À:<select id=user name=user>
+      <% if  session[:user].department %>
+          <%=options_for_select session[:user].department.users.collect{|q|[q.truename, q.id]} %>
+      <% else %>
+        <option value=<%=session[:user].id%>><%=session[:user].truename%></option>
+      <% end %>
+        </select>
+    </p>
+    <p>
+      √‹¬Î:<%= password_field_tag "password", "" %>
+    </p>
+
+  <%= submit_tag "¥Úø®" %>
+<%= end_form_tag %>

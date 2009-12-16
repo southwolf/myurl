@@ -1,0 +1,6 @@
+<%= start_form_tag :action => 'create_project_unit' %>
+  <select name='unitid'>
+    <%=options_from_collection_for_select(Unit.find(:all), 'id', 'Ãû³Æ')%>
+  </select>
+  <%= submit_tag "Ìí¼Ó" %>
+<%= end_form_tag %>

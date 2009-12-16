@@ -1,0 +1,25 @@
+
+<table id='table' border="1" bordercolor="#999999" class="clsContentTable" width=80%>
+  <tr class="clsTrHeader">
+    <th><%=sort_column('名称', 'name')%></th>
+    <th><%=sort_column('描述', 'description')%></th>
+  </tr>
+<% index = 0%>  
+<% for ytwg_group in @ytwg_groups %>
+  <%=ColorRow(index, ytwg_group.id)%>
+    <td><%= link_to ytwg_group.name, :action=>'edit', :id=>ytwg_group %></td>
+    <td><%=h ytwg_group.description %></td>
+      </tr>
+  <%index += 1%>
+<% end %>
+</table>
+
+<%= will_paginate @ytwg_groups %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "新建", "/ytwg_group/new");    
+  add_dynamic_button("/img/iconEdit.png", "更新", "/ytwg_group/edit/");
+  add_sep();
+  add_dynamic_delete_button("/ytwg_group/destroy/");  
+</script>
+

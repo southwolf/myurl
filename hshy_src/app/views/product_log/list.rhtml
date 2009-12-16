@@ -1,0 +1,27 @@
+资产<%= @product.barcode %>的变动记录
+
+<table id='table' border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(变动描述 处理人 处理时间 变动前所属设备 变动后所属设备) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  </tr>
+  
+<%index=0%>
+<% for product_log in @product_logs %>
+  <%=ColorRow(index)%>
+    <td><%=h product_log.text %></td>
+    <td><%=h product_log.dealer %></td>
+    <td><%=h product_log.dealtime.to_date %></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <%index += 1%>
+<% end %>
+</table>
+
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "javascript:history.back()");
+</script>

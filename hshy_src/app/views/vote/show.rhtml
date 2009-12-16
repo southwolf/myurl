@@ -1,0 +1,5 @@
+
+<%= @vote.name %></br>
+<% for option in @vote.voteoptions %>
+    <%= option.name %>&nbsp;&nbsp;&nbsp;<%=option.tickets.to_s.to_i%>Ʊ<br/>
+<% end %>

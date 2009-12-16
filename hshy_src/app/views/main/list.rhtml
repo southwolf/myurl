@@ -1,0 +1,34 @@
+<h1>所有 mains</h1>
+
+<%= link_to '首页',   { :page => @main_pages.first} if @main_pages.current != @main_pages.first %>
+<%= link_to '上一页', { :page => @main_pages.current.previous } if @main_pages.current.previous %>
+<%= link_to '下一页', { :page => @main_pages.current.next } if @main_pages.current.next %> 
+<%= link_to '最后一页', { :page =>@main_pages.last} if @main_pages.current != @main_pages.last %>
+<%= @main_pages.current_page.offset/10 +1 %>/<%= @main_pages.length %>
+
+<table border="1" bordercolor="#999999" class="clsContentTable" width=90%>
+  <tr class="clsTrHeader">
+  <% for column in Main.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th colspan=3>操作</th>
+  </tr>
+  
+<% index = 0%>
+<% for main in @mains %>
+  <%=ColorRow(index)%>
+
+  <% for column in Main.content_columns %>
+    <td><%=h main.send(column.name) %></td>
+  <% end %>
+  	<td><%= link_to '详细', :action => 'show', :id => main %></td>
+    <td><%= link_to '编辑', :action => 'edit', :id => main %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => main }, :confirm => '确定删除记录吗?', :post => true %></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '新建', :action => 'new' %>

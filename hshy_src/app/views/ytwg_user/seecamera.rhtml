@@ -1,0 +1,23 @@
+<% form_tag :action => 'saveseecamera', :id => @ytwg_user do %>
+
+<table border="1" bordercolor="#999999" class="clsContentTable" width=60% %>
+  <tr class="clsTrHeader">
+    <th>摄像头名称</th>
+    <th>选择</th>
+  </tr>
+  <%index = 0%>
+  <%for camera in @cameras%>
+    <%=ColorRow(index)%>
+    <%index+=1%>
+        <td><%=camera.sourcename%></td>
+        <td align='center'><input type="checkbox" name="ytwg_user[camera_ids][]" 
+          value="<%= camera.id %>" 
+          <% if @ytwg_user.cameras.include?(camera) %> checked="checked" <% end %> /></td>
+    <%end%>
+  </tr>
+</table>
+  
+  <br>
+    <%= submit_tag '保存' %>
+    
+<%end%>

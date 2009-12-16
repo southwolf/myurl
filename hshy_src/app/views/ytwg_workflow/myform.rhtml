@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "tab.webfx.css" %>
+<%= javascript_include_tag 'tabpane' %>
+<table height=100% width = 100%>
+  <tr>
+    <td height = 100% width=150>
+      <div class = "clsTreeDiv">
+        <table width=100%>
+        <%index=1%>
+        <% for flow in @flows %>
+          <%=ColorRow(index)%>
+            <td><%= link_to_remote flow.name, :update=>'content', :url=>{:action=>"myform1", :id=>flow.id} %></td>
+        </tr>
+        <% index+=1 %>
+        <% end %>
+        </table>
+      </div>
+    </td>
+    <td>  
+      <div id=content class="clsTreeDiv">
+      </div>
+    </td>
+  </tr>
+</table>
+
+<script>
+  <% if params[:id] %>
+  new Ajax.Updater('content', '/ytwg_workflow/myform1/<%=params[:id]%>', {asynchronous:true, evalScripts:true}); 
+  <% end %>
+</script>

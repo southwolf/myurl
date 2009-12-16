@@ -1,0 +1,5 @@
+<% @config = YtwgSystem.find(:all, :limit=>1)[0] %>
+<center style="font-size:9pt">
+	&nbsp;
+	<%=@config.title%> - V1.0 &nbsp;&nbsp;&nbsp;本网站登陆次数达到&nbsp;<font color=red><%=YtwgSystem.find_first().visitedtimes%></font>&nbsp;次 
+</center>

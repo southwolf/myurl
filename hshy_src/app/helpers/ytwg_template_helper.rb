@@ -1,0 +1,2 @@
+module YtwgTemplateHelper
+end

@@ -1,0 +1,28 @@
+<% indexFlag = 1 %>
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999">
+  <tr bgcolor="#CECFCE">
+  <% for column in Project.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for project in @projects %>
+  <%= if indexFlag % 2 == 0
+  			'<tr bgcolor = "#EFEBFE">'
+  	  else
+  	  	'<tr>'
+  	  end
+   %>
+   <% indexFlag=indexFlag+1 %>
+  <% for column in Project.content_columns %>
+    <td><%=h project.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to '编辑', :action => 'edit', :id => project %></td>
+    <td><%= link_to '联系单位', :controller=>'unit', :action => 'project_unit', :id => project %></td>
+    <td><%= link_to '联系人', :controller=>'linkman', :action => 'project_linkman', :id => project %></td>
+    <td><%= link_to '进度', {:controller => 'progress', :action => 'index', :project => project}%></td>
+  </tr>
+<% end %>
+</table>
+
+<a href="javascript:history.back()">返回</a>

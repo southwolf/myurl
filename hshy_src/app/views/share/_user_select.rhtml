@@ -1,0 +1,50 @@
+<div id=<%=divid%> style=" position:		absolute;
+     left:       100px;
+     top:        70px;
+     width:		400px;
+     background-color:	#CCCCCC;
+     display:		none;
+     overflow:		hidden; 
+     z-index:2;         
+     ">				    
+     
+      <table width="100%" cellpadding="0" cellspacing="0" bordercolor="#0066cc">
+      <tr id="handle_<%=divid%>" class="exebar" width=100%>
+        <td align=center width=90% >所有用户</td>
+        <td align=right width=10%><%=link_to_function "确定", "hide_users('#{name}', '#{accept}', '#{divid}') "%></td>
+      </tr>
+      </table>
+<div style="overflow:		auto;
+     height:		387px;
+     SCROLLBAR-FACE-COLOR: #CCCCCC; 
+     SCROLLBAR-HIGHLIGHT-COLOR: #AAAAAA;
+     SCROLLBAR-SHADOW-COLOR: #AAAAAA; 
+     SCROLLBAR-3DLIGHT-COLOR: #AAAAAA; 
+     SCROLLBAR-ARROW-COLOR: #AAAAAA; 
+     SCROLLBAR-TRACK-COLOR: #AAAAAA;
+     SCROLLBAR-DARKSHADOW-COLOR: #AAAAAA;">
+
+<table width="100%" cellspacing=0 cellpadding=0 border=0 >      
+  <tr><td colspan=2><input type="checkbox" name='selectall<%=name%>'onclick="select_all(form, '<%=name%>')"/>全选</td></tr>    
+  <tr class='clsTrHeader'>
+    <th width=60%>姓名</th>
+    <th width=40%>选择</th>
+  </tr>
+  
+  <%index = 0%>
+  <% for department in Department.find(:all) %>
+    <tr>
+      <td colspan=2 align='center'><%=department.name%> <input type="checkbox" id="<%=divid+department.id.to_s%>" onclick="select_dep('<%=divid+department.id.to_s%>')"/></td>
+    </tr>
+    <% for user in department.users %>
+      <% next if user.resign == 1 %>
+      <%=ColorRow(index)%>
+      <td>&nbsp;&nbsp;<%=user.truename||'（无）'%></td>
+      <td align="center"><input type="checkbox" id="department<%=divid+department.id.to_s%>" name = "<%=name%>" text =<%=user.truename%> value="<%=user.id%>"  <% if address.include?(user.id) %> checked="checked" <% end %> ></td>
+      </tr>
+      <%index+=1%>
+    <% end %>
+  <% end %>     
+</table>
+</div>
+</div>

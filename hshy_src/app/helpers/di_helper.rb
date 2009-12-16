@@ -1,0 +1,2 @@
+module DiHelper
+end

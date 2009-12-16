@@ -1,0 +1,32 @@
+<h2>所有模板</h2>
+
+<%= link_to '首页',   { :page => @ytwg_template_pages.first} if @ytwg_template_pages.current != @ytwg_template_pages.first %>
+<%= link_to '上一页', { :page => @ytwg_template_pages.current.previous } if @ytwg_template_pages.current.previous %>
+<%= link_to '下一页', { :page => @ytwg_template_pages.current.next } if @ytwg_template_pages.current.next %> 
+<%= link_to '最后一页', { :page =>@ytwg_template_pages.last} if @ytwg_template_pages.current != @ytwg_template_pages.last %>
+<%= @ytwg_template_pages.current_page.offset/10 +1 %>/<%= @ytwg_template_pages.length %>
+
+<table border="1" bordercolor="#999999" class="clsContentTable" width=90%>
+  <tr class="clsTrHeader">
+  <% for column in %w{名称 大小} %>
+    <th><%= column %></th>
+  <% end %>
+  <th colspan=3>操作</th>
+  </tr>
+  
+<% index = 0%>
+<% for ytwg_template in @ytwg_templates %>
+  <%=ColorRow(index)%>
+
+    <td><%= ytwg_template.name%></td>
+    <td align='right'><%= ytwg_template.content.size%>字节</td>
+    <td><%= link_to '下载', :action => 'download', :id => ytwg_template %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => ytwg_template }, :confirm => '确定删除记录吗?', :post => true %></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '新建', :action => 'new' %>

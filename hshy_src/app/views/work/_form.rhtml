@@ -1,0 +1,49 @@
+<%= error_messages_for 'work' %>
+
+
+<!--[form:work]-->
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width="80%">
+<tr>
+ <td bgcolor="#999999"> <label for="work_类型">日志类型</label></td>
+<td>
+    <select id="work[logtype]" name="work[logtype]">
+        <%=options_from_collection_for_select(Logtype.find(:all), "id", "name", @work.logtype) %>
+    </select>
+</td>
+</tr>
+<tr>
+ <td bgcolor="#999999"> <label for="work_标题">项目</label></td>
+<td>
+    <select id="work[project_id]" name="work[project_id]"">
+    <option value="">-- 无 --</option>
+    <%=options_from_collection_for_select(Project.find(:all), "id", "name", @work.project_id) %>
+</td>
+</tr>
+
+
+<tr>
+ <td bgcolor="#999999"> <label for="work_标题">标题</label></td>
+<td><%= text_field 'work', 'title', :class=>"required" %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="work_内容">内容</label></td>
+<td>
+<%= fckeditor_textarea("work", "context",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %></td>
+
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="work_起始时间">日期</label></td>
+<td><%= date_select 'work', 'uptime',:use_month_numbers => true %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="work_截至时间">小时数</label></td>
+<td><%= text_field 'work', 'hours', :class=>"required" %></td>
+</tr>
+
+</table>
+
+<!--[eoform:work]-->
+

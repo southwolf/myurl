@@ -1,0 +1,27 @@
+<h1>Listing vote_users</h1>
+
+<table>
+  <tr>
+  <% for column in VoteUser.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for vote_user in @vote_users %>
+  <tr>
+  <% for column in VoteUser.content_columns %>
+    <td><%=h vote_user.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => vote_user %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => vote_user %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => vote_user }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @vote_user_pages.current.previous } if @vote_user_pages.current.previous %>
+<%= link_to 'Next page', { :page => @vote_user_pages.current.next } if @vote_user_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New vote_user', :action => 'new' %>

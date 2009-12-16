@@ -1,0 +1,37 @@
+<% require "URI" %>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th width=20%>问题描述</th>
+    <th width=15%>解决方法1</th>
+    <th width=15%>解决方法2</th>
+    <th width=15%>解决方法3</th>
+    <th width=15%>解决方法4</th>
+    <th width=10%>解决方法5</th>
+    <th>提交时间</th>
+    <th>提交人</th>
+  </tr>
+  
+<%index = 1%>  
+<% for gtwt in @gtwts %>
+  <%=ColorRow(index, gtwt.id)%>
+  <% for column in %w(desc method1 method2 method3 method4 method5) %>
+    <td><%=h gtwt[column] %></td>
+  <% end %>
+    <td><%=gtwt.publish_time.to_date%></td>
+    <td><%=gtwt.publisher%></td>
+  </tr>
+  <% index += 1 %>
+<% end %>
+</table>
+
+<%= will_paginate @gtwts %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/gtwt/new");  
+  add_dynamic_button("/img/iconEdit.png", "修改", "/gtwt/edit/");
+  <% if checkright("高铁技术问题管理") %>
+  add_sep();
+  add_dynamic_delete_button("/gtwt/destroy/");  
+  <% end %>
+</script>

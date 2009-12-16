@@ -1,0 +1,27 @@
+<% require "URI" %>
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>文件名</th>
+    <th>上传时间</th>
+    <th>描述</th>
+  </tr>
+  
+<% index = 1 %>
+<% for filestock in @filestocks %>
+  <%= ColorRow(index, filestock.id) %>
+  <% index += 1 %>
+    <% @filestock = filestock %>
+    <td><%= link_to File.basename(filestock.path), URI.escape(url_for_file_column("filestock", "path"))  %></td>
+    <td><%=h filestock.publish_time.to_formatted_s(:db) %></td>
+    <td><%=h filestock.desc %></td>
+   </tr>
+<% end %>
+</table>
+<%= will_paginate @filestocks %>
+
+<script>
+  add_tab_button("/img/iconNew.png", "添加", "/filestock/new");   
+  add_sep();
+  add_dynamic_delete_button("/filestock/destroy/");  
+</script>

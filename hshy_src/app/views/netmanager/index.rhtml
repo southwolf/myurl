@@ -1,0 +1,25 @@
+<%= link_to "重新搜索", :action=>'index' %>
+<table border=1 bordercolor="#666666" height=100% width=100%>
+  <tr height=100%>
+    <td width=20% valign=top>
+      <SCRIPT LANGUAGE="JavaScript">
+          var tree = new WebFXTree('搜索到的设备');
+          <% index = 1 %>
+          <% for text in @texts.sort %>
+              var e<%=index%> = new WebFXTreeItem("<%=get_value(text, "net.ipaddr") %>");
+              e<%=index%>.target = 'info';
+              e<%=index%>.action = "/netmanager/info?ip=<%=get_value(text, "net.ipaddr")%>";
+              e<%=index%>.icon = "/img/icon_0.png";
+              tree.add(e<%=index%>);
+          <% end %>          
+          document.write(tree);
+          tree.expandAll();
+      </SCRIPT>
+    </td>
+    <td width=70% valign=top>
+      <iframe SCROLLING=yes height="100%" width="100%" FRAMEBORDER="solid" id="info" name="info" class="clsTreeDiv">
+        请从左侧选择设备节点
+      </iframe>
+    </td>
+  </tr>
+</table>

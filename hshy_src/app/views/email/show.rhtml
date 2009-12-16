@@ -1,0 +1,29 @@
+<b>标题:</b> <%=h @email.title %><br>
+  <b>发送人:</b> <%=h YtwgUser.find(@email.from_id).truename rescue nil %>
+  <b>发送时间:</b> <%=h @email.sendtime.strftime("%Y-%m-%d %H:%M:%S") %><br>
+  <b>收件人:</b> <span width=100% class=colorspan><%=h @email.recv %></span><br>
+  <b>抄送人:</b> <span width=100% class=colorspan><%=h @email.cc %></span><br>
+  <b>附件:</b><% if @email.attach%>
+    <%= link_to File.basename(@email.attach), :action=>"download_attach", :id=>@email.id %>
+  <% end %>
+  <% if @email.attach2%>
+    <%= link_to File.basename(@email.attach2), :action=>"download_attach2", :id=>@email.id %>
+  <% end %>
+  <% if @email.attach3%>
+    <%= link_to File.basename(@email.attach3), :action=>"download_attach3", :id=>@email.id %>
+  <% end %>
+<p>
+  <%= @email.content %>
+</p>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/email/list_inbox"); 
+  add_sep();
+  add_tab_button("/img/iconRelay.png", "转发", "/email/relay/<%=@email.id%>");
+  add_sep();
+  add_tab_button("/img/iconReply.png", "回复", "/email/reply/<%=@email.id%>");
+  add_sep();
+  add_tab_button("/img/iconReplyAll.png", "回复所有人", "/email/replyall/<%=@email.id%>");
+</script>
+
+

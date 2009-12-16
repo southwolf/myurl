@@ -1,0 +1,84 @@
+<%= javascript_include_tag 'time' %>
+<script >
+
+  var oCalendarEn=new PopupCalendar("oCalendarEn");
+  oCalendarEn.Init();
+
+  var oCalendarChs=new PopupCalendar("oCalendarChs");
+  oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+  oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+  oCalendarChs.oBtnTodayTitle="今天";
+  oCalendarChs.oBtnCancelTitle="取消";
+  oCalendarChs.Init();
+</script>
+
+<table id='table' cellpadding="2"  border="1" bordercolor="#999999" class="clsContentTable" width=100%>
+  <tr class="clsTrHeader">
+    <th width=50%>报表名称</th>
+    <th>发布时间</th>
+    <th>发布人</th>
+  </tr>
+  
+<%index=0%>
+<% for ytwg_report in @ytwg_reports %>
+  <%=ColorRow(index, ytwg_report.id)%>
+  <%index+=1%>
+    <td>
+    
+    <% if ytwg_report.flow ==1 %>
+    
+<a href="javascript:upload('form<%=ytwg_report.id%>')"><%=ytwg_report.name%></a> 
+  <%= start_form_tag({:action => 'query', :id => ytwg_report},{:style=>"display:none", :target=>"w", :method=>"post", :onsubmit=>"window.open('','w','')", :id=>"form"+ytwg_report.id.to_s}) %>
+
+  提交人：<select id="user" name="user">
+            <option value=""></option>
+            <%=options_from_collection_for_select(YtwgUser.find(:all), "id", "truename") %>
+        </select>
+        <input type="checkbox" id="finished" name="finished" value="1" >审批结束
+        <br>                  
+        <input  type=text name="from" onclick='getDateString(this,oCalendarChs)' size=10/>=< 提交时间 =< 
+        <input  type=text name="to" onclick='getDateString(this,oCalendarChs)' size=10/><br>
+         <%= submit_tag '查询' %>
+  <%= end_form_tag%>
+  
+  <% else %>
+  
+    <%= start_form_tag({:action => 'query', :id => ytwg_report}) %>
+        <%= submit_tag ytwg_report.name %>
+    <%= end_form_tag%>
+  <% end %>
+</td>
+    <td><%=h ytwg_report.publish_time.to_formatted_s(:db) %></td>
+    <td><%=h ytwg_report.publisher %></td>
+ </tr>
+<% end %>
+</table>
+
+<%= will_paginate @ytwg_reports %>
+
+<script>
+function upload(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>
+
+
+<script>
+  add_tab_button("/img/iconNew.png", "上传模板", "/ytwg_report/new");  
+  
+  <% if checkright('报表管理')%>
+    add_dynamic_button("/img/iconEdit.png", "更新", "/ytwg_report/edit/");
+    add_sep();
+    add_dynamic_delete_button("/ytwg_report/destroy/");  
+  <% end %>
+</script>

@@ -1,0 +1,61 @@
+<script>
+function upload(formid)
+{
+    if ($(formid).opened)
+    {
+        Element.hide(formid);
+        $(formid).opened = false;
+    }
+    else
+    {
+        Element.show(formid);
+        $(formid).opened = true;        
+    }
+}
+</script>
+<table border="1" bordercolor="#9999FF" class="clsContentTable" width=100%>
+    <tr class="clsTrHeader">
+        <th width=30%>状态节点</th>
+        <th width=20%>查看权限</th>
+        <th width=10%>查看界面</th>
+        <th width=40%>上传界面</th>
+    </tr>
+    <% for flow in @flows%>
+        <tr bgcolor="#999999" >
+            <td><%=flow.name%></td>
+            <td colspan=3>
+            <% if !flow.formtable || flow.formtable.size==0%>
+                <a href="javascript:upload('form<%=flow.id%>')">上传表定义模板</a> 
+                <%= start_form_tag({:action => 'upload_formtable', :id => flow},{:enctype=>"multipart/form-data", :style=>"display:none", :id=>"form"+flow.id.to_s}) %>
+                    <%= file_field_tag 'content'  %>
+                    <%= submit_tag '保存' %>
+                <%= end_form_tag%>
+            <% else %>
+                 <%=link_to("删除表定义", {:action=>"delete_formtable", :id=>flow.id},  :confirm => '删除表定义将删除该表所有数据，确认删除吗?', :post => true,:style=>"color:red")%>
+            <% end%>
+            </td>
+        </tr>
+        <%index = 0%>
+        <% for state in $Workflows[flow.name].states%>
+          <%index += 1%>
+          <%=ColorRow(index)%>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=state.name%></td>
+            <td><%=state.right%></td>
+            <td>
+            <%interfaces =  YtwgStateinterface.find(:all, :conditions=>"flowid=#{flow.id} and name = '#{state.name}'") %>
+             <%if interfaces.size > 0%>   
+                <%=link_to( '查看', {:action=>'show_interface', :id=>interfaces[0]},:target=>'_blank')%>
+             <%end%>
+            </td>
+            <td>
+            <a href="javascript:upload('form<%=flow.id%><%=state.name%>')">上传</a>
+            <%= start_form_tag({:action => 'uploadinterface', :id => flow},{:enctype=>"multipart/form-data", :style=>"display:none", :id=>"form"+flow.id.to_s+state.name}) %>
+                <%= file_field_tag 'content'  %>
+                <%= hidden_field_tag 'name', state.name%>
+                <%= submit_tag '保存' %>
+            <%= end_form_tag%>
+            </td>
+          </tr>
+        <% end%>
+    <% end%>
+</table>

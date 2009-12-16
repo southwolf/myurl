@@ -1,0 +1,45 @@
+<table id='table' border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+  <% for column in %w(批次编号 器件类型 生产数量 已生产数量 外协厂家 生产日期 负责人 操作) %>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+
+<% index = 0 %>  
+<% for product_batch in @product_batches %>
+  <%=ColorRow(index, product_batch.id)%>
+    <td><%= link_to product_batch.name, :action=>"show", :id=>product_batch %></td>
+    <td><%=h product_batch.cata.name %></td>
+    <td><%=h product_batch.num %></td>
+    <td><%=h Product.count("_pici=#{product_batch.id}") %></td>
+    <td><%=h product_batch.factory %></td>
+    <td><%=h product_batch.date.to_date %></td>
+    <td><%=h product_batch.dealer %></td>
+    <td><%= link_to "入库", :controller=>"product",:action=>"new_comp", :id=>product_batch.cata, :batch=>product_batch.id %></td>
+  </tr>
+  <%index += 1%>
+<% end %>
+</table>
+
+<%= will_paginate @product_batches %>
+
+
+<br>
+<% form_tag :action => 'new' do %>
+  <table>
+    <tr>
+      <td>
+  <select id="cata" name="cata">
+    <%= options_from_collection_for_select(ProductCata.find(:all), "id", "name") %>
+  </select>
+        </td>
+        <td>
+  <%= submit_tag "新建批次" %>
+    </td>
+  </tr>
+</table>
+<% end %>
+
+<script>
+  add_dynamic_delete_button("/product_batch/destroy/");
+</script>

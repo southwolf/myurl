@@ -1,0 +1,2 @@
+module DicDizhiHelper
+end

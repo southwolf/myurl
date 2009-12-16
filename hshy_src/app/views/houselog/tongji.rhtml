@@ -1,0 +1,43 @@
+<style>
+    .inputers{margin-left: 30px;}
+</style>
+<table width=100%>
+    <tr>
+        <td>   </td>
+        <td valign='top'>
+            <% for department in @departments%>
+                <%= department.name%>
+                <ul class="inputers">
+                <% for user in department.users%>
+                    <li><%= link_to user.truename, :controller=>"houselog", :action=>"tongji", :id=>user %></li>
+                <% end %>
+                </ul>
+            <% end %>
+           
+        </td>
+        <td valign='top'>
+            <% if @logs%>
+                <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+                  <tr class="exebar">
+                    <th>跟进人</th>
+                    <th>房源ID</th>
+                    <th>跟进时间</th>
+                    <th width=60%>内容</th>
+                  </tr>
+                
+                <%index = 1%>  
+                <% for houselog in @logs %>
+                  <%=ColorRow(index, houselog.id)%>
+                    <td><%=h houselog.inputer %></td>
+                    <td><%=h houselog.house_id %></td>
+                    <td><%=h houselog.inputtime.to_formatted_s(:db) %></td>
+                    <td><%= houselog.text %></td>
+                  <% index += 1 %>
+                  </tr>
+                <% end %>
+                </table>
+                <%= will_paginate @logs, :id=>params[:id] %>
+            <% end %>
+        </td>
+    </tr>
+</table>

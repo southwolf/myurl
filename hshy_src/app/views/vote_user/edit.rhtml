@@ -1,0 +1,9 @@
+<h1>Editing vote_user</h1>
+
+<% form_tag :action => 'update', :id => @vote_user do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @vote_user %> |
+<%= link_to 'Back', :action => 'list' %>

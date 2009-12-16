@@ -1,0 +1,25 @@
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width=100% >
+  <tr class="exebar">  
+    <th>名称</th>
+    <th>操作</th>
+  </tr>
+  
+<%index=1%>
+<% for voteoption in @voteoptions %>
+  <%=ColorRow(index, voteoption.id)%>
+    <td><%=h voteoption.name %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => voteoption }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<%index+=1%>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @voteoption_pages.current.previous } if @voteoption_pages.current.previous %>
+<%= link_to 'Next page', { :page => @voteoption_pages.current.next } if @voteoption_pages.current.next %> 
+
+
+<%= link_to_remote '添加选项', :update=>"add", :url=>{:controller=>"voteoption", :action => 'new', :id=>params[:id]} %>
+
+<script>
+    Effect.BlindUp("add");
+</script>

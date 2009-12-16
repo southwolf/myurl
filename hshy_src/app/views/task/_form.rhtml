@@ -1,0 +1,103 @@
+<%= javascript_include_tag 'dragdrop' %>
+
+<%= error_messages_for 'task' %>
+
+<!--[form:task]-->
+<p><label for="task_name">任务名称：</label>
+<%= text_field 'task', 'name'  %></p>
+<!--
+<p>任务接收人：&nbsp;&nbsp;&nbsp;<%=check_box_tag "flag", "1" , true,{:onclick=>"if (this.checked == false) show_users(this, 'users')"} %>下发给自己</p>
+-->
+<a href="javascript:show_users(this, 'users')" id="flag">任务接收人</a>
+<span id="recv" width=100% style="background-color:pink">
+  <%=session[:user].truename%>
+</span>
+
+
+<p>任务开始时间：<%= date_select "task", "begin_time", {:use_month_numbers => true,} %></p>
+<p>任务截止时间：<%= date_select "task", "end_time", {:use_month_numbers => true,} %></p>
+<p><label for="task_desc">任务描述：</label><br/>
+<%= fckeditor_textarea("task", "desc",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %>
+</p>
+
+<!--[eoform:task]-->
+<%= render :partial =>"/share/user_select", :locals=>{:address=>[session[:user].id], :divid=>"users", :name=>"recv[]", :accept=>"recv"} %>
+
+<%= draggable_element("users", :handle => "handle_users")%>
+<script>
+    function check_click(obj)
+    {
+        if (obj.checked == false)
+            show_users($("toself"), "users")
+    }
+    function show_users(obj, divid)
+    {
+        var div = $(divid);
+        var flag = $('flag');
+        div.style.pixelLeft = flag.offsetLeft;
+        div.style.pixelTop = flag.offsetTop+35;
+        Effect.BlindDown(divid);
+    }
+    
+    function hide_users(username, tagname, divid)
+    {
+        //alert(document.forms[0]);
+        var users = document.getElementsByName(username);
+        var recv = "";
+        for(var i=0; i<users.length; i++)
+        {
+            if (users[i].checked)
+            {
+                if (recv.length == 0)
+                    recv = users[i].text;
+                else
+                    recv = recv + "," + users[i].text;
+            }
+        }
+        $(tagname).innerHTML = recv;
+        Effect.BlindUp(divid);   
+    }
+    function select_all(form, tagname)
+    {
+        if ($("selectall"+tagname).checked)
+        {
+            for(var i=0; i<form.elements.length-1; i++)
+            {
+                if (form.elements[i].name == tagname)
+                    form.elements[i].checked = true;
+            }
+                                        
+        }
+        else
+        {
+            for(var i=0; i<form.elements.length-1; i++)
+            {
+                if (form.elements[i].name == tagname)
+                    form.elements[i].checked = false;
+            }
+        }
+    }
+    
+    function select_dep(departmentid)
+    {
+        checks = document.getElementsByTagName("INPUT");
+        if ($(departmentid).checked)
+        {
+            for(var i=0; i<checks.length-1; i++)
+            {
+                if (checks[i].id == "department" + departmentid)
+                    checks[i].checked = true;
+            }
+                                        
+        }
+        else
+        {
+            for(var i=0; i<checks.length-1; i++)
+            {
+                if (checks[i].id == "department" + departmentid)
+                    checks[i].checked = false;
+            }
+        }
+    }
+
+</script>

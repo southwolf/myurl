@@ -1,0 +1,36 @@
+<% form_tag({:action => 'update', :id => @ytwg_user}, :multipart => true)do %>
+<table width=100%>
+<tr width=100%>
+<td valign="top">
+  <%= render :partial => 'form' %>
+
+  <%= submit_tag '保存' %>
+<%=  image_wide_button '返回', "/ytwg_user/list" %>
+</td>
+<td>
+&nbsp
+</td>
+<td valign='top' width=50%>
+  选择员工角色：<br>
+  <table border="1" bordercolor="#999999" class="clsContentTable" width=80% %>
+  <tr class="clsTrHeader">
+    <th>角色名称</th>
+    <th>选择</th>
+  </tr>
+     <%index = 0%>
+     <% YtwgGroup.find(:all, :order=>'id').each do |group| %>
+         <%=ColorRow(index)%>
+         <td><%= group.name %></td>
+         <td align='center'><input type="checkbox" name="ytwg_user[group_ids][]" 
+          value="<%= group.id %>" 
+          <% if @ytwg_user.groups.include?(group) %> checked="checked" <% end %> />
+         </td> 
+    <%index += 1%>
+    <% end %>
+</table>
+</td>
+</tr>
+</table>
+
+<% end %>
+

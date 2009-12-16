@@ -1,0 +1,21 @@
+<%= error_messages_for 'news' %>
+
+<!--[form:news]-->
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#999999" width="80%">
+
+<tr>
+ <td bgcolor="#999999"> <label for="news_标题">标题</label></td>
+<td><%= text_field 'news', 'title'  %></td>
+</tr>
+
+<tr>
+ <td bgcolor="#999999"> <label for="news_内容">内容</label></td>
+<td>
+<%= fckeditor_textarea("news", "content",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %>
+</td>
+</tr>
+
+
+</table>
+<!--[eoform:news]-->
+

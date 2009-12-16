@@ -1,0 +1,20 @@
+<div id=message style=" position:absolute; left:600px; top:70px; width:400px;
+     background-color:#CCCCCC;display:none; overflow:hidden;  z-index:2;">				    
+<table width=100%>
+  <tr id="handle" class="exebar" width=100%>
+    <td align=center width=90% >ÁÄÌì´°¿Ú</td>
+    <td align=right width=10%><%=link_to_function "¹Ø±Õ", "Effect.BlindUp('message') "%></td>
+  </tr>
+</table>
+
+
+<div id="message_detail"><img src="/img/indicator.gif"/></div>
+
+</div>
+<%= draggable_element("message", :handle => 'handle')%>
+<script> 
+    function select(id)
+    {
+        $("message_to_id").value = id;
+    }
+</script>

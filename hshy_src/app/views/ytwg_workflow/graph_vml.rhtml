@@ -1,0 +1,43 @@
+<HTML xmlns:vml="urn:schemas-microsoft-com:vml">
+<head runat="server">
+<title><%=@workflow.name%>流程图</title>
+<%= javascript_include_tag 'vmlset' %>
+<style>
+vml\:* { FONT-SIZE: 12px; BEHAVIOR: url(#VMLRender) }
+</style>
+
+
+</head>
+<OBJECT id="vmlRender" classid="CLSID:10072CEC-8CC1-11D1-986E-00A0C955B42E" VIEWASTEXT></OBJECT>
+<body>
+<% flow = $Workflows[@workflow.name] %>
+<%index = 0%>
+<% for state in flow.states %>
+    <% if index == 0 %>
+        <vml:Oval id='<%=state.name%>' inset='2pt,2pt,2pt,2pt' style='TEXT-ALIGN:center;vertical-align:middle;position:absolute;left:<%=state.x1%>px;top:<%=state.y1%>px;width:<%=state.x2-state.x1%>;height:<%=state.y2-state.y1%>;'>
+        <vml:shadow on='T' type='single' color='#b3b3b3' offset='3px,3px'/>
+        <vml:TextBox inset="5pt,5pt,5pt,5pt" style="font-size:9pt;"><%=state.name%><br>(<%=state.right||"不须权限"%>)</vml:TextBox>
+        </vml:Oval>
+    <% elsif index == flow.states.size-1 %>
+        <vml:Oval fillcolor=green id='<%=state.name%>' style='TEXT-ALIGN:center;vertical-align:middle;position:absolute;left:<%=state.x1%>px;top:<%=state.y1%>px;width:<%=state.x2-state.x1%>;height:<%=state.y2-state.y1%>;'>
+            <vml:TextBox inset="5pt,5pt,5pt,5pt" ><%=state.name%><br>(<%=state.right||"不须权限"%>)</vml:TextBox>
+        </vml:Oval>
+    <% else %>
+        <vml:rect id='<%=state.name%>' inset='2pt,2pt,2pt,2pt' style="TEXT-ALIGN:center;vertical-align:middle;position:absolute;z-index:<%=index%>;left:<%=state.x1%>px;top:<%=state.y1%>px;width:<%=state.x2-state.x1%>;height:<%=state.y2-state.y1%>;">
+            <vml:shadow on='T' type='single' color='#b3b3b3' offset='3px,3px'/>
+            <vml:TextBox inset="5pt,5pt,5pt,5pt" style="font-size:9pt;"><%=state.name%><br>(<%=state.right||"不须权限"%>)</vml:TextBox>
+         </vml:rect>
+    <% end %>
+    <% index += 1 %>
+<% end %>
+
+<% for line in flow.trasits %>
+    <vml:line  source='<%=line.from.name%>' object='<%=line.to.name%>'  style="position:absolute;z-index:<%=index%>" from="0,0" to="0,0">
+	<vml:stroke EndArrow="Classic"/>
+	<vml:shadow on='T' type='single' color='#b3b3b3' offset='1px,1px'/>
+    </vml:line>
+    <%index+=1%>
+<% end %>
+</body>
+</html>
+

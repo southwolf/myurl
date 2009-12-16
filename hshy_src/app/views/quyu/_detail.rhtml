@@ -1,0 +1,18 @@
+<%= link_to '新加小区', :controller=>"dic_dizhi", :action => 'new' %>
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=90%>
+  <tr class="exebar">
+    <th>楼盘名称</th>
+    <th colspan=2>操作</th>
+  </tr>
+  
+<% index = 1 %>  
+<% for dic_dizhi in dic_dizhis %>
+  <%=ColorRow(index, dic_dizhi.id, :onclick=>"ShowLhDetail(#{dic_dizhi.id});")%>
+    <td><%=h dic_dizhi.name %></td>
+    <td><%= link_to '修改', :controller=>"dic_dizhi", :action => 'edit', :id => dic_dizhi %></td>
+    <td><%= link_to '删除', { :controller=>"dic_dizhi", :action => 'destroy', :id => dic_dizhi }, :confirm => '确认删除吗?', :method => :post %></td>
+    
+  </tr>
+  <% index += 1 %>
+<% end %>
+</table>

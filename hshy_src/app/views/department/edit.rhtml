@@ -1,0 +1,9 @@
+<%@title = '编辑部门'%>
+<%= start_form_tag :action => 'update', :id => @department %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %>
+  <%= image_wide_button '添加子部门', "/department/new?parent_id=#{@department.id}" %>
+  <%=  image_wide_button '返回', "/department/list" %>
+<%= end_form_tag %>
+
+

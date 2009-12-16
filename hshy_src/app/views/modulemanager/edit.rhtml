@@ -1,0 +1,10 @@
+<% form_tag :action => 'update' do%>
+<%= hidden_field_tag("name", params[:name]) %>
+<table>
+    <tr><td><%= submit_tag '±£´æ' %></td></tr>
+    <tr><td>
+    <%=text_area_tag "data", @data, {:cols=>92, :rows=>25}%>
+    
+    </td></tr>
+</table>
+<% end %>

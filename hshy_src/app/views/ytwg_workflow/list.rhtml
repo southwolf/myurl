@@ -1,0 +1,33 @@
+<table id='table' border="1" bordercolor="#999999" class="clsContentTable" width=90%>
+  <tr class="clsTrHeader">
+  <th>名称</th>
+  <th>发布时间</th>
+  <th colspan=4>操作</th>
+  </tr>
+  
+<% index = 0%>
+<% for ytwg_workflow in @ytwg_workflows %>
+  <%=ColorRow(index, ytwg_workflow.id)%>
+
+    <td><%=h ytwg_workflow.name %></td>
+    <td><%=h ytwg_workflow.publish_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+    <td><a href="/ytwg_workflow/graph_vml/<%=ytwg_workflow.id%>" target='_blank'>查看图形</a></td>
+  </tr>
+<% index += 1%>  
+<% end %>
+</table>
+
+<%= will_paginate @ytwg_workflows%>
+<br />
+
+<script>
+  add_tab_button("/img/iconNew.png", "上传新流程", "/ytwg_workflow/new");  
+  add_tab_button("/img/iconOrder.png", "调整工作流顺序", "/ytwg_workflow/reorder");  
+  add_sep();
+  add_dynamic_button("/img/iconEdit.png", "更新工作流", "/ytwg_workflow/edit/");  
+  add_dynamic_button("/img/iconDownload.png", "下载", "/ytwg_workflow/download/");  
+  
+    add_sep();
+    add_dynamic_delete_button("/ytwg_workflow/destroy/");  
+  
+</script>

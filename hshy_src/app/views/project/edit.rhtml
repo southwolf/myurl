@@ -1,0 +1,10 @@
+<%@title = '编辑项目'%>
+<%= start_form_tag :action => 'update', :id => @project %>
+  <%= render :partial => 'form' %>
+<%= end_form_tag %>
+
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/project/list");  
+</script>

@@ -1,0 +1,2 @@
+module RecordserverHelper
+end

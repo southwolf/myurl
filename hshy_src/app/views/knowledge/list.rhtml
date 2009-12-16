@@ -1,0 +1,33 @@
+
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width="100%">
+  <tr class="exebar">
+    <th width=50%>知识标题</th>
+    <th>发布人</th>
+    <th>发布时间</th>
+  </tr>
+
+<%index=1%>  
+<% for knowledge in @knowledges %>
+  <%=ColorRow(index, knowledge.id)%>
+  <% index += 1 %>
+    <td><%= link_to knowledge.title, :action=>"show", :id=>knowledge %></td>
+    <td><%=h knowledge.publisher %></td>
+    <td><%=h knowledge.publish_time.to_formatted_s(:db) %></td>
+        <td><%= link_to '修改', :action => 'edit', :id => knowledge if checkright('知识管理') || knowledge.publisher == session[:user].truename%></td>
+    <td><%= link_to image_tag("/img/iconErase.png",:border => 0), { :action => 'destroy', :id => knowledge }, :confirm => '确定删除吗?', :method => :post if checkright('知识管理')  || knowledge.publisher == session[:user].truename%></td>
+   </tr>
+<% end %>
+</table>
+<%= will_paginate @knowledges %>
+
+<script>
+  add_tab_button("/img/iconBack.png", "返回", "/knowledge_type/list");  
+  add_tab_button("/img/iconNew.png", "添加", "/knowledge/new/<%=params[:id]%>");  
+  
+  <% if checkright('知识管理')%>
+    add_dynamic_button("/img/iconEdit.png", "修改", "/knowledge/edit/");
+    add_sep();
+    add_dynamic_delete_button("/knowledge/destroy/");  
+  <% end %>
+  
+</script>

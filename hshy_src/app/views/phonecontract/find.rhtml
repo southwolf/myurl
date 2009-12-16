@@ -1,0 +1,21 @@
+
+<% form_tag :action => 'query'do %>
+
+<label for="phonecontract_linkman">联系单位</label>
+    <select id="unit_id" name="unit_id">
+    <option value="-1"></option>    
+    <%=options_from_collection_for_select(Unit.find(:all), "id", "name") %>
+    </select>
+<br/>
+
+  <label for="phonecontract_linkman">联&nbsp;系&nbsp;人 </label>
+<%= text_field_tag 'linkman'  %><br/>
+
+<label for="phonecontract_telephone">联系电话</label>
+<%= text_field_tag 'telephone'  %><br/>
+
+
+  <%= submit_tag '查找' %>
+<% end %>
+
+<%=  image_wide_button '返回', "/phonecontract/index" %>

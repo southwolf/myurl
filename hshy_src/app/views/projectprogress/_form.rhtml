@@ -1,0 +1,12 @@
+<%= error_messages_for 'projectprogress' %>
+
+<!--[form:projectprogress]-->
+<p><label for="projectprogress_desc">进度日期：</label>
+<%= date_select "projectprogress", "publish_time", :use_month_numbers => true %>
+</p>
+
+<p><label for="projectprogress_desc">进度描述：</label><br/>
+<%= fckeditor_textarea("projectprogress", "desc",  :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
+</p>
+<!--[eoform:projectprogress]-->
+

@@ -1,0 +1,11 @@
+<%@title = '编辑工作日志'%>
+<%= start_form_tag :action => 'update', :id => @work %>
+  <%= render :partial => 'form' %>
+<%= end_form_tag %>
+
+<script>
+  add_submit("保存");
+  add_tab_button("/img/iconBack.png", "返回", "/work/list");
+  add_sep();
+  add_delete_button("/work/destroyfromedit/<%=@work.id%>");
+</script>

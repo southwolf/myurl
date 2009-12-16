@@ -1,0 +1,2 @@
+module LinkmanHelper
+end

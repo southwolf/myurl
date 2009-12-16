@@ -1,0 +1,1313 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>诚嘉永欣OA办公系统</title>
+    <link href="/stylesheets/scaffold.css?1222404316" media="screen" rel="Stylesheet" type="text/css" />
+    <link href="/stylesheets/lmx.css?1222404316" media="screen" rel="Stylesheet" type="text/css" />
+    
+    <script src="/javascripts/prototype.js?1222404306" type="text/javascript"></script>
+    
+    <script src="/javascripts/effects.js?1177375430" type="text/javascript"></script>
+    
+    <script src="/javascripts/fckeditor.js?1222404306" type="text/javascript"></script>
+    
+    <script src="/javascripts/xtree.js?1222404306" type="text/javascript"></script>
+    
+    <script src="/javascripts/xloadtree.js?1222404306" type="text/javascript"></script>
+    
+    <script src="/javascripts/xmlextras.js?1222404306" type="text/javascript"></script>
+    
+  </head>
+  
+  
+  
+  <script>
+
+
+  </script>
+  
+  <script language = "javascript">
+      function tr_mouseover(row)
+      {
+          row.old_color = row.style.backgroundColor;
+          row.style.backgroundColor = "#FFFDD7";
+      }
+  
+      function tr_mouseout(row)
+      {
+          row.style.backgroundColor = row.old_color;
+      }
+  
+      function tr_click(row)
+      {
+          var parent = row.parentNode;
+          if (parent.tagName == "TBODY")
+              parent = parent.parentNode;
+          
+          var child = parent.childNodes[0];
+          if (child.tagName == undefined)
+          {
+              child = parent.childNodes[1];
+          }
+        
+          $A(child.childNodes).each(function(node){
+              if (node.className == "TrSelected")
+              {
+                  node.className = node.old_class;
+              }
+          });
+          row.old_class = row.className;
+          row.className = "TrSelected"; 
+          parent.data_id = row.id;
+      }
+  
+      function geturl(path, element_id, refresh)
+      {
+          var result = path;
+          var data_id = $(element_id).data_id;
+          if (data_id == undefined)
+          {
+              alert("请选择一行记录");
+              return;
+          }
+          result += data_id;
+          if (refresh)
+              document.location = result;
+          return result;
+      }
+  
+      function close_round(obj)
+      {
+          var div = obj.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.nextSibling.children[2].children[0];
+          if (div.style.display == "none")
+          {
+              div.style.display = "block";
+              obj.children[0].src = "/img/i_jt1.gif";
+          }  
+          else
+          {
+              div.style.display = "none";        
+              obj.children[0].src = "/img/i_jt2.gif";
+          }
+        
+      }
+  
+      var noAppearEffect = false;
+  </script>
+  <body background="/img/blusmo.gif">   
+    
+    <table  width="100%" height="100%">
+      <tr height=100%>
+        <td id='update'  width="100%" valign='top' height=100% style="display:none">
+          <!-- 
+        <div id='update' style="display:none" height=100%>
+        -->
+          
+          <form action="/email/create" enctype="multipart/form-data" method="post">
+            <script src="/javascripts/dragdrop.js?1222403737" type="text/javascript"></script>
+            
+            
+            
+            
+            <!--[form:email]-->
+            标&nbsp;&nbsp;题
+            <input id="email_title" name="email[title]" size="50" type="text" />
+            <br>
+            <a href="javascript:show_users(this, 'users')" id="flag">收件人:</a>
+            <span id="recv" width=100% style="background-color:pink">
+              
+            </span>
+            <br>
+            <a href="javascript:show_users(this, 'ccusers')" id="flag">抄送:</a>
+            <span id="cc" style="background-color:pink">
+              
+            </span>
+            <br>
+            
+            <textarea id='email__content_editor'   name='email[content]'></textarea>
+            <script type="text/javascript">
+                //<![CDATA[
+                var oFCKeditor = new FCKeditor('email__content_editor', '100%', '360px', 'Simple');
+                oFCKeditor.BasePath = "/javascripts/fckeditor/"
+                oFCKeditor.Config['CustomConfigurationsPath'] = '../../fckcustom.js';
+                oFCKeditor.ReplaceTextarea();
+
+                //]]>
+            </script>
+            
+            附&nbsp;&nbsp;件<br>
+            <input id="email_attach_temp" name="email[attach_temp]" type="hidden" /><input id="email_attach" name="email[attach]" size="30" type="file" /><br>
+            <input id="email_attach2_temp" name="email[attach2_temp]" type="hidden" /><input id="email_attach2" name="email[attach2]" size="30" type="file" /><br>
+            <input id="email_attach3_temp" name="email[attach3_temp]" type="hidden" /><input id="email_attach3" name="email[attach3]" size="30" type="file" /><br>
+            <!--[eoform:email]-->
+            
+            <div id=users style=" position:		absolute;
+                 left:       100px;
+                 top:        70px;
+                 width:		400px;
+                 background-color:	#CCCCCC;
+                 display:		none;
+                 overflow:		hidden; 
+                 z-index:2;         
+                 ">				    
+              
+              <table width="100%" cellpadding="0" cellspacing="0" bordercolor="#0066cc">
+                <tr id="handle" class="exebar" width=100%>
+                  <td align=center width=90% >所有用户</td>
+                  <td align=right width=10%><a href="#" onclick="hide_users('email[user_ids][]', 'recv', 'users') ; return false;">确定</a></td>
+                </tr>
+              </table>
+              <div style="overflow:		auto;
+                   height:		387px;
+                   SCROLLBAR-FACE-COLOR: #CCCCCC; 
+                   SCROLLBAR-HIGHLIGHT-COLOR: #AAAAAA;
+                   SCROLLBAR-SHADOW-COLOR: #AAAAAA; 
+                   SCROLLBAR-3DLIGHT-COLOR: #AAAAAA; 
+                   SCROLLBAR-ARROW-COLOR: #AAAAAA; 
+                   SCROLLBAR-TRACK-COLOR: #AAAAAA;
+                   SCROLLBAR-DARKSHADOW-COLOR: #AAAAAA;">
+                
+                <table width="100%" cellspacing=0 cellpadding=0 border=0 >      
+                  <tr><td colspan=2><input type="checkbox" name='selectallemail[user_ids][]'onclick="select_all(form, 'email[user_ids][]')"/>全选</td></tr>    
+                  <tr class='clsTrHeader'>
+                    <th width=60%>姓名</th>
+                    <th width=40%>选择</th>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>总经办 <input type="checkbox" id="users10" onclick="select_dep('users10')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周世谊</td>
+                    <td align="center"><input type="checkbox" id="departmentusers10" name = "email[user_ids][]" text =周世谊 value="7"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周昌明</td>
+                    <td align="center"><input type="checkbox" id="departmentusers10" name = "email[user_ids][]" text =周昌明 value="8"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;仇良</td>
+                    <td align="center"><input type="checkbox" id="departmentusers10" name = "email[user_ids][]" text =仇良 value="9"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;傅晓依</td>
+                    <td align="center"><input type="checkbox" id="departmentusers10" name = "email[user_ids][]" text =傅晓依 value="10"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>财务部 <input type="checkbox" id="users11" onclick="select_dep('users11')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张颖</td>
+                    <td align="center"><input type="checkbox" id="departmentusers11" name = "email[user_ids][]" text =张颖 value="11"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赖丽娜</td>
+                    <td align="center"><input type="checkbox" id="departmentusers11" name = "email[user_ids][]" text =赖丽娜 value="12"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周师傅</td>
+                    <td align="center"><input type="checkbox" id="departmentusers11" name = "email[user_ids][]" text =周师傅 value="13"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>研发部 <input type="checkbox" id="users12" onclick="select_dep('users12')"/></td>
+                  </tr>
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;管理员</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =管理员 value="1"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;魏海君</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =魏海君 value="15"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王冠群</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =王冠群 value="16"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;苏健</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =苏健 value="17"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;康建政</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =康建政 value="18"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张浦</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =张浦 value="20"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;杨汉农</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =杨汉农 value="21"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;乔英杰</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =乔英杰 value="22"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;刘明星</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =刘明星 value="23"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;林菁菁</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =林菁菁 value="24"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;邓一宏</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =邓一宏 value="25"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;宋延涛</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =宋延涛 value="26"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄永东</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =黄永东 value="27"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;闫金文</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =闫金文 value="28"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;袁宏生</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =袁宏生 value="29"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王佳敏</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =王佳敏 value="30"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;郑惠</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =郑惠 value="31"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄永刚</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =黄永刚 value="65"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;马春艳</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =马春艳 value="66"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;钱俊先</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =钱俊先 value="68"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;常晓亮</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =常晓亮 value="69"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;马春艳</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =马春艳 value="70"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;楼英勇</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =楼英勇 value="71"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵广</td>
+                    <td align="center"><input type="checkbox" id="departmentusers12" name = "email[user_ids][]" text =赵广 value="73"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>人力资源部 <input type="checkbox" id="users13" onclick="select_dep('users13')"/></td>
+                  </tr>
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;林杨</td>
+                    <td align="center"><input type="checkbox" id="departmentusers13" name = "email[user_ids][]" text =林杨 value="32"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>项目部 <input type="checkbox" id="users14" onclick="select_dep('users14')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;唐超成</td>
+                    <td align="center"><input type="checkbox" id="departmentusers14" name = "email[user_ids][]" text =唐超成 value="33"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵莹</td>
+                    <td align="center"><input type="checkbox" id="departmentusers14" name = "email[user_ids][]" text =赵莹 value="34"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>商务部 <input type="checkbox" id="users15" onclick="select_dep('users15')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;郑霖</td>
+                    <td align="center"><input type="checkbox" id="departmentusers15" name = "email[user_ids][]" text =郑霖 value="35"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张勤</td>
+                    <td align="center"><input type="checkbox" id="departmentusers15" name = "email[user_ids][]" text =张勤 value="38"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>行政部 <input type="checkbox" id="users16" onclick="select_dep('users16')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;田彬</td>
+                    <td align="center"><input type="checkbox" id="departmentusers16" name = "email[user_ids][]" text =田彬 value="40"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;杜凤妹</td>
+                    <td align="center"><input type="checkbox" id="departmentusers16" name = "email[user_ids][]" text =杜凤妹 value="41"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄小林</td>
+                    <td align="center"><input type="checkbox" id="departmentusers16" name = "email[user_ids][]" text =黄小林 value="42"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>市场营销部 <input type="checkbox" id="users17" onclick="select_dep('users17')"/></td>
+                  </tr>
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;唐立维</td>
+                    <td align="center"><input type="checkbox" id="departmentusers17" name = "email[user_ids][]" text =唐立维 value="43"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张宾</td>
+                    <td align="center"><input type="checkbox" id="departmentusers17" name = "email[user_ids][]" text =张宾 value="44"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;刘丹</td>
+                    <td align="center"><input type="checkbox" id="departmentusers17" name = "email[user_ids][]" text =刘丹 value="45"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>生产部 <input type="checkbox" id="users18" onclick="select_dep('users18')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周扬剑</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =周扬剑 value="36"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;程照涛</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =程照涛 value="37"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄波波</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =黄波波 value="47"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;程兆国</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =程兆国 value="48"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;陈建春</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =陈建春 value="49"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;谈际谱</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =谈际谱 value="50"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周武</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =周武 value="51"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;李蕾蕾</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =李蕾蕾 value="53"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;陈烨</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =陈烨 value="54"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张猛</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =张猛 value="55"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;宋建州</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =宋建州 value="67"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;姚小星</td>
+                    <td align="center"><input type="checkbox" id="departmentusers18" name = "email[user_ids][]" text =姚小星 value="72"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>技术支持部 <input type="checkbox" id="users19" onclick="select_dep('users19')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;洪宇</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =洪宇 value="56"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;艾洪武</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =艾洪武 value="57"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;高荣</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =高荣 value="58"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;唐阿臣</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =唐阿臣 value="59"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王海丹</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =王海丹 value="60"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵振波</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =赵振波 value="61"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;李春云</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =李春云 value="62"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵鑫</td>
+                    <td align="center"><input type="checkbox" id="departmentusers19" name = "email[user_ids][]" text =赵鑫 value="63"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>青岛办事处 <input type="checkbox" id="users20" onclick="select_dep('users20')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王增磊</td>
+                    <td align="center"><input type="checkbox" id="departmentusers20" name = "email[user_ids][]" text =王增磊 value="64"   ></td>
+                  </tr>
+                  
+                  
+                  
+                </table>
+              </div>
+            </div>
+            <div id=ccusers style=" position:		absolute;
+                 left:       100px;
+                 top:        70px;
+                 width:		400px;
+                 background-color:	#CCCCCC;
+                 display:		none;
+                 overflow:		hidden; 
+                 z-index:2;         
+                 ">				    
+              
+              <table width="100%" cellpadding="0" cellspacing="0" bordercolor="#0066cc">
+                <tr id="handle" class="exebar" width=100%>
+                  <td align=center width=90% >所有用户</td>
+                  <td align=right width=10%><a href="#" onclick="hide_users('email[ccuser_ids][]', 'cc', 'ccusers') ; return false;">确定</a></td>
+                </tr>
+              </table>
+              <div style="overflow:		auto;
+                   height:		387px;
+                   SCROLLBAR-FACE-COLOR: #CCCCCC; 
+                   SCROLLBAR-HIGHLIGHT-COLOR: #AAAAAA;
+                   SCROLLBAR-SHADOW-COLOR: #AAAAAA; 
+                   SCROLLBAR-3DLIGHT-COLOR: #AAAAAA; 
+                   SCROLLBAR-ARROW-COLOR: #AAAAAA; 
+                   SCROLLBAR-TRACK-COLOR: #AAAAAA;
+                   SCROLLBAR-DARKSHADOW-COLOR: #AAAAAA;">
+                
+                <table width="100%" cellspacing=0 cellpadding=0 border=0 >      
+                  <tr><td colspan=2><input type="checkbox" name='selectallemail[ccuser_ids][]'onclick="select_all(form, 'email[ccuser_ids][]')"/>全选</td></tr>    
+                  <tr class='clsTrHeader'>
+                    <th width=60%>姓名</th>
+                    <th width=40%>选择</th>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>总经办 <input type="checkbox" id="ccusers10" onclick="select_dep('ccusers10')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周世谊</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers10" name = "email[ccuser_ids][]" text =周世谊 value="7"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周昌明</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers10" name = "email[ccuser_ids][]" text =周昌明 value="8"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;仇良</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers10" name = "email[ccuser_ids][]" text =仇良 value="9"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;傅晓依</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers10" name = "email[ccuser_ids][]" text =傅晓依 value="10"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>财务部 <input type="checkbox" id="ccusers11" onclick="select_dep('ccusers11')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张颖</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers11" name = "email[ccuser_ids][]" text =张颖 value="11"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赖丽娜</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers11" name = "email[ccuser_ids][]" text =赖丽娜 value="12"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周师傅</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers11" name = "email[ccuser_ids][]" text =周师傅 value="13"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>研发部 <input type="checkbox" id="ccusers12" onclick="select_dep('ccusers12')"/></td>
+                  </tr>
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;管理员</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =管理员 value="1"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;魏海君</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =魏海君 value="15"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王冠群</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =王冠群 value="16"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;苏健</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =苏健 value="17"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;康建政</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =康建政 value="18"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张浦</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =张浦 value="20"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;杨汉农</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =杨汉农 value="21"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;乔英杰</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =乔英杰 value="22"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;刘明星</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =刘明星 value="23"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;林菁菁</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =林菁菁 value="24"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;邓一宏</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =邓一宏 value="25"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;宋延涛</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =宋延涛 value="26"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄永东</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =黄永东 value="27"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;闫金文</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =闫金文 value="28"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;袁宏生</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =袁宏生 value="29"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王佳敏</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =王佳敏 value="30"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;郑惠</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =郑惠 value="31"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄永刚</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =黄永刚 value="65"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;马春艳</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =马春艳 value="66"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;钱俊先</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =钱俊先 value="68"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;常晓亮</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =常晓亮 value="69"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;马春艳</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =马春艳 value="70"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;楼英勇</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =楼英勇 value="71"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵广</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers12" name = "email[ccuser_ids][]" text =赵广 value="73"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>人力资源部 <input type="checkbox" id="ccusers13" onclick="select_dep('ccusers13')"/></td>
+                  </tr>
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;林杨</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers13" name = "email[ccuser_ids][]" text =林杨 value="32"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>项目部 <input type="checkbox" id="ccusers14" onclick="select_dep('ccusers14')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;唐超成</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers14" name = "email[ccuser_ids][]" text =唐超成 value="33"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵莹</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers14" name = "email[ccuser_ids][]" text =赵莹 value="34"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>商务部 <input type="checkbox" id="ccusers15" onclick="select_dep('ccusers15')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;郑霖</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers15" name = "email[ccuser_ids][]" text =郑霖 value="35"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张勤</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers15" name = "email[ccuser_ids][]" text =张勤 value="38"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>行政部 <input type="checkbox" id="ccusers16" onclick="select_dep('ccusers16')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;田彬</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers16" name = "email[ccuser_ids][]" text =田彬 value="40"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;杜凤妹</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers16" name = "email[ccuser_ids][]" text =杜凤妹 value="41"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄小林</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers16" name = "email[ccuser_ids][]" text =黄小林 value="42"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>市场营销部 <input type="checkbox" id="ccusers17" onclick="select_dep('ccusers17')"/></td>
+                  </tr>
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;唐立维</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers17" name = "email[ccuser_ids][]" text =唐立维 value="43"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张宾</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers17" name = "email[ccuser_ids][]" text =张宾 value="44"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;刘丹</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers17" name = "email[ccuser_ids][]" text =刘丹 value="45"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>生产部 <input type="checkbox" id="ccusers18" onclick="select_dep('ccusers18')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周扬剑</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =周扬剑 value="36"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;程照涛</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =程照涛 value="37"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;黄波波</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =黄波波 value="47"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;程兆国</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =程兆国 value="48"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;陈建春</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =陈建春 value="49"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;谈际谱</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =谈际谱 value="50"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;周武</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =周武 value="51"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;李蕾蕾</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =李蕾蕾 value="53"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;陈烨</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =陈烨 value="54"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;张猛</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =张猛 value="55"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;宋建州</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =宋建州 value="67"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;姚小星</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers18" name = "email[ccuser_ids][]" text =姚小星 value="72"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>技术支持部 <input type="checkbox" id="ccusers19" onclick="select_dep('ccusers19')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;洪宇</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =洪宇 value="56"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;艾洪武</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =艾洪武 value="57"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;高荣</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =高荣 value="58"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;唐阿臣</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =唐阿臣 value="59"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王海丹</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =王海丹 value="60"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵振波</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =赵振波 value="61"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;李春云</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =李春云 value="62"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr class='TrLight' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;赵鑫</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers19" name = "email[ccuser_ids][]" text =赵鑫 value="63"   ></td>
+                  </tr>
+                  
+                  
+                  
+                  <tr>
+                    <td colspan=2 align='center'>青岛办事处 <input type="checkbox" id="ccusers20" onclick="select_dep('ccusers20')"/></td>
+                  </tr>
+                  
+                  
+                  <tr  class = 'TrDark' id='1' onmouseover='tr_mouseover(this)'  onmouseout='tr_mouseout(this)' onClick='tr_click(this);'> 
+                    <td>&nbsp;&nbsp;王增磊</td>
+                    <td align="center"><input type="checkbox" id="departmentccusers20" name = "email[ccuser_ids][]" text =王增磊 value="64"   ></td>
+                  </tr>
+                  
+                  
+                  
+                </table>
+              </div>
+            </div>
+            
+            <script type="text/javascript">
+                //<![CDATA[
+                new Draggable("users", {handle:handle})
+                //]]>
+            </script>
+            <script type="text/javascript">
+                //<![CDATA[
+                new Draggable("ccusers", {handle:handle})
+                //]]>
+            </script>
+            <script>
+                function show_users(obj, divid)
+                {
+                    var div = $(divid);
+                    var flag = $('flag');
+                    //alert(div.offsetLeft);
+                    div.style.pixelLeft = flag.offsetLeft;
+                    div.style.pixelTop = flag.offsetTop+35;
+                    Effect.BlindDown(divid);
+                }
+    
+                function hide_users(username, tagname, divid)
+                {
+                    //alert(document.forms[0]);
+                    var users = document.getElementsByName(username);
+                    var recv = "";
+                    for(var i=0; i<users.length; i++)
+                    {
+                        if (users[i].checked)
+                        {
+                            if (recv.length == 0)
+                                recv = users[i].text;
+                            else
+                                recv = recv + "," + users[i].text;
+                        }
+                    }
+                    $(tagname).innerHTML = recv;
+                    Effect.BlindUp(divid);   
+                }
+                function select_all(form, tagname)
+                {
+                    if ($("selectall"+tagname).checked)
+                    {
+                        for(var i=0; i<form.elements.length-1; i++)
+                        {
+                            if (form.elements[i].name == tagname)
+                                form.elements[i].checked = true;
+                        }
+                                        
+                    }
+                    else
+                    {
+                        for(var i=0; i<form.elements.length-1; i++)
+                        {
+                            if (form.elements[i].name == tagname)
+                                form.elements[i].checked = false;
+                        }
+                    }
+                }
+    
+                function select_dep(departmentid)
+                {
+                    checks = document.getElementsByTagName("INPUT");
+                    if ($(departmentid).checked)
+                    {
+                        for(var i=0; i<checks.length-1; i++)
+                        {
+                            if (checks[i].id == "department" + departmentid)
+                                checks[i].checked = true;
+                        }
+                                        
+                    }
+                    else
+                    {
+                        for(var i=0; i<checks.length-1; i++)
+                        {
+                            if (checks[i].id == "department" + departmentid)
+                                checks[i].checked = false;
+                        }
+                    }
+                }
+
+            </script>
+            
+            <input name="commit" type="submit" value="发送" />
+          </form>
+          
+          <a href="/email/list">返回</a>
+          
+          <script>
+              Effect.Appear('update');
+          </script>
+        </td>
+      </tr>
+    </table>    
+  </body>
+</html>

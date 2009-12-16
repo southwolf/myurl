@@ -1,0 +1,20 @@
+<table  width="100%" height=100% align='top'>
+  <tr height="100%">
+    <td id='treebody' width="20%" valign='top' height="100%" >
+       <div id='unittree' height=100% class='clsTreeDiv'>
+       <SCRIPT LANGUAGE="JavaScript">
+        <% flows = YtwgWorkflow.find(:all)%>
+        <% for flow in flows%>
+            var tree<%=flow.id%> = new WebFXLoadTree('<%=flow.name%>', '/ytwg_workflow/getstates/<%=flow.id%>', '/ytwg_workflow/');
+            tree<%=flow.id%>.setBehavior('classic');
+            tree<%=flow.id%>.clickFunc="new Ajax.Updater('editdiv', encodeURI('/ytwg_workflow/edit_interface/<%=flow.id%>?name=state.name'), {asynchronous:true}); return false;";
+            
+            document.write(tree<%=flow.id%>);
+        <% end%>
+       </SCRIPT>
+    </td>
+    <td id='editdiv' align='top'>
+        
+    </td>
+   </tr>
+</table>
