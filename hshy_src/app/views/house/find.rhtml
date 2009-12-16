@@ -55,8 +55,17 @@
       </p>
       
       <p>楼层:
-        <%= text_field_tag "szc1", "", :size=>5 %>层至
-        <%= text_field_tag "szc2", "", :size=>5 %>层
+        <select id=xq name="szc1">
+              <% 1.upto(18) do |i|%>
+                <option value=<%=i%> ><%=i%></option>
+              <% end %>
+        </select>层至
+        <select id=xq name="szc2">
+              <% 1.upto(17) do |i|%>
+                <option value=<%=i%> ><%=i%></option>
+              <% end %>
+              <option value=18 selected="selected">18</option>
+        </select>层
          格局:
          <select id=gj name=gj>
           <option></option>
