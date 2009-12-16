@@ -12,6 +12,17 @@
 
 <% round_table '60%', "查询条件" do %>
     <% form_tag :action => 'query' do %>
+
+<p>
+房源库: <select name="ku">
+    <option></option>
+    <option value="1" selected="selected">有效房源</option>
+    <option value="2">已售房源</option>
+    <option value="3">待开发</option>
+  </select>
+
+</p>    
+    
 <p>编号:
         <%= text_field_tag "id", "", :size=>5 %>
 

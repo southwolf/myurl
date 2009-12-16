@@ -215,7 +215,7 @@ class HouseController < ApplicationController
   
   def query
     conditions = []
-    conditions << "ku=1"
+    conditions << "ku=#{params[:ku]}"
     conditions << "id=#{params[:id]}" if params[:id].size > 0
     conditions << "tag=#{params[:tag]}" if params[:tag].size > 0
     conditions << "quyu_id=#{params[:quyu]}" if params[:quyu].size > 0
