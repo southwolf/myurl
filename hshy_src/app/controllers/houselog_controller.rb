@@ -71,8 +71,9 @@ class HouselogController < ApplicationController
   end
 
   def destroy
-    Houselog.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    log = Houselog.find(params[:id])
+    log.destroy
+    redirect_to :action => 'list', :id=>log.id
   end
   
   def tongji
