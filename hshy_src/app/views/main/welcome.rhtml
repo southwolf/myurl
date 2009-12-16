@@ -104,7 +104,7 @@
         <tr><td id="div8" height=200>
             
             <marquee height=200  behavior="scroll" scrollAmount=2 direction="up" onMouseOver="this.stop();" onMouseOut="this.start()">
-		        <% @notices = Notice1.find(:all, :order=>"id desc", :limit=>5)%>
+		        <% @notices = Notice1.find(:all, :order=>"id desc", :limit=>10)%>
 		        <% for ytwg_news in @notices%>
 		          <%=ytwg_news.publish_time.strftime("%Y-%m-%d %H:%M:%S")%> 
 <%=YtwgUser.find(ytwg_news.user_id).truename%> <%= link_to ytwg_news.title, :controller=>"notice1", :action => 'show', :id => ytwg_news%><br>
