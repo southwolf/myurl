@@ -6,18 +6,18 @@
 <table>
     <tr>
         <td>选择状态：
-            <select id="status" name="status" onchange="submit();">
+            <select id="status" name="status">
             <% for key in $CONTRACT_STATUS.keys %>
             <% next if  !key %>
             <option value=<%=key%> <%='selected="selected"' if key==@status.to_s.to_i%> ><%= $CONTRACT_STATUS[key]%></option>
             <% end %>
             </select>
             选择部门：
-            <select id="department" name="department" onchange="submit();">
+            <select id="department" name="department">
             <%=options_from_collection_for_select(Department.find(:all), "id", "name", @department_id.to_s.to_i)%>
             </select>
             选择类型：
-            <select id="contracttype" name="contracttype" onchange="submit();">
+            <select id="contracttype" name="contracttype">
             <%=options_from_collection_for_select(DicContract.find(:all), "id", "name", @contracttype.to_s.to_i)%>
             </select>
             请输入合同号:<%= text_field_tag "code", ""%> 
