@@ -64,7 +64,7 @@ class ZlcjController < ApplicationController
 
   def destroy    
     cj = Zlcj.find(params[:id])
-cj.destroy
+    cj.destroy
     redirect_to :action => 'list'
       
     return
@@ -76,5 +76,9 @@ cj.destroy
       flash[:notice] = '只能删除自己创建的成交报告.'
       redirect_to :action => 'list'
     end      
+  end
+  
+  def attention
+    @attention_zj = Zlcj.find(:all, :conditions=>"g5> '#{Time.new.strftime('%Y-%m-%d')}' and g5 < '#{Time.new.months_ago(-1).strftime('%Y-%m-%d')}'")
   end
 end
