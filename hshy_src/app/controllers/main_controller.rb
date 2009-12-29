@@ -12,6 +12,7 @@ class MainController < ApplicationController
     @tip = Tip.find(:all, :conditions=>"user_id = #{session[:user].id}", :order=>"id desc", :limit=>1)[0]
     @tip = Tip.new if !@tip
     @pictures = Picture.find(:all, :limit=>5, :order=>"id desc")
+    @attention_zj = Zlcj.count(:all, :conditions=>"g5> '#{Time.new.strftime('%Y-%m-%d')}' and g5 < '#{Time.new.months_ago(-1).strftime('%Y-%m-%d')}'")
     render :layout=>'notoolbar_app'
   end
   
