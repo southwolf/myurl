@@ -1,0 +1,32 @@
+<table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
+  <tr class="exebar">
+    <th>编号</th>
+    <th>房屋地址</th>
+    <th>房屋面积</th>
+    <th>小区名称</th>
+    <th>租金</th>
+    <th>签约时间</th>
+    <th>到期时间</th>
+    <th>服务费金额</th>
+    <th>门店</th>
+    <th>置业顾问</th>
+  </tr>
+
+
+<% index = 1  %>  
+<% for zlcj in @attention_zj %>
+  <%=ColorRow(index, zlcj.id)%>
+    <td><%=  link_to_if checkright("查看成交报告"), zlcj.id, :action=>"show", :id=>zlcj %></td>
+    <td><%= zlcj.a1 %></td>
+    <td><%= zlcj.e1 %></td>
+    <td><%=h zlcj.a2 %></td>
+    <td><%=h zlcj.a6 %></td>
+    <td><%=h zlcj.e11.strftime("%Y-%m-%d") if zlcj.e11 %></td>
+    <td><%=h zlcj.g5.strftime("%Y-%m-%d") %></td>
+    <td><%=h zlcj.a15 %></td>
+    <td><%=h zlcj.e13 %></td>
+    <td><%=h zlcj.e14 %></td>
+  </tr>
+  <%  index += 1 %>
+<% end %>
+</table>
