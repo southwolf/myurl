@@ -9,13 +9,6 @@ class LinkmanController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    if session[:user].department.leader_id == session[:user].id
-      ids = session[:user].employer.collect{|e| e.id}.join(',')
-      @linkmen = Linkman.paginate :page=>params[:page], :per_page => 20, :conditions=>"user_id in (#{ids})", :order=>" id desc "
-    else
-      @linkmen = Linkman.paginate :page=>params[:page], :per_page => 20, :conditions=>"user_id = #{session[:user].id}", :order=>" id desc "
-    end
-    
     #录入人看自己录入的联系人
     @linkmen = Linkman.find(:all, :conditions=>"user_id = #{session[:user].id}", :order=>"id desc")
     
@@ -69,6 +62,13 @@ class LinkmanController < ApplicationController
     @linkman = Linkman.new(params[:linkman])
     @linkman.user_id = session[:user].id
     @linkman.inputtime = Time.new
+    
+    if Linkman.count("phone = '#{@linkman.phone}'") > 0
+      flash[:notice] = '添加联系人失败，有重复记录.'
+      redirect_to :action => 'list'
+      return
+    end
+    
     if @linkman.save
       flash[:notice] = '添加联系人成功.'
       redirect_to :action => 'list'
