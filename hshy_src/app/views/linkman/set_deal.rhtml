@@ -1,0 +1,18 @@
+<br/>
+<% form_tag :action => 'update_deal', :id => @linkman do %>
+    <p>
+    <%= radio_button "linkman", "deal_type", 1 %>售房成交报告
+    <%= radio_button "linkman", "deal_type", 2 %>售房成交报告
+    </p>
+    <br/>
+    <p>
+        &nbsp;成交报告ID号: <%= text_field "linkman", "cj_id", :size=>10%>
+    </p>
+    <br/>
+    <%= submit_tag "确定"%>
+    <br/><br/>
+<% end %>
+
+<script>
+add_tab_button("/img/iconBack.png", "返回", "javascript:history.back()");
+</script>

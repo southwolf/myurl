@@ -8,6 +8,26 @@ class YtwgUser < ActiveRecord::Base
     self.last_login_time.strftime("%Y-%m-%d %H:%M:%S") rescue nil
   end
   
+  #判断用户是否拥有某一种角色
+  def is?(role)
+    for group in self.groups
+      return true if group.name == role
+    end
+    
+    return false
+  end
+  
+  #同区域的用户
+  def same_quyu_user
+    users = []
+    quyu_ids = self.department.quyus.collect{|q| q.id}
+    department_ids = DepartmentQuyu.find(:all, :conditions=>"quyu_id in (#{quyu_ids.join(',')})").collect{|d| d.department_id}.uniq
+    for department in Department.find(:all, :conditions=>"id in (#{department_ids.join(',')})")
+      users << department.users
+    end
+    users
+  end
+  
   #归其管理的员工
   def employer
     result = [self]

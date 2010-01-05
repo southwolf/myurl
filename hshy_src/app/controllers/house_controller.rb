@@ -244,7 +244,6 @@ class HouseController < ApplicationController
     ids = ids.join(',')
     
     conditions << "quyu_id in (#{ids})"
-    
     @houses  = House.find(:all, :conditions=>conditions.join(' and '), :order=>"id desc")
   end 
   

@@ -1,4 +1,3 @@
-<h1>联系人</h1>
 
 <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
   <tr class="exebar">
@@ -7,6 +6,8 @@
       <th>需求</th>
       <th>录入时间</th>
       <th>录入人</th>
+      <th>是否成交</th>
+      <th>成交时间</th>
       <th>操作</th>
   </tr>
   
@@ -19,12 +20,26 @@
   <td><%=h [linkman.price, linkman.direction, linkman.jushi, linkman.area, linkman.xq].join('  ') %></td>
   <td><%=h linkman.inputtime.strftime("%Y-%m-%d") %></td>
   <td><%=h linkman.user.truename %></td>
-  <td><%= link_to '修改', :action => 'edit', :id => linkman %></td>
-    </tr>
+  <td align='center'>
+    <% if linkman.deal == 1%>
+        <% if linkman.deal_type == 1%>
+            <%= link_to '<font color=red>成交</font>', :controller=>"sfcj", :action=>"show", :id=>linkman.cj_id%>
+        <% elsif linkman.deal_type == 2%>
+            <%= link_to '<font color=red>成交</font>', :controller=>"zlcj", :action=>"show", :id=>linkman.cj_id%>
+        <% end %>
+    <% elsif linkman.deal == 2%>
+        <font color=blue>放弃</font>
+    <% end %>
+  </td>
+  <td><%=h linkman.dealtime.strftime("%Y-%m-%d") if linkman.dealtime %></td>
+  <td>
+    <%= link_to '修改', :action => 'edit', :id => linkman if linkman.user_id == session[:user].id%>
+    
+    <%= link_to '设置成交', :action=>"set_deal", :id=>linkman%>
+  </td>
+ </tr>
 <% end %>
 </table>
-
-<%= will_paginate @linkmen%>
 
 <br />
 
