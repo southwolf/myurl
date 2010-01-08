@@ -96,7 +96,10 @@ class FckeditorController < ActionController::Base
     end
     
     # Fix provided by Nicola Piccinini -- http://superfluo.org
-    render :text => %Q'<script>window.parent.frames[\'frmUpload\'].OnUploadCompleted(#{@errorNumber});</script>'
+    #render :text => %Q'<script>window.parent.frames[\'frmUpload\'].OnUploadCompleted(#{@errorNumber});</script>'
+    
+    render :text => %Q'<script>window.parent.OnUploadCompleted(#{@errorNumber},\"#{UPLOADED+"/"+params[:Type] + '/' + Time.new.strftime('%Y-%m-%d') + "/"+@new_file.original_filename}\");</script>'
+
     #render :inline => 'page << "window.parent.frames[\'frmUpload\'].OnUploadCompleted(#{@errorNumber}, \'#{@new_file}\');"', :type => :rjs
   end
 
@@ -119,6 +122,9 @@ class FckeditorController < ActionController::Base
   private
   def current_directory_path
     base_dir = "#{UPLOADED_ROOT}/#{params[:Type]}"
+    Dir.mkdir(base_dir,0775) unless File.exists?(base_dir)
+    # add by lmx
+    base_dir = base_dir + "/#{Time.new.strftime('%Y-%m-%d')}"
     Dir.mkdir(base_dir,0775) unless File.exists?(base_dir)
     "#{base_dir}#{params[:CurrentFolder]}"
   end
