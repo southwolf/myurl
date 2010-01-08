@@ -7,7 +7,7 @@
 
 <% form_tag :action => 'reply', :id => @task do %>
   <p><label for="task_reply">»Ø¸´ÄÚÈÝ£º</label>
-<%= fckeditor_textarea("task", "reply",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %>
+<%= fckeditor_textarea("task", "reply",  :toolbarSet => 'Basic', :width => '100%', :height => '300px') %>
 </p>
   <% if params[:flag] == "notcomplete" %>
     <%= hidden_field_tag "flag", "1" %>

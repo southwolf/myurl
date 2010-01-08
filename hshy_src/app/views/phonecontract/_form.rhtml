@@ -16,7 +16,7 @@
 <%= text_field 'phonecontract', 'telephone'  %><br/>
 
 <label for="phonecontract_memo">内容</label><br/>
-<%= fckeditor_textarea("phonecontract", "memo",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %>
+<%= fckeditor_textarea("phonecontract", "memo",  :toolbarSet => 'Basic', :width => '100%', :height => '300px') %>
 
 <label for="phonecontract_telephone">联系时间</label>
 <%= datetime_select 'phonecontract', 'contracttime',:use_month_numbers => true %><br/>

@@ -17,7 +17,7 @@
 <p>任务开始时间：<%= date_select "task", "begin_time", {:use_month_numbers => true,} %></p>
 <p>任务截止时间：<%= date_select "task", "end_time", {:use_month_numbers => true,} %></p>
 <p><label for="task_desc">任务描述：</label><br/>
-<%= fckeditor_textarea("task", "desc",  :toolbarSet => 'Simple', :width => '100%', :height => '300px') %>
+<%= fckeditor_textarea("task", "desc",  :toolbarSet => 'Basic', :width => '100%', :height => '300px') %>
 </p>
 
 <!--[eoform:task]-->

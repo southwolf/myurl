@@ -191,8 +191,9 @@ class EmailController < ApplicationController
     #UserEmail.delete_all "user_id = #{session[:user].id} and email_id = #{params[:id]}"
     #UserEmailCc.delete_all "user_id = #{session[:user].id} and email_id = #{params[:id]}"
     
-    UserEmail.update_all "d=1", "user_id = #{session[:user].id} and email_id = #{params[:id]}"
-    UserEmailCc.update_all "d=1", "user_id = #{session[:user].id} and email_id = #{params[:id]}"
+    UserEmail.update_all "d=1", "user_id = #{session[:user].id} and email_id in (#{params[:email].join(',')})"
+    UserEmailCc.update_all "d=1", "user_id = #{session[:user].id} and email_id in (#{params[:email].join(',')})"
+    flash[:notice] = "É¾³ýÓÊ¼þ³É¹¦"
     redirect_to :action=>"list_inbox"
   end
   

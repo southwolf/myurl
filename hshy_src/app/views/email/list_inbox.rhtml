@@ -1,7 +1,10 @@
 <font class=color size="3"><strong>收件箱</strong></font>
+
+<% form_tag :action => 'destroy' do %>
 <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#666666" width=100%>
   <tr class="exebar">
     <th>新</th>
+    <th><%= check_box_tag "select_all", "1", false, :onclick=>"selectall(form, 'email[]');"%></th>
     <th>发送人</th>
     <th width=50%>邮件标题</th>
     <th>收件人</th>
@@ -16,6 +19,7 @@
     <% else %>
         <td>*</td>
     <% end %>    
+    <td align='center'><%= check_box_tag "email[]", email.id, false%></td>
     <td height=24><%=link_to YtwgUser.find(email.from_id).truename, :action=>"show", :id=>email%></td>
     <td><%= link_to email.title||"无标题", :action=>"show", :id=>email%></td>
     <% if email.recv.index(',') %>
@@ -29,8 +33,30 @@
 <% end %>
 </table>
 
+<% end %>
+
  <%= will_paginate @emails %>
 
 <script>
-  add_dynamic_delete_button("/email/destroy/");  
+  //add_dynamic_delete_button("javascript:alert('aa');");  
+  add_tab_button("/img/iconErase.png", "删除", "javascript:if (confirm('您确定删除本记录吗?')){ document.forms[0].submit(); }")
+  function selectall(form, tagname)
+    {
+        if ($("select_all").checked)
+        {
+            for(var i=0; i<form.elements.length; i++)
+            {
+                 if (form.elements[i].name == tagname)
+                    form.elements[i].checked = true;
+            }                          
+        }
+        else
+        {
+            for(var i=0; i<form.elements.length; i++)
+            {
+                 if (form.elements[i].name == tagname)
+                     form.elements[i].checked = false;
+            }
+        }
+    }
 </script>
