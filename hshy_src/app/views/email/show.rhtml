@@ -12,7 +12,7 @@
   <% if @email.attach3%>
     <%= link_to File.basename(@email.attach3), :action=>"download_attach3", :id=>@email.id %>
   <% end %>
-<p>
+<p  class="article">
   <%= @email.content %>
 </p>
 
