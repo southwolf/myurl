@@ -23,9 +23,13 @@ class HouseController < ApplicationController
       end 
     end
     
-    ids = session[:user].department.quyus.collect{ |q|
-      q.id
-    }
+    if session[:user].is?("ÇøÓò¾­Àí")
+      ids = Quyu.find(:all).collect{|q| q.id}
+    else
+      ids = session[:user].department.quyus.collect{ |q|
+        q.id
+      }
+    end
     ids << -1
     
     ids = ids.join(',')
