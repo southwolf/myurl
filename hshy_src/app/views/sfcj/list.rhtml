@@ -41,13 +41,13 @@
     <td><%=sfcj.id%></td>
     <td><%= link_to_if checkright("查看成交报告"), sfcj.a1, :action=>"show", :id=>sfcj %></td>
     <td><%= YtwgUser.find(sfcj.inputer).truename%></td>
-    <td><%=h sfcj.a7 %></td>
+    <td><%=h number_with_delimiter sfcj.a7 %></td>
     <% if sfcj.e13 %>
         <td><%=h sfcj.e13.strftime("%Y-%m-%d") %></td>
     <% else %>
       <td></td>
     <% end %>
-    <td><%=h sfcj.b17 %></td>
+    <td><%=h number_with_delimiter sfcj.b17 %></td>
     <td><%=h sfcj.e15 %></td>
     <td><%=h sfcj.e16 %></td>
     <td><%= link_to_if kj_right==true, "通过", :controller=>"sfcj", :action=>"tip", :id=>sfcj, :status=>1 %></td>
@@ -84,13 +84,13 @@
     <td><%=sfcj.id%></td>
     <td><%= link_to sfcj.a1, :action=>"show", :id=>sfcj %></td>
     <td><%= YtwgUser.find(sfcj.inputer).truename%></td>
-    <td><%=h sfcj.a7 %></td>
+    <td><%=h number_with_delimiter sfcj.a7 %></td>
     <% if sfcj.e13 %>
         <td><%=h sfcj.e13.strftime("%Y-%m-%d") %></td>
     <% else %>
       <td></td>
     <% end %>
-    <td><%=h sfcj.b17 %></td>
+    <td><%=h number_with_delimiter sfcj.b17 %></td>
     <td><%=h sfcj.e15 %></td>
     <td><%=h sfcj.e16 %></td>
     <td>
@@ -130,13 +130,13 @@
     <td><%=sfcj.id%></td>
     <td><%= link_to sfcj.a1, :action=>"show", :id=>sfcj %></td>
     <td><%= YtwgUser.find(sfcj.inputer).truename%></td>
-    <td><%=h sfcj.a7 %></td>
+    <td><%=h number_with_delimiter sfcj.a7 %></td>
     <% if sfcj.e13 %>
         <td><%=h sfcj.e13.strftime("%Y-%m-%d") %></td>
     <% else %>
       <td></td>
     <% end %>
-    <td><%=h sfcj.b17 %></td>
+    <td><%=h number_with_delimiter sfcj.b17 %></td>
     <td><%=h sfcj.e15 %></td>
     <td><%=h sfcj.e16 %></td>
     <td>
