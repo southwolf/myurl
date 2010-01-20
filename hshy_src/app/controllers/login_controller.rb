@@ -32,7 +32,7 @@ class LoginController < ApplicationController
   def entry
     @config = YtwgSystem.find(:all, :limit=>1)[0]
     @config = YtwgSystem.new if !@config
-    render :action=>"hehe_hehe"
+    render :action=>"hehe_hehe", :layout=>false
   end
   
   def identify
