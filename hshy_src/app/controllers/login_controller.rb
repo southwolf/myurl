@@ -29,6 +29,12 @@ class LoginController < ApplicationController
     render :layout=>false
   end
   
+  def entry
+    @config = YtwgSystem.find(:all, :limit=>1)[0]
+    @config = YtwgSystem.new if !@config
+    render :action=>"hehe_hehe"
+  emd
+  
   def identify
     $mac_ip ||= Hash.new 
     

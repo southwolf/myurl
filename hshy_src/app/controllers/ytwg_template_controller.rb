@@ -46,6 +46,48 @@ class YtwgTemplateController < ApplicationController
         flash[:notice] = '修改模板成功'
       else
         flash[:notice] = '上传模板成功'
+        
+        if params[:create_table] == "1"
+          #建表
+          helper = XMLHelper.new
+          helper.ReadFromString(content)
+          formtable = helper.tables[0]
+          conn = ActiveRecord::Base.connection
+          conn.create_table "ytwg_#{formtable.GetTableID.downcase()}", :primary_key=>:id do |t|
+            t.column "userid", :integer         #流程发起人的id
+            t.column "flowid", :integer         #工作流的id
+            t.column "_remark", :integer         #注释
+      
+            t.column "_state", :string, :limit=>30
+            t.column "_madetime", :datetime
+            t.column "_lastprocesstime", :datetime
+            t.column "create_at", :datetime
+                
+            Integer(0).upto(formtable.GetRowCount()-1) do |row|
+              next if formtable.IsEmptyRow(row)
+              Integer(0).upto(formtable.GetColumnCount()-1) do |col|
+                next if formtable.IsEmptyCol(col)
+                cell = formtable.GetCell(row, col)
+                next if !cell.IsStore || !cell.IsEffective
+                next if formtable.GetCellDBFieldName(row, col).downcase == "id"
+          	     
+                
+                if cell.GetDataType == 1    #CCell.CtNumeric
+                  t.column formtable.GetCellDBFieldName(row, col).downcase, :float
+                elsif cell.GetDataType == 0    #CCell.CtText               
+                  if cell.IsCheckWidth()
+                    t.column formtable.GetCellDBFieldName(row, col).downcase, :string, {:limit=>cell.GetTextWidth}
+                  else
+                    t.column formtable.GetCellDBFieldName(row, col).downcase, :string, {:limit=>100}
+                  end     
+                elsif cell.GetDataType == 3 #CCell.CtDate
+                  t.column formtable.GetCellDBFieldName(row, col).downcase, :datetime
+                end     	     
+              end
+            end
+          end
+        end
+        
       end
       redirect_to :action => 'list'
     else
