@@ -108,7 +108,5 @@ function tr_mouseover(row)
   </table> 
     
   <%=render :partial=>'/share/foot'%>
-    <div id=tick height=0></div>
 </body>
-  <%=periodically_call_remote :frequency=>10, :update=>"tick", :url=>{:controller=>"main", :action=>"tick", :id=>session[:user].id} %>
-</html>
+  </html>
