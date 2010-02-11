@@ -1,0 +1,403 @@
+BODY
+{
+    MARGIN: 0px;
+    font-size:	13px;
+    FONT-FAMILY: 宋体
+}
+
+
+
+div a
+{
+	FONT-size: 10pt;
+	FONT-FAMILY: 宋体;
+}
+
+SELECT
+{
+    FONT-SIZE: 8pt
+    COLOR: #000000
+}
+A { 
+	color: darkblue
+} 
+
+FORM
+{
+    PADDING-RIGHT: 1px;
+    PADDING-LEFT: 1px;
+    PADDING-BOTTOM: 1px;
+    MARGIN: 4px;
+    PADDING-TOP: 1px
+}
+TABLE
+{
+    FONT-SIZE: 9pt
+}
+UL
+{
+    FONT_SIZE: 9pt
+}
+
+LI
+{
+    FONT_SIZE: 9pt
+}
+
+TR
+{
+    FONT-SIZE: 9pt
+}
+
+TR.clsTrHeader
+{
+    COLOR: midnightblue;
+    /*BACKGROUND-COLOR: #c4c9e1*/
+    background: #ccc url(/img/default-bg-reverse.gif) repeat-x;
+    height:20
+}
+
+TR.clsTrHeader1
+{
+    COLOR: midnightblue;
+    /*BACKGROUND-COLOR: #c4c9e1*/
+    background: #ccc url(/img/default-bg.gif) repeat-x;
+    height:20
+}
+
+TR.TrDark
+{
+    
+    BACKGROUND-COLOR: white
+}
+TR.TrLight
+{
+   
+    BACKGROUND-COLOR: #edebea
+}
+
+TR.Selected
+{
+    background-image: url(/img/selected_row.gif); 
+}
+
+TD.stripbar{
+    COLOR: midnightblue;
+    background: #ccc url(/img/tab_stripes.jpg) repeat-x;
+    height:20
+}
+
+.clsBar
+{
+    FONT-SIZE: 12px;
+    BORDER-BOTTOM: gold thin solid;
+    BACKGROUND-COLOR: white
+}
+.clsLogo
+{
+    MARGIN: 0px;
+    WIDTH: 100%;
+    HEIGHT: 4px;
+    BACKGROUND-COLOR: #5d6ab0
+}
+.clsFooter
+{
+    MARGIN-TOP: 0.3cm;
+    WIDTH: 100%;
+    BACKGROUND-COLOR: white
+}
+.clsContentTable
+{
+    MARGIN: 0px;
+    WIDTH: 100%;
+    HEIGHT: 83%;
+    BORDER-COLLAPSE: collapse;   
+}
+UNKNOWN
+{
+    MARGIN-TOP: 0.1cm;
+    WIDTH: 100%;
+    HEIGHT: 79%;
+    BACKGROUND-COLOR: whitesmoke
+}
+.clsContentListTable
+{
+    MARGIN-TOP: 0.1cm;
+    WIDTH: 100%;
+    BORDER-COLLAPSE: collapse
+}
+
+
+table.clsContentListTable td
+{
+    padding : 4 2
+    FONT-size: 9pt;
+	FONT-FAMILY: 宋体;
+}
+
+.clsTaskFrameTable
+{
+    MARGIN: 0cm;
+    WIDTH: 100%;
+    BORDER-COLLAPSE: collapse
+}
+.clsTrContext
+{
+    BORDER-RIGHT: silver thin solid;
+    BORDER-TOP: silver thin solid;
+    BORDER-LEFT: silver thin solid;
+    BORDER-BOTTOM: silver thin solid
+}
+.clsSubBar
+{
+    BACKGROUND-COLOR: lightsteelblue
+}
+.TabStyleClass
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    COLOR: black;
+    BORDER-TOP-STYLE: none;
+    PADDING-TOP: 0px;
+    BORDER-RIGHT-STYLE: none;
+    BORDER-LEFT-STYLE: none;
+    BACKGROUND-COLOR: white;
+    BORDER-BOTTOM-STYLE: none
+}
+.TitleStyleClass
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    COLOR: black;
+    BORDER-TOP-STYLE: none;
+    PADDING-TOP: 0px;
+    BORDER-RIGHT-STYLE: none;
+    BORDER-LEFT-STYLE: none;
+    BACKGROUND-COLOR: #dddddd;
+    BORDER-BOTTOM-STYLE: none
+}
+.HighlightTitleStyleClass
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    PADDING-BOTTOM: 0px;
+    COLOR: white;
+    BORDER-TOP-STYLE: none;
+    PADDING-TOP: 0px;
+    BORDER-RIGHT-STYLE: none;
+    BORDER-LEFT-STYLE: none;
+    BACKGROUND-COLOR: gold;
+    BORDER-BOTTOM-STYLE: none
+}
+A
+{
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    TEXT-DECORATION: underline
+}
+.clsTdDark
+{
+    BACKGROUND-COLOR: lightgrey
+}
+.clsTdLight
+{
+    BACKGROUND-COLOR: floralwhite
+}
+.clsTdHead
+{
+}
+.clsTreeDiv
+{
+    BORDER-RIGHT: thin groove;
+    BORDER-TOP: thin groove;
+    OVERFLOW: auto;
+    BORDER-LEFT: thin groove;
+    WIDTH: 100%;
+    BORDER-BOTTOM: thin groove;
+    HEIGHT: 100%
+}
+.clsTreeTitle
+{
+    BACKGROUND-COLOR: linen
+}
+.tdcsshead
+{
+    BORDER-RIGHT: black 1pt solid;
+    BORDER-TOP: black 1pt solid;
+    BORDER-LEFT: black 1pt solid;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: white
+}
+.tdcsstwo
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1.5pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1.5pt;
+    PADDING-BOTTOM: 1.5pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1.5pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: white
+}
+.tdcssfour
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1.5pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1.5pt;
+    PADDING-BOTTOM: 1.5pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1.5pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: white
+}
+
+.tdcsssum
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1pt;
+    PADDING-BOTTOM: 1pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: ivory
+}
+.tdcssthree
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1pt;
+    PADDING-BOTTOM: 1pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: white
+}
+.tdcssone
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1pt;
+    PADDING-BOTTOM: 1pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: white
+}
+.clsMainToolbar
+{
+    FONT-SIZE: 11pt;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #c4c0cb
+}
+.clsSelectedToolTab
+{
+    COLOR: #dedbe2;
+    BACKGROUND-COLOR: #2c2932;
+    TEXT-DECORATION: none
+}
+.clsToolTabs:active
+{
+    COLOR: #70687f;
+    BACKGROUND-COLOR: #ffffff;
+    TEXT-DECORATION: none
+}
+.clsNavbar
+{
+    COLOR: #70687f;
+    BACKGROUND-COLOR: #ffffff
+}
+.clsAlight
+{
+    COLOR: white
+}
+.clsAdark
+{
+    COLOR: darkblue
+}
+.clsPopu
+{
+    BACKGROUND-COLOR: #edebea
+}
+.clsLightColorOfTask
+{
+    COLOR: blue
+
+}
+
+.xsltTable
+{
+  	border-width: 1px;
+	border-style: solid;
+	border-color: #000000 #000000 #000000 #000000 ;
+	border-collapse: collapse;
+}
+
+.xsltTr
+{
+/*
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1pt;
+    PADDING-BOTTOM: 1pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1pt;
+    BORDER-BOTTOM: black 1pt solid;
+	*/
+
+}
+
+.xsltFloatTempTr
+{
+
+    background: #FFFFA6;
+}
+
+.popTable
+{
+	border-collapse: collapse;
+}
+.clsCellStore
+{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000 #000000 #000000 #000000 ;
+	border-collapse: collapse;
+	background: window;
+}
+
+.clsFloatCellStore
+{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000 #000000 #000000 #000000 ;
+	border-collapse: collapse;
+	background: #FFFFA8;
+}
+
+.clsCellNoStore
+{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000 #000000 #000000 #000000 ;
+	border-collapse: collapse;
+	background: buttonface;
+}
+SPAN.switch 
+{
+	cursor: hand;
+	margin-left: 5px;
+	text-decoration: underline;
+	background-color: #99CCFF;
+}

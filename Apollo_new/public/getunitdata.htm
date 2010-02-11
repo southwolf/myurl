@@ -1,0 +1,666 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>友通捷报V9.0</title>
+  <script src="javascripts/prototype.js" type="text/javascript"></script>
+  <script src="webtable.js" type="text/javascript"></script>
+  <script src="time1.js" type="text/javascript"></script>
+  <script src="javascripts/xtree.js" type="text/javascript"></script>
+  <script src="javascripts/effects.js" type="text/javascript"></script>
+ <script >
+
+var oCalendarEn=new PopupCalendar("oCalendarEn");	//初始化控件时,请给出实例名称如:oCalendarEn
+oCalendarEn.Init();
+var oCalendarChs=new PopupCalendar("oCalendarChs");	//初始化控件时,请给出实例名称:oCalendarChs
+oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+oCalendarChs.oBtnTodayTitle="今天";
+oCalendarChs.oBtnCancelTitle="取消";
+oCalendarChs.Init();
+</script>
+
+<style  type='text/css'>
+div a
+{
+	color : black;
+	text-decoration : none;
+}
+.yotopTable
+{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000000 #000000 #000000 #000000 ;
+    border-collapse: collapse;
+    table-layout: fixed;
+}				.style0{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style1{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style2{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style3{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style4{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style5{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style6{font-size:13px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style7{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style8{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style9{font-size:14px;  color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style10{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style11{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style12{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style13{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style14{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style15{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style16{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style17{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style18{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style19{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style20{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style21{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style22{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style23{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style24{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style25{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style26{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:left;}
+				.style27{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style28{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style29{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style30{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style31{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style32{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style33{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style34{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style35{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style36{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style37{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style38{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style39{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style40{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:center;}
+				.style41{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style42{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style43{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style44{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style45{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style46{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style47{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style48{font-size:13px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFF; text-align:right;}
+				.style-1{font-size:14px; color:#000000; border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; background-color:#FFFFFFFF; text-align:left;}
+			</style>
+ 
+
+<style type="text/css">
+body {
+	margin:		1px;
+	width:		auto;
+	height:		auto;
+	font-size:	13px;
+    FONT-FAMILY: 宋体;
+}
+
+td{
+    font-size:	12px;
+}
+
+</style>
+
+<script>
+function toggle( id, showName, hideName ) 
+{
+    if( showName == null 
+    	|| showName.length == 0 )
+    	showName = "显示";
+    
+    if( hideName == null 
+    	|| hideName.length == 0 )
+    	hideName = "隐藏";
+    	
+    var element = document.getElementById(id);
+    with (element.style) {
+        if ( display == "none" ){
+            display = ""
+        } else{
+            display = "none"
+        }
+    }
+    var text = document.getElementById(id + "-switch").firstChild;
+    if (text.nodeValue == showName) {
+        text.nodeValue = hideName;
+    } else {
+        text.nodeValue = showName;
+    }
+}
+	
+function placeErrorFlag(cellstr)
+{
+    var cells = cellstr.split(",");
+    var elements = document.getElementsByTagName('td');
+    for(var j=0; j<elements.length; j++)
+    {
+         if (elements[j].expression && elements[j].expression.length>0)
+         {
+            elements[j].style.backgroundColor = "white";
+            for(var i=0; i<cells.length; i++)
+            {
+                var cell = cells[i];
+                if (elements[j].expression == cell && cell.length>0)
+                {
+                   elements[j].style.backgroundColor = "red";
+                   break;
+                }
+            }
+         }
+     }
+}
+
+function placeWarnFlag(cellstr)
+{
+    var cells = cellstr.split(",");
+    var elements = document.getElementsByTagName('td');
+    for(var j=0; j<elements.length; j++)
+    {
+         if (elements[j].expression && elements[j].expression.length>0)
+         {
+            elements[j].style.backgroundColor = "white";
+            for(var i=0; i<cells.length; i++)
+            {
+                var cell = cells[i];
+                if (elements[j].expression == cell && cell.length>0)
+                {
+                   elements[j].style.backgroundColor = "pink";
+                   break;
+                }
+            }
+         }
+     }
+}
+</script>
+ 
+</head>
+<body id='body'>
+
+ 
+ 
+
+
+<script>
+function downExcel(type)
+{
+  if(!checkparam())
+	  	return;
+
+   var selectedTableID = getSelectedID();
+
+   if(type == "single")
+   { 
+      frmmain.action="/main/download_excel/"+selectedTableID;
+   }
+   else
+   {
+	  frmmain.action="/main/download_excel";
+   }
+   frmmain.target = "";
+
+   frmmain.submit();
+}
+ 
+
+function printPdf(type)
+{
+   if(!checkparam())
+	  return;
+
+    var selectedTableID = getSelectedID();
+
+   if(type == "single")
+   { 
+      frmmain.action="/main/download_pdf/"+selectedTableID;
+   }
+   else
+   {
+	  frmmain.action="/main/download_pdf";
+   }
+   frmmain.target = "";
+
+   frmmain.submit();
+} 
+  
+function checkparam()
+{  
+	  if(frmmain.unitID.value=="null")
+   {
+      alert("请选择单位");
+      return false;
+   }
+   if(frmmain.taskTimeID.value=="null")
+   {
+      alert("请选择时间");
+      return false;
+   }
+   return true;
+}
+
+function editData(readonly)
+{
+  if(!checkparam())
+	  return;
+  frmmain.readonly.value=readonly;
+  frmmain.action = "/main/inputunitdata"
+  frmmain.target = "_blank";
+  frmmain.submit();
+}
+</script>
+
+
+<script>
+function select(value, text, tree)
+{	
+	//Effect.BlindUp(tree);
+	Element.hide(tree);
+	tree_element = $(tree);
+	tree_element.cell.innerText = text;
+	tree_element.cell.code_vlaue = value;
+	tree_element.cell.focus();
+}
+</script>
+
+<div id = 'treediv' style='display:none;background-color=#ccccff'>
+	<table bgcolor='#0066cc'>
+            <tr id="handle" width=100% class="exebar">
+            <td align=center width=90%>选择代码字典</td>
+            <td align=right  width=10%><a width=10 href="javascript:Element.hide('treediv');$('treediv').cell.focus();">关闭</a></td>
+            </tr>
+    </table>
+	<SCRIPT LANGUAGE="JavaScript">
+        var tree = new WebFXTree('管理功能');
+        tree.action = "javascript:alert('a');";
+<!--         安全管理                   -->
+        var security = new WebFXTreeItem('安全管理')
+        tree.add(security);
+        
+        node = security.add(new WebFXTreeItem('组管理'));
+        node.action="javascript:select(1, '组管理','treediv')";
+        
+        node = security.add(new WebFXTreeItem('用户管理'));
+        node.action="javascript:select(2, '用户管理', 'treediv')";
+        
+        node = security.add(new WebFXTreeItem('权限管理'));
+        node.action="javascript:select(3, '权限管理', 'treediv')";
+        
+        node = security.add(new WebFXTreeItem('权限分配'));
+        node.action="javascript:select(4, '权限分配', 'treediv')";
+        
+<!--          数据管理                  -->       
+        var data = new WebFXTreeItem('数据库管理')
+        tree.add(data);
+        
+        node = data.add(new WebFXTreeItem('结构管理'));
+        node.action="javascript:select(5, '结构管理', 'treediv')";
+        
+        node = data.add(new WebFXTreeItem('数据管理'));
+        node.action="javascript:select(6, '数据管理', 'treediv')";
+        
+        node = data.add(new WebFXTreeItem('数据备份'));
+        node.action="javascript:select(7, '数据备份', 'treediv')";
+        
+        node = data.add(new WebFXTreeItem('数据恢复'));
+        node.action="javascript:select(8, '数据恢复','treediv')";
+        
+<!--          代码管理                  -->             
+        var code = new WebFXTreeItem('代码管理')
+        tree.add(code);
+        
+        node = code.add(new WebFXTreeItem('执行后台命令'));
+        node.action="javascript:select(1, '执行后台命令','treediv')";
+          
+        node = code.add(new WebFXTreeItem('代码文件管理'));
+        node.action="javascript:select(1, '代码文件管理', 'treediv')";
+        
+<!--          模块管理                  --> 
+        var module = new WebFXTreeItem('功能管理')
+        tree.add(module);
+        
+        node = module.add(new WebFXTreeItem('功能节点管理'));
+        node.action="javascript:select(1, '功能节点管理', 'treediv')";
+        
+        node = module.add(new WebFXTreeItem('模板管理'));
+        node.action="javascript:select(1, '模板管理','treediv')";
+        
+        document.write(tree);
+        tree.expandAll();
+        
+          </script> 
+</div>	
+
+<form name="frmmain" method="post" action="" height="0">
+<input type="hidden" name="readonly">
+<input type="hidden" name="unitID" value="">
+<input type="hidden" name="taskTimeID" value="37">
+<input type="hidden" name='dataEditable' value="false" />
+</form>
+    
+        
+           <div class="tab-page" id="RWYB1">
+
+             
+             
+                    		<table id='table_RWYB1' style='width:183mm' class='yotopTable'>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='center'   class = 'style39' style='width:66mm; height:5mm; background: buttonface;'>项&nbsp;&nbsp;&nbsp;&nbsp;目</td>
+				<td align='center'   class = 'style39' style='width:10mm; height:5mm; background: buttonface;'>行次</td>
+				<td align='center'   class = 'style39' style='width:35mm; height:5mm; background: buttonface;'>本月数/期初数</td>
+				<td align='center'   class = 'style39' style='width:35mm; height:5mm; background: buttonface;'>本年累计/期末数</td>
+				<td align='center'   class = 'style39' style='width:35mm; height:5mm; background: buttonface;'>上年同期累计/期末数</td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='center'   class = 'style39' style='width:66mm; height:5mm; background: buttonface;'>栏&nbsp;&nbsp;&nbsp;&nbsp;次</td>
+				<td align='center'   class = 'style37' style='width:10mm; height:5mm; background: buttonface;'>0</td>
+				<td align='center'   class = 'style36' style='width:35mm; height:5mm; background: buttonface;'>1</td>
+				<td align='center'   class = 'style36' style='width:35mm; height:5mm; background: buttonface;'>2</td>
+				<td align='center'   class = 'style36' style='width:35mm; height:5mm; background: buttonface;'>3</td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>一、主营业务收入净额</td>
+				<td align='center'   class = 'style36' style='width:10mm; height:5mm; background: buttonface;'>1</td>
+				<td align='left'   class='style44' expression='RWYB1.A1' celltype=date style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B1' celltype=tree tree='treediv' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C1' celltype=text style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中：报纸发行收入</td>
+				<td align='center'   class = 'style31' style='width:10mm; height:5mm; background: buttonface;'>2</td>
+				<td align='left'   class='style44' expression='RWYB1.A2' celltype=tree tree='treediv' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B2' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C2' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广告收入</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>3</td>
+				<td align='left'   class='style44' expression='RWYB1.A3' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B3' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C3' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它主营业务收入</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>4</td>
+				<td align='left'   class='style44' expression='RWYB1.A38' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B38' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C38' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;减：主营业务成本</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>5</td>
+				<td align='left'   class='style44' expression='RWYB1.A4' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B4' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C4' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主营业务税金及附加</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>6</td>
+				<td align='left'   class='style44' expression='RWYB1.A5' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B5' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C5' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>二、主营业务利润</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>7</td>
+				<td align='left'   class='style44' expression='RWYB1.A7' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B7' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C7' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;加：其他业务利润</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>8</td>
+				<td align='left'   class='style44' expression='RWYB1.A8' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B8' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C8' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;减：营业费用</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>9</td>
+				<td align='left'   class='style44' expression='RWYB1.A9' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B9' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C9' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理费用</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>10</td>
+				<td align='left'   class='style44' expression='RWYB1.A10' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B10' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C10' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财务费用</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>11</td>
+				<td align='left'   class='style44' expression='RWYB1.A11' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B11' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C11' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>12</td>
+				<td align='left'   class='style44' expression='RWYB1.A12' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B12' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C12' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>三、营业利润(亏损以"-"号填列)</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>13</td>
+				<td align='left'   class='style44' expression='RWYB1.A13' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B13' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C13' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;加：投资收益</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>14</td>
+				<td align='left'   class='style44' expression='RWYB1.A14' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B14' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C14' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;补贴收入</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>15</td>
+				<td align='left'   class='style44' expression='RWYB1.A15' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B15' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C15' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他（为负数时，以“-”号填列)</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>16</td>
+				<td align='left'   class='style44' expression='RWYB1.A16' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B16' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C16' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>四、利润总额</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>17</td>
+				<td align='left'   class='style44' expression='RWYB1.A17' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B17' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C17' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;减：所得税</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>18</td>
+				<td align='left'   class='style44' expression='RWYB1.A18' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B18' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C18' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*少数股东损益</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>19</td>
+				<td align='left'   class='style44' expression='RWYB1.A19' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B19' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C19' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>五、净利润</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>20</td>
+				<td align='left'   class='style44' expression='RWYB1.A20' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B20' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C20' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>六、资产总额</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>21</td>
+				<td align='left'   class='style44' expression='RWYB1.A21' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B21' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C21' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;其中：货币资金</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>22</td>
+				<td align='left'   class='style44' expression='RWYB1.A22' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B22' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C22' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应收账款净额</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>23</td>
+				<td align='left'   class='style44' expression='RWYB1.A23' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B23' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C23' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存货</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>24</td>
+				<td align='left'   class='style44' expression='RWYB1.A24' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B24' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C24' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它流动资产</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>25</td>
+				<td align='left'   class='style44' expression='RWYB1.A25' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B25' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C25' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长期投资</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>26</td>
+				<td align='left'   class='style44' expression='RWYB1.A26' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B26' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C26' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;固定资产净值</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>27</td>
+				<td align='left'   class='style44' expression='RWYB1.A27' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B27' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C27' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>七、负债总额</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>28</td>
+				<td align='left'   class='style44' expression='RWYB1.A28' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B28' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C28' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中：银行借款</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>29</td>
+				<td align='left'   class='style44' expression='RWYB1.A29' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B29' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C29' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他负债</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>30</td>
+				<td align='left'   class='style44' expression='RWYB1.A30' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B30' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C30' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>*八、少数股东权益</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>31</td>
+				<td align='left'   class='style44' expression='RWYB1.A32' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B32' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C32' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>九、所有者权益</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>32</td>
+				<td align='left'   class='style44' expression='RWYB1.A33' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B33' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C33' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中：实收资本</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>33</td>
+				<td align='left'   class='style44' expression='RWYB1.A34' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B34' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C34' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:5mm; background: buttonface;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未分配利润</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:5mm; background: buttonface;'>34</td>
+				<td align='left'   class='style44' expression='RWYB1.A35' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.B35' style='width:35mm; height:5mm;' ></td>
+				<td align='left'   class='style44' expression='RWYB1.C35' style='width:35mm; height:5mm;' ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:43mm'>
+				<td align='left'   class = 'style6' style='width:66mm; height:43mm; background: buttonface;'>说&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;明</td>
+				<td align='center'   class = 'style34' style='width:10mm; height:43mm; background: buttonface;'>35</td>
+				<td align='left' colspan='3'  class='style2' expression='RWYB1.A37'  ></td>
+			</tr>
+			<tr class='xsltTr'  style='height:5mm'>
+				<td align='left' colspan='5'  class = 'style15' style='width:183mm; height:5mm; background: buttonface;'>注：*为编制合并报表的企业填报</td>
+			</tr>
+		</table>
+
+             
+           </div>
+
+
+<!-- 可写 -->
+
+</body>
+</html>
+
+
+<script>
+
+//数据透视
+function pivot()
+{
+    if (!activeTable)
+    {
+        alert("未选择指标，无法进行数据透视");
+        return;
+    }
+    var cellstr = "";
+    $A(activeTable.getElementsByTagName('td')).each(
+        function(node)
+        {
+            if (node.style.backgroundColor == "#ffcccc")
+            {
+                cellstr += node.expression + "," ;
+            } 
+        }
+    );
+    url = '/main/pivot/?tasktimeid=37&cells=' + encodeURI(cellstr);
+    window.open(url,"childAdd","scrollbars=yes, status=no,height=400,width=600,top=75,left=150,resizable=yes");   
+}
+
+//数据透视:同级单位对比
+function pivot2()
+{
+    if (!activeTable)
+    {
+        alert("未选择指标，无法进行数据透视");
+        return;
+    }
+    var cellstr = "";
+    $A(activeTable.getElementsByTagName('td')).each(
+        function(node)
+        {
+            if (node.style.backgroundColor == "#ffcccc")
+            {
+                cellstr += node.expression + "," ;
+            } 
+        }
+    );
+    url = '/main/pivot2/?tasktimeid=37&cells=' + encodeURI(cellstr);
+    window.open(url,"childAdd","scrollbars=yes, status=no,height=400,width=600,top=75,left=150,resizable=yes");   
+}
+
+var t = new WebTable($('table_RWYB1'));
+
+
+</script>
+

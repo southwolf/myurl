@@ -1,0 +1,25 @@
+<script language="javascript">
+
+function window_open()
+{
+var newWindow;
+var urlstring = 'calendar.htm'
+newWindow = window.open(urlstring,'','height=200,width=280,toolbar=no,minimize=no,status=no,memubar=no,location=no,scrollbars=no')
+}
+
+</script>
+
+<input type=text name='txtDate'><input type=button onClick="window_open()" value='...'>
+
+<script language="JavaScript" type="text/JavaScript">
+//定义日历用的图片路径
+//imgDir='./';
+</script>
+<script src=popcalendar.js></script>
+<script src=lw_layers.js></script>
+<script src=lw_menu.js></script>
+
+<form name=form1>
+<input type=text name=beginDate>
+<input type=button onClick="popUpCalendar(this, form1.beginDate, 'yyyy-mm-dd');" value='...'>
+</form>

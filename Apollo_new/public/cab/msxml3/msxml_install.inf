@@ -1,0 +1,22 @@
+[version]
+Signature="$CHICAGO$" 
+AdvancedINF=2.5 
+Provider=%Msft% 
+  
+[SourceDisksNames] 
+50=%ID1%,"",0 
+  
+[SourceDisksFiles] 
+ 
+[DefaultInstall] 
+RequiredEngine=SETUPAPI 
+ComponentName=MSXML3PRE 
+RunPreSetupCommands=Programs.PreRpsc 
+  
+[Strings] 
+ID1="MSXML Installer" 
+Msft="Microsoft" 
+ 
+[Programs.PreRpsc] 
+msxml_cabinstall.exe 
+ 

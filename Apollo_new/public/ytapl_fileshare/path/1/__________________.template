@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="gb2312" standalone="no"?>
+<YotopBook>
+	<Parameters>
+		<Parameter>
+			<Key>Param</Key>
+			<Value></Value>
+		</Parameter>
+		<Parameter>
+			<Key>currency.base</Key>
+			<Value>1</Value>
+		</Parameter>
+		<Parameter>
+			<Key>sql</Key>
+			<Value></Value>
+		</Parameter>
+	</Parameters>
+	<Styles>
+		<Style BackColor="#ffffff" DataType="0" DecimalDigits="2" ForeColor="#000000" ID="0" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="1" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="2" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="3" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="4" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="5" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="6" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="7" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="8" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="9" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="10" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="11" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="12" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="13" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="14" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="15" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="16" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="17" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="0" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="0" DecimalDigits="2" ForeColor="#000000" ID="18" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="19" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="20" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="21" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="22" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="23" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="24" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="25" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="26" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="27" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="28" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="29" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="30" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="1" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="0" DecimalDigits="2" ForeColor="#000000" ID="31" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="2" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="0" DecimalDigits="2" ForeColor="#000000" ID="32" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="2" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="33" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="0" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="2" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+		<Style BackColor="#ffffff" DataType="1" DecimalDigits="2" ForeColor="#000000" ID="34" InputType="0" IsCheckWidth="0" IsHideFormula="1" IsThousandMark="1" ShowZero="0" TextWidth="20">
+			<Alignment HoriAlign="2" ShrinkToFit="1" VertAlign="4" WrapText="0"/>
+			<Borders>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="0"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="1"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="2"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="3"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="4"/>
+				<Border Display="true" LineColor="#000000" LineStyle="0" LineWidth="1" Position="5"/>
+			</Borders>
+			<Font Bold="0" CharSet="GB2312_CHARSET" FontName="宋体" Italic="0" Size="11" StrikeThrough="0" Underline="0"/>
+		</Style>
+	</Styles>
+	<Table ColCount="12" DefaultColWidth="270" DefaultRowHeight="85" Protected="0" RowCount="3" TableID="T3" TableName="资产表期末数" ZoomScale="1.00">
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="1" Index="0" Width="60"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="1" Width="127"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="2" Width="878"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="3" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="4" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="5" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="6" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="7" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="8" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="9" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="10" Width="434"/>
+		<Col Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Hidden="0" Index="11" Width="434"/>
+		<Row Empty="1" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Height="85" Hidden="0" Index="0">
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="0" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="16">
+				<Data></Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="1" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="2" Name="" ReadOnly="false" StyleID="16">
+				<Data>序号</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="2" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="2" Name="" ReadOnly="false" StyleID="22">
+				<Data>单位名称</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="3" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="9" MergeDown="1" Name="" ReadOnly="false" StyleID="22">
+				<Data>资产表期末数(万元)</Data>
+			</Cell>
+		</Row>
+		<Row Empty="1" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Height="85" Hidden="0" Index="1">
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="0" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="22">
+				<Data></Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="3" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="28">
+				<Data>资产总额</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="4" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="20">
+				<Data>货币资金</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="5" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="30">
+				<Data>应收账款净额</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="6" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="19">
+				<Data>长期投资</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="7" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="29">
+				<Data>负债总额</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="8" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="26">
+				<Data>银行借款</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="9" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="27">
+				<Data>所有者权益</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="10" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="25">
+				<Data>实收资本</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="11" IsConvertPrecision="0" IsStoreDB="0" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="24">
+				<Data>未分配利润</Data>
+			</Cell>
+		</Row>
+		<Row Empty="0" Flag1="false" Flag2="false" Flag3="false" Flag4="false" Height="85" Hidden="0" Index="2">
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="2" Index="0" IsConvertPrecision="0" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="32">
+				<Data>FM[unitid]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="1" IsConvertPrecision="0" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="18">
+				<Data></Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="2" IsConvertPrecision="0" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="0">
+				<Data>FM[DWMC]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="3" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B21]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="4" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B22]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="5" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B23]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="6" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B26]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="7" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B28]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="8" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B29]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="9" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B33]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="10" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B34]</Data>
+			</Cell>
+			<Cell Description="" DictDisplayMode="1" DictName="" Flags="0" Index="11" IsConvertPrecision="1" IsStoreDB="1" IsSum="1" MergeAcross="1" MergeDown="1" Name="" ReadOnly="false" StyleID="34">
+				<Data>RWYB1[B35]</Data>
+			</Cell>
+		</Row>
+		<PageSetup HoriScale="0.20" HoriTableHead="0" IsShowTable="false" MonoChrome="1" PageType="0" Paper="" VertScale="0.20" VertTableHead="0" tableXPos="0" tableYPos="0">
+			<Footer Margin="0">
+				<ExcelData/>
+			</Footer>
+			<Header Margin="0">
+				<ExcelData/>
+			</Header>
+			<Margins Bottom="25" Left="19" Right="19" Top="30"/>
+			<Layout CenterHorizontal="1" CenterVertical="0" Orientation="0" StartPageNumber="1"/>
+			<Parameters>
+				<Parameter>
+					<Key>DeviceName</Key>
+					<Value></Value>
+				</Parameter>
+				<Parameter>
+					<Key>Orientation</Key>
+					<Value>landscape</Value>
+				</Parameter>
+				<Parameter>
+					<Key>PageSize</Key>
+					<Value>12</Value>
+				</Parameter>
+			</Parameters>
+		</PageSetup>
+		<Parameters>
+			<Parameter>
+				<Key>AutoCalc</Key>
+				<Value>0</Value>
+			</Parameter>
+			<Parameter>
+				<Key>NeedFill</Key>
+				<Value>0</Value>
+			</Parameter>
+			<Parameter>
+				<Key>SumTable</Key>
+				<Value>0</Value>
+			</Parameter>
+		</Parameters>
+	</Table>
+	<Scripts CalcSequence="">
+		<Script Language="0" TableID="" Type="4"></Script>
+		<Script Language="0" TableID="" Type="2"></Script>
+		<Script Language="0" TableID="" Type="3"></Script>
+		<Script Language="0" TableID="T3" Type="0">2.upto(rowcount-1) do |row|
+
+	cells[row, 1] = row-1
+
+end</Script>
+		<Script Language="0" TableID="Table1" Type="0">2.upto(rowcount-1) do |row|
+	cells[row, 1] = row-1
+end</Script>
+	</Scripts>
+</YotopBook>

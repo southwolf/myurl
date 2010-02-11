@@ -1,0 +1,70 @@
+.sort-table
+{
+    BORDER-RIGHT: black 1pt solid;
+    BORDER-TOP: black 1pt solid;
+    BORDER-LEFT: black 1pt solid;
+    BORDER-BOTTOM: black 1pt solid;
+    BORDER-COLLAPSE: collapse;
+    BACKGROUND-COLOR: white
+}
+.sort-table THEAD
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1pt;
+    PADDING-BOTTOM: 1pt;
+    BORDER-LEFT: black 1pt solid;
+    COLOR: white;
+    PADDING-TOP: 1pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: deeppink
+}
+.sort-table TD
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 5px;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 5px;
+    PADDING-BOTTOM: 2px;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 2px;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: #fbfbfb
+}
+.sort-table THEAD TD
+{
+    BORDER-RIGHT: black 1px solid;
+    BORDER-TOP: black 1px solid;
+    BORDER-LEFT: black 1px solid;
+    CURSOR: default;
+    BORDER-BOTTOM: black 1px solid;
+    BACKGROUND-COLOR: #7f88cc
+}
+.sort-table THEAD TD:active
+{
+    PADDING-RIGHT: 4px;
+    PADDING-LEFT: 6px;
+    BORDER-LEFT-COLOR: buttonshadow;
+    BORDER-BOTTOM-COLOR: buttonhighlight;
+    PADDING-BOTTOM: 1px;
+    BORDER-TOP-COLOR: buttonshadow;
+    PADDING-TOP: 3px;
+    BORDER-RIGHT-COLOR: buttonhighlight
+}
+.sort-arrow
+{
+    BACKGROUND-POSITION: center center;
+    MARGIN: 0px 2px;
+    WIDTH: 11px;
+    BACKGROUND-REPEAT: no-repeat;
+    HEIGHT: 11px
+}
+.descending
+{
+    BACKGROUND-IMAGE: url(../img/downsimple.png)
+}
+.ascending
+{
+    BACKGROUND-IMAGE: url(../img/upsimple.png)
+}
