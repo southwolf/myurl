@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="0636256E-2F66-4281-8863-B13AA035A5F2" name="RubyApollo" kpf_version="2">
+<preference-set id="">
+</preference-set>
+<file url="Border.rb" id="22AF7B74-F9A0-46F7-A310-F8A90134BF75" name="Border.rb">
+</file>
+<file url="Cell.rb" id="7F825FEC-31AD-450C-9776-FCB9551870A8" name="Cell.rb">
+</file>
+<file url="CellValue.rb" id="4E6CEC4D-EFDE-498D-B404-53125CDA9C7C" name="CellValue.rb">
+</file>
+<file url="ChangeEncode.rb" id="76C7D641-C895-477E-BE7F-17CD4EF52B5F" name="ChangeEncode.rb">
+</file>
+<file url="Const.rb" id="4320612F-2203-4814-9C44-91313C93C403" name="Const.rb">
+</file>
+<file url="Diction.rb" id="C8A9E8BB-1977-47EB-A027-430772D72CD5" name="Diction.rb">
+</file>
+<file url="EncodeUtil.rb" id="1BA0F550-7185-4B1F-BDB4-4EF9995152AC" name="EncodeUtil.rb">
+</file>
+<file url="FloatRegion.rb" id="4453C3E4-87D4-4CFA-9E49-FF6A7C336728" name="FloatRegion.rb">
+</file>
+<file url="LogFont.rb" id="127D0637-7E69-4299-8CE3-287CBA5C1C64" name="LogFont.rb">
+</file>
+<file url="RegionValue.rb" id="C8B95EE2-DEC4-4C1D-8950-6E7919011595" name="RegionValue.rb">
+</file>
+<file url="RegionValueTree.rb" id="16B31F7B-7422-4775-B1FE-366D4A072D25" name="RegionValueTree.rb">
+</file>
+<file url="ReportDataSource.rb" id="2C1DEC75-DEB4-4C78-B9BD-257C98E71ACF" name="ReportDataSource.rb">
+</file>
+<file url="ReportEngine.rb" id="A5909E18-C7ED-4962-AF95-70729A01BA14" name="ReportEngine.rb">
+</file>
+<file url="ReportResult.rb" id="0BF5E10E-8FEB-4B81-A3EC-DA1101E10658" name="ReportResult.rb">
+</file>
+<file url="Script.rb" id="B61B2E5B-70F5-4D7A-B7C2-F7F5A7AF38DA" name="Script.rb">
+</file>
+<file url="Size.rb" id="8C50FB6A-FE9A-430B-ADF9-3C24E6E86AE2" name="Size.rb">
+</file>
+<file url="Style.rb" id="862B03A0-95F9-491F-A603-0D5B379B14E2" name="Style.rb">
+</file>
+<file url="StyleManager.rb" id="48C6366C-E223-45E4-AA9A-97C65BBBF865" name="StyleManager.rb">
+</file>
+<file url="Table.rb" id="DB51EA37-E78A-4CC1-8B38-1B12CE2E384E" name="Table.rb">
+</file>
+<file url="TaskMeta.rb" id="2784B7FA-5E69-44B1-8539-185B7E51529F" name="TaskMeta.rb">
+</file>
+<file url="Test.rb" id="7EC7F084-5FE8-4EBA-A37C-B4128714BAB4" name="Test.rb">
+<preference-set id="">
+  <string id="lastInvocation">default</string>
+<preference-set id="Invocations">
+<preference-set id="default">
+  <string id="postparams"></string>
+  <string id="userEnvironment"></string>
+  <string id="getparams"></string>
+  <boolean id="use-console">0</boolean>
+  <string id="executable-params"></string>
+  <boolean id="show-dialog">1</boolean>
+  <string id="request-method">GET</string>
+  <string id="params"></string>
+  <string id="mpostparams"></string>
+  <string id="posttype">application/x-www-form-urlencoded</string>
+  <string id="documentRoot"></string>
+  <string id="cookieparams"></string>
+  <string id="filename">D:\rubyonrails\Apollo\lib\Test.rb</string>
+  <boolean id="sim-cgi">0</boolean>
+  <string id="cwd"></string>
+  <string id="userCGIEnvironment"></string>
+</preference-set>
+</preference-set>
+</preference-set>
+</file>
+<file url="XMLHelper.rb" id="7738A99B-7742-4805-8B3D-61526A6F11C0" name="XMLHelper.rb">
+<preference-set id="">
+  <string id="lastInvocation">default</string>
+<preference-set id="Invocations">
+<preference-set id="default">
+  <string id="postparams"></string>
+  <string id="userEnvironment"></string>
+  <string id="getparams"></string>
+  <boolean id="use-console">0</boolean>
+  <string id="executable-params"></string>
+  <boolean id="show-dialog">1</boolean>
+  <string id="request-method">GET</string>
+  <string id="params"></string>
+  <string id="mpostparams"></string>
+  <string id="posttype">application/x-www-form-urlencoded</string>
+  <string id="documentRoot"></string>
+  <string id="cookieparams"></string>
+  <string id="filename">D:\rubyonrails\Apollo\lib\XMLHelper.rb</string>
+  <boolean id="sim-cgi">0</boolean>
+  <string id="cwd"></string>
+  <string id="userCGIEnvironment"></string>
+</preference-set>
+</preference-set>
+</preference-set>
+</file>
+<file url="XMLModel.rb" id="E2AB132A-9D02-4C5C-9375-F7ABE9F0E5A6" name="XMLModel.rb">
+</file>
+<file url="ZmRC.rb" id="A52370B1-AD25-40B1-97B9-CE76161711CC" name="ZmRC.rb">
+</file>
+<file url="TestApollo.rb" id="0BC9AA49-C7B1-45C5-AD80-2F39CB85C1D1" name="TestApollo.rb">
+<preference-set id="">
+  <string id="lastInvocation">default</string>
+<preference-set id="Invocations">
+<preference-set id="default">
+  <string id="postparams"></string>
+  <string id="userEnvironment"></string>
+  <string id="getparams"></string>
+  <boolean id="use-console">0</boolean>
+  <string id="executable-params"></string>
+  <boolean id="show-dialog">1</boolean>
+  <string id="request-method">GET</string>
+  <string id="params"></string>
+  <string id="mpostparams"></string>
+  <string id="posttype">application/x-www-form-urlencoded</string>
+  <string id="documentRoot"></string>
+  <string id="cookieparams"></string>
+  <string id="filename">D:\rubyonrails\Apollo\lib\TestApollo.rb</string>
+  <boolean id="sim-cgi">0</boolean>
+  <string id="cwd"></string>
+  <string id="userCGIEnvironment"></string>
+</preference-set>
+</preference-set>
+</preference-set>
+</file>
+<file url="ReportUtil.rb" id="166D1252-3745-4B8F-A1D4-CFFE67166FB4" name="ReportUtil.rb">
+</file>
+<file url="chinese.rb" id="C0D20B82-A58E-4FC1-890E-4E13AEB9E85A" name="chinese.rb">
+</file>
+</project>
