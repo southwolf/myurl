@@ -1,0 +1,58 @@
+<br>
+<% indexFlag = 1 %>
+<table  align="center" cellspacing=0 border=0 id=topnode>
+<script>
+   //Element.hide('topnode');
+   //Effect.Appear('topnode');
+</script>
+  <tr><td>
+    <%= link_to '添加留言', :action => 'new' %>
+  </td></tr>
+  <tr class="clsTrHeader">
+    <th width=400px>标题</th>
+    <th width=200px align="left">发布时间</th>
+    <th width=100px>发布人</th>
+    <th width=100px align="center" colspan=3>操作</th>
+  </tr>
+
+<%index=0%>  
+<% for bbsmessage in @bbsmessages %>
+  <%=ColorRow(index)%>
+    <%index += 1%>
+    <td><%= link_to bbsmessage.title, :action => 'show', :id => bbsmessage %></td>
+    <td><%=h bbsmessage.time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+    <td><%=h bbsmessage.username %></td>
+    
+  	<td align="center"><%= link_to '查看', :action => 'show', :id => bbsmessage %></td>
+    
+    <td>
+    <% if bbsmessage.username == session[:user].name %>
+        <%= link_to '编辑', :action => 'edit', :id => bbsmessage %>
+    <% end%>
+    </td>
+    <td>
+    <% if CheckRight(session[:user].id, "删除留言") %>
+        <%= link_to '删除', { :action => 'destroy', :id => bbsmessage }, :confirm => '确认删除选中留言吗?', :post => true %></td>
+    <% end%>
+    </td>
+  </tr>
+<% end %>
+  <tr>
+  <tr><td>&nbsp;</td></tr>
+  <td colspan=4 align='right'>
+    
+    <%= link_to '首页',   { :page => @bbsmessage_pages.first} if @bbsmessage_pages.current != @bbsmessage_pages.first %>
+    <%= link_to '上一页', { :page => @bbsmessage_pages.current.previous } if @bbsmessage_pages.current.previous %>
+    <%= link_to '下一页', { :page => @bbsmessage_pages.current.next } if @bbsmessage_pages.current.next %> 
+    <%= link_to '最后一页', { :page =>@bbsmessage_pages.last} if @bbsmessage_pages.current != @bbsmessage_pages.last %>
+    共有留言:<%= Bbsmessage.count%>条;
+    每页:20行;
+    当前第<%= @bbsmessage_pages.current_page.offset/20 +1 %>页
+    共<%= @bbsmessage_pages.length%>页
+    
+    
+  </td>
+  </tr>
+</table>
+
+<br>

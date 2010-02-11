@@ -1,0 +1,64 @@
+<% @title = session[:task].name || "友通捷报V9.0"  %>
+
+<!--
+<script language="javascript">
+<% if Ytnews.find_first%>
+window.open ('/ytnews/popup_new/<%=Ytnews.find(:first, :order=>'id desc').id%>', 'newwindow', 'height=350, width=500, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no') 
+<% end%>
+</script>
+-->
+<script>
+var treeState='on';
+function closeTree()
+{
+	//treebody.style.display="none";
+	Effect.Fade('treebody');
+	closePic.style.display="none";
+	openPic.style.display="block";
+	treeState = "off";
+}
+function openTree()
+{
+	//treebody.style.display="block";
+	Effect.Appear('treebody');
+	closePic.style.display="block";
+	openPic.style.display="none";
+	//document.all("leftmenu").width=180;
+	//document.all("mainzb").width=790;
+	//mainzb.zbTitle.openTree.style.display="none";
+	treeState = "on";
+}
+</script>
+
+<table width="100%" height="76%" cellspacing=1 cellpadding=0 border=0>
+    <tr>
+        <td id=treebody width="23%" rowspan=2>
+            <div id='unittree' class='clsTreeDiv'>
+                <%= GenerateUnitTree(session[:task].id, "", "main", "getunitdata", 'unitdata', 'unitData') %>
+            </div>
+        </td>
+        <td background="/img/st_bg.jpg" valign=center width=6 height=100% rowspan=2>
+			<div id=openPic style="display:none"><a href="javaScript:openTree()"><img src="/img/jiantou2.jpg" width=6 height=23 border=0></a></div>
+			<div id=closePic><a href="javaScript:closeTree()"><img src="/img/jiantou1.jpg" width=6 height=23 border=0></a></div>
+	    </td>
+        <td height=15px>
+              <%= start_form_tag( {:action=>"switchtasktime"},{:target=>'unitData'} )%>  
+                任务时间：<%= TaskTimeCombo(session[:task].id, "submit()", session[:tasktime] || -1)%>
+              &nbsp;&nbsp;&nbsp;金额单位：
+              <select name="currency" onchange="javascript:unitData.location='/main/getunitdata?currency='+this.value;">
+                <%=options_for_select([["元",'1'], ["百元", "100"], ["千元","1000"], ["万元","10000"], ["千万","10000000"], ["亿元","100000000"]], @currency_base)%>
+              </select>
+              
+              <%= end_form_tag %>  
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4 height=400>              
+              <iframe SCROLLING=yes height="100%" width="100%" FRAMEBORDER="solid" id="unitData" name="unitData" class="clsTreeDiv"></iframe>
+              <script>
+                unitData.location = "<%=url_for :action=> 'getunitdata'%>";
+              </script>     
+        </td>
+	</tr>
+	
+</table>

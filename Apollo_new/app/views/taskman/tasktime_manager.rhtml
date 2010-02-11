@@ -1,0 +1,57 @@
+<table width=100% border=0>
+       <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"任务时间管理"})%>
+       </tr>
+</table>
+
+<table>
+	<tr><td height=30></td></tr>
+<tr><td>
+<%=link_to '添加任务时间', :action=>'new_tasktime'%>
+</td></tr>
+</table>
+
+<table class="clsContentListTable">
+
+		<tr class="clsTrHeader">
+			<td width=5% align=left>ID</td>
+			<td width=20% align=left>开始时间</td>
+			<td width=20% align=left>结束时间</td>
+			<td width=20% align=left>填报开始时间</td>
+			<td width=20% align=left>填报截止时间</td>
+			<td width=10% align=left>操作</td>
+		</tr>
+		
+	<% index = 0%>	
+    <% for tasktime in @tasktimes%>
+        <%=ColorRow(index)%>
+        <td><%=tasktime.id%></td>
+        <td><%=tasktime.begintime.strftime("%Y-%m-%d")%></td>
+        <td><%=tasktime.endtime.strftime("%Y-%m-%d")%></td>
+        <td><%=tasktime.submitbegintime.strftime("%Y-%m-%d")%></td>
+        <td><%=tasktime.submitendtime.strftime("%Y-%m-%d")%></td>
+        <td>
+        <%= link_to '修改', { :action => 'edit_tasktime', :id => tasktime }, :post => true %>
+        <%= link_to '删除', { :action => 'destroy_tasktime', :id => tasktime }, :confirm => '确定删除选中任务时间吗?', :post => true %>
+        </td>
+        </tr>
+    <% index += 1%>
+    <% end %>
+    <tr><td>&nbsp;</td></tr>
+    <tr class="clsTrContext">
+                        <td align="right" colspan=6>
+                         共有任务时间:<%=Yttasktime.find(:all, :conditions=>"taskid=#{session[:task].id}").size%>;
+                          每页:20行&nbsp;;
+                          当前第<%=@tasktime_pages.current_page.offset/20 +1 %>页/
+                          共<%= @tasktime_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @tasktime_pages.first} if @tasktime_pages.current != @tasktime_pages.first %>
+                        <%= link_to '上一页', { :page => @tasktime_pages.current.previous } if @tasktime_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @tasktime_pages.current.next } if @tasktime_pages.current.next %> 
+                        <%= link_to '最后一页', { :page => @tasktime_pages.last} if @tasktime_pages.current != @tasktime_pages.last %>
+                        
+                        </td>
+     </tr>
+ 
+</table>

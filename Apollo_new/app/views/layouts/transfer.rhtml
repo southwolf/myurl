@@ -1,0 +1,114 @@
+<html>
+<%@title='友通捷报V9.0'%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><%=@title || "友通捷报V9.0"%></title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree'%>
+ 
+ 
+<STYLE TYPE='text/css'>
+   A:hover{text-decoration:underline}
+    .clsDataMenu{
+    BACKGROUND-COLOR: #e7e7e4;
+    BORDER-right: 1 solid #c9cfe9;
+    BORDER-left: 1 solid #c9cfe9;
+    }
+</style>
+
+
+</head>
+<body>
+
+<%= render :partial => '/share/head' %>
+
+<%= render :partial => '/share/topmenu'%>
+<table style="height:76%;width=100%" border=0 cellpadding=0>
+<tr>
+  <td width=14% valign=top class="clsDataMenu">
+          <table border=0 width=100% cellpadding=4 style="border-collapse: collapse">
+            <tr height=30>
+              <td align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp;数据传送
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style='BACKGROUND-COLOR: #f2f2f0'>
+                &nbsp;<font id='one' color='#f2f2f0'>→</font><a href="javascript:fillStateCondition()" style="color:blue">上报情况</a>&nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style='BACKGROUND-COLOR: #f2f2f0'>
+                &nbsp;<font id='two' color='#f2f2f0'>→</font><a href="javascript:uploadData()" style="color:blue">上报数据</a>&nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style='BACKGROUND-COLOR: #f2f2f0'>
+                &nbsp;<font id='three' color='#f2f2f0'>→</font><a href="javascript:downloadModelManager()" style="color:blue">下载数据</a>&nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style='BACKGROUND-COLOR: #f2f2f0'>
+                &nbsp;<font id='four' color='#f2f2f0'>→</font><a href="javascript:upload2Server()" style="color:blue">向服务器上报数据</a>&nbsp;&nbsp;
+              </td>
+            </tr>
+             <tr>
+              <td align="left" style='BACKGROUND-COLOR: #f2f2f0'>
+                &nbsp;<font id='five' color='#f2f2f0'>→</font><a href="javascript:converttaskManager()" style="color:blue">跨任务提数</a>&nbsp;&nbsp;
+              </td>
+            </tr>
+         </table>
+
+    </td>
+
+     <td height=100%>
+         <iframe id="dataFrame" name="dataFrame" width=100% FRAMEBORDER=0 height=100% scrolling=yes></iframe>
+         
+     </td>
+</table>
+
+<%= render :partial =>'/share/foot'%>
+
+<SCRIPT language="javascript">
+function fillStateCondition()
+{
+   setArrow("one");
+   dataFrame.location = '/transfer/detail';
+}
+function uploadData(){
+   setArrow("two");
+   dataFrame.location = '/transfer/upload'
+}
+function downloadModelManager()
+{
+   setArrow("three");
+   dataFrame.location = '/transfer/download'
+}
+
+function converttaskManager()
+{
+   setArrow("five");
+   dataFrame.location = '/transfer/convert'
+}
+
+function upload2Server(){
+   setArrow("four");
+  dataFrame.location = "/transfer/uploadserver";
+}
+function setArrow(index){
+   var oFonts = document.getElementsByTagName("FONT");//document.body.all.tags("FONT");
+   for(var i=0;i<oFonts.length;i++){
+         if(oFonts[i].innerText == "→"){
+           oFonts[i].color = "#f2f2f0";
+         }
+   }
+   document.getElementById(index).color = "#darkorange";
+}
+fillStateCondition();
+</SCRIPT>
+
+</body>
+</html>

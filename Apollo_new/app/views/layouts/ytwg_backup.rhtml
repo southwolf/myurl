@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>数据备份</title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'upload_progress' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'optionfunction' %>  
+</head>
+<body>
+
+<%= render :partial => '/share/head' %>
+
+
+<!-- 菜单区域 -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td colspan=4 height=2></td></tr>
+	<tr>
+	   <td height="100%" width="2">
+	   <!---------------------------------------------------------->
+	   
+
+<table cellspacing="0" border="0" cellpadding="0" height="100%">
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    
+    <% if controller.controller_name == "ytwg_backup"  && controller.action_name=='index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "数据备份", {:controller => 'ytwg_backup', :action => 'index'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0></td>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    <% if controller.controller_name == "ytwg_backup" && controller.action_name=='restore'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "数据恢复", {:controller => 'ytwg_backup', :action => 'restore'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+    <IMG height=9 src="../img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+
+</table>
+	   
+
+	   <!---------------------------------------------------------->
+	   </td>
+	   <td background ="/img/tab_stripes.jpg">
+	   
+	      <div id="notice" align="center"></div>
+        <script language="javascript">
+        function setNotice(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='background:#FFFF00;'>" + notice + "</span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 2250)
+        }
+        <% if @flash[:notice] %>
+            setNotice('<%=@flash[:notice]%>')
+        <% end %>
+        </script>
+	   
+	   </td>
+	   <td width=2></td>
+	   <td valign="top" align="right" width=10 nowrap>
+	       <%= render :partial => '/share/taskselect'%>
+	   </td>
+	</tr>
+	<tr>
+    <td colspan=4 height="2"  style="background-color: black"></td>
+    </tr>
+</table>	
+<script>
+function displaySubMenu(obj){
+   var selectIndexOpt = obj.options[obj.selectedIndex].value;
+   
+   window.location = "/main/switchtask/" + selectIndexOpt
+}
+
+<!--系统安全管理-->
+function SecurityManager(){
+   window.location = "/user/list/" ;
+}
+
+</script>
+<table height=75% align='center'>
+<tr><td valign='top'>
+<%= @content_for_layout %>
+</td></tr></table>
+<%= render :partial =>'/share/foot'%>
+
+</body>
+</html>

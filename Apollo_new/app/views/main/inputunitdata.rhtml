@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑数据<%=@unitid%></title>
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag 'effects' %>
+
+<body style="margin:0" scroll="no" onUnload="window.opener.location.reload();">
+<div id='ind' align='center'>正在下载填报控件：<%= image_tag '/img/indicator.gif', :id=>'indicator'%></div>
+<OBJECT ID="yttable" WIDTH="100%" HEIGHT="100%"
+	CLASSID="CLSID:582D8295-8EDE-41C2-9C18-2FB5BFB4D8CE"
+	CODEBASE="/cab/YotopTableCtrl.cab#Version=1,0,0,0"
+	style="display:none">
+</OBJECT>
+<SCRIPT LANGUAGE="JavaScript">
+Element.hide('ind');
+Element.show('yttable');
+yttable.taskContent = "<%=@taskcontent%>";
+yttable.ServerUrl = "http://<%=request.env_table["HTTP_HOST"]%>/front_service/api";
+yttable.User = "admin";
+yttable.Password = "password";
+yttable.DownloadByWebservice("<%=@tasktime.begintime.strftime("%Y-%m-%d")%>","<%=@unitid%>");
+<%now = Time.new%>
+yttable.EvalScript("var yt_curdate='填报日期:<%=now.year%>年<%=now.month%>月<%=now.mday%>日';");
+yttable.ReadOnly = <%=@readonly%>;
+
+<%
+    hangye_hash = {
+    1 => 'DLBC',
+	2 => 'FDSBB',
+	3 => 'FDCBC',
+	4 => 'GTBC',
+	5 => 'HKBC',
+	6 => 'JCBC',
+	7 => 'MTBC',
+	8 => 'QCBC',
+	9 => 'SHBC',
+	10 => 'SYBC',
+	11 => 'TXBC',
+	12 => 'ZXSBBC',
+	13 => 'YSBC',
+	14 => 'JCHBC',
+	15 => 'MYHBC'}
+    
+    %>
+    
+    
+    
+<% if @unitid && session[:task].strid == "QYKB07"
+tables = $TaskDesc[session[:task].strid].helper.tables
+all_tables = Array.new
+for table in tables
+   all_tables << table.GetTableID() if !hangye_hash.has_value?(table.GetTableID())
+end
+visible_hangyes = (@fm['QYHY']||"").split(";")
+visible_hangyes = hangye_hash.keys  if visible_hangyes.size == 0
+for hangye in visible_hangyes
+    all_tables << hangye_hash[hangye.to_i]
+end
+%>
+yttable.DisplayTableSet = "<%=all_tables.join(";")%>";
+
+<% end %>
+</SCRIPT>
+</body>
+</html>

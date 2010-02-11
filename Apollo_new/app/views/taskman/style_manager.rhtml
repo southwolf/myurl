@@ -1,0 +1,29 @@
+<table height=70% width=100% border=0>
+       <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"表样管理"})%>
+       </tr>
+    <tr>
+       <td align="center"><img src="/img/infomation.bmp">&nbsp;发布表样文件可以对系统表样进行更新.</td>
+    </tr>
+    <tr>
+      <form action="/taskman/upload_style" method="post" enctype="multipart/form-data" name="form1">
+        <td align=center>
+           选择表样文件：
+           <input type="file" name="file"/>
+           <input type="hidden" name="tableID" value="">
+           <input type="submit" name="doSubmit" value="发  布" onclick="return check()"/>
+        </td>
+      </form>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+<script language="javascript">
+function check(){
+  if(form1.file.value == ""){
+    alert("请选择表样文件!");
+    return false;
+  }
+}
+</script>

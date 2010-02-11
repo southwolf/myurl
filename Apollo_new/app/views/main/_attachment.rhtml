@@ -1,0 +1,29 @@
+<table class="clsContentListTable" width="80%">            
+              <tr colspan='3'>
+              <td>  
+<!--
+           <%= form_remote_tag :html=>{:update=>'attach_update', :url=>{:action => 'upload_attachment'}, :multipart => true} %>  
+--> 
+<!--
+ <%= form_remote_tag :html=>{:update => "attach_update", :url => {:action=> 'upload_attachment'}, :multipart => true}%>       
+--> 
+           <%= start_form_tag({:action => 'upload_attachment'}, :multipart => true) %>   
+                选择文件：<%= file_column_field 'attachment', 'path' %>
+                <input type="submit" value="提　交" />
+           <%= end_form_tag %>
+                </td>
+              </tr>
+              <tr class='clsTrHeader'>
+                <td>附件名称</td>
+                <td colspan = 2>操作</td>
+              </tr>
+              <%index=0%>
+              <% for @attachment in attachments%>
+                <%= ColorRow(index, "attach"+@attachment.id.to_s)%>
+                    <td><%= @attachment.name%></td>
+                    <td><%= link_to '下载', {:action=>'download_attachment', :id=>@attachment}, {:style=> "color: darkblue;"}%></td>
+                    <td><%= link_to_remote '删除', {:confirm=>'确定删除当前附件吗？', :update=>'attach_update', :url=>{:action=>'delete_attachment', :id=>@attachment}, :complete=>"window.parent.setNotice('删除附件完毕')", :before => "new Effect.Puff('attach#{@attachment.id}'); "}, {:style=> "color: darkblue;"}%></td>
+                </tr>  
+              <% index += 1%>
+              <% end%>
+</table>

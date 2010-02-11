@@ -1,0 +1,223 @@
+<!-- 菜单区域 -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr>
+	   <td height="100%" width="2">
+	   <!---------------------------------------------------------->
+	   
+
+<table cellspacing="0" border="0" cellpadding="0" height="100%">
+<tr>
+   <td>&nbsp;</td>
+   <% if controller.controller_name == "main" && controller.action_name == 'index'%>
+     <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		 </td>
+					
+    <%    classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td nowrap class='<%=classstr%>' >
+<%=link_to( "查看数据",{:controller => 'main', :action => 'index'}, {:class=>clrstr})%> &nbsp;
+</td>
+<td><IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    
+    
+    <% if controller.controller_name == "transfer" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+					
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+
+    <td  nowrap class='<%=classstr%>' >
+    <%=link_to("数据传送", {:controller => 'transfer', :action => 'index'}, {:class=>clrstr})%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+<% if CheckRight(session[:user].id, "数据审核")%>
+    <% if controller.controller_name == "audit" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td nowrap class='<%=classstr%>' >
+<%=link_to("数据审核", {:controller => 'audit', :action => 'index'}, {:class=>clrstr})%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="../img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+<% end %>
+
+    
+<% if CheckRight(session[:user].id, "数据汇总")%>    
+    <% if controller.controller_name == "sum" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  nowrap class='<%=classstr%>' >
+<%=link_to "数据汇总", {:controller => 'sum', :action => 'index'},{:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="../img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+<% end %>    
+    
+    <% if controller.controller_name == "templatequery" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td nowrap class='<%=classstr%>' >
+    <%=link_to "模板查询", {:controller => 'templatequery', :action => 'index'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+    <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    <% if controller.controller_name == "scalarquery" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab" 
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td nowrap class='<%=classstr%>' >
+<%=link_to "指标查询", {:controller => 'scalarquery', :action => 'index'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    
+    
+    
+    
+   <% if controller.controller_name == "ytnews"%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td nowrap class='<%=classstr%>' >
+<%=link_to "最新通知", {:controller => 'ytnews', :action => 'list'}, {:class=>clrstr}%>&nbsp;
+    </td>
+    <td>
+    <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    <% if controller.controller_name == "bbsmessage"%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td nowrap class='<%=classstr%>' >
+<%=link_to "留言板", {:controller => 'bbsmessage', :action => 'list'}, {:class=>clrstr}%>&nbsp;
+    </td>
+    <td vAlign="center"><IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0></td>
+
+</tr>
+
+
+
+</table>
+	   
+	   <!---------------------------------------------------------->
+	   </td>
+	   <td background ="/img/tab_stripes.jpg" colspan='2'>
+        <div id="notice" align="center"></div>	   
+	   </td>
+	   <td width=2></td>
+	   <td valign="top" align='right' width=10 nowrap>
+	       <%= render :partial=>'/share/taskselect' %>
+	   </td>
+	</tr>
+	<tr>
+    <td colspan=4 height="2"  style="background-color: black"></td>
+    </tr>
+</table>	
+
+
+<script language="javascript">
+        function setNotice(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='background:#FFFF00; padding:4px 10px;'>" + notice + "</span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 10000)
+        }
+        function setError(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='color:#FF0000; padding:4px 10px;'><b>" + notice + "</b></span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 10000)
+        }
+        <% if flash[:notice] %>
+            setNotice('<%=flash[:notice]%>')
+        <% end %>
+        <% if flash[:error] %>
+            setError('<%=flash[:error]%>')
+        <% end %>
+</script>

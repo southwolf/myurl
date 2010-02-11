@@ -1,0 +1,73 @@
+<%@title = "访问地址不正确"%>
+ 
+<% render :partial => '/share/tabcss'%>
+<style type="text/css">
+<!--
+td {  font-family: "宋体", "serif"; font-size: 9pt; font-weight: normal}
+a:link {  text-decoration: none}
+a:visited {  text-decoration: none; font-weight: normal}
+body {  font-family: "宋体", "serif"; font-size: 9pt}
+tr {  font-family: "宋体", "serif"; font-size: 9pt}
+.unnamed1 {  font-size: 9pt; font-weight: bold}
+.p9 {  font-family: "宋体"; font-size: 9pt}
+.unnamed2 {  font-size: 11pt}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0">
+<%= render :partial => '/share/head' %>
+
+<%= render :partial => '/share/topmenu'%>
+<br>
+<br>
+<br>
+
+<table width="372" border="0" align="center" cellpadding="0" cellspacing="0">
+		  <form action="" method="POST"  name="errorPage">
+  <tr>
+      <td colspan="3"><img src="/img/title.gif" width="372" height="33"></td>
+  </tr>
+  <tr>
+      <td width="16" rowspan="2" align="left" valign="top"><img src="/img/left.gif" width="16" height="187"></td>
+    <td height="175"><table width="348" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="144">
+          <div align="center">
+            <center>
+            <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#E0E1DB" width="314" id="AutoNumber1" height="107">
+              <tr>
+                    <td bgcolor="#F5F2ED"><table width="314" border="0" cellspacing="0" cellpadding="0">
+
+                        <tr>
+                            <td width="85" align="center"> <img border="0" src="/img/ren.gif" width="78" height="100"></td>
+                          <td width="229"> <p> <br>
+                                &nbsp;&nbsp;&nbsp;&nbsp; 你访问了不存在的页面，请<a href="javascript:history.back()">返回</a> &nbsp;
+
+                              <br>
+                              <br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;
+                              </td>
+                        </tr>
+                      </table>
+                      </td>
+              </tr>
+            </table>
+            </center>
+          </div>
+          </td>
+        </tr>
+        <tr>
+            <td height="31" valign="top" align="right">　
+        </tr>
+      </table></td>
+      <td width="8" rowspan="2" valign="top"><img src="/img/right.gif" width="8" height="187"></td>
+  </tr>
+  <tr>
+      <td width="348" height="12"><img src="img/di.gif" width="348" height="12"></td>
+  </tr>
+   </form>
+</table>
+<br>
+<br>
+<%= render :partial =>'/share/foot'%>

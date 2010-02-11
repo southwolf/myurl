@@ -1,0 +1,14 @@
+
+<script language="JavaScript">
+    function cancel()
+    {
+     close();
+    }
+</script>
+
+<% cand_groups = YtaplGroup.find(:all) %>
+
+
+<%= start_form_tag({:action => 'create'}, {:name=>"form1"}) %>
+  <%= render :partial => 'form', :locals=>{:cand_groups => cand_groups, :sel_groups=> Array.new} %>
+<%= end_form_tag %>

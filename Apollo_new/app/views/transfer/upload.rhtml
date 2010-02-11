@@ -1,0 +1,37 @@
+
+
+<script language="JavaScript">
+function publishModel()
+{
+    if(form1.file.value == "")
+    {
+        alert("请选择要上报的报表数据文件");
+        return false;
+    }
+    return true;
+}
+
+</script>
+
+<table height=70% width=100% >
+       <tr height=26 class="clsTrHeader" >
+         <td style="BACKGROUND-COLOR: #c7c9b1;color:black" width=100% colspan=8 valign="middle">
+            数据传送-><font class="clsLightColorOfTask">上报数据</font>
+         </td>
+       </tr>
+    <tr>
+    <tr>
+       <td align="center"><img src="../img/infomation.bmp">&nbsp;此功能用来将报表数据导入到服务器中.</td>
+    </tr>
+    <tr>
+  <tr height=20 colspan=8>
+        <%= start_form_tag({:action => 'upload_data'}, {:multipart => true, :name => "form1"}) %>
+                 <td align=center>上传报表数据文件：
+                    <input type="file" name="file"/>
+                 <input type="submit"value="上报" onclick="return publishModel()"/></td>
+        <%= end_form_tag %>
+  </tr>
+    <tr>
+       <td align="center">&nbsp;</td>
+    </tr>
+</table>

@@ -1,0 +1,56 @@
+<script>
+function displaySubMenu(obj){
+   var selectIndexOpt = obj.options[obj.selectedIndex].value;
+   if (selectIndexOpt==0)
+   {
+    loginform.submit();
+   }
+   else
+    window.location = "/main/switchtask/" + selectIndexOpt
+}
+</script>
+<select id="mainToolSelect" onchange="displaySubMenu(this);">
+	           <%
+	               #task记录中view字段很大，在此绕远路以提高运行效率
+	              tasks = Task.find_by_sql("select taskid, name from ytapl_tasks where reserved1 is null or reserved1<>'1'")
+	              all_ids = Array.new
+	              all_ids << -1000
+	              for task in tasks
+	               all_ids << task.taskid
+	              end
+	              
+	              visible_tasks = Array.new
+	              user = YtaplUser.find(session[:user].id)	              
+	              for group in user.groups
+	               visible_tasks = visible_tasks + group.tasks
+	              end
+	              visible_ids = Array.new
+	              visible_ids << -1000
+	              for task in visible_tasks
+	               visible_ids << task.taskid
+	              end
+	              visible_ids.uniq!
+	              visible_ids = visible_ids & all_ids	   
+	              visible_tasks = Task.find_by_sql("select taskid, name, position from ytapl_tasks where taskid in (#{visible_ids.join(',')})")
+	              visible_tasks = visible_tasks.sort
+	           %>
+	           <%=options_from_collection_for_select(visible_tasks, "taskid", "name", session[:currenttask].to_i)%>
+	           
+	           <option value = '-8' <%="#{'selected' if session[:currenttask].to_i==-8}"%>>统计资料</option>
+	           <option value='-5' <%="#{'selected' if session[:currenttask].to_i==-5}"%>>指标解释</option>
+	           <option value='-6' <%="#{'selected' if session[:currenttask].to_i==-6}"%>>最新通知</option>
+	           <option value='-4' <%="#{'selected' if session[:currenttask].to_i==-4}"%>>留言板</option>
+	           <option value='-7' <%="#{'selected' if session[:currenttask].to_i==-7}"%>>私人文件夹</option>
+	           <% if CheckRight(session[:user].id, "管理用户")%>
+	               <option value='-1' <%="#{'selected' if session[:currenttask].to_i==-1}"%>>系统安全管理</option>
+	           <% end %>
+	           <% if CheckRight(session[:user].id, "管理任务")%>
+	               <option value='-2' <%="#{'selected' if session[:currenttask].to_i==-2}"%>>任务管理</option>
+	           <% end %>
+	           <% if CheckRight(session[:user].id, "管理任务")%>
+	               <option value='-3' <%="#{'selected' if session[:currenttask].to_i==-3}"%>>日志管理</option>
+	           <% end %>
+	           <% if CheckRight(session[:user].id, "数据备份")%>
+	               <option value='-9' <%="#{'selected' if session[:currenttask].to_i==-9}"%>>数据备份</option>
+	           <% end %>
+</select>

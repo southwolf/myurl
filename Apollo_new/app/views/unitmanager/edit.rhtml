@@ -1,0 +1,6 @@
+
+
+<%= start_form_tag({:action => 'update', :id => @unit.unitid} ,{:name=>"unitForm"})%>
+  <%@edit=true%>
+  <%= render :partial => 'form', :object =>@unit, :locals => {:mode=>'edit'} %>
+<%= end_form_tag %>

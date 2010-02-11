@@ -1,0 +1,11 @@
+<%@title = '通知'%>
+<center><h4><%= @ytnews.title%></h4></center>
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= @ytnews.content %>
+</p>
+<p></p>
+<p>
+<div align="right">发布日期：<%=@ytnews.publish_time.strftime("%y-%m-%d")%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>

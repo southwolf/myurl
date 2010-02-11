@@ -1,0 +1,140 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />
+<title>查询单位填报情况</title>
+<script type="text/javascript">
+    treetable_callbacks['eventRowStateChanged'] = 'treetable_eventRowChanged';
+    
+    function treetable_eventRowChanged(rowId, state) {
+      //img = document.getElementById(rowId).getElementsByTagName('td')[0].getElementsByTagName('img')[0];
+      //if (state == 1) {
+      //  img.src = 'folder_green_open.png';
+      //} else {
+      //  img.src = 'folder_green.png';
+      //}
+      return (true);
+    }  
+  </script>
+  
+<style type="text/css">
+    <!--
+.style1 {color: #00FF00}
+.style2 {color: #FF0000}
+-->
+
+    .treetable {
+    }
+   
+    .treetable td {
+      margin:1px;
+      padding: 0 5px;
+      FONT-SIZE: 9pt
+    }
+    
+    a {
+      text-decoration:none;
+      color:#0000FF;
+    }
+    
+    .button {
+      border:none;
+      margin: 0 4px 0 0;
+    }
+  </style>
+</head>
+<body>
+
+<script language="javascript">
+function queryAllFillState(){
+   form1.action="/transfer/detail/" + form1.tasktime.value + "?type=all";
+	 form1.submit();
+}
+function queryNotFillState()
+{
+ 	form1.action="/transfer/detail/" + form1.tasktime.value + "?type=notfill";
+	form1.submit();
+
+}
+function queryAlreadyFillState(){
+ 	form1.action="/transfer/detail/" + form1.tasktime.value + "?type=filled";
+	form1.submit();
+}
+
+function queryFillState()
+{
+   form1.action="/transfer/detail/" + form1.tasktime.value + "?type=query";
+	 form1.submit();
+}
+
+function showData(taskTimeID, unitID)
+{
+    window.open('/main/getunitdata?unitID='+unitID+'&taskTimeID='+taskTimeID,'_blank');
+}
+function linkToQuery(obj){
+  if(event.keyCode=="13"){
+        url="/WebRoot/servlet/analyse?operation=queryFillState";
+        url+="&taskTimeID="+form1.taskTimeID.value;
+	//判断是否输入了条件
+        form1.codeOrName.value = trim(obj.value);
+        if(obj.value == "")
+        {
+            alert("请输入查询条件");
+            form1.codeOrName.focus();
+            return false;
+        }
+        url += "&codeOrName=" + encodeURIComponent(obj.value);
+    	window.location = encodeURI(url);
+  }
+}
+</script>
+<body scroll="no">
+
+  <table width=100% border=0 height=5%>
+       <tr height=26 class="clsTrHeader" >
+         <td style="BACKGROUND-COLOR: #c7c9b1;color:black" width=100% colspan=8 valign="middle">
+            数据传送-><font class="clsLightColorOfTask">上报情况</font>
+         </td>
+       </tr>
+<%= start_form_tag( {:action=>"detail_detail"},{:name=>'form1', :style=>"margin:0"} )%>  
+	<tr>
+           <td colspan=3>
+                  任务时间:<%= TaskTimeCombo(session[:task].id, "", @tasktimeid)%>
+            <input type="button" value="上报情况" onclick="queryAllFillState()"/>
+            <input type="button" value="未上报" onclick="queryNotFillState()"/>
+            <input type="button" value="已上报" onclick="queryAlreadyFillState()"/>
+            &nbsp;&nbsp;单位代码或名称：<input type="text" name="codeOrName" value=""/>
+            <input type="button" value="查询" onclick="queryFillState()"/>
+           </td>
+      </tr>
+<%= end_form_tag %>
+</table>
+<script language="javascript">
+form1.codeOrName.focus();
+</script>
+
+
+<div id="maindiv" style="height:88%;OVERFLOW:auto">
+  <table width=100% border=0>
+    <tr>
+      <td>
+
+<table id="tree" class="clsContentListTable">
+    <colgroup>
+      <col width="200" />
+      <col width="0*">
+    </colgroup>
+    <tr class = "clsTrHeader">
+      <th >单位代码</th>
+      <th width="21%">单位名称</th>
+      <th width="8%">是否填报</th>
+      <th width="16%">填报时间</th>
+      <th width="8%">是否审核</th>
+      <th width="16%">审核时间</th>
+      <th width="9%">审核者</th>
+    </tr>
+    <%= TransferDetail(session[:task].strid, @tasktimeid, @optype, @word)%>
+  </table>
+<!-- END: com.cc.framework.ui.painter.def.DefListPainter -->
+       </td>
+     </tr>
+</table>
+</div>

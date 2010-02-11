@@ -1,0 +1,115 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选择汇总</title>
+<%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+  
+</head>
+
+<body>
+	<table height=100% width=100%>
+	<tr height=20 nowrap>
+		<td>汇总单位:
+			<select id="sumUnit">
+			    <% meta = $TaskDesc[session[:task].strid]%>
+		      <% for unit in @select_units%>
+		          <option value="<%=unit.unitid%>"><%=unit.unitid%> | <%=unit[meta.unitname]%>
+		      <% end %>
+				
+		
+			</select>
+			<input type="button" value="新增" onclick="createSelectSumUnit()">
+		</td>
+		<td>
+			<form name="form1" action="/sum/select_sum" method="post" onsubmit="return onSelectSumSubmit()">
+				<input type="hidden" name="unitIDs">
+				<input type=hidden name="operation" value="doSelectSum">
+				<input type=hidden name="unitID" value="">
+				<input type=hidden name="taskTimeID" value="<%=@tasktimeid%>">
+				<input type=submit>
+			</form>
+		</td>
+	</tr>
+	<tr height=20>
+	   <td>
+	         <form name="pre_unit" style="margin:0px 0px;padding:0px 0px">
+	           预定义单位选择方案:<select name="unitschema">
+			     <% schemas = YtaplUnitschema.find(:all, :conditions=>"taskid=#{session[:task].id}") %>
+			     <%=options_from_collection_for_select(schemas, "content", "name")%>
+			     <option value="-1">----</option>
+			     </select>
+			  </form>
+	   </td>
+	</tr>
+	<tr>
+		<td colspan=2>
+			<div id='unittree' class="clsTreeDiv">
+			<%= GenerateCheckBoxUnitTree(session[:task].id, "", "", 'unitdata1', '') %>
+			<script>
+                    function getCheckedValues()
+                    {
+                        result = new Array();
+                        <%roots = GetRootNodes(session[:task].id) 
+                        for root in roots%>
+                            result = result.concat(<%=root%>.getCheckedValue());
+                        <%end%>
+                        return result;
+                    }
+                </script>
+      </div>
+		</td>
+	</tr>
+	</table>
+</body>
+
+<script language="javascript">
+function onSelectSumSubmit()
+{
+	if(sumUnit.selectedIndex  == -1)
+	{
+		alert("请选择汇总单位，如果没有请创建选择汇总单位。");
+		return false;
+	}
+	form1.unitID.value= sumUnit.options[sumUnit.selectedIndex].value;
+
+	var selectedUnits= getCheckedValues();
+	if (pre_unit.unitschema.value!=-1)
+	{
+	   selectedUnits = pre_unit.unitschema.value;
+	}
+
+	//判断是否选择了单位
+    if(selectedUnits == null || selectedUnits.length == 0)
+    {
+        alert("请选择单位");
+        return false;
+    }
+
+    form1.unitIDs.value=selectedUnits;
+	
+	  return true;
+}
+
+function createSelectSumUnit()
+{
+	window.open("/sum/add_select_sum_node_dialog","addSelectSumUnitWin","status=no,width=500, height=120,top=75,left=300");
+}
+
+function appendSelectSumUnit(unitID, unitName)
+{
+	var oOption = document.createElement("OPTION");
+	oOption.text=unitID +" | " + unitName;
+	oOption.value=unitID;
+	sumUnit.add(oOption);
+	sumUnit.selectedIndex= sumUnit.options.length-1;
+}
+
+</script>
+</html>

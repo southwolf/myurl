@@ -1,0 +1,933 @@
+<%= stylesheet_link_tag 'tab.webfx.css' %>
+<%= javascript_include_tag 'tabpane' %>
+<style type="text/css">
+.dynamic-tab-pane-control .tab-page {
+	height:		450px;
+	overflow:	visible;
+}
+
+.dynamic-tab-pane-control .tab-page .dynamic-tab-pane-control .tab-page {
+	height:		420px;
+       overflow:	visible;
+}
+
+
+form {
+	margin:		4;
+	padding:	1;
+}
+
+/* over ride styles from webfxlayout */
+
+body {
+	margin:		0px;
+	width:		auto;
+	height:		auto;
+}
+
+.dynamic-tab-pane-control h2 {
+	text-align:	center;
+	width:		auto;
+}
+
+.dynamic-tab-pane-control h2 a {
+	display:	inline;
+	width:		auto;
+}
+
+.dynamic-tab-pane-control a1:hover {
+	background: transparent;
+}
+</style>
+
+<% helper = $TaskDesc[session[:task].strid].helper%> 
+<%=helper.StyleToHTML(helper.tables[0])%> 
+
+<script language= "javascript">
+
+var selectedFlag = "☆";
+
+//当前所有被选择的单位ID集合
+var unitIDselected = new Array();
+
+function hasSelectedItem(items)
+{
+    //条目不存在
+    if(items == null ){
+      return false;
+    }
+    selected = false;
+    if(items.length == null)
+    {
+        //只有一个选项
+        if(items.checked)
+            selected = true;
+    }
+    else
+    {
+        //存在多个个选项
+        for(i = 0;i < items.length;i++)
+        {
+            if(items[i].checked)
+                selected = true;
+        }
+    }
+    return selected;
+}
+
+/**
+ * 验证指标查询条件的有效性
+ * @return 有效，返回true；否则，返回false
+ */
+function validCondition()
+{
+
+    //创建日报任务时间元素
+    createTaskTimeOfDaily();
+    //判断是否选择了单位
+    
+    if(unitIDselected == null || unitIDselected.length == 0)
+    {
+        //alert("请选择单位");
+        //unitTabPage.select();
+        //return false;
+    }
+	
+    //判断是否选择了指标
+    if(!hasSelectedScalar() && !hasSelectedItem(document.getElementsByName("defineScalars")))
+    {
+        alert("请选择指标");
+        scalarTabPage.select();
+        return false;
+    }
+
+    //判断是否选择了任务时间
+    if(typeof(taskTimeTabPage) != "undefined" && !hasSelectedItem(document.getElementsByName("taskTimeIDs")))
+    {
+        alert("请选择任务时间");
+        taskTimeTabPage.select();
+        return false;
+    }
+
+    //产生选中的单位hidden input
+    createUnitIDHidden(unitIDselected);
+
+    //产生选中的指标hidden input
+    createScalarHidden();
+    
+    //产生选中的任务时间hidden input
+    createTaskTimeHidden();
+
+    return true;
+}
+
+/**
+ * 判断指标是否被选中
+ * @param oTd 代表指标的<td>对象
+ * @return 指标被选中，返回true；否则返回false
+ */
+function isScalarSelected(oTd)
+{
+    return (oTd.expression != null && oTd.innerText == selectedFlag);
+}
+
+/**
+ * 是否从表中选择了指标
+ * @return 从表中选择了指标，返回true；否则返回false
+ */
+function hasSelectedScalar()
+{
+    var oTds = document.getElementsByTagName("td");
+    for(var i = 0; i < oTds.length; i++)
+    {
+        if(isScalarSelected(oTds[i]))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function queryScalar()
+{
+    if(validCondition())
+    {
+    	form1.dictions.value = getCheckedDictions();
+    	
+        //提交请求
+        form1.action = "/scalarquery/query";
+        form1.submit();
+    }
+}
+
+function createScalarQueryTemplate()
+{
+    if(validTemplateName() && validCondition())
+    {
+        form1.action = "analyse?operation=createScalarQueryTemplate";
+        form1.submit();
+    }
+}
+
+function updateScalarQueryTemplate()
+{
+    if(validTemplateName() && validCondition())
+    {
+        form1.action = "analyse?operation=updateScalarQueryTemplate";
+        form1.submit();
+    }
+}
+
+function validTemplateName()
+{
+    form1.name.value = trim(form1.name.value);
+    if(form1.name.value == "")
+    {
+        alert("请输入模板名称");
+        return false;
+    }
+    return true;
+}
+
+var unitids;
+function createUnitIDHidden(unitIDs)
+{
+    var oInput;
+    var str = "";
+    for(var i = 0;i < unitIDs.length;i++)
+    {
+        if(unitIDs[i] != null)
+        {
+            if (str == "")
+            {
+                str = "'" + unitIDs[i] + "'";
+            }
+            else
+            {
+                str = str + "," + "'" + unitIDs[i] + "'";
+            }
+        }
+    }
+
+    if (unitids)
+    {
+        unitids.value = str;
+    }
+    else
+    {
+            oInput =document.createElement("input");
+            oInput.type = "hidden";
+            oInput.name = "unitIDs";
+            oInput.value = str;
+            document.form1.appendChild(oInput);
+            unitids = oInput
+    }
+}
+
+var tasktimes;
+function createTaskTimeHidden()
+{
+    var str = ""
+    var checks = document.getElementsByName("taskTimeIDs")
+    for (var i=0; i<checks.length; i++)
+    {
+        if (checks[i].checked)
+        {
+            if (str == "")
+            {
+                str = checks[i].value ;
+            }
+            else
+            {
+                str += "," + checks[i].value;
+            }
+        }
+    }
+    if (tasktimes)
+    {
+        tasktimes.value = str;
+    }
+    else
+    {
+        oInput =document.createElement("input");
+        oInput.type = "hidden";
+        oInput.name = "taskTimes";
+        oInput.value = str;
+        document.form1.appendChild(oInput);
+        tasktimes = oInput;
+    }
+    
+}
+
+var scalars;
+function createScalarHidden()
+{
+    var oInput;
+    var oTds = document.getElementsByTagName("td");
+    //expressions
+    
+    
+    var str = "";
+    for(var i = 0; i < oTds.length; i++)
+    {
+        if(isScalarSelected(oTds[i]))
+        {
+            //scalarName
+            oInput =document.createElement("input");
+            oInput.type = "hidden";
+            oInput.name = "scalarNames";
+            oInput.value = oTds[i].scalarName;
+            document.form1.appendChild(oInput);
+            
+            if (str == "")
+            {
+                str = oTds[i].expression;
+            }
+            else
+            {
+                str = str + "," + oTds[i].expression;
+            }
+            
+        }
+    }
+    
+    if (scalars)
+    {
+        scalars.value = str;
+    }
+    else
+    {
+        oInput =document.createElement("input");
+        oInput.type = "hidden";
+        oInput.name = "expressions";
+        oInput.value = str;
+        document.form1.appendChild(oInput);
+        scalars = oInput;
+    } 
+}
+
+/**
+ * 显示表的指标时，预选中指定的指标
+ */
+function preSelectScalar()
+{
+
+}
+
+function pressAKey()
+{
+	//按了回车键
+	if(window.event.keyCode == 13)
+	{
+		createDefineScalar();
+	}
+}
+
+/**
+ * 创建自定义指标
+ */
+function createDefineScalar()
+{
+	var name = document.getElementById("definde_name");
+	var expression = document.getElementById("definde_expression");
+
+	if(!validateInput(name, expression))
+	{
+		return false;
+	}
+
+    insertDefineScalar(name.value, expression.value);
+
+	//清空输入框
+	name.value = "";
+	expression.value = "";
+	name.focus();
+}
+
+/**
+ * 验证自定义指标是否正确
+ * param name 指标名称输入框对象
+ * param expression 指标表达式输入框对象
+ * return 正确，返回true；否则返回false
+ */
+function validateInput(name, expression)
+{
+    name.value = trim(name.value);
+    expression.value = trim(expression.value);
+
+	if(name.value == "")
+	{
+		alert("请输入指标名称");
+		name.focus();
+		return false;
+	}
+
+	if(expression.value == "")
+	{
+		alert("请输入指标表达式");
+		expression.focus();
+		return false;
+	}
+
+	return true;
+}
+
+function selectScalar(oTd)
+{
+	if(oTd.expression != null)
+	{
+		if(oTd.innerText == selectedFlag)
+		{
+			oTd.innerText = "　";
+		}
+		else
+		{
+			oTd.innerHTML = "<font color='red'>" + selectedFlag + "</font>";
+		}
+	}
+}
+
+  function addScalarTemplate(){
+  
+   window.location = '../servlet/analyse?operation=showCreateScalarQueryTemplatePage' //SHOW_SCALAR_CONDITION_PAGE //SHOW_CREATE_SCALAR_QUERY_TEMPLATE_PAGE
+   +"&mainMenuStatus="+"reportTD"+"&subMenuStatus="+"scalarTD";
+
+  }
+  
+    function displayTemplate(tempId){
+  
+   window.location = '../servlet/analyse?operation=showScalarConditionPage' //SHOW_SCALAR_CONDITION_PAGE //SHOW_CREATE_SCALAR_QUERY_TEMPLATE_PAGE
+   +"&mainMenuStatus="+"reportTD"+"&subMenuStatus="+"scalarTD"+"&tempId="+tempId;
+
+  }
+
+/**
+ * 在自定义指标表中加入一条记录
+ */
+function insertDefineScalar(name, expression)
+{
+    var checkBoxHTML = "<input type='checkbox' checked name='defineScalars' value='" + (name + "," + expression) +"'/>";
+
+	var oTable = document.getElementById("table_defineScalar");
+	var oRow = oTable.insertRow();
+        oRow.style.border = "black 1pt solid";
+	var oCell = oRow.insertCell();
+        oCell.style.border = "black 1pt solid";
+	oCell.innerHTML = checkBoxHTML;
+	oCell = oRow.insertCell();
+	oCell.innerText = name;
+	oCell = oRow.insertCell();
+	oCell.innerText = expression;
+}
+  
+  function changeUnit(unitID,unitName){
+  }
+  
+</script>
+
+
+</script>
+
+<script language="javascript">
+/**
+ * 点击树节点的check box触发此方法
+ */
+function checkTreeNode(nodeID,checked)
+{
+  setCheckedTreeNode(nodeID,checked,document.all.isContainChildren.checked);
+}
+
+/**
+ * check操作完成后的回调函数，覆盖缺省的实现
+ * 更新数组unitIDselected
+ */
+function afterCheck()
+{
+    //保存当前的unitIDselected
+    var oldUnitIDs = new Array();
+    for(var i = 0; i < unitIDselected.length; i++)
+    {
+        if(unitIDselected[i] != null)
+        {
+            oldUnitIDs[oldUnitIDs.length] = unitIDselected[i];
+        }
+    }
+    //状态改变的单位节点
+    var nodes = checkProperty.nodes;
+    //开始更新unitIDselected
+    for(var i = 0; i < nodes.length; i++)
+    {
+        //状态改变的单位节点的unitID在数组oldUnitIDs中的index
+        var index = null;
+        
+        if (nodes[i]._checkValue.indexOf('like') > -1)
+        		continue;
+        		
+        if (nodes[i]._checkValue == "")
+        		continue;
+
+        for(var j = 0; j < oldUnitIDs.length; j++)
+        {        			
+            if(nodes[i]._checkValue == oldUnitIDs[j]) //_checkValue
+            {
+                index = j;
+                break;
+            }
+        }
+
+        if(index == null)
+        {
+            if(nodes[i]._checked)
+            {
+                //将单位ID加到unitIDselected中
+                unitIDselected[unitIDselected.length] = nodes[i]._checkValue;
+            }
+        }
+        else
+        {
+            if(!nodes[i]._checked)
+            {
+                //从unitIDselected中去掉对应的单位ID
+                for(k = 0; k < unitIDselected.length; k++)
+                {
+                    if(unitIDselected[k] == nodes[i]._checkValue)
+                    {
+                        unitIDselected[k] = null;
+                    }
+                }
+            }
+        }
+    }
+}
+
+</script>
+
+<form name="form1" method="post" target="_blank">
+
+
+<input type="hidden" name="dictions">
+<div class="tab-pane" id="conditionPane" style="display:none">
+<script>
+   Effect.Appear('conditionPane');
+</script>
+
+<script type="text/javascript">
+    var conditionPane = new WebFXTabPane( document.getElementById( "conditionPane" ),false);
+</script>
+
+   <div class="tab-page"  id="unit-tab-page">
+      <h2 class="tab">单位&nbsp;</h2>
+      <script type="text/javascript">
+           var unitTabPage = conditionPane.addTabPage( document.getElementById( "unit-tab-page" ) );
+      </script>
+      <table height="100%" width="100%">
+            <tr>
+                <td class="TdLight" width=20% height=100%>
+                    <div class="clsTreeDiv">
+                    <%= GenerateCheckBoxUnitTree(session[:task].id, "", "", 'unitdata1', '') %>
+<script language='javascript'>
+//获得选项值的方法，返回一个数组，没有选择任何值则返回空
+function getCheckedValues()
+{
+ result = new Array();
+<%roots = GetRootNodes(session[:task].id) 
+ for root in roots%>
+    result = result.concat(<%=root%>.getCheckedValue());
+ <%end%>
+return result;
+}
+</script>
+</div>
+                </td>
+            </tr>
+            <tr><td><input type="checkbox" name="isContainChildren" checked>包含下级单位</td></tr>
+      </table>
+
+   </div>
+
+   
+   <div class="tab-page" id="scalar-tab-page">
+      <h2 class="tab">指标&nbsp;</h2>
+      <script type="text/javascript">
+      var scalarTabPage = conditionPane.addTabPage( document.getElementById( "scalar-tab-page" ) );
+      </script>
+
+			
+			<div class="tab-pane" id="taskPane"  onclick="selectScalar(window.event.srcElement)">
+    <script type="text/javascript">
+    var taskPane = new WebFXTabPane( document.getElementById( "taskPane" ),false);
+
+    function getSelectedID()
+    {
+    if(taskPane!=null && taskPane.selectedIndex!=null)
+    {
+        return taskPane.pages[taskPane.selectedIndex].element.id;
+    }else
+    {
+        return "";
+    }
+    }
+    </script>
+    <% for tables in @tablesarray%>
+        <% tables.each {|key, value| %>
+            <div class="tab-page" id="<%=key%>">
+             <h2 class="tab"><%= key%></h2>
+             <script type="text/javascript">
+                 var <%=key%> = taskPane.addTabPage( document.getElementById( "<%=key%>" ) );
+              </script>
+             <table width="100%" height="100%" border="0">
+                 <%= value%>
+             </table>
+            </div>
+        <%}%>
+    <%end%>
+    
+</div>
+			<div class="tab-page" id="page_defineScalar">
+				<h2 class="tab">自定义指标&nbsp;</h2>
+
+      <script type="text/javascript">
+      taskPane.addTabPage( document.getElementById( "page_defineScalar" ) );
+      </script>
+
+<table id = "table_defineScalar" border=1 style="border-collapse:collapse">
+<tr>
+<td>&nbsp;</td>
+<td>指标名称</td>
+<td>指标表达式</td>
+</tr>
+</table>
+
+<br>
+<table border=0>
+<tr>
+    <td>&nbsp;名称:</td>
+    <td valign="top"><input style="HEIGHT: 22px; WIDTH: 180px " id="definde_name"
+
+    onkeypress="pressAKey()"/></td>
+</tr>
+<tr>
+    <td valign=top>&nbsp;表达式:&nbsp; </td>
+    <td><textarea id="definde_expression" rows="7" style="width:450" cols="30"></textarea></td>
+</tr>
+<tr>
+     <td align="left" colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="button" value="添加"
+
+     onclick="createDefineScalar()"></td>
+</tr>
+</table>
+
+		</div>
+   </div>
+
+<script language="javascript">
+preSelectScalar();
+</script>
+   
+   <div class="tab-page" id="taskTime-tab-page">
+      <h2 class="tab">任务时间&nbsp;</h2>
+      <script type="text/javascript">
+      var taskTimeTabPage = conditionPane.addTabPage( document.getElementById( "taskTime-tab-page" ) );
+      </script>
+<!--月报：日期选择－－－－－－－－－－－－－－-->
+
+    <table border=0 cellSpacing=0 cellPadding=8>
+    <tr>
+        <% index = 1%>
+        <% for tasktime in @tasktimes%>
+            <td><input type="checkbox" name="taskTimeIDs" value="<%=tasktime.id%>"/><%=GetTaskTimeDescString(tasktime)%></td>
+            <% if index > 4 %>
+                </tr><tr>
+                <% index = 1%>
+            <% else%>
+                <% index += 1%>    
+            <% end%>
+            
+        <% end %>
+          
+    </tr>
+    </table>
+<!--日报：日期选择－－－－－－－－－－－－－－-->
+
+
+</div>
+
+<div class="tab-page" id="condition-tab-page">
+      <h2 class="tab">选择条件&nbsp;</h2>
+      <script type="text/javascript">
+      var selectCondition = conditionPane.addTabPage( document.getElementById( "condition-tab-page" ) );
+      </script>
+<table class="clsContentListTable" cellPadding=0 cellspacing=0 border=0 height="100%">
+<tr height="90%">
+	<td height="100%">
+		<div class="clsTreeDiv">
+			<script>
+			<% helper = $TaskDesc[session[:task].strid].helper  
+   			trees = Array.new
+   			fmtable = helper.tables[0]
+   			Integer(0).upto(fmtable.GetRowCount()-1) do |row|
+   	 			Integer(0).upto(fmtable.GetColumnCount()-1) do |col|
+   	 				cell = fmtable.GetCell(row, col)
+   	 				next if !cell.IsEffective
+   	 				if cell.GetInputType() == CCell::ItComboBox
+   	 				    next if !helper.dictionFactory.GetDictionByID(cell.GetDictName())
+   	 				    
+		   	 			cellname = fmtable.GetCellDBFieldName(row, col)
+   	 					%>   	 	
+   	 	
+   			 			tree<%= cell.GetDictName() %> = new WebFXCheckBoxLoadTree("<%=helper.dictionFactory.GetDictionByID(cell.GetDictName()).Name %>", false, "", "/unittree/getdiction?task='<%=session[:task].strid%>'&diction=<%=cell.GetDictName()%>&cellname=<%=fmtable.GetTableID%>.<%=cellname%>", '');
+		   			 	tree<%= cell.GetDictName() %>.icon = "/img/icon_0.gif";
+   	 					tree<%= cell.GetDictName() %>.openIcon = "/img/icon_0.gif"; 
+				   	 	tree<%= cell.GetDictName() %>.setBehavior('classic');
+				   	 	tree<%= cell.GetDictName() %>.kind = "dict"
+				   	 	document.write(tree<%= cell.GetDictName() %>);
+   	 					<%
+  		 	 			trees << "tree" + cell.GetDictName().to_s;
+   	 				end
+   	 		end
+   		end
+%>
+</script>
+					<script language='javascript'>
+                    //获得选项值的方法，返回一个数组，没有选择任何值则返回空
+                    function getCheckedDictions()
+                    {
+                        result = new Array();
+                        <% for tree in trees %>
+                            //result = result .concat(<%=tree%>.getCheckedValue());
+                            result += <%=tree%>.getCheckedValue() + "-";
+                        <% end %>
+                        return result;
+                    }
+                    </script>
+				
+		
+		</div>	
+	</td>
+</tr>
+<!--
+<tr><td><input type="checkbox" name="isContainChildren" checked>包含下级节点</td></tr>
+-->
+</table>  
+</div>  
+
+</div>
+
+  
+
+<input type="button" value="查询" onclick="queryScalar()">
+
+
+</form>
+
+<script language="javascript">
+//设置首先显示的tab
+
+    unitTabPage.select();
+
+//日报－>任务日期脚本
+//任务日期数组
+  var dateInfos = new Array();
+     
+        dateInfos[0] = new Array;
+        dateInfos[0][0] = "144";
+        dateInfos[0][1] = "2006-01-01";
+      
+        dateInfos[1] = new Array;
+        dateInfos[1][0] = "145";
+        dateInfos[1][1] = "2007-01-01";
+      
+        dateInfos[2] = new Array;
+        dateInfos[2][0] = "146";
+        dateInfos[2][1] = "2008-01-01";
+      
+        dateInfos[3] = new Array;
+        dateInfos[3][0] = "147";
+        dateInfos[3][1] = "2009-01-01";
+      
+        dateInfos[4] = new Array;
+        dateInfos[4][0] = "148";
+        dateInfos[4][1] = "2010-01-01";
+      
+        dateInfos[5] = new Array;
+        dateInfos[5][0] = "149";
+        dateInfos[5][1] = "2011-01-01";
+      
+        dateInfos[6] = new Array;
+        dateInfos[6][0] = "150";
+        dateInfos[6][1] = "2012-01-01";
+      
+        dateInfos[7] = new Array;
+        dateInfos[7][0] = "151";
+        dateInfos[7][1] = "2013-01-01";
+      
+        dateInfos[8] = new Array;
+        dateInfos[8][0] = "152";
+        dateInfos[8][1] = "2014-01-01";
+      
+        dateInfos[9] = new Array;
+        dateInfos[9][0] = "153";
+        dateInfos[9][1] = "2015-01-01";
+      
+//表格换行标识
+var newTableflag = 0;
+var newRowflag = 0;
+//创建表格
+   var oRow, oCell;
+  function createTable(dateText){
+
+  if(newTableflag==0){
+     oRow = oTHead0.insertRow();
+     newTableflag=1;
+    }
+    if(newRowflag==0){
+     oRow = oTBody0.insertRow();
+    }
+  oCell = oRow.insertCell();
+  oCell.innerText = dateText;
+  newRowflag++;
+  if(newRowflag==10){
+    newRowflag=0;
+  }
+ }
+//判断日期是否在数据库里
+function judgeDate(date){
+  for(var i=0;i<dateInfos.length;i++){
+    if(dateInfos[i][1]==date){
+      return true;
+    }
+  }
+  return false;
+}
+//判断日期是不是已经添加到表格里面
+ function judgeDateInTable(date){
+ oTbl = document.getElementById("oTable");
+ oCells = oTbl.cells;
+  for(var j=0;j<oCells.length;j++){
+   if(oCells[j].innerText==date){
+      return true;
+   }
+  }
+  return false;
+ }
+//添加一个日期
+function addDate(){
+  if(form1.oneTime.value==""){
+    alert("请选择日期!");
+    return;
+  }
+  if(!judgeDate(form1.oneTime.value)){
+    alert("所选日期没有数据，请重新选择!");
+    return;
+  }
+  if(judgeDateInTable(form1.oneTime.value)){
+    alert("您已经添加了此日期，请重新选择!");
+    return;
+  }
+  createTable(form1.oneTime.value);
+}
+//添加时间段
+function addDatePeriod(){
+  if(form1.start.value==""){
+    alert("请选择开始日期!");
+    return;
+  }
+  if(form1.end.value==""){
+    alert("请选择结束日期!");
+    return;
+  }
+    var startTime = isDate(form1.start.value);
+    var endTime = isDate(form1.end.value);
+
+    if(startTime && endTime)
+    {
+        if(compareDate(startTime, endTime) > 0)
+        {
+            alert("开始时间必须在结束时间之前");
+            return false;
+        }
+    }
+    flag = false;
+    for(var i=0;i<dateInfos.length;i++){
+    if(dateInfos[i][1]==form1.start.value){
+       flag=true;
+    }
+    if(flag){
+        if(!judgeDateInTable(dateInfos[i][1])){
+            createTable(dateInfos[i][1]);
+        }
+
+    }
+    if(dateInfos[i][1]==form1.end.value){
+      return;
+    }
+  }
+}
+//根据日期文本找到id
+function lookForTaskTimeId(date){
+    for(var i=0;i<dateInfos.length;i++){
+    if(dateInfos[i][1]==date){
+       return dateInfos[i][0];
+    }
+  }
+}
+//创建日报任务时间
+function createTaskTimeOfDaily(){
+
+  return;
+
+   oTbl = document.getElementById("oTable");
+   oCells = oTbl.cells;
+   var taskTimeid;
+   for(var i=0;i<oCells.length;i++){
+       for(var j=0;j<dateInfos.length;j++){
+          if(dateInfos[j][1]==oCells[i].innerText){
+          taskTimeid = dateInfos[j][0];
+        }
+      }
+     createFormData(taskTimeid);
+   }
+
+}
+function createFormData(value){
+
+            oInput =document.createElement("<input name='taskTimeIDs' checked/>");
+            oInput.type = "checkbox";
+            oInput.value = value;
+
+
+oDiv = document.getElementById( "dataOfForm" );
+oDiv.appendChild(oInput);
+
+}
+function clearTableOfTime(){
+    //thead
+	j=oTHead0.rows.length;
+	for(var i=0; i<j; i++){
+		oTHead0.deleteRow(0);
+	}
+    //tbody
+	j=oTBody0.rows.length;
+	for(var i=0; i<j; i++){
+		oTBody0.deleteRow(0);
+	}
+  newTableflag=0;
+}
+
+unitIDselected=getCheckedValues();
+</script>
+
+<script language="javascript">
+   function ondel(templateID){
+      if(confirm('确定删除吗?')){
+       window.location = '../servlet/analyse?operation=deleteScalarQueryTemplate4Server' 
+   +"&templateID="+templateID;
+      }else{
+      	return;
+      }
+   }
+   
+  
+</script>

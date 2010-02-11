@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%= stylesheet_link_tag 'main' %>
+<%= javascript_include_tag 'function' %>
+</head>
+<style type="text/css">
+.xsltTr
+{
+    BORDER-RIGHT: black 1pt solid;
+    PADDING-RIGHT: 1pt;
+    BORDER-TOP: black 1pt solid;
+    PADDING-LEFT: 1pt;
+    PADDING-BOTTOM: 1pt;
+    BORDER-LEFT: black 1pt solid;
+    PADDING-TOP: 1pt;
+    BORDER-BOTTOM: black 1pt solid;
+    BACKGROUND-COLOR: #fbfbfb
+}
+</style>
+<body style="BACKGROUND-COLOR: #fbfbfb">
+<form name="form1" action="task?operation=uploadSetup" method="post">
+<input type="hidden" name="uploadType" value="webservice">
+	<table id="setupTbl" width="100%" height="100%" border=0>
+
+		<tr class="xsltTr">
+			<td  align="center" width=30%>
+				直报地址:
+			</td>
+			<td id="wsURL">
+				<input type="text" name="wsURL" value="http://localhost:8080/apollo" size=33>
+			</td>
+		</tr>
+
+		<tr class="xsltTr">
+			<td align="center" width=30%>
+				用户名:
+			</td>
+			<td>
+				<input type="text" name="userName" value="admin">
+			</td>
+		</tr>
+		<tr class="xsltTr">
+			<td align="center" width=30%>
+				密码:
+			</td>
+			<td>
+				<input type="text" name="password" value="password">
+			</td>
+		</tr>
+		<tr class="xsltTr">
+			<td>
+
+			</td>
+			<td>
+				<input type="submit" value="更新配置" onclick="return checkValue()">
+			</td>
+		</tr>
+	</table>
+</form>
+<script language="javascript">
+function checkValue(){
+	var tdName = document.all("setupTbl").cells(1).id;
+    	var tdContext = document.all("setupTbl").cells(0).innerText;
+	if(isNull(trim(eval("form1."+tdName+".value")))){
+		alert(tdContext+"不能为空!");
+		eval("form1."+tdName).focus();
+		return false;
+	}
+	if(isNull(trim(form1.userName.value))){
+		alert("用户名不能为空!");
+		form1.userName.focus();
+		return false;
+	}
+	if(isNull(trim(form1.password.value))){
+		alert("密码不能为空!");
+		form1.password.focus();
+		return false;
+	}
+	var value = trim(eval("form1."+tdName+".value"));
+        if((tdName=="wsURL" && value=='http://localhost:8080/apollo') || (tdName=="email" && value=='wjb@youtong.com.cn')){
+		if(trim(form1.userName.value)=='admin' && trim(form1.password.value)=='password'){
+			alert("值未改变，不需要更新!");
+			return false;
+		}
+        }
+	return true;
+
+}
+if(null==true){
+	alert("系统配置更新成功!");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<html>
+<%@title='友通捷报V9.0'%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>任务管理</title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+ 
+ 
+<% render :partial => '/share/tabcss'%>
+ 
+<STYLE TYPE='text/css'>
+.parent {visibility:visible;MARGIN: 0px;BACKGROUND-COLOR: #f2f2f0}
+.child {display:none;BACKGROUND-COLOR: #f2f2f0;margin-top:5}
+.clsTaskMenu{
+    BACKGROUND-COLOR: #e7e7e4;
+    BORDER-right: 1 solid #c9cfe9;
+    BORDER-left: 1 solid #c9cfe9;
+    margin:0;
+    OVERFLOW: auto;
+    WIDTH: 98%;
+    HEIGHT: 100%
+}
+.clsMain{
+             FONT-SIZE: 9pt;margin:0;
+             COLOR: black
+}
+.clsTop{
+             FONT-SIZFDFDE: 9pt;BACKGROUND-COLOR: #e7e7e4;
+             COLOR: black;margin:0
+}
+.clsChild{
+             margin:0;FONT-SIZE: 9pt;COLOR: blue
+
+}
+A:hover{text-decoration:underline;color: black}
+</STYLE> 
+ 
+</head>
+<body>
+
+<%= render :partial => '/share/head' %>
+
+<!-- 菜单区域 -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr><td colspan=4 height=2></tr>
+	<tr>
+
+		<!-- 当前子菜单 -->
+		<td height="100%" width=2>
+		
+		 </td>
+
+		<td background ="/img/tab_stripes.jpg">
+    <div id="notice" align="center"></div>
+		  <script language="javascript">
+        function setNotice(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='background:#FFFF00;'>" + notice + "</span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 2250)
+        }
+        function setError(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='color:#FF0000; padding:4px 10px;'><b>" + notice + "</b></span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 10000)
+        }
+        <% if @flash[:notice] %>
+            setNotice('<%=@flash[:notice]%>')
+        <% end %>
+        <% if flash[:error] %>
+            setError('<%=flash[:error]%>')
+        <% end %>
+        </script>
+		</td>
+				<td width=2></td>
+		 <!-- 下拉主菜单 -->
+         <td valign="top" align='right' width=10 nowrap>
+				<%= render :partial=>'/share/taskselect' %>
+	       </select>
+         </td>
+	</tr>
+	<tr><td colspan=4 height="2"  style="background-color: black"></td></tr>
+</table>
+
+<%= @content_for_layout %>
+
+<%= render :partial =>'/share/foot'%>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<script language="JavaScript">
+    function cancel()
+    {
+     close();
+    }
+</script>
+
+<% cand_groups = YtaplGroup.find(:all, :conditions=>"groupid not in (select groupid from ytapl_groupmember where userid = #{@user.id})") %>
+<% sel_groups = YtaplGroup.find(:all, :conditions=>"groupid in (select groupid from ytapl_groupmember where userid = #{@user.id})")%>
+
+
+<%= start_form_tag({:action => 'update', :id=>@user}, {:name=>"form1"}) %>
+  <%= render :partial => 'form', :locals=>{:cand_groups => cand_groups, :sel_groups=> sel_groups} %>
+<%= end_form_tag %>
+

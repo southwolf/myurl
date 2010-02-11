@@ -1,0 +1,33 @@
+<%= stylesheet_link_tag 'sortabletable' %>
+<%= javascript_include_tag 'sortabletable' %>
+
+<font color='red'><%=@unitname%></font>数据透视结果：
+<table class="clsContentListTable" id="table-1" border=1 cellspacing="0">
+ <thead>
+      <tr class="clsTrHeader">
+         <td align='center'>时间</td>
+         <% for cell in @scalars %>
+            <td align='center'><%=cell%></td>
+         <%end%>
+      </tr>
+ </thead>
+ <tbody> 
+  <%index=0%>
+  <%tasktimes = @matrix.keys.sort%>
+  <%for tasktime in tasktimes%>
+  <%=ColorRow(index)%>
+    <%index += 1%>
+    <td align='center'><%=tasktime%></td>
+    <% for cell in @cells %>
+            <td align='right'>
+            <%=@matrix[tasktime][cell.split('.')[1]] if @matrix[tasktime]%>
+            </td>
+    <%end%>
+  </tr>
+  <%end%>
+ </tbody> 
+</table>
+
+<script type="text/javascript">
+var st1 = new SortableTable(document.getElementById("table-1"), ["String", <%="\"Number\","*@scalars.size%>]);
+</script>

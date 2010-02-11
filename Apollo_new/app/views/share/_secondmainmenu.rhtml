@@ -1,0 +1,157 @@
+<table cellspacing="0" border="0" cellpadding="0" height="100%">
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <% if controller.controller_name == "main" && controller.action_name == 'index'%>
+     <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		 </td>
+					
+    <%    classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to( "网上直报",{:controller => 'main', :action => 'index'}, {:class=>clrstr})%> &nbsp;
+</td>
+<td><IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    
+    
+    <% if controller.controller_name == "transfer" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+					
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+    <%=link_to("数据传送", {:controller => 'transfer', :action => 'index'}, {:class=>clrstr})%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+<% if CheckRight(session[:user].id, "审核")%>
+    <% if controller.controller_name == "audit" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to("数据审核", {:controller => 'audit', :action => 'index'}, {:class=>clrstr})%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+<% end %>
+
+    
+    
+    <% if controller.controller_name == "sum" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "数据汇总", {:controller => 'sum', :action => 'index'},{:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    <% if controller.controller_name == "templatequery" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "快速查询", {:controller => 'templatequery', :action => 'index'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+    <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    
+    <% if controller.controller_name == "scalarquery" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "指标查询", {:controller => 'scalarquery', :action => 'index'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+        
+    
+<!--   
+   <% if controller.controller_name == "ytnews" && controller.action_name == 'list'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "最新通知", {:controller => 'ytnews', :action => 'list'}, {:class=>clrstr}%>&nbsp;
+    </td>
+    <td vAlign="center"><IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0></td>
+</tr>
+-->
+</table>

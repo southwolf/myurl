@@ -1,0 +1,65 @@
+<%@title = "通知"%>
+<br>
+<div id='topnode' style="display:none">
+<script>
+   Effect.Appear('topnode');
+</script>
+
+<table width=80% class='clsContentListTable'>
+
+<% if CheckRight(session[:user].id, "管理通知")%>
+<tr>
+  <td>
+    <%= link_to '添加新信息', :action => 'new' %>
+  </td>
+</tr>
+<% end%>
+
+<tr class="clsTrHeader">
+   <td align="center" width = 70%>通知标题</td>
+   <td align="center" width = 10%>发布日期</td>
+   <% if CheckRight(session[:user].id, "管理通知")%>
+    <td align="center" colspan="3" width = 20%>操作</td>
+   <% end %>
+</tr>
+  
+ <% index =0 %>
+ <%for ytnews in @ytnews %>
+   <%=ColorRow(index)%>
+   <td>
+    <span class="ListTitle"><%= link_to "#{h(ytnews.title)}", :action => 'show', :id => ytnews %></span>
+   </td>
+   <td align="center">
+    <%=ytnews.publish_time.strftime("%Y-%m-%d")%>
+   </td>
+    
+    <% if CheckRight(session[:user].id, "管理通知")%>
+    <td><%= link_to '浏览历史', :action => 'browse_log', :id => ytnews %></td>
+    <td><%= link_to '编辑', :action => 'edit', :id => ytnews %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => ytnews }, :confirm => '确定删除当前通知吗?', :post => true %></td>
+    <% end%>
+  </tr>
+  
+<% index += 1%>  
+<% end %>
+<tr><td>&nbsp;&nbsp</td></tr>
+<tr>
+                 <td align="right" colspan=4>
+                          共有通知:<%=Ytnews.count()%>;
+                          每页:10行&nbsp;;
+                          当前第<%= @ytnews_pages.current_page.offset/10 +1 %>页/
+                          共<%= @ytnews_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @ytnews_pages.first} if @ytnews_pages.current != @ytnews_pages.first %>
+                        <%= link_to '上一页', { :page => @ytnews_pages.current.previous } if @ytnews_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @ytnews_pages.current.next } if @ytnews_pages.current.next %> 
+                        <%= link_to '最后一页', { :page =>@ytnews_pages.last} if @ytnews_pages.current != @ytnews_pages.last %>
+                 </td>
+             </tr>
+</table>
+</div>
+
+<br />
+
+

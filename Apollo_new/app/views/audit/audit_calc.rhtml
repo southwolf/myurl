@@ -1,0 +1,17 @@
+
+<script language=javascript>
+parent.document.all.dispinfo.style.display='none';
+function openData(unitID,timeID)
+{
+    window.open('/main/getunitdata?unitID='+unitID+'&taskTimeID='+timeID,'_blank');
+}
+</script>
+
+
+<br>
+
+<table width=100% cellspacing=1 cellpadding=0 border=0>
+	   <tr  class=clsTrHeader>
+		  <td width="100%">共运算了<%=@audit_count||0%>家单位。</td>
+	   </tr>
+</table>

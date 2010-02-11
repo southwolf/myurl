@@ -1,0 +1,97 @@
+<script language="javascript">
+function queryEvent()
+{
+    //检查时间范围
+    var form1 = document.forms[0];
+    
+    var startTime = isDate(form1.from.value);
+    var endTime = isDate(form1.to.value);
+
+    if(startTime && endTime)
+    {
+        if(startTime > endTime)
+        {
+            alert("开始时间必须在结束时间之前");
+            return false;
+        }
+    }
+
+    //给时间加上时分秒
+    //form1.startTime.value = form1.start.value;
+    //form1.endTime.value = form1.end.value;
+
+    if(endTime)
+    {
+        form1.to.value = form1.to.value + " 23:59:59";
+    }
+    
+    form1.logtype.value = "";
+    var elements = document.getElementsByName("types");
+    for (var i=0; i<elements.length; i++)
+    {
+    	if (elements[i].checked)
+    		form1.logtype.value += elements[i].value + ",";
+    }
+    form1.logtype.value = form1.logtype.value.substr(0, form1.logtype.value.length -1);
+    form1.onsubmit();
+}
+
+</script>
+
+<%= form_remote_tag(:update => 'eventslist', :url => {:controller =>'log',:action => 'list'} ) %>
+<input type="hidden" name="logtype"/>
+<table>
+ <tr>
+    <td>    
+        事件类型:&nbsp;&nbsp;&nbsp;<input type="checkbox" name="types" value="2" />&nbsp;信息&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td>
+       <input type="checkbox" name="types" value="1" />&nbsp;警告&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td>
+       <input type="checkbox" name="types" value="0" />&nbsp;错误&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td>
+      <input type="checkbox" name="types" value="3" />&nbsp;成功审核&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td>
+      <input type="checkbox" name="types" value="4" />&nbsp;失败审核&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+ </tr>
+</table>
+<table>
+ <tr>
+  <td>
+   &nbsp;从&nbsp;&nbsp;&nbsp;<input readonly type="text" name="from" onclick="getDateString(this,oCalendarChs)" value="">
+  </td>
+  <td>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到&nbsp;&nbsp;&nbsp;
+   <input readonly type="text" name="to" onclick="getDateString(this,oCalendarChs)" value="">
+  </td>
+ </tr>
+ <tr>
+  <td>
+   &nbsp用户:<input type="text" name="username" size=20>
+  </td>
+  <td>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;来源:
+   <input type="text" name="source" size=20>
+  </td>
+  <td>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;描述:
+   <input type="text" name="memo" size=20>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <button onclick="queryEvent()">查询</button>
+  </td>
+ </tr>
+</table>
+<%= end_form_tag %>
+<br>
+
+<div id="eventslist">
+
+</div>
+

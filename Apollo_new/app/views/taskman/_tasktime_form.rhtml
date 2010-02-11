@@ -1,0 +1,34 @@
+<%= javascript_include_tag 'time.js'%>
+<script >
+
+var oCalendarEn=new PopupCalendar("oCalendarEn");
+oCalendarEn.Init();
+
+
+var oCalendarChs=new PopupCalendar("oCalendarChs");
+oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+oCalendarChs.oBtnTodayTitle="今天";
+oCalendarChs.oBtnCancelTitle="取消";
+oCalendarChs.Init();
+</script>
+
+<!--[form:plan]-->
+<table border="1" cellpadding="0" cellspacing="0">
+<br>
+<tr>
+ <td>开始时间:&nbsp;&nbsp;<%= text_field 'tasktime', 'begintime', {:onclick=>"getDateString(this,oCalendarChs)"}%></td>
+ <td>结束时间:&nbsp;&nbsp;<%= text_field 'tasktime', 'endtime', {:onclick=>"getDateString(this,oCalendarChs)"}%></td>
+</tr>
+
+<tr>
+<td>填报开始时间:<%= text_field 'tasktime', 'submitbegintime', {:onclick=>"getDateString(this,oCalendarChs)"}%></td>
+<td>填报截止时间:<%= text_field 'tasktime', 'submitendtime', {:onclick=>"getDateString(this,oCalendarChs)"}%></td>
+</tr>
+
+
+</table>
+
+	
+<!--[eoform:plan]-->
+

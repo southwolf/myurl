@@ -1,0 +1,26 @@
+<table class="clsContentListTable">
+  <tr height=20 class="clsTrContext">
+    <td align=center colspan=5>检查结果:<%='通过' if @result.size == 0%></td>
+  </tr>
+  <tr class="clsTrHeader" height=20px>
+    <td nowrap>序号</td>
+    <td nowrap>单位</td>
+    <td nowrap>第一张出错的表</td>
+    <td nowrap>第一个错误的指标</td>
+    <td nowrap>描述</td>
+  </tr>
+  
+ <% index = 0%>
+ <% for value in @result%>
+  <%=ColorRow(index)%>
+    <td><%=index%></td>
+    <td><%=value[1]%><br>(<%=value[0]%>)</td>
+
+    <td><%=value[2]%><br>(<%=value[2]%>)</td>
+
+    <td><%=value[4]%></td>
+    <td>差值（<%=value[5] - value[6]%>） ＝ 汇总表（<%=value[4]%>） － 子单位汇总结果（<%=value[5]%>）</td>
+  </tr>
+ <% index += 1%>
+ <% end %>
+</table>

@@ -1,0 +1,66 @@
+<br>
+<table class="clsContentListTable">
+
+<tr class="clsTrHeader">
+   <td align="center" width = "100px">类型</td>
+   <td align="center" width = "200px">时间</td>
+   <td align="center" width = "100px">用户</td>
+   <td align="center" width = "150px">来源</td>
+   <td align="center" width = "450px">说明</td>
+</tr>
+  
+ <% index =0
+    info ='信息'
+  %>
+ <%for ytsecurityeventss in @ytsecurityeventss %>
+   <%=ColorRow(index)%>
+   <td>
+    <%if ytsecurityeventss.eventtype==0
+        info='错误'
+      elsif ytsecurityeventss.eventtype==1
+        info='警告'
+      elsif ytsecurityeventss.eventtype==2
+        info='信息'
+      elsif ytsecurityeventss.eventtype==3
+        info='成功审核'
+      elsif ytsecurityeventss.eventtype==4
+        info='失败审核'
+      else
+        info='信息'
+      end
+    %>
+    <span class="ListTitle"><%="#{h(info)}"%></span>
+   </td>
+   <td align="center">
+    <%=ytsecurityeventss.timeoccured.strftime("%Y-%m-%d") if ytsecurityeventss.timeoccured!=nil%>
+   </td>
+   <td align="center">
+    <%=ytsecurityeventss.username if ytsecurityeventss.username!=nil%>
+   </td>
+   <td align="center">
+    <%=ytsecurityeventss.source if ytsecurityeventss.source!=nil%>
+   </td>
+   <td align="center">
+    <%=ytsecurityeventss.memo if ytsecurityeventss.memo!=nil%>
+   </td>
+  </tr>
+  
+<% index += 1%>  
+<% end %>
+<tr><td>&nbsp;&nbsp</td></tr>
+<tr>
+                 <td align="right" colspan=4>
+                          共有记录:<%=Ytsecurityevents.count()%>;
+                          每页:20行&nbsp;;
+                          当前第<%= @ytsecurityeventss_pages.current_page.offset/20 +1 %>页/
+                          共<%= @ytsecurityeventss_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @ytsecurityeventss_pages.first} if @ytsecurityeventss_pages.current != @ytsecurityeventss_pages.first %>
+                        <%= link_to '上一页', { :page => @ytsecurityeventss_pages.current.previous } if @ytsecurityeventss_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @ytsecurityeventss_pages.current.next } if @ytsecurityeventss_pages.current.next %> 
+                        <%= link_to '最后一页', { :page =>@ytsecurityeventss_pages.last} if @ytsecurityeventss_pages.current != @ytsecurityeventss_pages.last %>
+                 </td>
+             </tr>
+</table>
+<br />

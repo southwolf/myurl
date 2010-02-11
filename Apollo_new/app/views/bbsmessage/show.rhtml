@@ -1,0 +1,16 @@
+﻿
+
+<center><h4><%= h(@bbsmessage.title)%></h4></center>
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= @bbsmessage.content %>
+</p>
+<p></p>
+<p>
+<div align="right">发布日期：<%= @bbsmessage.time.strftime("%Y-%m-%d")%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+</p>
+<div align="center">
+<%= link_to '返回', :action => 'list' %>
+</div>

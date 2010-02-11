@@ -1,0 +1,88 @@
+<br>
+<table class="clsContentListTable">
+  <tr class="clsTrHeader">
+   <td align="center" width = "100px">类型</td>
+   <td align="center" width = "200px">时间</td>
+   <td align="center" width = "100px">用户</td>
+   <td align="center" width = "150px">来源</td>
+   <td align="center" width = "450px">说明</td>
+ </tr>
+ <% index =0
+    info ='信息'
+  %>
+ <%if @total_events!=nil%>
+ <%for dataevents in @total_dataevents %>
+   <%=ColorRow(index)%>
+   <td>
+    <%if dataevents.eventtype==0
+        info='错误'
+      elsif dataevents.eventtype==1
+        info='警告'
+      elsif dataevents.eventtype==2
+        info='信息'
+      elsif dataevents.eventtype==3
+        info='成功审核'
+      elsif dataevents.eventtype==4
+        info='失败审核'
+      else
+        info='信息'
+      end
+    %>
+    <span class="ListTitle"><%="#{h(info)}"%></span>
+   </td>
+   <td align="center">
+    <%=dataevents.timeoccured.strftime("%Y-%m-%d") if dataevents.timeoccured!=nil%>
+   </td>
+   <td align="center">
+    <%=dataevents.username if dataevents.username!=nil%>
+   </td>
+   <td align="center">
+    <%=dataevents.source if dataevents.source!=nil%>
+   </td>
+   <td align="center">
+    <%=dataevents.memo if dataevents.memo!=nil%>
+   </td>
+  </tr>
+  
+<% index += 1%>  
+<% end %>
+<%end%>
+
+<%if @total_securityevents!=nil%>
+<%for securityevents in @total_securityevents %>
+   <%=ColorRow(index)%>
+   <td>
+    <%if securityevents.eventtype==0
+        info='错误'
+      elsif securityevents.eventtype==1
+        info='警告'
+      elsif securityevents.eventtype==2
+        info='信息'
+      elsif securityevents.eventtype==3
+        info='成功审核'
+      elsif securityevents.eventtype==4
+        info='失败审核'
+      else
+        info='信息'
+      end
+    %>
+    <span class="ListTitle"><%="#{h(info)}"%></span>
+   </td>
+   <td align="center">
+    <%=securityevents.timeoccured.strftime("%Y-%m-%d") if securityevents.timeoccured!=nil%>
+   </td>
+   <td align="center">
+    <%=securityevents.username if securityevents.username!=nil%>
+   </td>
+   <td align="center">
+    <%=securityevents.source if securityevents.source!=nil%>
+   </td>
+   <td align="center">
+    <%=securityevents.memo if securityevents.memo!=nil%>
+   </td>
+  </tr>
+  
+<% index += 1%>  
+<% end %>
+<%end%>
+</table>

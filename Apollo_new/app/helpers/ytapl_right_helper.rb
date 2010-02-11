@@ -1,0 +1,2 @@
+module YtaplRightHelper
+end

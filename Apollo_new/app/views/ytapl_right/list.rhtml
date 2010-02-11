@@ -1,0 +1,69 @@
+<script language="JavaScript">
+function rightAdd()
+{
+  //window.location = "/ytapl_right/new"
+  window.open("/ytapl_right/new","childAdd","status=no,height=200,width=570,top=120,left=210");
+}
+
+function modifyRight(rightID)
+{
+    window.open("/ytapl_right/edit/" + rightID,"childMdf","status=no,height=200,width=570,top=120,left=210");
+}
+
+function exportExcel()
+{
+	 window.location = "/ytapl_right/down_excel";
+}
+
+</script>
+
+<table class="clsContentListTable" width=70% >
+  <tr class="clsTrContext">
+                        <td width=15></td>
+                        <td width=30%></td>
+                        <td width=45%>
+                        <input type="button" onclick="rightAdd()" name="queryBtn" value="新增权限">
+                        <input type="button" onclick="exportExcel()" name="btnExcel" value="导出Excel">
+                        
+                        </td>
+                        <td></td>
+                 </tr>
+                  <tr align="center" class="clsTrContext">
+                          <td colspan=6>系统权限信息列表</td>
+                  </tr>
+  <tr class="clsTrHeader">
+    <td>ID号</td>
+    <td>名称</td>
+    <td>描述</td>
+    <td colspan=3>操作</td>
+  </tr>
+  
+  
+<%index = 0%>
+<% for ytapl_right in @ytapl_rights %>
+  <%=ColorRow(index+=1)%>
+    <td><%=h ytapl_right['id'] %></td>
+  <% for column in YtaplRight.content_columns %>
+    <td><%=h ytapl_right.send(column.name) %></td>
+  <% end %>
+    <td>
+    <%=link_to_function '修改', "modifyRight(#{ytapl_right['id']})"%></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => ytapl_right }, :confirm => '确认删除吗?', :post => true %></td>
+  </tr>
+<% end %>
+    <tr>
+                 <td align="right" colspan=5>
+                          共有权限:<%=YtaplRight.count()%>;
+                          每页:20行&nbsp;;
+                          当前第<%= @ytapl_right_pages.current_page.offset/20 +1 %>页/
+                          共<%= @ytapl_right_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @ytapl_right_pages.first} if @ytapl_right_pages.current != @ytapl_right_pages.first %>
+                        <%= link_to '上一页', { :page => @ytapl_right_pages.current.previous } if @ytapl_right_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @ytapl_right_pages.current.next } if @ytapl_right_pages.current.next %> 
+                        <%= link_to '最后一页', { :page => @ytapl_right_pages.last} if @ytapl_right_pages.current != @ytapl_right_pages.last %>
+                 </td>
+    </tr>
+</table>
+<br />

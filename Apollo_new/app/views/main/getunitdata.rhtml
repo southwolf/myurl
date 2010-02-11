@@ -1,0 +1,697 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>友通捷报V9.0</title>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= stylesheet_link_tag 'main' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'c_script' %>
+
+
+<% helper = $TaskDesc[session[:task].strid].helper%> 
+<%=helper.StyleToHTML(helper.tables[0])%> 
+
+<style type="text/css">
+body {
+	margin:		1px;
+	width:		auto;
+	height:		auto;
+	font-size:	13px;
+    FONT-FAMILY: 宋体;
+}
+
+td{
+    font-size:	12px;
+}
+
+/*定义菜单方框的样式1*/
+.skin0 {
+position:absolute;
+padding-top:4px;
+text-align:left;
+width:100px;               /*宽度，可以根据实际的菜单项目名称的长度进行适当地调整*/
+border:2px solid black;
+background-color:menu;     /*菜单的背景颜色方案，这里选择了系统默认的菜单颜色*/
+font-family:"宋体";
+line-height:20px;
+cursor:default;
+visibility:hidden;        /*初始时，设置为不可见*/
+}
+/*定义菜单方框的样式2*/
+.skin1 {
+padding-top:4px;
+cursor:default;
+font:menutext;
+position:absolute;
+text-align:left;
+font-family: "宋体";
+font-size: 10pt;
+width:130px;              /*宽度，可以根据实际的菜单项目名称的长度进行适当地调整*/
+background-color:menu;    /*菜单的背景颜色方案，这里选择了系统默认的菜单颜色*/
+border:1 solid buttonface;
+visibility:hidden;        /*初始时，设置为不可见*/
+border:2 outset buttonhighlight;
+}
+
+/*定义菜单条的显示样式*/
+.menuitems {
+padding:2px 1px 2px 10px;
+}
+</style>
+
+<script>
+function toggle( id, showName, hideName ) 
+{
+    if( showName == null 
+    	|| showName.length == 0 )
+    	showName = "显示";
+    
+    if( hideName == null 
+    	|| hideName.length == 0 )
+    	hideName = "隐藏";
+    	
+    var element = document.getElementById(id);
+    with (element.style) {
+        if ( display == "none" ){
+            display = ""
+        } else{
+            display = "none"
+        }
+    }
+    var text = document.getElementById(id + "-switch").firstChild;
+    if (text.nodeValue == showName) {
+        text.nodeValue = hideName;
+    } else {
+        text.nodeValue = showName;
+    }
+}
+	
+function placeErrorFlag(cellstr)
+{
+    var cells = cellstr.split(",");
+    var elements = document.getElementsByTagName('td');
+    for(var j=0; j<elements.length; j++)
+    {
+         if (elements[j].expression && elements[j].expression.length>0)
+         {
+            elements[j].style.backgroundColor = "white";
+            for(var i=0; i<cells.length; i++)
+            {
+                var cell = cells[i];
+                if (elements[j].expression == cell && cell.length>0)
+                {
+                   elements[j].style.backgroundColor = "red";
+                   break;
+                }
+            }
+         }
+     }
+}
+
+function placeWarnFlag(cellstr)
+{
+    var cells = cellstr.split(",");
+    var elements = document.getElementsByTagName('td');
+    for(var j=0; j<elements.length; j++)
+    {
+         if (elements[j].expression && elements[j].expression.length>0)
+         {
+            elements[j].style.backgroundColor = "white";
+            for(var i=0; i<cells.length; i++)
+            {
+                var cell = cells[i];
+                if (elements[j].expression == cell && cell.length>0)
+                {
+                   elements[j].style.backgroundColor = "pink";
+                   break;
+                }
+            }
+         }
+     }
+}
+</script>
+ 
+</head>
+<body id='body' style="display:none">
+
+<% if @flash[:notice] %>
+      <script LANGUAGE="JavaScript">
+        var a = window.parent;
+        window.parent.setNotice('<%= @flash[:notice] %>');
+      </script>
+      <%@flash[:notice]=nil%>
+<% end %> 
+<% if @flash[:error] %>
+      <script LANGUAGE="JavaScript">
+        var a = window.parent;
+        window.parent.setError('<%= @flash[:error] %>');
+      </script>
+      <%@flash[:error]=nil%>
+<% end %> 
+
+
+<script>
+function downExcel(type)
+{
+  if(!checkparam())
+	  	return;
+
+   var selectedTableID = getSelectedID();
+
+   if(type == "single")
+   { 
+      frmmain.action="/main/download_excel/"+selectedTableID;
+   }
+   else
+   {
+	  frmmain.action="/main/download_excel";
+   }
+   frmmain.target = "";
+
+   frmmain.submit();
+}
+ 
+
+function printPdf(type)
+{
+   if(!checkparam())
+	  return;
+
+    var selectedTableID = getSelectedID();
+
+   if(type == "single")
+   { 
+      frmmain.action="/main/download_pdf/"+selectedTableID;
+   }
+   else
+   {
+	  frmmain.action="/main/download_pdf";
+   }
+   frmmain.target = "";
+
+   frmmain.submit();
+} 
+  
+function checkparam()
+{  
+	  if(frmmain.unitID.value=="null")
+   {
+      alert("请选择单位");
+      return false;
+   }
+   if(frmmain.taskTimeID.value=="null")
+   {
+      alert("请选择时间");
+      return false;
+   }
+   return true;
+}
+
+function editData(readonly)
+{
+  if(!checkparam())
+	  return;
+  frmmain.readonly.value=readonly;
+  frmmain.action = "<%=url_for :action=>'inputunitdata'%>"
+  frmmain.target = "_blank";
+  frmmain.submit();
+}
+</script>
+<form name="frmmain" method="post" action="" height="0">
+<input type="hidden" name="readonly">
+<input type="hidden" name="unitID" value="<%=@unitid%>">
+<input type="hidden" name="taskTimeID" value="<%=@tasktimeid%>">
+<input type="hidden" name='dataEditable' value="false" />
+</form>
+
+<div id="auditresult" style="display:none">
+</div>
+
+<table  width=100% height=10px border=0>
+               <tr>
+               <td id='update' width=10></td>
+               <!-- width=100删除，如果要支持在线录入可再次写入<td width=100>< image_tag -->
+               <td width=30><%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %></td>
+               <td><%=@unitname%></td>
+               <% if @unitid && @filled%>
+                    <td align='center' style="color:green">已上报</td>
+               <% elsif @unitid%>
+                    <td align='center' style="color:red">未上报</td>
+               <%end%>
+<!--  检查权限，检查数据是否封存  -->
+
+
+<% if @unitid && (CheckUnitWriteRight(session[:task].taskid, session[:user].id, @unitid) && !GetEnvolopState(session[:task].strid, session[:tasktime], @unitid))%>
+	<td align="right">
+	<!--
+	<% if !@filled%>
+	<%=link_to_remote(image_tag("/img/up.gif", :alt=>'上报', :border => 0, :align=>"absmiddle" ), :update=>"auditresult", :url=>{:action=>'set_filled',:tasktime=>session[:tasktime], :unitid=>@unitid},
+	            :loading=>"Element.hide('auditresult');Element.show('indicator');",
+                :complete=>"Element.hide('indicator');Effect.Appear('auditresult');")%>
+	&nbsp;
+	<% end%>
+	-->
+	<a href='javascript:editData(1);'><img src='/img/qtsw1.gif' alt='从控件录入' border="0" align="absmiddle" title='编辑数据'></a>
+	
+	
+	&nbsp;
+	<%=link_to(image_tag("/img/allaudit1.gif", :alt=>'运算', :border => 0, :align=>"absmiddle" ), :action=>'calc')%>
+	&nbsp;
+	<!-- -->
+<%=link_to_remote(image_tag("/img/audit1.gif", :alt=>'审核', :border => 0, :align=>"absmiddle"), :update => "auditresult", :url => {:controller=>'audit', :action=>'audit_audit', :tasktime=>session[:tasktime], :unitIDs=>@unitid, :input=>'true'},
+                :loading=>"Element.hide('auditresult');Element.show('indicator');",
+                :complete=>"Element.hide('indicator');Effect.Appear('auditresult');")%>
+    
+<%else%>
+	<td align="right">
+	<a href='javascript:editData(0);'><img src='/img/printall.bmp' alt='打印数据' border="0" align="absmiddle" title='打印数据'></a>
+	&nbsp;
+<%end%>
+
+&nbsp;
+<a href='javascript:downExcel("single");'><img src='/img/excel.png' alt='导出Excel单张表' border="0" align="absmiddle" title='导出Excel单张表'></a>
+&nbsp;
+<a href='javascript:downExcel("all");'><img src='/img/excelAll.bmp' alt='导出Excel整套表' border="0" align="absmiddle" title='导出Excel整套表'></a>
+&nbsp;
+<a href='javascript:printPdf("single");'><img src='/img/pdf.bmp' alt='导出PDF单张表' border="0" align="absmiddle"title='导出PDF单张表'></a>
+&nbsp;
+<a href='javascript:printPdf("all");'><img src='/img/pdfAll.bmp' alt='导出PDF整套表' border="0" align="absmiddle"title='导出PDF整套表'></a>
+&nbsp;
+    <% if CheckRight(session[:user].id, "删除单位数据") && !GetEnvolopState(session[:task].strid, session[:tasktime], @unitid)%>
+        <%=image_tag("/img/audit_error.gif", :alt=>'删除单位数据', :border => 0, :align=>"absmiddle" )%>
+        <%=link_to('删除', {:action=>'delete_data', :tasktime=>session[:tasktime], :unitid=>@unitid}, :confirm=>"确定删除数据吗")%>
+    &nbsp;
+    <% end%>
+</td>
+</tr>
+</table>
+
+<div class="tab-pane" id="taskPane">
+    <script type="text/javascript">
+    var taskPane = new WebFXTabPane( document.getElementById( "taskPane" ),false);
+
+    function getSelectedID()
+    {
+    if(taskPane!=null && taskPane.selectedIndex!=null)
+    {
+        return taskPane.pages[taskPane.selectedIndex].element.id;
+    }else
+    {
+        return "";
+    }
+    }
+    </script>
+    
+    
+    <!--    国资委企业快报07年特有功能          -->
+	<%
+    hangye_hash = {
+    1 => 'DLBC',
+	2 => 'FDSBB',
+	3 => 'FDCBC',
+	4 => 'GTBC',
+	5 => 'HKBC',
+	6 => 'JCBC',
+	7 => 'MTBC',
+	8 => 'QCBC',
+	9 => 'SHBC',
+	10 => 'SYBC',
+	11 => 'TXBC',
+	12 => 'ZXSBBC',
+	13 => 'YSBC',
+	14 => 'JCHBC',
+	15 => 'MYHBC'}
+    
+    %>
+    
+    <% if @fm && session[:task].strid == "QYKB07"
+    		all_tables = Array.new
+    		for table in @yttables
+    			all_tables << table.GetTableID() if !hangye_hash.has_value?(table.GetTableID())
+    		end
+    %>
+    <%
+    		visible_hangyes = (@fm['QYHY']||"").split(";")
+    		visible_hangyes = hangye_hash.keys  if visible_hangyes.size == 0
+    		for hangye in visible_hangyes
+    			all_tables << hangye_hash[hangye.to_i]
+    		end
+       end
+    %>
+    
+    
+    <% index = 0%>
+    <% for html in @htmls%>
+        <% yttable = @yttables[index] %>
+        <% index += 1 %>
+        
+        <%if @fm && session[:task].strid == "QYKB07" && !all_tables.index(yttable.GetTableID())  
+        	next
+        end %>
+           <div class="tab-page" id="<%=yttable.GetTableID()%>">
+             <h2 class="tab"><%=yttable.GetTableName()%></h2>
+             <script type="text/javascript">
+                 var <%=yttable.GetTableID()%> = taskPane.addTabPage( document.getElementById( "<%=yttable.GetTableID()%>" ) );
+             </script>
+             
+             <% if yttable.IsFloatTable()%>
+                <%=render :partial=>'getfloatrows', :locals=>{:yttable=>yttable, :html=>html, :current_page=>0}%> 
+             <% else %>
+                    <%=html%>
+             <% end%>
+           </div>
+    <%end%>
+    
+    
+    <!--  报告  -->
+    <% if @articles.size > 0%>
+        <div class="tab-page" id="article">
+             <h2 class="tab">报告</h2>
+             <script type="text/javascript">
+                 var article = taskPane.addTabPage( document.getElementById( "article" ) );
+              </script>
+        <table>
+        <% for article in @articles %>
+            <%= link_to article.name, {:action=>"make_article", :id=>article}%><br>
+        <% end %>
+        </table>
+        </div>
+    <% end %>
+    
+        <div class="tab-page" id="attachment">
+             <h2 class="tab">附件</h2>
+             <script type="text/javascript">
+                 var attachment = taskPane.addTabPage( document.getElementById( "attachment" ) );
+              </script>
+            <div id='attach_update'> 
+                <%= render :partial =>'attachment', :locals=>{:attachments=>@attachments}%>
+            </div>
+            <br>
+        </div>
+        <% if !@switch_flag%>
+        <script>
+            if (getCookie1('last_tab'))
+                taskPane.setSelectedIndex(getCookie1('last_tab'));
+        </script>
+        <% else %>
+        <script>
+            setCookie1('last_tab', 0);
+        </script>
+        <% end%>
+</div>
+
+<script>
+    Effect.Appear('body');
+</script>
+
+<!-- 可写 -->
+<% if nil && @unitid && (CheckUnitWriteRight(session[:task].taskid, session[:user].id, @unitid) && !GetEnvolopState(session[:task].strid, session[:tasktime], @unitid))%>
+<script>
+document.getElementById('frmmain').value="true";
+function cellBlur()
+{
+    input = window.event.srcElement;
+    value = input.value;
+    element = input.parentElement;    
+    element.innerHTML = value;
+    element.onclick=element.oldclick;
+    element.oldclick="";
+    if (input.oldvalue != value)
+    {
+        row = element.parentElement;
+        if (row.floattpl)
+        {
+            new Ajax.Updater(element.expression+row.floatindex, encodeURI("/main/update?value="+value+"&cell="+element.expression+"&floattpl="+row.floattpl+"&floatindex="+row.floatindex), {asynchronous:true, evalScripts:true,
+            onLoaded:function(request){Element.hide('indicator')}, 
+            onLoading:function(request){Element.show('indicator')}});
+        }
+        else
+        {
+            new Ajax.Updater(element.expression, encodeURI("/main/update?value="+value+"&cell="+element.expression), {asynchronous:true, evalScripts:true,
+            onLoaded:function(request){Element.hide('indicator')}, 
+            onLoading:function(request){Element.show('indicator')}});
+        }        
+    }
+}
+
+function cellClick()
+{
+    element = window.event.srcElement;
+    parentelement = element.parentElement
+    if (parentelement.floatindex)
+    {
+        element.id = element.expression + parentelement.floatindex;
+    }
+    else
+    {
+        element.id = element.expression;
+    }
+    
+    var oldvalue = element.innerText;
+    element.innerHTML = "<input id='input-" + element.id+ "' type=text style='background-color:#FFFF99;BORDER-BOTTOM: solid 0px; BORDER-LEFT: dashed 0px; BORDER-RIGHT: dashed 0px; BORDER-TOP: dashed 0px;height=100%; width=100%;margin:-1pt 0pt 0pt 0pt '/>";
+    input = element.children[0];
+    input.onblur=cellBlur;
+    input.value = oldvalue;
+    input.oldvalue = oldvalue;
+    element.oldclick = element.onclick;
+    element.onclick="";
+    input.focus();
+    input.select();
+}
+
+if (document.getElementById('frmmain').value=="true")
+{
+    var addrows = document.getElementsByName("add_row");
+    for(var i=0; i<addrows.length; i++)
+    {
+        addrows[i].style.display = 'inline';
+    }
+
+    elements = document.getElementsByTagName('td')
+    for(var i=0; i<elements.length; i++)
+    {
+        if (elements[i].expression)
+        {
+            elements[i].onclick = cellClick;
+        }
+    }
+}
+</script>
+<% end %>
+</body>
+</html>
+
+<div id="ie5menu" class="skin1" onMouseover="highlightie5()" onMouseout="lowlightie5()" onClick="jumptoie5();">
+<div class="menuitems" url="javascript:pivot();"><%=image_tag("/img/pivot.gif", :alt=>'数据透视', :border => 0, :align=>"absmiddle" )%>&nbsp;数据透视</div>
+<div class="menuitems" url="javascript:pivot2();"><%=image_tag("/img/pivot2.gif", :alt=>'同级单位对比', :border => 0, :align=>"absmiddle" )%>&nbsp;同级单位对比</div>
+</div>
+
+<script>
+//获得单元格所在列的序号，base 0
+function getColumnIndex(element)
+{
+   var parent = element.parentElement;
+   for(var i=0; i<parent.children.length; i++)
+   {
+    if (parent.children[i] == element)
+        return i;
+   }
+   
+   return -1;
+}
+
+//获得单元格所在行的序号，base 0
+function getRowIndex(element)
+{
+   var row = element.parentElement;
+   var table = row.parentElement;
+   for(var i=0; i<table.children.length; i++)
+   {
+    if (table.children[i] == row)
+        return i;
+   }
+   
+   return -1;
+}
+
+//获得单元格所在表最大行号
+function getMaxRow(element)
+{
+    var row = element.parentElement;
+    var table = row.parentElement;
+    return table.children.length;
+}
+
+//获得单元格所在表最大列号
+function getMaxCol(element)
+{
+    var row = element.parentElement;
+    return row.children.length
+}
+
+function selectCells(event, row1, col1, row2, col2)
+{
+    var tableElement = Event.element(event).parentElement.parentElement;
+    if (row1>row2)
+    {
+        var temp = row1;
+        row1 = row2;
+        row2 = temp;
+    }
+    
+    if (col1>col2)
+    {
+        var temp = col1;
+        col1 = col2;
+        col2 = temp;
+    }
+  
+    if (!event.ctrlKey)
+        clearSelect(event);
+        
+    for(var row=row1; row<=row2; row++)
+    {
+        var rowElement = tableElement.children[row];
+        for(var col=col1; col<=col2; col++)
+        {
+            cellElement = rowElement.children[col]
+            if (cellElement.expression)
+                cellElement.style.backgroundColor = "#ffcccc";
+        }
+    }
+}
+
+//清空选择
+function clearSelect(event)
+{
+  $A(Event.element(event).parentElement.parentElement.getElementsByTagName('td')).each(
+    function(node)
+    {
+        if (node.expression)
+        {
+            node.style.backgroundColor = "white";
+        }
+    }
+  );
+}
+
+//第一次点击鼠标左键时选中的行列
+var first_row = -1;
+var first_col = -1;
+var activeTable;
+
+function cellMouseDown(event)
+{
+    if (event.button!=1)
+        return;
+    first_row = getRowIndex(Event.element(event));
+    first_col = getColumnIndex(Event.element(event));
+    selectCells(event, first_row, first_col, first_row, first_col);
+    
+    activeTable = Event.element(event).parentElement.parentElement;
+}
+
+function cellMouseMove(event)
+{
+    if (Event.isLeftClick(event) && first_row > -1)  //按住了左键
+    {
+        selectCells(event, first_row, 
+                first_col, 
+                getRowIndex(Event.element(event)), 
+                getColumnIndex(Event.element(event)));
+    }
+}
+
+function cellMouseUp(event)
+{
+    first_row = -1;
+    first_col = -1;
+}
+
+function cellKeyPress(event)
+{
+    if (event.keyCode == Event.KEY_RIGHT)
+    {
+        
+    }
+}
+
+//数据透视
+function pivot()
+{
+    if (!activeTable)
+    {
+        alert("未选择指标，无法进行数据透视");
+        return;
+    }
+    var cellstr = "";
+    $A(activeTable.getElementsByTagName('td')).each(
+        function(node)
+        {
+            if (node.style.backgroundColor == "#ffcccc")
+            {
+                cellstr += node.expression + "," ;
+            } 
+        }
+    );
+    url = '/main/pivot/<%=@unitid%>?tasktimeid=<%=@tasktimeid%>&cells=' + encodeURI(cellstr);
+    window.open(url,"childAdd","scrollbars=yes, status=no,height=400,width=600,top=75,left=150,resizable=yes");   
+}
+
+//数据透视:同级单位对比
+function pivot2()
+{
+    if (!activeTable)
+    {
+        alert("未选择指标，无法进行数据透视");
+        return;
+    }
+    var cellstr = "";
+    $A(activeTable.getElementsByTagName('td')).each(
+        function(node)
+        {
+            if (node.style.backgroundColor == "#ffcccc")
+            {
+                cellstr += node.expression + "," ;
+            } 
+        }
+    );
+    url = '/main/pivot2/<%=@unitid%>?tasktimeid=<%=@tasktimeid%>&cells=' + encodeURI(cellstr);
+    window.open(url,"childAdd","scrollbars=yes, status=no,height=400,width=600,top=75,left=150,resizable=yes");   
+}
+
+$A(document.getElementsByTagName('td')).each(
+    function(node)
+    {
+        if (node.expression)
+        {
+            Event.observe(node, 'mousedown', cellMouseDown, true);
+            Event.observe(node, 'mousemove', cellMouseMove, false);
+            Event.observe(node, 'mouseup', cellMouseUp, true);
+            Event.observe(node, 'keypress', cellKeyPress, true);
+        }
+    }
+);
+
+
+
+</script>
+
+<% if @unitid%>
+<script language="JavaScript1.2">
+//如果当前浏览器是Internet Explorer，document.all就返回真
+if (document.all && window.print) {
+
+//选择菜单方块的显示样式
+ie5menu.className = menuskin;
+
+//重定向鼠标右键事件的处理过程为自定义程序showmenuie5
+document.oncontextmenu = showmenuie5;
+
+//重定向鼠标左键事件的处理过程为自定义程序hidemenuie5
+document.body.onclick = hidemenuie5;
+}
+</script>
+<% end%>

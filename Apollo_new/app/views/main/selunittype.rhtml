@@ -1,0 +1,44 @@
+﻿<% @title = "选择节点"%>
+<SCRIPT LANGUAGE="JavaScript">
+
+   function selunenvloptype()
+   {
+        var retValue=new Array();
+		var elms=frmmain.seltype;
+		var selType=0;
+	   
+
+		for(var i=0;i<elms.length;i++)
+	   {    
+			
+			if(elms[i].checked)
+				selType=elms[i].value;
+
+	   }
+      
+	  
+       retValue[0]=selType;
+       returnValue =retValue;
+	   close();
+
+   }
+
+   function cancle()
+   {
+    	returnValue=null;
+		close();
+   }
+
+</SCRIPT>
+<body>
+
+<form method="POST" name="frmmain">
+<table align = "center">
+<tr><td><input type="radio" value="0" name="seltype" checked>选中节点</td></tr>
+<tr><td><input type="radio" value="1" name="seltype">选中节点和选中节点的直接下级节点</td></tr>
+<tr><td><input type="radio" value="2" name="seltype">选中节点和选中节点的全部下级节点</td></tr>
+<tr><td><br></td></tr>
+<tr><td align = "center"><input type="button" value="确定" name="btnOk" onClick="selunenvloptype();">
+<input type="button" value="取消" name="btnCancle"  onClick="cancle();"></td></tr>
+</table>
+</form>

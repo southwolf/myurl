@@ -1,0 +1,156 @@
+                                                                                                                                    <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />
+<title>用户管理</title>
+<script language="JavaScript">
+function addUser()
+{
+    window.name="main";
+	window.open("/user/new","childAddWin","status=no,height=570,width=650,top=15,left=250");
+}
+
+function show_notpass()
+{
+    window.location = "/user/show_notpass";
+}
+
+function modifyUser(userID)
+{
+    window.name="main";
+   	window.open("/user/edit/" + userID,"childModifyWin","status=no,height=570,width=650,top=75,left=250");
+}
+
+function search()
+{
+    form1.action = "<%=url_for :action=>'search'%>"
+    form1.target = "_blank";
+}
+
+function passUsers()
+{
+	var collectionInput=document.getElementsByName("validate");
+	var flag=false;
+	var url="";
+	for(var i=0;i<collectionInput.length;i++)
+	{
+		if(collectionInput[i].checked == true && collectionInput[i].disabled == false)
+		{
+		  //url = url+"&validate="+collectionInput[i].value;
+		  if (flag)
+		  {
+		      url += "," + collectionInput[i].value;
+		  }
+		  else
+		  {
+		      url += collectionInput[i].value;
+		  }
+			flag=true;
+			
+		}
+	}
+
+	if(flag==false)
+	{
+		alert("请选中需要审核的用户的审核标志!");
+		return false;
+	}
+	else
+	{
+		window.location="/user/audit_pass/"+url;
+	}
+}
+
+function stopUser(userID)
+{
+	window.location = "/user/audit_stop/"+userID;
+}
+
+function exportUser()
+{
+    window.location = "/user/down_excel"
+}
+
+</script>
+</head>
+
+<body>
+<form name="checkForm" action='query' method="post">
+
+	<table class="clsContentListTable">
+	<tr>
+		<td align="left" colspan=8>
+		          输入要查询的用户名:
+			<input type="text"  name="userName" size=15 value="<%=@q_username%>">
+                &nbsp;输入要查询的企业名称:
+            <input type="text" size=15 name="enterpriseInfo" size=15 value="<%=@q_enterprise%>">
+			<input type="submit" name="Submit" value="查询" />
+			<input type="button" onclick="addUser()" name="adduser" value="新增用户">
+			<input type="button" onclick="show_notpass()" name="notPass" value="显示未开通用户">
+			<input type="button" name="passUser" onclick="passUsers()" value="审核通过">
+			<input type="button" name="passUser" onclick="exportUser()" value="导出Excel">
+		</td>
+	</tr>
+	<tr>
+		<td align="center" colspan=8>用户列表</td>
+	</tr>
+    </table>
+    
+    
+	<table class="clsContentListTable" cellPadding=0 cellspacing=0 border=0>
+	
+		<tr class="clsTrHeader">
+			<td width=8%>审核标志</td>
+			<td width=11%>登陆用户</td>
+			<td width=11%>真实姓名</td>
+			<td width=14%>企业名称</td>
+			<td width=12%>法人代表</td>
+			<td width=12%>联系人</td>
+			<td width=12%>所属角色</td>
+			<!--td width=8%>所属组</td-->
+			<td width=15%>操作</td>
+		</tr>
+    <% index = 0%>
+    <% for user in @users %>
+	     <%=ColorRow(index)%>	      
+			<td width=8%>
+				<input type="checkbox" name="validate"  value="<%=user.id%>" <%="checked" if user.flag==1%> <%="disabled" if user.flag==1%>>
+			</td>
+			<td><%= user.name%>&nbsp;</td>
+			<td><%= user.truename%>&nbsp;</td>
+			<td><%= user.enterprisename%>&nbsp;</td>
+			<td><%= user.lawpersionname%>&nbsp;</td>
+			<td><%= user.contactpersionname%>&nbsp;</td>
+			<td><%= YtaplRole.find(user.roleid).name if user.roleid%>&nbsp;</td>
+			<td>
+			 <a href="javascript:modifyUser(<%=user.userid %>)">编辑</a>
+			 <%= link_to '删除', { :action => 'destroy', :id => user.userid }, :confirm => '确定删除本用户吗?', :post => true %>
+       <% if user.flag == 1 %>
+        <a href="javascript:stopUser('<%=user.id%>')">停用帐号</a>
+       <% end%>
+            </td>
+		</tr>
+		<% index += 1%>
+	 <% end %>
+		
+		<tr>
+			<td align="right" colspan=8>
+				共有用户:<%=YtaplUser.count()%>;
+                          每页:20行&nbsp;;
+                          当前第<%=@user_pages.current_page.offset/20 +1 %>页/
+                          共<%= @user_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @user_pages.first} if @user_pages.current != @user_pages.first %>
+                        <%= link_to '上一页', { :page => @user_pages.current.previous } if @user_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @user_pages.current.next } if @user_pages.current.next %> 
+                        <%= link_to '最后一页', { :page =>@user_pages.last} if @user_pages.current != @user_pages.last %>
+                    
+			</td>
+			
+		</tr>
+
+	</table>
+</form>
+</body>
+
+</html>

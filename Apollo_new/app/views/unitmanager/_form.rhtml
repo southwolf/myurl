@@ -1,0 +1,137 @@
+<% meta = $TaskDesc[session[:task].strid] %>
+
+<script language="JavaScript">
+function trim(str){
+	return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+/**
+ * 验证单位信息输入的正确性
+ * @return 验证通过，返回true；否则返回false
+ */
+function validate()
+{   
+    $('unit_<%=meta.unitname%>').value = trim($F('unit_<%=meta.unitname%>'))
+    if($('unit_<%=meta.unitname%>').value == "")
+    {
+        alert("请填写单位名称");
+        $('unit_<%=meta.unitname%>').focus();
+        return false;
+    }
+    $('unit_<%=meta.unitcode%>').value = trim($F('unit_<%=meta.unitcode%>'));
+    if($('unit_<%=meta.unitcode%>').value == "")
+    {
+        alert("请填写单位代码");
+        $('unit_<%=meta.unitcode%>').focus();
+        return false;
+    }
+
+    $('unit_<%=meta.parentunit%>').value = trim($F('unit_<%=meta.parentunit%>'));
+
+    $('unit_<%=meta.headquater%>').value = trim($F('unit_<%=meta.headquater%>'));
+
+    $('unit_<%=meta.reporttype%>').value = trim($F('unit_<%=meta.reporttype%>'));
+    if($('unit_<%=meta.reporttype%>').value == "")
+    {
+        alert("请选择报表类型");
+        unitForm.unit_<%=meta.reporttype%>.focus();
+        return false;
+    }
+
+    $('unit_p_parent').value = trim($F('unit_p_parent'));
+
+    return true;
+}
+
+
+function updateUnit()
+{
+    if(!validate())
+    {
+        return false;
+    }
+
+    unitForm.submit();
+}
+
+function deleteUnit()
+{
+    if(confirm("是否真的要删除当前单位？"))
+    {
+        //unitForm.submit();
+        window.location = "/unitmanager/delete/" + unitForm["unit[<%=meta.unitcode%>]"].value + unitForm["unit[<%=meta.reporttype%>]"].value
+    }
+}
+</script>
+
+
+<input type="hidden" name="operation" />
+<input type="hidden" name="unitID" />
+           <table height=85% width=90% border=1 style="margin-left:1cm" class="xsltTable">
+               <tr class="xsltTr">
+                   <td colspan=2 align="left">
+                       <% if @edit %>
+                            <div id="createLink"><%= link_to_remote "新建单位", :update=>'unitedit', :url=>{:controller=>'unitmanager', :action=>'new'}%></div>
+                       <%else %>
+                            <div id="createLink">&nbsp</div>
+                       <%end%>
+                   </td>
+               </tr>
+               <tr class="xsltTr">
+                   <td align="center" width="25%">名称:</td>
+                   <td><%= text_field 'unit', meta.unitname, :size=>30, :maxlength => 20  %></td>
+               </tr>
+               <tr class="xsltTr">
+                   <td align="center">代码:</td>
+                   <td><%= text_field 'unit', meta.unitcode, :size=>30, :maxlength => 9 %></td>
+               </tr>
+               <tr class="xsltTr">
+                   <td align="center">上级代码:</td>
+                   <td><%= text_field 'unit', meta.parentunit, :size=>30,:maxlength => 9%></td>
+               </tr>
+               <tr class="xsltTr">
+                   <td align="center">集团代码:</td>
+                   <td><%= text_field 'unit', meta.headquater, :size=>30,:maxlength => 9%></td>
+               </tr>
+               <tr class="xsltTr">
+                   <td align="center">报表类型:</td>
+                   <td>
+                       <%=select('unit', meta.reporttype, [['单户报表', '0'], 
+                                                           ['集团差额表', '1'], 
+                                                           ['金融并企业表', '2'], 
+                                                           ['境外并企业表', '3'], 
+                                                           ['事业并企业表', '4'], 
+                                                           ['基建并企业表', '5'],                                                           
+                                                           ['完全汇总表', '7'],
+                                                           ['集团合并表', '9'],
+                                                           ['选择汇总表', 'H'],
+                                                           ])%>
+                      
+                   </td>
+               </tr>
+               <tr class="xsltTr">
+                   <td align="center">父单位ID:</td>
+                   <td><%= text_field 'unit', 'p_parent', :size=>30,:maxlength=>10 %></td>
+               </tr>
+               <% if @unit %>
+               <tr class="xsltTr">
+                   <td align="center">是否显示:</td>
+                   <td>
+                   <select name="unit[display]" id="unit[display]">
+                      <%= options_for_select([["显示", '1'], ["隐藏", '0']], @unit["display"])%>
+                   </select>
+                   </td>
+               </tr>
+               <% end%>
+               <tr>
+                    <td></td>
+                    <td><% submit_tag '保存' %>
+                        
+                        <input type="button" value="保存" onclick="updateUnit()"/>
+                        <% if mode == 'edit'%>
+                            <input type="button" value="删除" onclick="deleteUnit()"/>
+                            &nbsp;&nbsp;&nbsp;
+                        <% end%>
+                    </td>
+               </tr>
+               
+          </table>

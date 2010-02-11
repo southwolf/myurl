@@ -1,0 +1,35 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><%=@title || "友通捷报V9.0"%></title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree' %>
+ </head>
+
+<body id='topnode' style='display:none'>
+<script>
+   Effect.Appear('topnode');
+</script>  
+
+<% if @flash[:notice] %>
+      <script LANGUAGE="JavaScript">
+        var a = window.parent;
+        window.parent.parent.setNotice('<%= @flash[:notice] %>');
+      </script>
+      <%@flash[:notice]=nil%>
+<% end %> 
+<% if @flash[:error] %>
+      <script LANGUAGE="JavaScript">
+        var a = window.parent;
+        window.parent.setError('<%= @flash[:error] %>');
+      </script>
+      <%@flash[:error]=nil%>
+<% end %> 
+
+<%= @content_for_layout %>
+
+</body>
+</html>

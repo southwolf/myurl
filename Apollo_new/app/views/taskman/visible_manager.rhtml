@@ -1,0 +1,67 @@
+<table width=100% border=0>
+       <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"可见性设置"})%>
+       </tr>
+</table>
+
+<br>
+<br>
+
+<table width="100%">
+<tr>
+   <td align="center"><img src="/img/infomation.bmp">&nbsp;对于打勾的组任务可见，否则任务不可见.</td>
+</tr>
+</table>
+
+<br>
+<br>
+
+<%= start_form_tag :action=>'update_visible', :id=>@taskid %>
+<table class="clsContentListTable" border=0 cellpadding=0>
+	<tr>
+		<td colspan=3><input type="checkbox" name='selectall'onclick="select_all(form)"/><b>选择所有组</b><br></td>
+		<script>
+			function select_all(form)
+			{
+				if (form.selectall.checked)
+				{
+					for(var i=0; i<form.elements.length-1; i++)
+					{
+						form.elements[i].checked = true;
+					}
+					
+				}
+				else
+				{
+					for(var i=0; i<form.elements.length-1; i++)
+					{
+						form.elements[i].checked = false;
+					}
+				}
+			}
+		</script>
+	</tr>
+     <tr class="clsTrHeader">
+         <td width="7%">是否可见</td>
+         <td>组名称</td>
+         <td>成员数量</td>
+     </tr>
+<%index = 1%>
+<% for group in @groups %>
+    <%=ColorRow(index)%><td>
+        <input type="checkbox" name="task[group_ids][]" value="<%=group.id%>" 
+            <% if @task.groups.include?(group) %> 
+                checked="checked" 
+            <% end %> 
+       </td>
+       <td><%=group.name%></td>
+       <td><%=group.users.size%></td>
+    </tr>
+<% index += 1%>
+<% end%>
+<tr><td>
+<%= submit_tag("确定") %>
+</td></tr>
+
+</table>
+<%= end_form_tag %>

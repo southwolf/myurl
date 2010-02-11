@@ -1,0 +1,66 @@
+<script language="JavaScript">
+
+  //发布前检查
+  function checkInit()
+  {
+    if(form1.file.value == "")
+    {
+        alert("请选择参数文件！");
+        return false;
+    }
+    return true;
+  }
+</script>
+<body>
+
+  <table height=20% width=100% border=0>
+       <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"报告模板管理"})%>
+       </tr>
+       <tr>
+    	  <td>&nbsp;</td>
+    	</tr>
+    	<tr>
+       	<td align="left"><img src="/img/infomation.bmp">&nbsp;此功能用来进行报告模板管理，请确认模板符合生成规则</td>
+    	</tr>
+    <tr>
+      <form action="/taskman/upload_article" method="post" enctype="multipart/form-data" name="form1">
+        <td align=left>模板文件：
+          <input type="file" name="file"/>
+          <input type="hidden" name="taskID" value='QYKB'>
+          <input type="submit" value="提　交" onclick="return checkInit()"/>
+        </td>
+      </form>
+    </tr>
+  </table>
+
+
+<table class="clsContentListTable" cellPadding=0 cellspacing=0 border=0>
+	<tr><td height=30></td></tr>
+		
+		<tr class="clsTrHeader">
+			<td width=10%></td>
+			<td width=20% align=left>标题</td>
+			<td width=20% align=left>发表时间</td>
+			<td width=20% align=left>操作</td>
+		</tr>
+		
+	<% index = 0%>	
+    <% for template in @templates%>
+        <%=ColorRow(index)%>
+        <td></td>
+        <td><%= link_to template.name, {:action=>'export_article', :id=>template}%></td>
+        <td><%=template.publishtime.strftime("%Y-%m-%d %H:%M:%S")%></td>
+        <td><%= link_to '删除', { :action => 'destroy_article', :id => template }, :confirm => '确认删除选中模板吗?', :post => true %></td>
+    <% index += 1%>
+    <% end %>
+ 
+</table>
+
+<script language="javascript">
+  function downReport(type)
+  {
+	  url = "../servlet/model?operation=getReport&reportID=" + type;
+	  window.open(url);
+  }
+</script>

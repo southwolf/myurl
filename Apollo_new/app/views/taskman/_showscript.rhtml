@@ -1,0 +1,45 @@
+<%= javascript_include_tag 'treetable' %>
+<table class="clsContentListTable" id="script">
+<tr class="clsTrHeader"><td style="color:#CC6600"><b>公共脚本</b></td></tr>
+<tr><td><%=script.getCommonScript%></td></tr>
+<tr class="clsTrHeader" id="script_0"><td><a href="#" onclick="treetable_toggleRow('script_0');" style="color:#CC6600"><b>计算脚本</b></a></td></tr>
+<tr class="clsTrHeader" id="script_0_0"><td>表间计算脚本:</td></br>
+<tr><td><%=script.getCalcScript("").gsub("\n", "<br>") if script.getCalcScript("")%></td></tr>
+
+<% meta = $TaskDesc[session[:task].strid] %>
+<% index=1%>
+<% for table in meta.helper.tables %>
+        <tr class="clsTrHeader" id="script_0_<%=index%>"><td><a href="#" onclick="treetable_toggleRow('script_0_<%=index%>');"><%=table.GetTableID()%></a></td></tr>
+        <%=ColorRow(index, "script_0_#{index}_0")%><td>
+        <%if script.getCalcScript(table.GetTableID)%>
+           <% script.getCalcScript(table.GetTableID).each(){|line|  %>
+                <%= line%><br>
+           <% }%> 
+        <%end%>
+        </td>
+        </tr>
+<% index += 1%>
+<% end%>
+
+<tr class="clsTrHeader" id="script_1"><td><a href="#" onclick="treetable_toggleRow('script_1');" style="color:#CC6600"><b>审核脚本</b></a></td></tr>
+<tr class="clsTrHeader" id="script_1_0"><td><a href="#" onclick="treetable_toggleRow('script_1_0');">表间审核脚本:</a></td></tr>
+<% order = 0 %>
+<% script.getAuditScript("").each(){|line|  %>
+    <% next if line.chop().length==0%>
+    <%=ColorRow(order, "script_1_0_#{order}")%><td><%= line.chop%></td></tr>
+    <% order += 1%>
+<% }%>
+
+<%index=1%>
+<% for table in meta.helper.tables %>
+        <tr class="clsTrHeader" id="script_1_<%=index%>"><td><a href="#" onclick="treetable_toggleRow('script_1_<%=index%>');"><%=table.GetTableID()%></a></td></tr>
+        <%if script.getAuditScript(table.GetTableID)%>
+            <% order = 0%>
+           <% script.getAuditScript(table.GetTableID).each(){|line|  %>
+                <% next if line.chop().length==0%>
+          <%=ColorRow(order, "script_1_#{index}_#{order}")%><td><%= line.chop%></td></tr>
+                <% order += 1%>
+           <% }%> 
+        <%end%>
+<% index += 1%>        
+<% end%>

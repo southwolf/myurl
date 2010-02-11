@@ -1,0 +1,127 @@
+<%= stylesheet_link_tag 'dhtmlXGrid' %>
+<%= javascript_include_tag 'dhtml/dhtmlXCommon' %>
+<%= javascript_include_tag 'dhtml/dhtmlXGrid' %>
+<%= javascript_include_tag 'dhtml/dhtmlXGridCell' %>
+<%= javascript_include_tag 'dhtml/dhtmlXTreeGrid' %>
+
+<title>查询单位填报情况</title>
+
+<style type="text/css">
+    <!--
+.style1 {color: #00FF00}
+.style2 {color: #FF0000}
+-->    
+    a {
+      text-decoration:none;
+      color:#0000FF;
+    }
+    
+    .button {
+      border:none;
+      margin: 0 4px 0 0;
+    }
+  </style>
+</head>
+<body id='topnode' style="display:none">
+<script>
+   Effect.Appear('topnode');
+</script>
+
+<script language="javascript">
+function queryAllFillState(){
+   form1.action="/transfer/detail?type=all";
+	 form1.submit();
+}
+function queryNotFillState()
+{
+ 	form1.action="/transfer/detail?type=notfill";
+	form1.submit();
+
+}
+function queryAlreadyFillState(){
+ 	form1.action="/transfer/detail?type=filled";
+	form1.submit();
+}
+
+function queryFillState()
+{
+   form1.action="/transfer/detail?type=query";
+	 form1.submit();
+}
+
+function showData(taskTimeID, unitID)
+{
+    window.open('/main/getunitdata?unitID='+unitID+'&taskTimeID='+taskTimeID,'_blank');
+}
+
+function urge(unitID)
+{
+    window.open('/addressinfo/transfer_urge/'+unitID, '_blank', "status=no,height=100,width=200,top=75,left=250");
+}
+
+function linkToQuery(obj){
+  if(event.keyCode=="13"){
+        url="/WebRoot/servlet/analyse?operation=queryFillState";
+        url+="&taskTimeID="+form1.taskTimeID.value;
+	//判断是否输入了条件
+        form1.codeOrName.value = trim(obj.value);
+        if(obj.value == "")
+        {
+            alert("请输入查询条件");
+            form1.codeOrName.focus();
+            return false;
+        }
+        url += "&codeOrName=" + encodeURIComponent(obj.value);
+    	window.location = encodeURI(url);
+  }
+}
+</script>
+<body scroll="no">
+
+  <table width=100% border=0 height=5%>
+       <tr height=26 class="clsTrHeader" >
+         <td style="BACKGROUND-COLOR: #c7c9b1;color:black" width=100% colspan=8 valign="middle">
+            数据传送-><font class="clsLightColorOfTask">上报情况</font>
+         </td>
+       </tr>
+<%= start_form_tag( {:action=>"detail"},{:name=>'form1', :style=>"margin:0"} )%>  
+	   <tr>
+           <td colspan=3>
+                  任务时间:<%= TaskTimeCombo(session[:task].id, "submit()", @tasktimeid)%>
+            <input type="button" value="上报情况" onclick="queryAllFillState()"/>
+            <input type="button" value="未上报" onclick="queryNotFillState()"/>
+            <input type="button" value="已上报" onclick="queryAlreadyFillState()"/>
+            &nbsp;&nbsp;单位代码或名称：<input type="text" name="codeOrName" value=""/>
+            <input type="button" value="查询" onclick="queryFillState()"/>
+           </td>
+        </tr>
+<%= end_form_tag %>
+</table>
+<script language="javascript">
+//form1.codeOrName.focus();
+</script>
+
+
+<div id="maindiv" style="height:88%;OVERFLOW:auto">
+  <table width=100% height=100% border=0>
+  <tr>
+    <td>
+    <div id="gridbox" style="width:100%;height:100%"></div>
+    
+    <script>
+		mygrid = new dhtmlXGridObject('gridbox');
+        mygrid.selMultiRows = true;
+		mygrid.imgURL = "/javascripts/dhtml/imgs/";
+		mygrid.kidsXmlFile = "getnodes?optype=<%=@optype%>&tasktimeid=<%=@tasktimeid%>&word=" + encodeURIComponent('<%=h @word%>') 
+		mygrid.setHeader("单位编码,单位名称,是否填报,填报时间,是否审核,审核时间,审核者,审核结果,催报邮件");
+		mygrid.setInitWidths("200,150,60,120,60,120,70,70,70")
+		mygrid.setColAlign("left,left,center,left,center,left,left,center,center")
+		mygrid.setColTypes("tree,txt,txt,txt,txt,txt,txt,txt,txt");
+		mygrid.setColSorting("str,str,str,str,str,str,str,str,str")
+		mygrid.init();
+		mygrid.loadXML("getnodes?optype=<%=@optype%>&tasktimeid=<%=@tasktimeid%>&word=" + encodeURIComponent('<%=h @word%>') );
+    </script>
+    </td>
+  </tr>
+  </table>
+</div>

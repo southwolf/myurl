@@ -1,0 +1,83 @@
+
+<script language="JavaScript">
+  window.name = "main";
+function groupAdd()
+{
+  window.open("/group/new","childAdd","status=no,height=500,width=520,top=100,left=250");
+}
+function modifyGroup(id)
+{
+  window.name="main";
+  window.open("/group/edit/" + id,"childMdf","status=no,height=500,width=520,top=100,left=250");
+}
+
+function displayAllGroup(){
+    window.location = "/group/list_all";
+}
+
+function exportGroup()
+{
+	 window.location = "/group/down_excel";
+}
+
+</script>
+
+
+          <table class="clsContentListTable">
+            <%= start_form_tag :action => 'query' %>
+                  <tr class="clsTrContext">
+                     <td align="left" colspan=5>&nbsp;输入要查询的组名称:
+
+                        <input type="text" name="groupName" value="">
+                        <%= submit_tag '查询' %>
+                        
+                        <input type="button" onclick="groupAdd()" name="addGroup" value="新增组">
+                        <input type="button" onclick="displayAllGroup()" name="display" value="显示所有组">
+                        <input type="button" onclick="exportGroup()" name="btnExport" value="导出Excel">
+                     </td>
+                  </tr>
+             <%= end_form_tag %>
+                  <tr align="center" class="clsTrContext">
+                          <td colspan=6>系统组列表</td>
+                  </tr>
+         </table>
+          <table class="clsContentListTable">
+                  <tr class="clsTrHeader">
+                      <td>ID号</td>
+                      <td>组名称</td>
+                      <td>创建日期</td>
+                      <td>修改日期</td>
+                      <td>备注</td>
+                      <td>操作</td>
+                    </tr>
+                    
+                     <%index = 0%>
+                     <% for group in @groups %>
+                         <%=ColorRow(index)%>
+                            <td width=8%><%= group.groupid%>&nbsp;</td>
+                            <td width=25% nowrap><%= group.name%>&nbsp;</td>
+                            <td width=13%><%= group.datecreated.strftime("%Y-%m-%d %H:%M:%S") if group.datecreated%>&nbsp;</td>
+                            <td width=13%><%= group.datemodified.strftime("%Y-%m-%d %H:%M:%S") if group.datemodified%>&nbsp;</td>
+                            <td width=17%><%= group.memo%>&nbsp;</td>
+                            <td width=10%>
+                           <a href="javascript:modifyGroup(<%=group.id%>)">修改</a>&nbsp;
+                           <%= link_to '删除', { :action => 'destroy', :id => group }, :confirm => '确定删除选中组吗?', :post => true %>
+                            </td>
+                     </tr>
+                     <%index += 1%>
+                     <%end%>
+             <tr>
+                 <td align="right" colspan=6>
+                          共有组:<%=YtaplGroup.count()%>;
+                          每页:20行&nbsp;;
+                          当前第<%=@group_pages.current_page.offset/20 +1 %>页/
+                          共<%= @group_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @group_pages.first} if @group_pages.current != @group_pages.first %>
+                        <%= link_to '上一页', { :page => @group_pages.current.previous } if @group_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @group_pages.current.next } if @group_pages.current.next %> 
+                        <%= link_to '最后一页', { :page =>@group_pages.last} if @group_pages.current != @group_pages.last %>
+                 </td>
+             </tr>              
+         </table>

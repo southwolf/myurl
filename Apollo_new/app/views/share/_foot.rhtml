@@ -1,0 +1,14 @@
+<hr NOSHADE size=1>
+<center style="font-size:9pt">
+	&nbsp;
+	友通捷报网络数据处理系统 - V 9.0 &nbsp;&nbsp;&nbsp;本网站登陆次数达到&nbsp;<font color=red><%=YtaplSystem.find(:all)[0].visitedtimes%></font>&nbsp;次   <br>
+	&nbsp;
+	<a href="http://www.yotop.com" target="_blank">北京中普友通软件技术有限公司</a>
+    Copyright 2007. All rights reserved.
+	<br>
+    IE浏览器5.5或以上版本,推荐分辨率1024*768
+</center>
+<form name='loginform' method='post' action='http://<%=$RONGRUN_HOST%>:8123/mof/lib/logon_new.jsp'>
+<input name='username' type='hidden' value='<%=session[:user].name%>'>
+<input name='pwd' type='hidden' value='<%=session[:pwd]%>'>
+</form>

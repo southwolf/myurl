@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>统计公报</title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'fckeditor' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+<head> 
+</head> 
+<body style="font-size:12">
+
+<table width="90%" align="center" style="BORDER-COLLAPSE: collapse">            
+  <% if CheckRight(session[:user].id, "统计公报管理")%>
+  <tr>
+    <td align="left" colspan='3'>  
+           <%= start_form_tag({:action => 'upload_file', :id=>@catalog}, :multipart => true) %>   
+                公报名称：<%= text_field("report", "name")%> <br> 
+                选择文件：<%= file_column_field 'report', 'path' %> <br>
+                所属时间：<%=date_select('report', 'uploadtime', :start_year => 2000, :use_month_numbers=>true)%><br>
+              <input type="submit" value="上传" />
+           <%= end_form_tag %>
+     </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td colspan=3>
+        <%= start_form_tag({:action => 'find', :id=>@catalog}, :multipart => true) %>   
+                公报名称：<%= text_field("report", "name")%> <br> 
+                从：<%=date_select('report', 'from', :start_year => 2000, :use_month_numbers=>true)%> －－ 到：<%=date_select('report', 'to', :start_year => 2000, :use_month_numbers=>true)%><br>
+              <input type="submit" value="查询" />
+        <%= end_form_tag %>
+    </td>
+  </tr>
+  <tr><td>&nbsp;<td><tr>
+  <tr class='clsTrHeader'>
+           <td>文件名称</td>
+           <td>所属时间</td>
+           <td colspan = 2 width="18%">操作</td>
+  </tr>
+  <%index=0%>
+  <% for report in @reports%>
+     <%= ColorRow(index)%>
+         <td><%= link_to report.name, {:action=>'download_file', :id=>report}%></td>
+         <td><%=report.uploadtime.strftime("%Y-%m-%d") if report.uploadtime%></td>
+         <td><%= link_to '下载', {:action=>'download_file', :id=>report}, {:style=> "color: darkblue;"}%></td>
+         <% if CheckRight(session[:user].id, "统计公报管理")%>
+            <td><%= link_to '删除', {:action=>'delete_file', :id=>report}, :confirm=>'确定删除当前文件吗？'%></td>
+         <% end%>
+     </tr>  
+     <% index += 1%>
+  <% end%>
+  <tr>
+       <td align="right" colspan=6>
+         共有公报:<%=YtaplStatistic.find(:all, :conditions=>"cata_id = #{@catalog.id}").size%>;
+         每页:20行&nbsp;;
+         当前第<%=@report_pages.current_page.offset/20 +1 %>页/
+         共<%= @report_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+          <%= link_to '首页',   { :page => @report_pages.first} if @report_pages.current != @report_pages.first %>
+          <%= link_to '上一页', { :page => @report_pages.current.previous } if @report_pages.current.previous %>
+          <%= link_to '下一页', { :page => @report_pages.current.next } if @report_pages.current.next %> 
+          <%= link_to '最后一页',{:page => @report_pages.last} if @report_pages.current != @report_pages.last %>
+       </td>
+  </tr>      
+</table>
+<br>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>模板查询结果</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  
+<% @styles.each{|key, style|%>
+<%= style %>
+<% }%>  
+
+ 
+</head>
+<body>
+
+<br>
+    <div id = "update" align="center">
+    </div>
+
+    
+<div class="tab-pane" id="resultPane">
+    <script type="text/javascript">
+    var resultPane = new WebFXTabPane( document.getElementById( "resultPane" ),false);
+    </script>
+    
+    <% index = 0%>
+    <% @result.each{|key, value|%>
+        <div class="tab-page" id="<%=key%>">
+        <h2 class="tab"><%=key%></h2>
+             <script type="text/javascript">
+                 var <%=key%> = resultPane.addTabPage( document.getElementById( "<%=key%>" ) );
+             </script>
+             
+             <%=value%>
+        </div>
+        <% index += 1%>
+    <% }%>
+</div>
+
+</body>
+</html>

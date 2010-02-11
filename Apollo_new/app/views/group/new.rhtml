@@ -1,0 +1,12 @@
+<script>
+function return_onclick()
+{
+  close();
+}
+</script>
+
+<% cand_users = YtaplUser.find(:all, :order=>"name") %>
+
+<%= start_form_tag({:action => 'create'}, {:name=>"form1"}) %>
+  <%= render :partial => 'form', :locals=>{:cand_users => cand_users, :sel_users=> Array.new} %>
+<%= end_form_tag %>

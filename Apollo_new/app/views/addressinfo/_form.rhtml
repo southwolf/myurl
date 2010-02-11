@@ -1,0 +1,97 @@
+
+<script language="JavaScript">
+var unitID = "<%=@unit.unitid%>";
+
+//验证email的合法性
+function ismail(mail)
+{
+  return(new RegExp(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/).test(mail));
+}
+
+
+function addAddressInfo(){
+    if(addressForm["ytaddressinfo[phone]"].value==""){
+        alert("请填写电话号码！");
+        addressForm.phone.focus();
+        return false;
+    }
+    if(isNaN(addressForm["ytaddressinfo[phone]"].value)==true){
+        alert("电话号码格式不正确(只能填写数字)！");
+        addressForm.phone.focus();
+        return false;
+    }
+    if(addressForm["ytaddressinfo[mobile]"].value==""){
+        alert("请填写手机号码！");
+        addressForm.mobile.focus();
+        return false;
+    }
+    if(isNaN(addressForm["ytaddressinfo[mobile]"].value)==true){
+        alert("手机号码格式不正确(只能填写数字)！");
+        addressForm.mobile.focus();
+        return false;
+    }
+    if(addressForm["ytaddressinfo[fax]"].value==""){
+        alert("请填写传真号码！");
+        addressForm.fax.focus();
+        return false;
+    }
+    if(isNaN(addressForm["ytaddressinfo[fax]"].value)==true){
+        alert("传真号码格式不正确(只能填写数字)！");
+        addressForm.fax.focus();
+        return false;
+    }
+    if(addressForm["ytaddressinfo[email]"].value==""){
+        alert("请填写电子邮件地址！");
+        addressForm.email.focus();
+        return false;
+    }
+    if(ismail(addressForm["ytaddressinfo[email]"].value)!=true){
+        alert("电子邮件格式不正确(示例:tom@tom.com)!");
+        addressForm.email.focus();
+        return false;
+    }
+    if(unitID==null){
+        alert("没有单位信息！");
+        return false;
+    }
+    addressForm.unitID.value = unitID;
+    addressForm.submit();
+}
+
+function displayAllAddressInfo(){
+     url = "/addressinfo/list";
+     window.location = url;
+}
+</script>
+
+<input type="hidden" name="unitName" value="河北国资委厅局">
+<input type="hidden" name="unitID">
+<input type="hidden" name="taskID">
+<table height=90% width=90% border=1 style="margin-left:1cm" class="xsltTable">
+      <tr class="xsltTr"><td colspan=2 align=center>新增催报信息</td>
+      </tr>
+      <tr class="xsltTr"><td width=25% align=center>单位名称:</td>
+         <td ><%=@unit["#{@meta.unitname}"]%></td>
+      </tr>
+      <tr class="xsltTr"><td align=center>电话:</td>
+         <td><%= text_field "ytaddressinfo" , "phone", {:size=>30, :maxlength=>20}%></td>
+      </tr>
+      <tr class="xsltTr"><td align=center>手机:</td>
+         <td><%= text_field "ytaddressinfo" , "mobile", {:size=>30, :maxlength=>20}%></td>
+      </tr>
+      <tr class="xsltTr"><td align=center>传真:</td>
+         <td><%= text_field "ytaddressinfo" , "fax", {:size=>30, :maxlength=>20}%></td>
+      </tr>
+      <tr class="xsltTr"><td align=center>电子邮件:</td>
+         <td><%= text_field "ytaddressinfo" , "email", {:size=>30, :maxlength=>20}%></td>
+      </tr>
+      <tr class="xsltTr">
+             <td align=center>&nbsp;</td>
+             <td>
+                  <!-- input type="button" onclick=deleteAddressInfo() name="deleteInfo" value=" 删  除 " disabled -->
+                 <input type="button" onclick=addAddressInfo() name="submitInfo" value=" 保 存 ">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                 <a href="javascript:displayAllAddressInfo()">显示所有催报信息</a>
+             </td>
+      </tr>
+ </table>

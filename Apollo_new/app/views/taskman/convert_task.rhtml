@@ -1,0 +1,49 @@
+<table width=100% border=0>
+    <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"跨任务导数"})%>
+    </tr>
+    <tr>
+       <td align="left"><img src="/img/infomation.bmp">&nbsp;发布跨任务导数文件.</td>
+    </tr>
+    <tr>
+      <form action="/taskman/upload_convert/<%=params[:id]%>" method="post" enctype="multipart/form-data" name="form1">
+        <td align='left'>
+           选择文件：
+           <input type="file" name="file"/>
+           <input type="submit" name="doSubmit" value="发  布" onclick="return check()"/>
+        </td>
+      </form>
+    </tr>
+</table>
+
+<table class="clsContentListTable" id='templatestable'>
+    <tr height=20 class="clsTrContext">
+        <td align=center colspan=8><br>导数配置文件列表</td>
+    </tr>
+  	
+  	<tr class="clsTrHeader" height=20px>
+        <td width=20% >文件名称</td>
+        <td width=20% >发布时间</td>
+        <td width=20% >操作</td>
+    </tr>
+    <% index = 0%>
+    <% for convert in @converts %>
+    <% index += 1%>
+       <%=ColorRow(index)%>
+    <td width=20% height=20><%=link_to convert.name, {:action=>"download_convert", :id=>convert}%></td>
+    <td width=20% height=20><%=convert.publishtime.strftime("%Y-%m-%d %H:%M:%S")%>&nbsp;</td>
+    <td width=20% height=20>
+    <%= link_to '删除', { :action => 'destroy_convert', :id => convert }, :confirm => '确认删除选中导数文件吗?', :post => true %>
+    </tr>
+   <%end%>
+</table>
+
+  
+<script language="javascript">
+function check(){
+  if(form1.file.value == ""){
+    alert("请选择跨任务导数文件!");
+    return false;
+  }
+}
+</script>

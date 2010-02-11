@@ -1,0 +1,61 @@
+<body>
+           <table class="clsContentTable">
+               <tr height=5% class="clsTrContext">
+                   <td align=center>催报信息</td>
+               </tr>
+               <tr valign=top class="clsTrContext" >
+                   <td>
+                            
+                             <table width="100%" class="clsContentListTable">
+                              <tr class="clsTrHeader">
+                                <td align="center" width=20%>单位名称</TD>
+                                <td align="center" width=20%>电话</TD>
+                                <td align="center" width=20%>手机</TD>
+                                <td align="center" width=20%>传真</TD>
+                                <td align="center" width=20%>电子邮件</TD>
+                              </TR>
+                              
+                              <%index = 0%>
+                              <% for info in @infos%>
+                              <% next if UnitFMTableData.find(:all, :conditions=> "unitid = '#{info.unitid}'").size == 0%>
+                                <%=ColorRow(index)%>
+	                               <td align="left"><%=UnitFMTableData.find(info.unitid)["#{@meta.unitname}"]%></td>
+	                               <td align="left"><%=info.phone%></td>	                               
+	                               <td align="left">
+	                                   <a href="http://www.tt-sms.net/API/SendSms.aspx?account=友通测试&operator=管理员&password=888888&dst=<%=info.mobile%>&msg=本期数据请速填报。国资委信息中心">
+	                                   <%=info.mobile%>
+	                                   </a>
+	                               </td>
+	                               <td align="left"><%=info.fax%></td>
+	                               <td><%= link_to info.email, :action=>'urge', :id=>info%></td>
+	                              </tr>
+                              <% index += 1%>
+                              <% end%>
+                              
+                              <%if @infos.size == 0%>
+                                <tr align="center">
+                                    <td align="center" colspan=5>没有催报信息</TD>
+                                </TR>
+                              <% end%>
+                            <tr>
+                    <td align="right" colspan=5>
+                    <br>
+                          共有催报信息:<%=Ytaddressinfo.count()%>;
+                          每页:10行&nbsp;;
+                          当前第<%=@info_pages.current_page.offset/10 +1 %>页/
+                          共<%= @info_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @info_pages.first} if @info_pages.current != @info_pages.first %>
+                        <%= link_to '上一页', { :page => @info_pages.current.previous } if @info_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @info_pages.current.next } if @info_pages.current.next %> 
+                        <%= link_to '最后一页', { :page =>@info_pages.last} if @info_pages.current != @info_pages.last %>
+                    </td>
+             </tr>          
+                            
+                            
+                            </TABLE>
+
+                  </td>
+               </tr>
+          </table>

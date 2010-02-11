@@ -1,0 +1,175 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选择单位</title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'optionfunction' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+
+<style type="text/css">
+A {
+	color: darkblue
+}
+
+</style>
+
+</head>
+
+<script>
+var unitIDselected = new Array();
+var unitNameselected = new Array();
+var selectType = "";
+
+function doneSelect()
+{
+    <%= @doAfterDone%>
+	<% if @doAfterDone %>
+	   window.close();
+	<% end%>
+}
+
+function byList()
+{
+	selectType = "byList";
+	
+	var oListA = document.getElementById( "listA" );
+	var oTreeA = document.getElementById( "treeA" );
+	
+	oListA.className = "clsAlight";
+	oTreeA.className = "clsAdark";
+	
+	var oListTd = document.getElementById( "listTd" );
+	var oTreeTd = document.getElementById( "treeTd" );
+	
+	oListTd.className = "clsSelectedToolTab";
+	oTreeTd.className = "clsToolTabs";
+	
+	var oForm = document.getElementById( "listForm" );
+	
+	var sAction = "selectbylist";
+	if( unitIDselected.length > 0 )
+	{
+		sAction = sAction + "?unitID=" + encodeURIComponent( unitIDselected[0] );
+	}
+	for( var i=1; i<unitIDselected.length; i++ )
+	{
+		sAction = sAction + "&unitID=" + encodeURIComponent( unitIDselected[i] );
+	}
+	
+	oForm.action = sAction;
+	oForm.submit();
+}
+
+function doneSelectByList()
+{
+	unitIDselected = mainFrame.getSelectedUnitID();
+	unitNameselected = mainFrame.getSelectedUnitName();	
+	doneSelect();
+}
+
+function byTree()
+{
+	selectType = "byTree";
+	
+	var oListA = document.getElementById( "listA" );
+	var oTreeA = document.getElementById( "treeA" );
+	
+	oListA.className = "clsAdark";
+	oTreeA.className = "clsAlight";
+	
+	var oListTd = document.getElementById( "listTd" );
+	var oTreeTd = document.getElementById( "treeTd" );
+	
+	oListTd.className = "clsToolTabs";
+	oTreeTd.className = "clsSelectedToolTab";
+	
+	var oForm = document.getElementById( "treeForm" );
+	
+	var sAction = "selectbytree";
+	if( unitIDselected.length > 0 )
+	{
+		sAction = sAction + "?unitID=" + encodeURIComponent( unitIDselected[0] );
+	}
+	for( var i=1; i<unitIDselected.length; i++ )
+	{
+		sAction = sAction + "&unitID=" + encodeURIComponent( unitIDselected[i] );
+	}
+	
+	oForm.action = sAction;
+	
+	oForm.submit();
+}
+
+function doneSelectByTree()
+{
+	unitIDselected = mainFrame.unitIDselected;
+	unitNameselected = mainFrame.unitNameselected;
+	
+	doneSelect();
+}
+
+function doOnload()
+{
+	unitIDselected = window.opener.unitIDselected;
+	unitNameselected = window.opener.unitNameselected;
+	
+	byTree();
+}
+
+</script>
+
+<body onload = "javascript:doOnload()">
+<table width="100%" height="13" cellspacing="0" border="0" cellpadding="0">
+	<tr height="2">
+		<td colspan="6">&nbsp;</td>
+	</tr>
+
+	<tr height="5">
+		<td>&nbsp;</td>
+		<td width="80" id="listTd">
+			<a href="javascript:byList()" id="listA">按列表选择</a>
+			&nbsp;
+		</td>
+
+		<td width="8" vertical-align="middle">
+			<IMG src="/img/tab_separator.gif" align="absMiddle" border="0"/>
+		</td>
+
+		<td>&nbsp;</td>
+		<td width="70" id="treeTd">
+			<a href="javascript:byTree()" id="treeA">按树选择</a>
+			&nbsp;
+		</td>
+
+		<td BACKGROUND ="/img/tab_stripes.jpg" width="75%"></td>
+
+	</tr>
+
+	<tr height="1">
+		<td colspan="6" style="background-color: black">
+		</td>
+	</tr>
+</table>
+
+<iframe  height="93%" width=700 FRAMEBORDER=0 id="aditresult" name="mainFrame" ></iframe>
+
+<form id="listForm" method="post" action="utilServlet" target="mainFrame">
+	<input type="hidden" name="operation" value="showSearchUnit"/>
+	<input type="hidden" name="doAfterDone" value="parent.doneSelectByList()"/>
+	<input type="hidden" name="closeAfterDone" value="false"/>
+</form>
+
+<form id="treeForm" method="post" action="model" target="mainFrame">
+	<input type="hidden" name="operation" value="showUnitTree"/>
+	<input type="hidden" name="doAfterDone" value="parent.doneSelectByTree()"/>
+	<input type="hidden" name="closeAfterDone" value="false"/>
+</form>
+
+
+</body>
+</html>

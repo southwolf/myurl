@@ -1,0 +1,164 @@
+<html>
+<head>
+  <title>日志管理</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= stylesheet_link_tag 'main' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'optionfunction' %>
+  <%= javascript_include_tag 'time'%>
+  <%= javascript_include_tag 'function'%>
+</head>
+<body>
+
+<%= render :partial => '/share/head' %>
+
+<script >
+
+var oCalendarEn=new PopupCalendar("oCalendarEn");
+oCalendarEn.Init();
+
+
+var oCalendarChs=new PopupCalendar("oCalendarChs");
+oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+oCalendarChs.oBtnTodayTitle="今天";
+oCalendarChs.oBtnCancelTitle="取消";
+oCalendarChs.Init();
+</script>
+
+<!-- 菜单区域 -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr><td colspan=4 height=2></td></tr>
+	<tr>
+	   <td height="100%" width="2">
+	   <!---------------------------------------------------------->
+	   
+
+<table cellspacing="0" border="0" cellpadding="0" height="100%">
+<tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    
+    <% if controller.controller_name == "log" && controller.action_name == 'index'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "事件查询", {:controller => 'log', :action => 'index'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+        <IMG height=9 src="/img/tab_separator.gif" width=9 align=absMiddle border=0></td>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    <% if controller.controller_name == "log" && controller.action_name == 'dataevents_manage'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "数据日志", {:controller => 'log', :action => 'dataevents_manage'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+    <IMG height=9 src="../img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    
+    
+    <% if controller.controller_name == "log" && controller.action_name == 'securityevents_manage'%>
+        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+		    </td>
+
+        <%classstr = "clsSelectedToolTab"
+          clrstr = "clsAlight"
+       else
+        classstr = "clsToolTabs"
+        clrstr = "clsAdark"
+    end%>
+    <td  valign="bottom" nowrap class='<%=classstr%>' >
+<%=link_to "安全日志", {:controller => 'log', :action => 'securityevents_manage'}, {:class=>clrstr}%> &nbsp;
+    </td>
+    <td>
+    <IMG height=9 src="../img/tab_separator.gif" width=9 align=absMiddle border=0>
+    </td>
+    
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <% if controller.action_name == 'sum'%>
+	        <td valign=top class=clsSelectedToolTab>
+						<img height=6 src='/img/tab_angle.gif' width=6 align=top border=0>
+					</td>    
+    <%end%>
+
+</tr>
+
+</table>
+	   
+
+	   <!---------------------------------------------------------->
+	   </td>
+	   <td background ="/img/tab_stripes.jpg">
+	   
+	      <div id="notice" align="center"></div>
+        <script language="javascript">
+        function setNotice(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='background:#FFFF00;'>" + notice + "</span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 2250)
+        }
+        <% if @flash[:notice] %>
+            setNotice('<%=@flash[:notice]%>')
+        <% end %>
+        </script>
+	   
+	   </td>
+	   <td width=2></td>
+	   <td valign="top" align='right' width=10 nowrap>
+	       <%= render :partial => '/share/taskselect'%>
+	   </td>
+	</tr>
+	<tr>
+    <td colspan=4 height="2"  style="background-color: black"></td>
+    </tr>
+</table>	
+<script>
+function displaySubMenu(obj){
+   var selectIndexOpt = obj.options[obj.selectedIndex].value;
+   
+   window.location = "/main/switchtask/" + selectIndexOpt
+}
+
+<!--系统安全管理-->
+function SecurityManager(){
+   window.location = "/user/list/" ;
+}
+
+</script>
+
+<%= @content_for_layout %>
+
+<%= render :partial =>'/share/foot'%>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<% @title = "选择时间" %>
+<%= javascript_include_tag 'calendar/popcalendar' %>
+
+<script>
+var suitableTimeID = <%=session[:tasktime]%>;
+var timeID = new Array(); // 任务时间id数组
+var timeDesc = new Array(); // 任务时间描述数组
+
+<% tasktimes = Yttasktime.find(:all, :conditions=>"taskid= #{session[:task].id}", :order=>"tasktimeid")%>
+
+<% Integer(0).upto(tasktimes.size-1) do |index|%>
+    timeID[<%=index%>] = "<%=tasktimes[index].id%>";    
+    timeDesc[<%=index%>] = "<%=GetTaskTimeDescString(tasktimes[index])%>";
+<% end%>
+
+function doneSelect()
+{
+	var oTimeBuff = "";
+	var oSrcForm = window.document.getElementById( "subTaskTimeForm" );
+		
+	var oSingleTime = window.document.getElementById( "singleTime" );
+	
+	if( oSingleTime.disabled )
+	{
+		// 选择的是时间段
+		var beginIndex = window.document.getElementById( "beginTime" ).selectedIndex;
+		var endIndex = window.document.getElementById( "endTime" ).selectedIndex;
+		
+		var beginTime = window.document.getElementById( "beginTime" );
+		var oTimes = beginTime.options;
+		
+		if( beginIndex <=endIndex )
+		{
+			for( var i=beginIndex; i<=endIndex; i++ )
+			{
+				oTimeBuff += oTimes(i).value;
+				oTimeBuff += ",";
+			}
+		}
+		else
+		{
+			for( var i=beginIndex; i>=endIndex; i-- )
+			{
+				oTimeBuff += oTimes(i).value;
+				oTimeBuff += ",";
+			}
+		}
+	}
+	else
+	{
+		var index = window.document.getElementById( "singleTime" ).selectedIndex;
+		
+		oTimeBuff = window.document.getElementById( "singleTime" ).options(index).value + ",";
+	}
+	
+	window.opener.document.getElementById( "taskTimeIDs").value = oTimeBuff;
+	window.opener.afterSelectTaskTimes();
+	window.close();
+}
+</script>
+
+<script language="javascript">
+function disableAnother()
+{
+	if( window.event.srcElement.value=="single" )
+	{
+		subTaskTimeForm.singleTime.disabled = false;
+		subTaskTimeForm.beginTime.disabled = true;
+		subTaskTimeForm.endTime.disabled = true;
+	}
+	else
+	{
+		subTaskTimeForm.singleTime.disabled = true;
+		subTaskTimeForm.beginTime.disabled = false;
+		subTaskTimeForm.endTime.disabled = false;
+	}
+}
+</script>
+
+</head>
+<body class="clsPopu">
+
+
+<!-- 新的任务时间显示方式 -->
+<form id="subTaskTimeForm">
+<table align="center">
+
+	<tr>
+		<td colspan="4">&nbsp</td>
+	</tr>
+	<tr>
+		<td colspan="4">&nbsp</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<input type="radio" name="selectType" value="single" onclick="disableAnother()" checked/> 单时间选择
+		</td>
+		
+		<td>
+			<select name="singleTime" id="singleTime">
+
+<% Integer(0).upto(tasktimes.size-1) do |index|%>
+     <option value="<%=tasktimes[index].id%>" <%="selected" if session[:tasktime]== tasktimes[index].id.to_s%>>
+				<%=GetTaskTimeDescString(tasktimes[index])%>
+     </option>
+<% end%>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<input type="radio" name="selectType" value="multi" onclick="disableAnother()"/> 时间段选择
+		</td>
+		
+		<td>
+			<select name="beginTime" id="beginTime" disabled>
+<% Integer(0).upto(tasktimes.size-1) do |index|%>
+     <option value="<%=tasktimes[index].id%>" <%="selected" if session[:tasktime]== tasktimes[index].id.to_s %>>
+				<%=GetTaskTimeDescString(tasktimes[index])%>
+				</option>
+<% end%>
+			</select>
+		<td>
+		
+		<td>
+			&nbsp;&nbsp;到&nbsp;&nbsp;
+		</td>
+		
+		<td>
+			<select name="endTime" id="endTime" disabled>
+<% Integer(0).upto(tasktimes.size-1) do |index|%>
+     <option value="<%=tasktimes[index].id%>" <%="selected" if session[:tasktime]== tasktimes[index].id.to_s %>>
+				<%=GetTaskTimeDescString(tasktimes[index])%>
+				</option>
+<% end %>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">&nbsp</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+		<input type="button" name="subButt" value="确 定" onclick="doneSelect()"/>
+		&nbsp;
+		<input type="reset" name="resetButt" value="取 消" onclick="javascript:window.close()"/>
+		</td>
+	</tr>
+<table>
+
+</form>

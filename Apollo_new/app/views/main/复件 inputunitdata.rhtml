@@ -1,0 +1,22 @@
+<html>
+<title>编辑数据<%=@unitid%></title>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<body style="margin:0" scroll="no">
+<OBJECT ID="yttable" WIDTH="100%" HEIGHT="100%"
+	CLASSID="CLSID:9DF8A804-1DC1-4A7C-944E-427FF5EC02EC"
+	CODEBASE="/cab/YotopTableCtrl.cab#Version=1,0,0,0">
+</OBJECT>
+<SCRIPT LANGUAGE="JavaScript">
+yttable.taskContent = "<%=@taskcontent%>";
+yttable.ServerUrl = "http://<%=request.env_table["HTTP_HOST"]%>/front_service/api";
+yttable.User = "admin";
+yttable.Password = "password";
+yttable.DownloadByWebservice("<%=@tasktime.begintime.strftime("%Y-%m-%d")%>","<%=@unitid%>");
+<%now = Time.new%>
+yttable.EvalScript("var yt_curdate=\"填报日期:<%=now.year%>年<%=now.month%>月<%=now.mday%>日\";");
+yttable.ReadOnly = <%=@readonly%>;
+
+</SCRIPT>
+</body>
+</html>

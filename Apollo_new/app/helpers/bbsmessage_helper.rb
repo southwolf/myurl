@@ -1,0 +1,2 @@
+module BbsmessageHelper
+end

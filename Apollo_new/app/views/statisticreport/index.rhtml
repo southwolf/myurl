@@ -1,0 +1,45 @@
+<table class="clsContentTable" border=0 cellpadding=0 height=90%>
+<% if CheckRight(session[:user].id, "统计资料管理") %>
+<tr><td colspan="2" width=100%>
+    <%= start_form_tag({:action=>"add_catalog"}, {:name=>"form1"})%>
+        <input type="hidden" name="catalog_id" value="-1">
+        添加分类：<%=text_field_tag "name"%>
+        <%=submit_tag "添加"%>
+    <%= end_form_tag%>
+    
+</td></tr>
+<% end%>
+<tr height=100%>
+  <td width=30%>
+       <div class="clsTreeDiv">
+          <script type="text/javascript">
+          function selectCatalog(id)
+          {
+            <% if CheckRight(session[:user].id, "统计资料管理") %>
+                form1.catalog_id.value = id;
+            <% end%>            
+            if (id==-1)
+            {
+                alert("请选择子类别");
+                return
+            }
+            report.location = "/statisticreport/show_catalog/" + id;
+          }
+var all_cata = new WebFXLoadTree("所有分类", "/statisticreport/get_catalogs/-1?target=report", "javascript:selectCatalog(-1)");
+all_cata.icon = "/img/icon_7.gif";
+all_cata.openIcon = "/img/icon_7.gif"; 
+all_cata.setBehavior('classic');
+//all_cata.target="report";
+document.write(all_cata);
+</script>
+
+<script>
+
+</script>
+       </div>
+   </td>
+   <td width=70%>
+    <iframe SCROLLING=yes height="100%" width="100%" FRAMEBORDER="solid" id="report" name="report" class="clsTreeDiv"></iframe>
+   </td>
+</tr>
+</table>

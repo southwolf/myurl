@@ -1,0 +1,30 @@
+
+<table class="clsContentListTable" id='templatestable'>
+  <tr height=20 class="clsTrContext">
+    <td align=center colspan=8><br>模板列表</td>
+  </tr>
+  	
+  	<tr class="clsTrHeader" height=20px>
+        <td width=20% >模板名称</td>
+        <td width=20% >发布时间</td>
+        <td width=20% >操作</td>
+    </tr>
+  <% index = 0%>
+  <% for template in @templates %>
+    <% index += 1%>
+       <%=ColorRow(index)%>
+    <td width=20% height=20><a href="javascript:exportTemplate(<%=template.templateid%>)"><%=template.templatename%>&nbsp;</a></td>
+    <td width=20% height=20><%=template.createtime.strftime("%Y-%m-%d %H:%M:%S")%>&nbsp;</td>
+    <td width=20% height=20>
+    <%= link_to '删除', { :action => 'destroy_template', :id => template }, :confirm => '确认删除选中模板吗?', :post => true %></td>
+    </tr>
+   <%end%>
+  	
+  	<form id="execTplForm" name="execTplForm" method="post" target="_self">
+		<input type="hidden" name="operation" value=""/>
+		<input type="hidden" name="templateID" value=""/>
+		
+		<input type="hidden" name="taskID" value="JGQYDA"/>
+  
+ 	</form>
+</table>

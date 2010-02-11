@@ -1,0 +1,19 @@
+<%@title = '通知'%>
+<center><h4><%= h(@ytnews.title)%></h4></center>
+<table width="90%">
+<tr>
+<td width="100%">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= @ytnews.content %>
+</td>
+</tr>
+</table>
+<p></p>
+<p>
+<div align="right">发布日期：<%= @ytnews.publish_time.strftime("%y-%m-%d")%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+</p>
+<div align="center">
+<%= link_to '返回', :action => 'list' %>
+</div>

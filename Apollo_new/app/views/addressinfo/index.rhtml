@@ -1,0 +1,36 @@
+<form name="thisForm" method="post" style="margin:0" target="addressInfo">
+<input type="hidden" name="taskID">
+<input type="hidden" name="unitID">
+<input type="hidden" name="unitName">
+  <table width=99% height=99% bordercolordark="white" bordercolorlight="black">
+       <tr height=26 class="clsTrHeader" >
+         <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"催报管理"})%>
+       </tr>
+       </tr>
+                <tr >
+                     <td height=100% width=28%>
+                     
+                     
+                <div id='unittree' class='clsTreeDiv'>
+                    <%= GenerateUnitTree(session[:task].id, "", "addressinfo", "edit", 'unitdata', 'addressInfo', false) %>
+                </div>
+
+</td>
+                     <td height=100%>
+                         <table  valign=top width=100% height=100% bordercolordark="white" bordercolorlight="black">
+                            <tr class="clsTrContext">
+                              <td >
+                                 <iframe name="addressInfo" width=100% FRAMEBORDER=0 height=100%></iframe>
+                             </td>
+                            </tr>
+                         </table>
+                      </td>
+                </tr>
+      </table>
+</form>
+
+
+<script language="javascript">
+addressInfo.location="/addressinfo/list";
+</script>

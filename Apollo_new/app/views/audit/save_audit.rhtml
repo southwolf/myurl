@@ -1,0 +1,15 @@
+<br>
+
+<table width=100% cellspacing=1 cellpadding=0 border=0>
+	   <tr  class=clsTrHeader width="100%">
+		  <td width="100%">共保存了<%=@result_size||0%>家审核信息。</td>
+		  
+		  <%index=0%>
+		  <% for error in @error_text%>
+		      <%=ColorRow(index)%>
+		          <td width="100%"><%=error%></td>
+		      </tr>
+		  <% index += 1%>
+		  <% end %>
+	   </tr>
+</table>

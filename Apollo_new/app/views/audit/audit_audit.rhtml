@@ -1,0 +1,77 @@
+
+<script language=javascript>
+parent.document.all.dispinfo.style.display='none';
+function openData(unitID,timeID)
+{
+    window.open('/main/getunitdata?unitID='+unitID+'&taskTimeID='+timeID,'_blank');
+}
+</script>
+ 
+
+
+<% keys = @unit_error_warn.keys()
+   keys.sort
+%>
+<% for key in keys 
+    value = @unit_error_warn[key]
+%>
+    <br>
+    <div style='FONT-SIZE:9pt'>单位名称:<a href=javascript:openData('<%=key%>','<%=@tasktimeid%>')><%=value[2]%></a>&nbsp单位编号:<%=key%></div>
+    <% errors = value[0]
+        warns = value[1] 
+    %>
+    <% if !errors%>
+    <table width=100% cellspacing=0 cellpadding=0 border=0>
+	   <tr  class=clsTrHeader><td>该单位未填数..</td></tr>
+	</table>
+    <% next %>
+    <% end %>
+    
+    <table width=100% cellspacing=0 cellpadding=0 border=0>
+	   <tr  class=clsTrHeader>
+		  <td width="10%">类型</td>
+		  <td width="25%">公式</td>
+		  <td width="20%">表名及单元格</td>
+		  <td width="45%">内容</td>
+	   </tr>
+	   <% index = 0%>
+     <% if @msgtype == "alltype" || @msgtype == "error"%>	  
+	    <% for error in errors%>
+	       <%= ColorRow(index)%>
+	        <td>错误</td>
+	        <td><%=error[2]%></td>  
+	        <td>
+		      <% str = ""%>
+		      <% for cell in error[1]%>
+		          <%str += cell.to_s + '&nbsp;&nbsp;'%>
+		      <% end %>
+		      
+		      <%= str %>
+		     </td>
+		    
+		    <td><%=error[0]%></td>
+	    </tr>
+	    <% index += 1%>
+	    <% end %>
+	   <%end%>
+	   
+	  <% if @msgtype == "alltype" || @msgtype == "warning"%>	   
+	    <% for error in warns%>
+	       <%=ColorRow(index)%>
+	        <td>警告</td>
+	        <td><%=error[2]%></td>  
+		    <td>
+		      <% str = ""%>
+		      <% for cell in error[1]%>
+		          <%str += cell + '&nbsp;&nbsp;'%>
+		      <% end %>
+		      <%= str %>
+		       </td>
+		     <td><%=error[0]%></td>
+	     </tr>
+	    <% index += 1%>
+	    <% end %>
+	  <%end%>
+    </table>
+
+<% end %>

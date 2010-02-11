@@ -1,0 +1,10 @@
+<%= javascript_include_tag 'prototype' %>
+<script>
+setTimeout('window.opener.location.reload();close();', 2000)
+</script>
+
+<table width=100% height=100%>
+<tr>
+    <td align="center"><%=flash[:notice]%>&nbsp;&nbsp;<br><br><a href="javascript:window.opener.location.reload();window.close();">关闭</a></td>
+</tr>
+</table>

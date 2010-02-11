@@ -1,0 +1,205 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'fckeditor' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+
+<style type="text/css">
+form {
+	margin:		4;
+	padding:	1;
+}
+
+body {
+	margin:		0px;
+	width:		auto;
+	height:		auto;
+}
+</style>
+
+<title>选择单位</title>
+
+<script>
+var unitIDselected = new Array();
+var unitNameselected = new Array();
+function doneSelect()
+{
+	parent.doneSelectByTree();
+}
+
+function saveSchema()
+{
+    schema.unitids.value = "";
+    for(var i=0; i<unitIDselected.length; i++)
+    {
+        schema.unitids.value += unitIDselected[i] + ",";
+    }
+    schema.onsubmit();
+}
+/**
+ * 点击树节点的check box触发此方法
+ */
+function checkTreeNode(nodeID,checked)
+{
+  setCheckedTreeNode(nodeID,checked,document.all.isContainChildren.checked);
+}
+
+/**
+ * check操作完成后的回调函数，覆盖缺省的实现
+ * 更新数组unitIDselected
+ */
+function afterCheck()
+{
+    //保存当前的unitIDselected
+    var oldUnitIDs = new Array();
+    for(var i = 0; i < unitIDselected.length; i++)
+    {
+        if(unitIDselected[i] != null)
+        {
+            oldUnitIDs[oldUnitIDs.length] = unitIDselected[i];
+        }
+    }
+    
+    var oldNames = new Array();
+    for(var i = 0; i < unitNameselected.length; i++)
+    {
+        if(unitNameselected[i] != null)
+        {
+            oldNames[oldNames.length] = unitNameselected[i];
+        }
+    }
+    //状态改变的单位节点
+    var nodes = checkProperty.nodes;
+    
+		
+    // 过滤，那么重复的单位
+    var newNodes = new Array();
+    for( var i=0; i<nodes.length; i++ )
+    {
+    	var index = -1;
+    	for( var j=0; j<newNodes.length; j++ )
+    	{
+    		if( newNodes[j]._checkValue == nodes[i]._checkValue
+    				&& newNodes[j].text == nodes[i].text )
+    		{
+    			// 其实只需要判断_checkValue值就可以了，
+    			index = j;
+    			break;
+    		}
+    	}
+    	
+    	if( index == -1 )
+    	{
+    		newNodes[newNodes.length] = nodes[i];
+    	}
+    }
+    
+    nodes = newNodes;
+    
+		
+    //开始更新unitIDselected
+    for(var i = 0; i < nodes.length; i++)
+    {
+        //状态改变的单位节点的unitID在数组oldUnitIDs中的index
+        var index = null;
+        
+        for(var j = 0; j < oldUnitIDs.length; j++)
+        {
+            if(nodes[i]._checkValue == oldUnitIDs[j])
+            {
+                index = j;
+                break;
+            }
+        }
+
+        if(index == null)
+        {
+            if(nodes[i]._checked)
+            {
+                //将单位ID加到unitIDselected中
+                unitIDselected[unitIDselected.length] = nodes[i]._checkValue;
+                unitNameselected[unitNameselected.length] = nodes[i].text;
+            }
+        }
+        else
+        {
+            if(!nodes[i]._checked)
+            {
+                //从unitIDselected中去掉对应的单位ID
+                for(k = 0; k < unitIDselected.length; k++)
+                {
+                    if(unitIDselected[k] == nodes[i]._checkValue)
+                    {
+                        unitIDselected[k] = null;
+                        unitNameselected[k] = null;
+                    }
+                }
+            }
+        }
+    }
+}
+
+</script>
+</head>
+
+<body>
+	<table width="99%" height="85%">		
+		<tr height="80%">
+			<td colspan="2" width="100%" >				
+			<div id="update1"></div>
+			<div><%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %></div>
+			<div style="width: 100%; height: 100%; overflow: auto">
+			<%= GenerateCheckBoxUnitTree(session[:task].id, "", "", 'unitdata1', '') %>
+                <script>
+                    function getCheckedValues()
+                    {
+                        result = new Array();
+                        <%roots = GetRootNodes(session[:task].id) 
+                        for root in roots%>
+                            result = result.concat(<%=root%>.getCheckedValue());
+                        <%end%>
+                        return result;
+                    }
+                </script>
+            </div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2"><hr color="#c4c9e1" size="1"/></td>
+		</tr>
+		
+		<tr>
+			<td>
+			<input type="checkbox" name="isContainChildren" checked>是否包含下级
+			</td>
+		
+			<td>
+			<input type="button" value="确定" onclick="doneSelect()"/>
+			&nbsp;
+			<input type="reset" value="取消" onclick="javascript:parent.window.close()"/>
+			</td>
+		</tr>
+		<tr>
+		<td colspan=2>
+		<%=form_remote_tag(:update=>"update", :url=>{:action=>"save_schema"}, :loading=>"Element.show('indicator')", :loaded=>"Element.hide('indicator')", :html=>{:name=>'schema'})%>
+		  <input type='hidden' name="unitids">
+		  保存为方案：<%=text_field_tag "schema_name" %>
+		  <input type="button" value="保存" onclick="javascript:saveSchema();"%>
+		<%=end_form_tag%>
+		</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+	</table>			
+
+</body>
+</html>

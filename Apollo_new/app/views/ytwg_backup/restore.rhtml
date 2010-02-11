@@ -1,0 +1,16 @@
+<br>
+<!--
+<%= start_form_tag({:action => 'restorebak'}, {:enctype=>"multipart/form-data"}) %>
+选择上传的数据文件：<%= file_field_tag 'data'  %>
+<%= submit_tag '上传' %>
+<%= end_form_tag %>
+-->
+
+<%= form_tag_with_upload_progress({:action => 'restorebak'}, {:enctype=>"multipart/form-data"}) %>
+选择上传的数据文件：<%= file_field_tag 'data'  %>
+<%= submit_tag '上传' %>
+<%= upload_status_tag %>
+<%= end_form_tag %>
+
+
+

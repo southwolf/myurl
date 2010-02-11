@@ -1,0 +1,38 @@
+<table class="clsContentListTable" id='tasktable'>
+ <tr class="clsTrHeader">
+    <td width=30% align="center">名称</td>
+    <td width=5% align="center">标识</td>
+    <td width=15% align="center">发布时间</td>
+    <td width=25% align="center">描述</td>
+    <td width=15% align="center">操作</td>
+  </tr>
+  <% index = 0%>
+  <% for task in @tasks %>
+    <% index += 1%>
+       <%=ColorRow(index)%>
+    <td height=20><%= link_to task.name, {:action=>'download_task', :id=>task }%></td>
+    <td height=20><%=task.strid.upcase%>&nbsp;</td>
+    <td height=20><%=task.datecreated.strftime("%Y-%m-%d %H:%M:%S")%>&nbsp;</td>
+    <td height=20><%=task.memo%>&nbsp;</td>
+    <td height=20>
+    <%= link_to '下载', {:action=>'download_task', :id=>task }%>
+    &nbsp;
+    <% if task.reserved1 == '1' %>
+        <%= link_to( '解封', {:action=>'unhide_task', :id=>task}, {:style=>"color:red"})%>
+    <% else %>
+        <%= link_to '封存', {:action=>'hide_task', :id=>task }%>
+    <% end%>
+    
+    &nbsp;
+    <%=link_to '删除', {:action=>'destroy', :id=>task}, :confirm => '确定删除选中任务吗?', :target=>'parent'%>
+    &nbsp;
+<!--    
+    <%=link_to(image_tag("/img/up.gif", :alt=>'上移', :border => 0) , {:action=>'task_up', :id=>task})%>
+    &nbsp;
+    <%=link_to(image_tag("/img/down.gif", :alt=>'下移', :border => 0) , {:action=>'task_down', :id=>task})%>
+-->    
+    </td>
+    </tr>
+   <%end%>
+
+</table>

@@ -1,0 +1,112 @@
+<table width="100%" height="100%" border="0">
+      <%=html%>
+</table>
+             
+<%require 'Util'%>
+
+
+<% Integer(0).upto(yttable.GetRowCount()-1) do |row|%>
+    <% if yttable.IsFloatTemplRow(row) %>
+    <% total_count = Util.GetFloatPageCount(session[:task].strid, yttable.GetTableID(), yttable.PhyRowToLogicRow(row+1), @unitid, @tasktimeid) %>
+    <br>
+        <table width="100%" height="100%" border="0">
+            <tr>
+              <td align="right">
+                <% if total_count>0 and current_page == 0%>
+                <script>
+                    new Ajax.Updater('<%=yttable.GetTableID()%>', '<%=url_for(:controller=>'main',:action=>'get_float_table', :page=>1, :tableid=>yttable.GetTableID, :float_id=>yttable.PhyRowToLogicRow(row+1))%>', 
+                    {asynchronous:true, evalScripts:true,
+                        onComplete:function(request){Effect.Puff('update')},
+                        onLoaded:function(request){Element.hide('indicator')}, 
+                        onLoading:function(request){Element.show('indicator')}});
+                </script>
+                
+                <% else%>
+                
+                  当前第<%=current_page%>页/共<%=total_count%>页&nbsp;&nbsp;
+                  <%= link_to_remote '首页', {:update => yttable.GetTableID(), :url=>{:action=>'get_float_table', :page=>1, :tableid=>yttable.GetTableID, :float_id=>yttable.PhyRowToLogicRow(row+1)}}, {:style=> "color: darkblue;"}   if current_page != 1 && total_count > 0%>
+                  <%= link_to_remote '上一页', {:update => yttable.GetTableID(), :url=>{:action=>'get_float_table', :page=>current_page-1, :tableid=>yttable.GetTableID, :float_id=>yttable.PhyRowToLogicRow(row+1)}}, {:style=> "color: darkblue;"} if current_page != 1 && current_page!=0%>
+                  <%= link_to_remote '下一页', {:update => yttable.GetTableID(), :url=>{:action=>'get_float_table', :page=>current_page+1, :tableid=>yttable.GetTableID, :float_id=>yttable.PhyRowToLogicRow(row+1)}}, {:style=> "color: darkblue;"} if current_page != total_count && current_page!=0%>
+                  <%= link_to_remote '最后一页', {:update => yttable.GetTableID(), :url=>{:action=>'get_float_table', :page=>total_count, :tableid=>yttable.GetTableID, :float_id=>yttable.PhyRowToLogicRow(row+1)}}, {:style=> "color: darkblue;"} if current_page != total_count && current_page!=0%>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                  <%= link_to_remote '添加行', {:update=>yttable.GetTableID(), :url=>{:action=>'add_float_row', :page=>total_count, :table=>yttable.GetTableID(),:float_id=>yttable.PhyRowToLogicRow(row+1)}}, {:name=>'add_row', :style=>"display:none"}%>
+               <% end %>  
+               </td>
+            </tr>
+          </table>
+     <% end %>
+<% end %>
+
+<script>
+function cellBlur()
+{
+    input = window.event.srcElement;
+    value = input.value;
+    element = input.parentElement;    
+    element.innerHTML = value;
+    element.onclick=element.oldclick;
+    element.oldclick="";
+    if (input.oldvalue != value)
+    {
+        row = element.parentElement;
+        if (row.floattpl)
+        {
+            new Ajax.Updater(element.expression+row.floatindex, encodeURI("/main/update?value="+value+"&cell="+element.expression+"&floattpl="+row.floattpl+"&floatindex="+row.floatindex), {asynchronous:true, evalScripts:true,
+            onComplete:function(request){Effect.Puff('update')},
+            onLoaded:function(request){Element.hide('indicator')}, 
+            onLoading:function(request){Element.show('indicator')}});
+        }
+        else
+        {
+            new Ajax.Updater(element.expression, encodeURI("/main/update?value="+value+"&cell="+element.expression), {asynchronous:true, evalScripts:true,
+            onComplete:function(request){Effect.Puff('update')},
+            onLoaded:function(request){Element.hide('indicator')}, 
+            onLoading:function(request){Element.show('indicator')}});
+        }
+        
+        
+    }
+}
+
+function cellClick()
+{
+    element = window.event.srcElement;
+    parentelement = element.parentElement
+    if (parentelement.floatindex)
+    {
+        element.id = element.expression + parentelement.floatindex;
+    }
+    else
+    {
+        element.id = element.expression;
+    }
+    
+    var oldvalue = element.innerText;
+    element.innerHTML = "<input id='input-" + element.id+ "' type=text style='background-color:#FFFF99;BORDER-BOTTOM: solid 0px; BORDER-LEFT: dashed 0px; BORDER-RIGHT: dashed 0px; BORDER-TOP: dashed 0px;height=100%; width=100%;margin:-1pt 0pt 0pt 0pt '/>";
+    input = element.children[0];
+    input.onblur=cellBlur;
+    input.value = oldvalue;
+    input.oldvalue = oldvalue;
+    element.oldclick = element.onclick;
+    element.onclick="";
+    input.focus();
+    input.select();
+}
+
+if (document.getElementById('frmmain').value=="true")
+{
+    var addrows = document.getElementsByName("add_row");
+    for(var i=0; i<addrows.length; i++)
+    {
+        addrows[i].style.display = 'inline';
+    }
+    elements = document.getElementsByTagName('td')
+    for(var i=0; i<elements.length; i++)
+    {
+        if (elements[i].expression)
+        {
+            elements[i].onclick = cellClick;
+        }
+    }
+}
+</script>

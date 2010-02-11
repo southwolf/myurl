@@ -1,0 +1,79 @@
+<script language="JavaScript">
+function roleAdd()
+{
+  window.name="main";
+  window.open("/role/new","childAdd","status=no,height=400,width=570,top=120,left=210");
+}
+
+function modifyRole(roleID)
+{
+  window.name="main";
+  window.open("/role/edit/" + roleID,"childMdf","status=no,height=400,width=570,top=120,left=210");
+}
+
+function exportExcel()
+{
+  window.location = "/role/down_excel";
+}
+
+
+</script>
+
+    <table class="clsContentListTable">
+	          <tr class="clsTrContext">
+                        <td width=15%></td>
+                        <td width=15%></td>
+                        
+                        <td colspan =2>
+                        <input type="button" onclick="roleAdd()" name="queryBtn" value="新增角色">
+                        <input type="button" onclick="exportExcel()" name="btnExcel" value="导出Excel">
+                        </td>
+                        <td width=15%></td>
+                        <td width=20%></td>
+                        <td width=20%>
+                           
+                        </td>
+                 </tr>
+                  <tr align="center" class="clsTrContext">
+                          <td colspan=6>系统角色信息列表</td>
+                  </tr>
+                   <tr class="clsTrHeader">
+                      <td width=8%>ID号</td>
+                      <td width=19%>详细信息</td>
+                      <td width=15%>创建日期</td>
+                      <td width=15%>修改日期</td>
+                      <td width=20%>备注</td>
+                      <td width=20%>操作</td>
+                    </tr>
+                 <%index = 0%>
+                 <% for role in @roles %>          
+                    <%=ColorRow(index)%>
+                        <td width=15%><%=role.id%></td>
+                        <td width=15%><%=role.name%></td>
+                        <td width=15%><%=role.datecreated.strftime("%Y-%m-%d %H:%M:%S") if role.datecreated%></td>
+                        <td width=15%><%=role.datemodified.strftime("%Y-%m-%d %H:%M:%S") if role.datemodified%></td>
+                        <td width=20%><%=role.memo%></td>
+                        <td width=20%>
+                            <a href="javascript:modifyRole('<%=role.id%>')">修改</a>&nbsp;
+                            <%= link_to '删除', { :action => 'destroy', :id => role }, :confirm => '确定删除选中角色吗?', :post => true %>
+                        </td>
+                    </tr>
+                 <% index += 1%>
+                 <% end%>
+                 <tr class="clsTrContext">
+                        <td align="right" colspan=6>
+                         共有角色:<%=YtaplRole.count()%>;
+                          每页:20行&nbsp;;
+                          当前第<%=@role_pages.current_page.offset/20 +1 %>页/
+                          共<%= @role_pages.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <%= link_to '首页',   { :page => @role_pages.first} if @role_pages.current != @role_pages.first %>
+                        <%= link_to '上一页', { :page => @role_pages.current.previous } if @role_pages.current.previous %>
+                        <%= link_to '下一页', { :page => @role_pages.current.next } if @role_pages.current.next %> 
+                        <%= link_to '最后一页', { :page =>@role_pages.last} if @role_pages.current != @role_pages.last %>
+                        
+                        </td>
+                 </tr>
+               
+        </table>

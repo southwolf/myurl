@@ -1,0 +1,92 @@
+<script language="JavaScript">
+function checkForm()
+{
+      var roleName = document.getElementById("role_name").value;
+      if(trim(roleName)=="")
+      {
+         alert("角色名称不能为空!");
+         document.getElementById("role_name").focus();
+         return false;
+      }
+
+      //将用户的名称保存到数组里
+      if(roleName=="")
+          {
+           alert("该角色已经存在，请重新输入!");
+           return false;
+         }
+
+      return true;
+}
+
+function submit_onclick()
+{
+      if (checkForm())
+      {
+         thisForm.rightIDs.value = ""
+         var aInputs=document.getElementsByName("privileges");
+         var flag=false;
+         for(var i=0;i<aInputs.length;i++){
+              if(aInputs[i].checked == true)
+              {
+                 if (flag)
+                 {
+                    thisForm.rightIDs.value += "," + i
+                 }
+                 else
+                 {
+                    thisForm.rightIDs.value += i
+                 }
+                 flag = true;
+                 
+              }
+         }
+         if(!flag){
+            //alert("请选择权限！");
+            // return false;
+         }
+        window.opener.name = "main";
+        thisForm.submit();
+        window.opener.setNotice('操作完毕');
+        //close();
+      }
+}
+function return_onclick()
+{
+  close();
+}
+
+</script>
+<input type="hidden" name="userID" value="">
+<input type="hidden" name="rightIDs" value="">
+<table width=95% height=90% align=center border=0 class="popTable">
+            <tr class="clsPopu" width="20%">
+                    <td align="center">名称：</td>
+                    <td><%= text_field("role" , "name", {:style=>"HEIGHT: 22px; WIDTH: 130px"} )%></td>
+            </tr>
+            <tr class="clsPopu" width="20%">
+                    <td align="center">备注：</td>
+                    <td><%= text_field("role" , "memo", {:style=>"HEIGHT: 22px; WIDTH: 350px"} )%></td>
+             </tr>
+             <tr class="clsPopu" width="20%">
+                   <td align="center">
+                      选择权限：
+                   </td>
+                  <td>
+                  
+                  <% YtaplRight.find(:all).each do |r| %>
+                    <input type="checkbox" name="role[right_ids][]" value="<%= r.id %>" 
+                    <% if @role.rights.include?(r) %> checked="checked" <% end %> />
+                    <%= r.name %>(<%= r.desc %>)<br>
+                  <% end %>     
+                  </td>
+        </tr>
+        <tr class="clsPopu"><td colspan="4"><hr NOSHADE size=1></td></tr>
+        <tr class="clsPopu" align="center">
+                <td colspan=2>
+                   <button class="OutButton" onmouseover="this.className='OnButton'" onmouseout="this.className='OutButton'" onclick="submit_onclick()" id=button1 name=button1>提&nbsp;&nbsp;交</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button class="OutButton" onmouseover="this.className='OnButton'" onmouseout="this.className='OutButton'" onclick="return_onclick()" id=button2 name=button2>返&nbsp;&nbsp;回</button>
+                </td>
+        </tr>
+</table>

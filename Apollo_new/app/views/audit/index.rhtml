@@ -1,0 +1,176 @@
+<script>
+function getTaskTimeid()
+{
+    
+      if(document.getElementById("tasktime").value=="")
+      {
+        alert("请选择时间");
+        return "";
+      }
+      return document.getElementById("tasktime").value;
+    
+}
+
+function dataProcess(type)
+{
+  if(dispinfo.style.display=="block")
+  {
+	alert("当前结果还未审核完毕");
+	return;
+  }
+
+  var selUnitsID=getCheckedValues();
+
+  if(selUnitsID=="")
+	{
+	  alert("请选择单位");
+      return;
+	}
+
+    var retValue=new Array();
+     retValue=window.showModalDialog('/main/selunittype','','dialogheight=300px;dialogwidth=400px;status=no;scrollbars=no;resizable=no;');
+	   if(retValue!=null)
+		 {
+
+			  form1.unitIDs.value=selUnitsID;
+			  var taskTimeid=getTaskTimeid();
+			  if(taskTimeid=="")
+				  return;
+			  form1.flag.value=retValue[0];
+
+
+			  if(type==0)
+			  {
+				infotext.innerText="正在计算数据...";
+			  }
+			  else
+			  {
+				infotext.innerText="正在审核数据...";
+			  }
+        
+        if (type == 1)
+        {
+			     form1.action= "/audit/audit_audit";
+			  }
+			  else
+			  {
+			     form1.action= "/audit/audit_calc"
+			  }
+			  dispinfo.style.display="block";
+			  form1.submit();
+
+		}
+
+}
+
+function printData(type)
+{
+  if(dispinfo.style.display=="block")
+  {
+	alert("当前结果还未审核完毕");
+	return;
+  }
+  /*if(unitData.document.innerText==null||unitData.document.innerText=="")
+  {
+	alert("没有可以打印的数据");
+	return;
+  }*/
+  aditresult.document.execCommand("print");
+}
+
+/**
+ * 点击树节点的check box触发此方法
+ */
+function checkTreeNode(nodeID,checked)
+{
+  setCheckedTreeNode(nodeID,checked,document.all.isContainChildren.checked);
+}
+
+</script>
+<!-- 相当于运行时的进度条 -->
+<div id="dispinfo"  style="filter:alpha(opacity=80);z-index:10px;border:2;BACKGROUND-COLOR:#7d7baa;position:absolute;left:expression((body.clientWidth-300)/2);top:expression((body.clientHeight-100)/2);width:300px;height:20px;display:none">
+		<TABLE WIDTH=100% height=70 BORDER=0 CELLSPACING=2 CELLPADDING=0><TR><td bgcolor=#eeeeee align=center id=infotext>&nbsp;</td></tr></table></td><td width=30%></td></tr></table>
+</div>
+     
+<table width="100%" height="76%">
+    <tr width="100%">
+        <td width="23%" >
+            <table height=100% width=100%>
+                <tr height=20><td><input type="checkbox" name="isContainChildren" checked>包含下级单位</td></tr>
+                <tr height=100%><td>
+                <div id='unittree' class='clsTreeDiv' height="90%" >
+                
+                <%= GenerateCheckBoxUnitTree(session[:task].id, "", "", 'unitdata1', '') %>
+                <script>
+                    function getCheckedValues()
+                    {
+                        result = new Array();
+                        <%roots = GetRootNodes(session[:task].id) %>
+                        <%for root in roots%>
+                            result = result.concat(<%=root%>.getCheckedValue());
+                        <%end%>
+                        return result;
+                    }
+                </script>
+                </div>
+                </td></tr>
+            </table>
+            
+            
+        </td>
+        <td height="100%" width="77%">
+              <%= start_form_tag( {:action=>"save_audit"},{:target=>'aditresult', :name=>'form1' } )%>  
+              <input type="hidden" name="unitIDs">
+              <input type="hidden" name="flag">
+              <input type="hidden" name="auditresult">
+              <table width="100%" height="100%">
+              <tr height="20px" width="100%" >  
+                <td valign='top'>  
+                    任务时间：<%= TaskTimeCombo(session[:task].id, '', session[:tasktime])%>
+                </td>
+                <td align="center" valign='top'>
+                    <a href='javascript:printData(0);'><img src='/img/printone.bmp' alt='打印' border="0" align="absmiddle"title='打印'>打印</a>
+                    &nbsp;
+                    <a href='javascript:dataProcess(0);'><img src='/img/allaudit.gif' alt='计算' border="0" align="absmiddle"title='计算'>运算</a>
+                    &nbsp;
+                    <a href='javascript:dataProcess(1);'><img src='/img/audit.gif' alt='审核' border="0" align="absmiddle"title='审核'>审核</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="right">
+                <!--
+                    <input type="button" value="通过" onclick="save_audit(true)"/>
+                    &nbsp;&nbsp;
+                    <input type="button" value="不通过" onclick="save_audit(false)"/>
+                    <script>
+                        function save_audit(flag)
+                        {
+                            form1.auditresult.value = flag;
+                            form1.unitIDs.value=getCheckedValues();
+                            form1.submit();
+                        }
+                    </script>
+                    -->
+                </td>
+              </tr>
+              <tr height="100%" width="100%" >
+                <td colspan="3">
+                    <iframe  SCROLLING=auto height="93%" width="97%" FRAMEBORDER=0 id="aditresult" name="aditresult" ></iframe>
+                    <script>
+                        //aditresult.location = "<%=url_for :action=> 'getunitdata'%>";
+                    </script>     
+                 </td>
+              </tr>
+              <tr height="15" bgcolor="#eeeeee">
+                  <td colspan="3" height=100%>
+			             <input type=radio name="msgtype" value="alltype" checked>全部
+			             <input type=radio name="msgtype" value="warning" >警告
+			             <input type=radio name="msgtype" value="error" >错误
+                  </td>
+              </tr>
+              
+              </table>
+              <%= end_form_tag %>  
+        </td>
+    </tr>
+    
+</table>

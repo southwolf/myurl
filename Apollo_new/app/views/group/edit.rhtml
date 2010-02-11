@@ -1,0 +1,15 @@
+
+<script>
+function return_onclick()
+{
+  close();
+}
+</script>
+
+<% cand_users = YtaplUser.find(:all, :conditions=>"userid not in (select userid from ytapl_groupmember where groupid = #{@group.id})") %>
+<% sel_users = YtaplUser.find(:all, :conditions=>"userid in (select userid from ytapl_groupmember where groupid = #{@group.id})")%>
+
+<%= start_form_tag({:action => 'update',:id => @group }, {:name=>"form1"}) %>
+  <%= render :partial => 'form', :locals=>{:cand_users => cand_users, :sel_users=> sel_users}  %>
+<%= end_form_tag %>
+

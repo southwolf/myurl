@@ -1,0 +1,65 @@
+<table class="clsContentTable" border=0 cellpadding=0 height=90%>
+<% if CheckRight(session[:user].id, "指标解释管理") %>
+<tr><td colspan="2" width=100%>
+    <%= start_form_tag({:action=>"add_catalog"}, {:name=>"form1"})%>
+        <input type='hidden' name="explaintype" value="-1">
+        添加分类：<%=text_field_tag "name"%>
+        <%=submit_tag "添加"%>
+    <%= end_form_tag%>
+    
+</td></tr>
+<% end%>
+<tr>
+<td>
+    <%= start_form_tag({:action=>"find_cell"}, {:target=>'explain'})%>
+        查找指标：<%=text_field_tag "name"%>
+        <%=submit_tag "查找"%>
+    <%= end_form_tag%>
+</td>
+</tr>
+<tr height=100%>
+  <td width=30%>
+       <div class="clsTreeDiv">
+          <script type="text/javascript">
+          function selectCatalog(id)
+          { 
+            explain.location = "scalarexplain/get_table_explain/" + id;
+          }
+          function selectBigCatalog(id)
+          {
+            <% if CheckRight(session[:user].id, "指标解释管理") %>
+                form1.explaintype.value = id;
+            <% end%>            
+          }
+          ///scalarexplain/get_table_explain
+var cata1 = new WebFXLoadTree("封面表", "/scalarexplain/get_all_catalogs/1", "javascript:selectBigCatalog(1);");
+cata1.icon = "/img/icon_7.gif";
+cata1.openIcon = "/img/icon_7.gif"; 
+cata1.setBehavior('classic');
+document.write(cata1);
+
+var cata2 = new WebFXLoadTree("月报基础表", "/scalarexplain/get_all_catalogs/2", "javascript:selectBigCatalog(2);");
+cata2.icon = "/img/icon_7.gif";
+cata2.openIcon = "/img/icon_7.gif"; 
+cata2.setBehavior('classic');
+document.write(cata2);
+
+var cata3 = new WebFXLoadTree("附报信息表", "/scalarexplain/get_all_catalogs/3", "javascript:selectBigCatalog(3);");
+cata3.icon = "/img/icon_7.gif";
+cata3.openIcon = "/img/icon_7.gif"; 
+cata3.setBehavior('classic');
+document.write(cata3);
+
+var cata4 = new WebFXLoadTree("软件操作解释", "/scalarexplain/get_all_catalogs/3", "javascript:selectBigCatalog(3);");
+cata4.icon = "/img/icon_7.gif";
+cata4.openIcon = "/img/icon_7.gif"; 
+cata4.setBehavior('classic');
+document.write(cata4);
+</script>
+       </div>
+   </td>
+   <td width=70%>
+    <iframe SCROLLING=yes height="100%" width="100%" FRAMEBORDER="solid" id="explain" name="explain" class="clsTreeDiv"></iframe>
+   </td>
+</tr>
+</table>

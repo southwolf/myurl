@@ -1,0 +1,45 @@
+<html>
+<%@title || "友通捷报V9.0"%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%=@title||"友通捷报V9.0"%></title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= javascript_include_tag 'function' %>
+  <%= javascript_include_tag 'optionfunction' %>  
+  </head>
+<style type="text/css">
+
+.dynamic-tab-pane-control .tab-page {
+
+   overflow : hidden
+}
+
+.dynamic-tab-pane-control .tab-page .dynamic-tab-pane-control .tab-page {
+   width:460
+}
+
+BODY
+{
+    MARGIN: 7px;
+}
+.dynamic-tab-pane-control h2 {
+	text-align:	center;
+	width:		auto;
+}
+
+.dynamic-tab-pane-control h2 a {
+	display:	inline;
+	width:		auto;
+}
+
+.dynamic-tab-pane-control a:hover {
+	background: transparent;
+}
+</style>
+<body class="clsPopu">
+<br>
+
+<%= @content_for_layout %>
+
+</body>
+</html>

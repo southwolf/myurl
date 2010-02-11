@@ -1,0 +1,12 @@
+<%@title = "修改个人信息"%>
+<script language="JavaScript">
+    function cancel()
+    {
+     close();
+    }
+</script>
+
+
+<%= start_form_tag({:action => 'updateprofile', :id=>@user}, {:name=>"form1"}) %>
+  <%= render :partial => 'profile'%>
+<%= end_form_tag %>

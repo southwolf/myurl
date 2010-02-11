@@ -1,0 +1,92 @@
+<script>
+function ok()
+{
+  //判断是否重名
+  form1['group[name]'].value = trim(form1['group[name]'].value);
+  if(form1['group[name]'].value=="")
+  {
+    alert("该组已经存在，请重新输入！");
+    return false;
+  }
+  if(isNull(form1['group[name]'].value))
+  {
+    alert("名称不能为空");
+    form1['group[name]'].focus();
+    return false;
+  }
+
+  form1['group[memo]'].value = trim(form1['group[memo]'].value);
+
+  form1.userIDs.value = formAllOptionIds("selSelectedUsers");
+  form1.operation.value = "";
+  window.opener.name = "groupList";
+  form1.submit();
+  //window.opener.setNotice('操作完毕');
+  //window.close();
+}
+</script>
+
+<input type="hidden" name="userIDs"/>
+<input type="hidden" name="operation"/>
+<input type="hidden" name="groupID"/>
+<input type="hidden" name="curPage" value=""/>
+<table border="0" width="95%" height="95%" align="center" class="popTable">
+
+              <tr  class="clsPopu">
+                      <td align="center">名称：</td>
+                      <td><%= text_field "group" , "name"  %></td>
+              </tr>
+              <tr  class="clsPopu">
+                      <td align="center">备注：</td>
+                      <td><%= text_field "group" , "memo"  %></td>
+              </tr>
+                <tr class="clsPopu">
+                  <td colspan=4 align="center">
+                         <table border="0" height="100px">
+                                <tr height="7%" >
+                                    <td nowrap width="45%" align="center">备选用户</td>
+                                    </td>
+                                    <td nowrap width="10%" align="center">&nbsp;</td>
+                                    </td>
+                                    <td nowrap width="45%" align="center">已选择的用户</td>
+                                    </td>
+                                </tr>
+                                <tr height="93%">
+                                        <td nowrap width="45%" align="center">
+                                        <select ondblclick="moveOption('selAllUsers','selSelectedUsers')" size="18" style="width:100%" name="selAllUsers" multiple>
+                                          
+                                          <% for user in cand_users%>
+                                            <option value="<%=user.id%>"><%=user.name%></option>
+                                          <% end%>
+                                          
+                                        </select>
+                                        </td>
+                                        <td nowrap width="10%" align="center">
+                                                <button onclick="moveOption('selAllUsers','selSelectedUsers')" id=button3 name=button3 class="btnStaticNarrow">添加&gt;</button><br><br>
+                                                <button onclick="moveOption('selSelectedUsers','selAllUsers')" id=button4 name=button4 class="btnStaticNarrow">&lt;删除</button>
+                                        </td>
+                                        <td nowrap width="45%" align="center">
+
+                                        <select size="18" style="width:100%" name="selSelectedUsers" ondblclick="moveOption('selSelectedUsers','selAllUsers')" multiple>
+
+                                          <% for user in sel_users%>
+                                            <option value="<%=user.id%>"><%=user.name%></option>
+                                          <% end%>
+                
+
+                                        </select>
+                                        </td>
+                                        </tr>
+                         </table>
+                </td>
+        </tr>
+<tr class="clsPopu"><td colspan="4"><hr NOSHADE size=1></td></tr>
+         <tr class="clsPopu">
+                <td align="center" class="TTitle" colspan="4">
+
+<button onclick="ok()">提&nbsp;&nbsp;交</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="return_onclick()">返&nbsp;&nbsp;回</button>
+                </td>
+        </tr>
+  </table>

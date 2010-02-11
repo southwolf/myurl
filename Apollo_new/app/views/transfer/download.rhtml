@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= stylesheet_link_tag 'webfxlayout' %>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+
+</head>
+<script language="JavaScript">
+function downloadModel()
+{
+    var unitID = getCheckedValues();
+    if(unitID == "")
+    {
+        alert("请选择单位");
+        return false;
+    }
+    form1.unitID.value = unitID;
+
+  if(form1.tasktime.value=="" || form1.tasktime.value=="-1")
+  {
+    alert("请选择时间");
+    return;
+  }
+  form1.taskTimeID.value=form1.tasktime.value;
+
+    form1.submit();
+}
+function submitForm(){}
+</script>
+
+
+<body id='topnode' style="display:none">
+<script>
+   Effect.Appear('topnode');
+</script>
+
+<table align=center height=100% width=100% border=0>
+   
+       <tr height=26 class="clsTrHeader" >
+         <td style="BACKGROUND-COLOR: #c7c9b1;color:black" width=100% colspan=8 valign="middle">
+            数据传送-><font class="clsLightColorOfTask">下载数据</font>
+         </td>
+       </tr>
+          <tr height=5% class="clsTrContext">
+               <td width=66% align=center>
+            <%= start_form_tag( {:action=>"download_result"},{:name=>'form1'} )%>  
+            <input type="hidden" name="taskTimeID" value="">  
+            <input type="hidden" name="unitID" value=""/>  
+              任务时间:<%= TaskTimeCombo(session[:task].id, '')%>&nbsp;&nbsp;
+            <input type="checkbox" name="isRecursive" value="true"/>包括所有下级单位数据&nbsp;&nbsp;&nbsp;
+            <button value="下载报表数据" onclick="downloadModel()">下载数据</button>&nbsp;&nbsp;&nbsp;
+            <%= end_form_tag %>
+               </td>
+          </tr>
+        <tr height="94%" class="clsTrContext">
+
+            <td align="center" width=100% colspan=2>
+              
+              <table height=100% width=54%>
+                <tr width=90%><td align="">
+                <div class="clsTreeDiv">
+                   <%= GenerateRadioUnitTree(session[:task].id, "", "", 'unitdata1', '') %>
+                <script language='javascript'>
+                //获得选项值的方法，返回一个数组，没有选择任何值则返回空
+                function getCheckedValues()
+                {
+                 result = new Array();
+                 <%roots = GetRootNodes(session[:task].id) 
+                        for root in roots%>
+                            result = result.concat(<%=root%>.getCheckedValue());
+                        <%end%>
+                 return result;
+                }
+                </script>
+                </div>
+                
+                </td></tr>
+              </table>
+            </td>
+        </tr>        
+</table>
+</body>
+</html>

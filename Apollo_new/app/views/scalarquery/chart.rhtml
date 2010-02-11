@@ -1,0 +1,4 @@
+<% Integer(0).upto(@tasktimeids.length-1) do |i|%>
+   <% tasktime = @tasktimeids[i].to_i%>
+    <img src="<%= url_for(:action => "getchart", :charttype=>params[:chartflag] || "pie", :title => GetTaskTimeDescString(Yttasktime.find(@tasktimeids[i].to_i)), :datas => Array2String(@datas, @tasktimeids.length, i), :labels=>params[:scalars]) %>" border="0"  usemap="#map<%=i%>">
+<% end%>

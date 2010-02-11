@@ -1,0 +1,49 @@
+<html>
+<head>
+<%= javascript_include_tag 'prototype' %>
+<%= javascript_include_tag 'effects' %>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选择汇总</title>
+
+
+</head>
+
+<body>
+<center>
+选择汇总完成。<br>
+<a href="javascript:openResult()">点击查看 <%=@unitID%> 数据</a><br>
+<div id="notice" align="center"></div>	<br>
+<a href="javascript:window.close()">关闭</a><br>
+
+<script language="javascript">
+        function setNotice(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='background:#FFFF00; padding:4px 10px;'>" + notice + "</span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 4250)
+        }
+        function setError(notice)
+        {
+            var element = document.getElementById('notice')
+            element.innerHTML = "<span id ='notice1' style='color:#FF0000; padding:4px 10px;'><b>" + notice + "</b></span>";
+            setTimeout('new Effect.Fade(\'notice1\')', 4250)
+        }
+        <% if @flash[:notice] %>
+            setNotice('<%=@flash[:notice]%>')
+        <% end %>
+        <% if @flash[:error] %>
+            setError('<%=@flash[:error]%>')
+        <% end %>
+</script>
+</center>
+</body>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+function openResult()
+{
+  window.open('/main/getunitdata?unitID=<%=@unitID%>&taskTimeID=<%=@tasktimeid%>','_blank');
+	window.close();
+}
+</SCRIPT>
+</html>

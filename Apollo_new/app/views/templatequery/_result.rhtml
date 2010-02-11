@@ -1,0 +1,49 @@
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+	<tr  class=clsTrHeader width = "100%">
+		  <td width="55%">名称</td>
+		  <td width="30%">创建时间</td>
+		  <td width="15%">操作</td>
+	</tr>
+  <% if template %>
+    <% index = 0%>
+    <% for result in @results%>
+        <%=ColorRow(index)%>
+            <td><%= link_to result.name, {:action=>'show_history', :id=>result}, {:target=>"_blank"}%></td>
+            <td><%=result.createtime.strftime("%Y-%m-%d %H:%M:%S")%></td>
+            <td><%=link_to_remote "删除", :confirm=>'确定删除选定结果吗？', :update=>'queryresult', :url=>{:action=>'delete_result', :id=>result, :templateid => template.id}, :complete=>"setNotice('删除报表历史结果完毕')"%></td>
+        </tr>
+        <% index += 1%>
+    <% end%>
+        <tr>
+            <td>
+                <br>
+            <td>
+        <tr>
+        <tr>
+               <td align="right" colspan=6>
+                          
+                          当前第<%=@results_page.current_page.offset/10 +1 %>页/
+                          共<%= @results_page.length %>页
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                        <%if @results_page.current != @results_page.first%>
+                            <%= link_to_remote '首页', :update=>'queryresult', :url=>{:action=>'switchcatalog', :page=>@results_page.first, :catalog=>template.id}%>
+                        <%end%>
+                        
+                        <%if @results_page.current.previous %>
+                            <%= link_to_remote '上一页', :update=>'queryresult', :url=>{:action=>'switchcatalog', :page=>@results_page.current.previous, :catalog=>template.id}%>
+                        <%end%>
+                        
+                        <%if @results_page.current.next%>
+                            <%= link_to_remote '下一页', :update=>'queryresult', :url=>{:action=>'switchcatalog', :page=>@results_page.current.next, :catalog=>template.id}%>
+                        <%end%>
+                        
+                        <%if @results_page.current != @results_page.last%>
+                            <%= link_to_remote '最后一页', :update=>'queryresult', :url=>{:action=>'switchcatalog', :page=>@results_page.last, :catalog=>template.id}%>
+                        <%end%>
+               </td>
+             </tr>    
+  <% end %>
+
+</table>

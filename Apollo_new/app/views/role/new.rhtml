@@ -1,0 +1,7 @@
+<%= start_form_tag({:action => 'create'}, {:name=>"thisForm"}) %>
+    <%= render :partial => 'form', :locals=>{:privilege => @privilege} %>
+<%= end_form_tag %>
+
+<script language="javascript">
+  thisForm["role[name]"].focus();
+</script>

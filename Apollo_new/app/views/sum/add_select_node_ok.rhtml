@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%= stylesheet_link_tag 'main' %>
+<title>增加选择汇总单位完成</title>
+</head>
+
+<body>
+</body>
+<SCRIPT LANGUAGE="JavaScript">
+<%if !@unit%>
+	alert("添加用户失败%>");
+<%else%>
+    <% meta = $TaskDesc[session[:task].strid]%>
+    var wndOpenner= window.parent.opener;
+    wndOpenner.appendSelectSumUnit("<%= @unit["unitid"]%>", "<%= @unit["#{meta.unitname}"]%>");
+    window.parent.close();
+<%end%>
+
+</SCRIPT>
+</html>

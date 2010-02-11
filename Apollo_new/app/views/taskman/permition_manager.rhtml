@@ -1,0 +1,204 @@
+
+<Style Type="text/css">
+.clsUnitTree{
+    OVERFLOW: auto;
+    HEIGHT: 100%
+       }
+</Style>
+
+<%= javascript_include_tag 'time.js'%>
+<script >
+
+var oCalendarEn=new PopupCalendar("oCalendarEn");
+oCalendarEn.Init();
+
+
+var oCalendarChs=new PopupCalendar("oCalendarChs");
+oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+oCalendarChs.oBtnTodayTitle="今天";
+oCalendarChs.oBtnCancelTitle="取消";
+oCalendarChs.Init();
+</script>
+
+<script language="JavaScript">
+var sourceArray = new Array;
+//显示组的所有权限
+function displayRightList(obj){
+      selectIndexOpt = obj.options[obj.selectedIndex].value;
+      var url = "/taskman/permition_manager/<%=session[:task].id%>?group=" + selectIndexOpt
+      window.location=url;
+}
+function deleteRight(unitID){
+   changeForm.groupID.value = <%=@current_group%>;
+   changeForm.unitID.value = unitID;
+   changeForm.action = "/taskman/delete_right";
+   changeForm.submit();
+}
+function changeRight(unitID){
+   var flag = document.getElementById("write"+unitID).checked;
+   changeForm.groupID.value = <%=@current_group%>;
+   changeForm.unitID.value = unitID;
+   changeForm.writeFlag.value = flag;
+   endTime = document.getElementById("end_"+unitID);
+   if (endTime.value != "不限")
+   {
+       changeForm.endTime.value = endTime.value;
+   }
+   else
+       changeForm.endTime.value = "";
+
+   changeForm.action = "/taskman/change_right";
+   changeForm.submit();
+   
+   
+}
+
+function addUnitRight(){
+  unitTree.style.visibility= "visible";
+}
+
+</script>
+<body scroll=no>
+
+<form name="thisForm" method="post" style="margin:0">
+<input type="hidden" name="unitIDs">
+<table width=100% height=99% border=0>
+       <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"权限管理"})%>
+       </tr>
+     <tr>
+        <td width=20% height="100%" valign="top" >
+           <SELECT id="groupSelect" name="groupSelect" onChange="displayRightList(this);" style="width: 100%;height:100%" size="2">
+                 <%groups = YtaplGroup.find(:all, :order=>"name")%>
+                 <%groups.sort!%>
+                 <% for group in groups%>
+                    <OPTION VALUE='<%=group.id%>' <%="selected" if @current_group==group.id%> ><%=group.name%></OPTION>
+                 <% end%>
+           </SELECT>
+		 
+        </td>
+        <td width="30%" valign="top">
+             <table width=100% height=100%>
+                  <tr height=5%>
+                    <td>
+                      选择赋权单位:
+                       <input type=button value="读权限" onclick="endueRight('1');">
+                       <input type=button value="读写权限" onclick="endueRight('2');">
+                    </td>
+                  </tr>
+                  <tr  height=85%><td>
+                    <div class="clsTreeDiv" style="height:98%">
+                      <% 
+                      select_array = nil
+                      if @current_group
+                         select_array = Array.new
+                         results = Ytunitpermissions.find(:all, :conditions=> "taskid=#{session[:task].id} and groupid = #{@current_group}")
+                         for result in results
+                            select_array << result.unitid
+                         end
+                      end
+                      
+                       %>
+                      <%= GenerateCheckBoxUnitTree(session[:task].id, "", "", 'unitdata1', '', false, false, select_array) %>
+                    <script>
+                    function getCheckedValues()
+                    {
+                        result = new Array();
+                        <%roots = GetRootNodes(session[:task].id, false) 
+                        for root in roots%>
+                            result = result.concat(<%=root%>.getCheckedValue());
+                        <%end%>
+                        return result;
+                    }
+                    </script>
+                    </div></td>
+                  </tr>
+             </table>
+        </td>
+      <td valign="top" width="40%">
+        
+		<div class="clsTreeDiv" style="BORDER-TOP: thin groove;OVERFLOW:auto;width:100%;height:97%">
+        <table width=100% cellPadding=0 cellspacing=0 border=0>
+             <tr>
+                <td colspan=5 align="center">
+                    权限列表
+                </td>
+              </tr>
+             <tr style="BACKGROUND-COLOR: #e7e7e4">
+                <td width=15% nowrap>期限</td>
+                <td width=13%>单位ID</td>
+                <td width=25%>单位名称</td>
+                <td width=5% nowrap>读</td>
+                <td width=5% nowrap>写</td>
+                <td width=10% nowrap>操作</td>
+                
+              </tr>
+              
+              <%index = 0%>
+              <% for unit in @permission_units%>
+                 <%=ColorRow(index)%>
+	               <% index += 1%>  
+	               <td>
+	                   <input type="text" size=6 value="<%=if unit.endtime 
+	                                                           unit.endtime.strftime("%Y-%m-%d") 
+	                                                       else 
+	                                                           "不限" 
+	                                                       end%>" id="end_<%=unit.unitid%>" onclick="getDateString(this,oCalendarChs)">
+	               </td>
+	               <td ><%=unit.unitid%>&nbsp;</td>
+	               <td ><%=unit["#{@unit_name_field}"]%>&nbsp;</td>
+	               <td><input type=checkbox id='read<%=unit.unitid%>' checked disabled></td>
+	               <% if unit.permission == 1%>
+	                   <td><input type=checkbox id='write<%=unit.unitid%>'></td>
+	               <% else%>
+	                   <td><input type=checkbox id='write<%=unit.unitid%>' checked></td>
+	               <% end%>
+	               <td nowrap>
+                    <a href="javascript:changeRight('<%=unit.unitid%>')">更改</a>
+                    <a href="javascript:deleteRight('<%=unit.unitid%>')">删除</a>
+                   </td>	               
+	               </tr>
+              <% end%>
+            </table>
+</div>
+        </td>
+
+      </tr>
+  </table>
+<input type="hidden" name="groupID">
+<input type="hidden" name="rightFlag">
+</form>
+
+<script language="javascript">
+function endueRight(flag){
+
+ var unitArray = new Array;
+ unitArray = getCheckedValues();
+ if(thisForm.groupSelect.value==""){
+    alert("请选择需要赋权限的组！");
+    return false;
+ }
+  if(unitArray==null || unitArray==""){
+     alert("请选择单位!");
+     return false;
+  }
+  thisForm.groupID.value = thisForm.groupSelect.value
+  thisForm.unitIDs.value=unitArray;
+  thisForm.action = "/taskman/endure_right";
+  if(flag=="1"){
+   thisForm.rightFlag.value = "1";
+  }else{
+   thisForm.rightFlag.value = "2";
+  }
+  thisForm.submit();
+}
+</script>
+
+<form name="changeForm" method="post" style="margin:0">
+<input type="hidden" name="groupID">
+<input type="hidden" name="unitID">
+<input type="hidden" name="writeFlag">
+<input type="hidden" name="endTime">
+</form>
+

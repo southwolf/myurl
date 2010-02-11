@@ -1,0 +1,42 @@
+<%= stylesheet_link_tag 'sortabletable' %>
+<%= javascript_include_tag 'sortabletable' %>
+
+<% if @nilparent%>
+    <%=flash[:notice]%>
+    
+<% else%>
+
+
+<font color='red'><%=@selunit[@meta.unitname]%></font>同级单位比较结果：
+<table class="clsContentListTable" id="table-1"  border=1>
+ <thead> 
+  <tr class="clsTrHeader">
+    <td align='center'>单位</td>
+    <% for cell in @scalars %>
+            <td align='center'><%=cell%></td>
+    <%end%>
+  </tr>
+ </thead>
+  <%index=0%>
+  <%units = @matrix.keys.sort%>
+  <%for unit in units%>
+  <%=ColorRow(index)%>
+    <%index += 1%>
+    <% if unit == @selunit%>
+        <td align='left'><font color='red'><%=unit[@meta.unitname]%></font></td>
+    <% else%>
+        <td align='left'><%=unit[@meta.unitname]%></td>
+    <% end%>
+    
+    <% for cell in @cells %>
+            <td align='right'><%=@matrix[unit].send(cell.split('.')[1]) if @matrix[unit]%></td>
+    <%end%>
+  </tr>
+  <%end%>
+</table>
+
+<script type="text/javascript">
+var st1 = new SortableTable(document.getElementById("table-1"), ["String", <%="\"Number\","*@scalars.size%>]);
+</script>
+
+<% end%>

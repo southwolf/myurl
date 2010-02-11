@@ -1,0 +1,83 @@
+<%= javascript_include_tag 'dragdrop' %>
+<script language="JavaScript">
+parent.name = "parent";
+function publishTask()
+{
+    if(form1.task.value == "")
+    {
+        alert("请选择要发布的任务参数文件");
+        return false;
+    }
+    form1.target = "parent";
+    form1.submit();
+    return true;
+}
+
+function showOrderPage()
+{
+    element = document.getElementById('orderdiv');
+    if (element.style.display == "none") {
+        element.style.display = "block";
+    }
+    else {
+        element.style.display = "none";
+    }
+}
+
+/*
+function openTask(taskID,taskName)
+{
+        ul = "task?operation=openTask"
+            + "&taskID=" + taskID + "&taskName=" + taskName;
+        window.location=ul;
+} */
+</script>
+
+<table class="clsTaskFrameTable" >
+       <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理", :title2=>"设置任务"})%>
+       </tr>
+       <tr>
+         <td colspan=8><br>
+            <img src="/img/infomation.bmp">&nbsp;此页面用来管理任务的发布和删除.
+         </td>
+       </tr>
+       <tr>
+         <td colspan=8>
+            &nbsp;
+         </td>
+       </tr>
+  <tr>
+  <%= start_form_tag({:action => 'create'}, {:multipart => true, :enctype=>"multipart/form-data", :name=>'form1'}) %>
+                 <td align=left colspan=8>
+                 任务参数文件：&nbsp;&nbsp;&nbsp;
+                 <%= file_field_tag("task") %>&nbsp;&nbsp;
+                 <input type="button" onclick="publishTask()" value="发布"> </td>
+  <%= end_form_tag %>
+  </tr>
+  <tr height=20 class="clsTrContext">
+    <td align=center colspan=8><br>任务列表</td>
+  </tr>
+</table>
+
+<div id='info'>
+<%= render_partial 'tasklist' %>
+</div>
+<hr>
+<table style="margin-top:-8px"><tr height=25><td><a href="javascript:showOrderPage()" style="color:blue">调整任务顺序</a></td></tr></table>
+<div id='orderdiv' style="display:none">
+    <ul id="tasklist" style="margin-top:-2px">
+    <% for task in @tasks %>
+        <li id="item_<%= task.id %>" style="font-size:9pt" width="100%" onmouseover="this.style.backgroundColor ='edebea'"  onmouseout="this.style.color='';this.style.backgroundColor =''"><%=task.name%></li>
+    <%end%>
+    </ul>
+</div>
+
+<%= sortable_element 'tasklist', 
+      :update => 'info',  
+      :complete => visual_effect(:highlight, 'tasktable'), 
+      :url => { :action => "order" } %>
+
+<div id = 'info'>
+
+</div>

@@ -1,0 +1,581 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'xtree' %>
+  <%= stylesheet_link_tag 'tab.webfx.css' %>
+  <%= javascript_include_tag 'tabpane' %>
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'effects' %>
+  <%= javascript_include_tag 'fckeditor' %>
+  <%= javascript_include_tag 'xtree', 'xmlextras', 'xloadtree', 'xradiotree', 'xradioloadtree', 'xcheckboxtree', 'xcheckboxloadtree', 'function'  %>
+
+
+<style type="text/css">
+
+form {
+	margin:		4;
+	padding:	1;
+}
+
+/* over ride styles from webfxlayout */
+
+body {
+	margin:		0px;
+	margin-right: 	0px;
+	margin-left:	0px; 
+	width:		auto;
+	height:		auto;
+}
+
+span.numspan {
+	color: red
+}
+
+</style>
+
+<script>
+var unitIDs = new Array();
+var unitNames = new Array();
+
+<% Integer(0).upto(@units.size-1) do |index|%>
+    unitIDs[<%=index%>] = "<%=@units[index]["unitid"]%>";
+    unitNames[<%=index%>] = "<%=@units[index][@meta.unitname]%>";
+<% end%>
+
+var searchResultUnitIDs = new Array(); // 搜索结果数组
+for( var i=0; i<unitIDs.length; i++ )
+{
+	searchResultUnitIDs[i] = i; // 表示查找到了unitIDs第i个值，被查找到了
+}
+
+var selectedResultUnitIDs = new Array(); // 选中结果数组
+for( var i=0; i<unitIDs.length; i++ )
+{
+	selectedResultUnitIDs[i] = false; // 表示数组unitIDs第i个值，没有被选择
+}
+</script>
+
+<script>
+function saveSchema()
+{
+    schema.unitids.value = "";
+    for(var i=0; i<selectedResultUnitIDs.length; i++)
+    {
+        if (selectedResultUnitIDs[i])
+        {
+            schema.unitids.value += unitIDs[i] + ",";
+        }
+    }
+    schema.onsubmit();
+}
+
+function doneSelect()
+{
+	parent.doneSelectByList();
+}
+
+function fillUnitSelect( resultUnitIDs )
+{
+	var oTable = document.getElementById( "unitTable" );
+	var oSearchNum = document.getElementById( "searchNum" );
+	
+	clearTable( oTable );
+	
+	if( resultUnitIDs.length == 0 )
+	{
+		var oRow = oTable.insertRow();
+		
+		var oCell = oRow.insertCell();
+		oCell.innerText = "没有找到相应值";
+		oCell.style.color = "red";
+		oCell.align = "center";
+		
+		oSearchNum.innerText = 0;
+	}
+	else
+	{
+		oSearchNum.innerText = resultUnitIDs.length;
+		fillTable( resultUnitIDs, oTable );
+	}
+}
+
+function insertIntoResult()
+{
+	var oSelected = new Array();
+	
+	var oTable = document.getElementById( "unitTable" );
+	var oRows = oTable.rows;
+	
+	for( var i=0; i<oRows.length; i++ )
+	{
+		var oRow = oRows(i);
+		var oCell = oRow.cells(0);
+		var oInput = oCell.children(0);
+		
+		if( oInput.checked )
+		{
+			var index = oInput.value;
+			
+			// 过滤一下，看是否被选中过
+			if( selectedResultUnitIDs[index] == false )
+			{
+				oSelected[oSelected.length] = oInput.value;
+				selectedResultUnitIDs[index] = true;
+			}
+		}
+	}
+	
+	var oResultTable = document.getElementById( "selectedTable" );
+	
+	if( oSelected.length == 0 )
+	{	
+		displayNoUnitSelected();
+	}
+	else
+	{
+		var oRows = oResultTable.rows;
+		var oCells = oRows(0).cells;
+		
+		if( oCells.length == 1 )
+		{
+			oResultTable.deleteRow( 0 );
+		}
+		
+		fillTable( oSelected, oResultTable );
+	}
+	
+	displaySelectNum();
+}
+
+function fillTable( resultUnitIDs, oTable )
+{
+	for( var i=0; i<resultUnitIDs.length; i++ )
+	{
+		var index = resultUnitIDs[i];
+		var unitID = unitIDs[index];
+		var unitName = unitNames[index];
+		var iconName = "../img/icon_" 
+				+ unitID.charAt( unitID.length - 1 ) 
+				+".gif"
+				
+		var oRow = oTable.insertRow();
+		
+		var oCell = oRow.insertCell();
+		var oInput = document.createElement( "input" );
+		oInput.type = "checkbox";
+		oInput.value = index;
+		oInput.checked = true;
+		oCell.className = "tdcssone";
+		oCell.appendChild( oInput );
+		
+		
+		oCell = oRow.insertCell();
+		var oImg = document.createElement( "img" );
+		oImg.src = iconName;
+		oCell.className = "tdcssone";
+		oCell.appendChild( oImg );
+		
+		oCell = oRow.insertCell();
+		oCell.className = "tdcssone";
+		oCell.innerText = unitID;
+		
+		oCell = oRow.insertCell();
+		oCell.className = "tdcssone";
+		oCell.innerText = unitName;
+	}
+}
+
+function clearTable( oTable )
+{
+	var oRows = oTable.rows;
+	for( var i=oRows.length-1; i>=0; i-- )
+	{
+		oTable.deleteRow( i );
+	}
+}
+
+function searchUnit()
+{
+	var oForm = document.getElementById( "searchForm" );
+
+	var suType = oForm.su_Type.value;
+	var suCode = oForm.su_Code.value;
+	
+	searchResultUnitIDs = new Array();
+	
+	if( suType == "name" )
+	{
+		for( var i=0; i<unitNames.length; i++ )
+		{
+			if( unitNames[i].indexOf( suCode ) >= 0 )
+			{
+				searchResultUnitIDs[ searchResultUnitIDs.length ] = i;
+			}
+		}
+	}
+	else if( suType == "id" )
+	{
+		for( var i=0; i<unitIDs.length; i++ )
+		{
+			if( unitIDs[i].indexOf( suCode ) >= 0 )
+			{
+				searchResultUnitIDs[ searchResultUnitIDs.length ] = i;
+			}
+		}
+	}
+	
+	fillUnitSelect( searchResultUnitIDs );
+}
+
+function removeFromResult()
+{
+	var oSelected = new Array();
+	
+	var oTable = document.getElementById( "selectedTable" );
+	var oRows = oTable.rows;
+	
+	for( var i=0; i<oRows.length; )
+	{
+		var oRow = oRows(i);
+		var oCell = oRow.cells(0);
+		var oInput = oCell.children(0);
+		
+		if( oInput.checked )
+		{
+			var index = oInput.value;
+			selectedResultUnitIDs[index] = false; // 设置成没有被选择
+			
+			oTable.deleteRow( i );
+		}
+		else
+		{
+			i++;
+		}
+	}
+	
+	oRows = oTable.rows;
+	if( oRows.length == 0 )
+	{
+		displayNoUnitSelected();
+	}
+	
+	displaySelectNum();
+}
+
+function displaySelectNum()
+{
+	var oSelectNum = document.getElementById( "selectNum" );
+	
+	var oTable = document.getElementById( "selectedTable" );
+	var oRows = oTable.rows;
+	if( oRows != null
+		&& oRows.length > 0 )
+	{
+		var oCells = oRows(0).cells;
+		if( oCells.length == 1 )
+		{
+			oSelectNum.innerText = 0;
+		}
+		else
+		{
+			oSelectNum.innerText = oRows.length;
+		}
+	}
+	else
+	{
+		oSelectNum.innerText = oRows.length;
+	}
+}
+
+function selectAllUnitTable()
+{
+	var oTable = document.getElementById( "unitTable" );
+	var oRows = oTable.rows;
+	
+	for( var i=0; i<oRows.length; i++ )
+	{
+		var oRow = oRows(i);
+		var oCell = oRow.cells(0);
+		var oInput = oCell.children(0);
+		
+		oInput.checked = true;
+	}
+}
+
+function deselectUnitTable()
+{
+	var oTable = document.getElementById( "unitTable" );
+	var oRows = oTable.rows;
+	
+	for( var i=0; i<oRows.length; i++ )
+	{
+		var oRow = oRows(i);
+		var oCell = oRow.cells(0);
+		var oInput = oCell.children(0);
+		
+		oInput.checked = !oInput.checked;
+	}
+}
+
+
+function selectAllSelectedTable()
+{
+	var oTable = document.getElementById( "selectedTable" );
+	var oRows = oTable.rows;
+	
+	for( var i=0; i<oRows.length; i++ )
+	{
+		var oRow = oRows(i);
+		var oCell = oRow.cells(0);
+		var oInput = oCell.children(0);
+		
+		oInput.checked = true;
+	}
+}
+
+function deselectSelectedTable()
+{
+	var oTable = document.getElementById( "selectedTable" );
+	var oRows = oTable.rows;
+	
+	for( var i=0; i<oRows.length; i++ )
+	{
+		var oRow = oRows(i);
+		var oCell = oRow.cells(0);
+		var oInput = oCell.children(0);
+		
+		oInput.checked = !oInput.checked;
+	}
+}
+
+function getSelectedUnitID()
+{
+	var selectedUnitIDs = new Array();
+	for( var i=0; i<selectedResultUnitIDs.length; i++ )
+	{
+		if( selectedResultUnitIDs[i] )
+		{
+			selectedUnitIDs[selectedUnitIDs.length] = unitIDs[i];
+		}
+	}
+	
+	return selectedUnitIDs;
+}
+
+function getSelectedUnitName()
+{
+	var selectedUnitNames = new Array();
+	for( var i=0; i<selectedResultUnitIDs.length; i++ )
+	{
+		if( selectedResultUnitIDs[i] )
+		{
+			selectedUnitNames[selectedUnitNames.length] = unitNames[i];
+		}
+	}
+	
+	return selectedUnitNames;
+}
+
+function displayNoUnitSelected()
+{
+	var oTable = document.getElementById( "selectedTable" );
+	
+	var oRows = oTable.rows;
+	if( oRows.length > 0 )
+	{
+		return;
+	}
+	
+	var oRow = oTable.insertRow();
+		
+	var oCell = oRow.insertCell();
+	oCell.innerText = "没有选中任何单位";
+	oCell.style.color = "red";
+	oCell.align = "center";	
+}
+	
+function doOnload()
+{
+	fillUnitSelect(searchResultUnitIDs);
+	
+	preSelectUnitIDs();
+	
+	displayNoUnitSelected();
+	displaySelectNum();
+}
+
+function preSelectUnitIDs()
+{
+	var oTable = document.getElementById( "unitTable" );
+	var oRows = oTable.rows;
+	
+	var preSelectUnitIDs = new Array();
+	
+	
+	var oSelected = new Array();
+	for( var i=0; i<preSelectUnitIDs.length; i++ )
+	{
+		for( var j=0; j<unitIDs.length; j++ )
+		{
+			if( preSelectUnitIDs[i] == unitIDs[j] )
+			{
+				oSelected[oSelected.length] = j;
+				selectedResultUnitIDs[j] = true;
+				break;
+			}
+		}
+	}
+	
+	var oResultTable = document.getElementById( "selectedTable" );
+	
+	fillTable( oSelected, oResultTable );
+}
+
+</script>
+
+<title>查询单位</title>
+</head>
+<body onload="doOnload()">
+
+<div><%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %></div>
+<table style="height: 85%; width: 100%">
+	<tr height="10%">
+		<td colspan="2">
+			<form name="searchForm" id="searchForm" method="post" 
+					action="javascript:searchUnit()">
+				<select name="su_Type">
+					<option value="name">按单位名称搜索</option>
+					<option value="id">按单位代码搜索</option>
+				<select>
+				
+				<input type="text" name="su_Code"/>
+				<input type="submit" value="搜索"/>
+			</form>
+		</td>
+	</tr>
+	
+	<tr height="80%">
+		<td width="50%">
+			<div style="height: 100%; width: 100%; border: 1pt outset #c4c9e1; overflow: auto">
+				<table style="height: 100%; width: 100%">
+					<tr>
+						<td>搜索结果
+							（<span id="searchNum" class="numspan"></span>个，
+							总<span class="numspan">
+								<script language="javascript">
+									document.write( unitIDs.length );
+								</script>个</span>）
+						</td>					
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td width="95%">
+							<div style="height: 100%; width: 100%; overflow: auto">
+								<table id="unitTable" width="100%" class="xsltTable">
+								</table>
+							</div>
+						</td>
+						
+						<td align="left" valign="middle" width="5%">
+							<table> 
+								<tr>
+									<td>
+										<input type="button" value="全选" 
+											onclick="selectAllUnitTable()"/>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<input type="button" value="反选" 
+											onclick="deselectUnitTable()"/>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<input type="button" value=">>" onclick="insertIntoResult()"/>
+									</td>
+								</tr>	
+							</table>					
+						</td>
+					</tr>
+				</table>
+			</div>
+		</td>
+		
+		
+	
+		<td width="50%">
+			<div style="height: 100%; width: 100%; border: 1pt outset #c4c9e1; overflow: auto">
+				<table style="height: 100%; width: 100%">
+					<tr>
+						<td>选中单位
+						（共 <span id="selectNum" class="numspan"></span>个）
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td width="95%">
+							<div style="height: 100%; width: 100%; overflow: auto">
+								<table id="selectedTable" border="1" width="100%" class="xsltTable">
+								</table>
+							</div>
+						</td>
+						
+						<td width="5%">							
+							<table>
+								<tr>
+									<td>
+										<input type="button" value="全选"
+											onclick="selectAllSelectedTable()"/>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<input type="button" value="反选"
+											onclick="deselectSelectedTable()"/>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<input type="button" value="<<" onclick="removeFromResult()"/>
+									</td>
+								</tr>
+							</table>
+						</td>		
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2" align="center">
+			&nbsp;&nbsp;
+			<input type="button" value="确定" onclick="doneSelect()"/>
+			&nbsp;
+			<input type="button" value="取消" onclick="javascript:parent.window.close()"/>
+			&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr>
+	   <td colspan="2">
+	       <%=form_remote_tag(:update=>"update", :url=>{:action=>"save_schema"}, :loading=>"Element.show('indicator')", :loaded=>"Element.hide('indicator')", :html=>{:name=>'schema'})%>
+		  <input type='hidden' name="unitids">
+		  保存为方案：<%=text_field_tag "schema_name" %>
+		  <input type="button" value="保存" onclick="javascript:saveSchema();"%>
+		<%=end_form_tag%>
+	   </td>
+	</tr>
+</table>
+
+
+</body>
+</html>
+

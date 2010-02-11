@@ -1,0 +1,323 @@
+<%require 'Privilege'%>
+
+<%= stylesheet_link_tag 'tab.webfx.css' %>
+<%= javascript_include_tag 'tabpane' %>
+
+<script language="javascript">
+
+    //修改用户
+    function modifyUser()
+    {
+      if(!validateUser() || !validateGroup() || !validateRole())
+      {
+          return false;
+      }
+
+    if(form1.userName.value=="" && form1.userName.value != "")
+    {
+     alert("该账号已经存在，请重新输入！")
+     return false;
+    }
+
+      form1.operation.value = "";
+      window.opener.name = "userList";
+      form1.submit();
+      window.close();
+}
+
+    //修改当前登录用户
+    function modifySelf()
+    {
+      if(!validateUser())
+      {
+          return false;
+      }
+
+    if(form1.userName.value=="" && form1.userName.value != "")
+    {
+     alert("该账号已经存在，请重新输入！")
+     return false;
+    }
+      window.opener.setNotice('操作完毕');
+      form1.operation.value = "";
+      form1.target = "_self";
+      form1.submit();
+}
+
+function initUser(){
+  //基本信息
+  form1.userName.value = "";
+  form1.validated.checked = true;
+  form1.password.value = "********";
+  form1.validatePassword.value = "********";
+  form1.modifyPassword.value = "false";
+  form1.enterpriseName.value = "";
+  form1.lawPersonCode.value = "";
+  form1.lawPersonName.value = "";
+  form1.lawPersonPhone.value = "";
+  form1.contactPerson.value = "";
+  form1.contactPersonPhone.value = "";
+  form1.contactPersonAddress.value = "";
+  form1.postcode.value = "";
+  form1.contactPersonMobile.value = "";
+  form1.fax.value = "";
+  form1.email.value = "";
+  form1.memo.value = "";
+}
+
+function initRole()
+{
+  //角色
+  form1.roleid.value = 0;
+  var selectIndexOpt = 1;
+  for(var i=0;i<rightInfos.length;i++){
+     if(rightInfos[i][0]==selectIndexOpt){
+       for(var j=1;j<rightInfos[i].length;j++){
+         document.getElementById("privileges"+j).checked = rightInfos[i][j];
+       }
+     }
+  }
+}
+
+
+
+//initUser();
+//initRole();
+
+
+
+if(null==true){
+   alert("个人信息修改成功");
+   close();
+}
+</script>
+<script language="JavaScript">
+
+/**
+ * 设置修改密码标识
+ */
+function setModifyPaswordFlag()
+{
+    form1.modifyPassword.value = "true";
+}
+//检查用户基本信息
+function validateUser()
+{
+        if(isNull(form1.password.value))
+        {
+          alert("密码不能为空");
+          setTabIndex(0);
+          form1.password.focus();
+          return false;
+        }
+
+
+        if(form1.password.value!=form1.validatePassword.value)
+        {
+          alert("密码输入有误（前后不一致）");
+          setTabIndex(0);
+          form1.validatePassword.focus();
+          return false;
+        }
+
+//        form1["user[enterprisename]"].value = trim(form1["user[enterprisename]"].value);
+//        form1["user[lawpersioncode]"].value = trim(form1["user[lawpersioncode]"].value);
+//        form1["user[lawpersionname]"].value = trim(form1["user[lawpersionname]"].value);
+//        form1["user[lawpersionphone]"].value = trim(form1["user[lawpersionphone]"].value);
+        
+//        if(!isNull(form1["user[lawpersionphone]"].value) && !isPhone(form1["user[lawpersionphone]"].value))
+//        {
+//          alert("法人代表电话格式不正确！");
+//          form1["user[lawpersionphone]"].focus();
+//          return false;
+ //       }
+        
+//        form1["user[contactpersionname]"].value = trim(form1["user[contactpersionname]"].value);
+//        form1["user[lawpersionphone]"].value = trim(form1["user[lawpersionphone]"].value);
+
+//        if(!isNull(form1["user[lawpersionphone]"].value) && !isPhone(form1["user[lawpersionphone]"].value))
+//        {
+//          alert("联系人电话格式不正确！");
+//          form1["user[lawpersionphone]"].focus();
+//          return false;
+//        }
+       
+
+//        form1["user[contactaddress]"].value = trim(form1["user[contactaddress]"].value);
+//        form1["user[postcode]"].value = trim(form1["user[postcode]"].value);
+
+        form1["user[contactpersionmobile]"].value = trim(form1["user[contactpersionmobile]"].value);
+        if(!isNull(form1["user[contactpersionmobile]"].value) && !isPhone(form1["user[contactpersionmobile]"].value))
+        {
+          alert("联系人手机格式不正确！");
+          form1["user[contactpersionmobile]"].focus();
+          return false;
+        }
+
+        form1["user[fax]"].value = trim(form1["user[fax]"].value);
+        if(!isNull(form1["user[fax]"].value) && !isPhone(form1["user[fax]"].value))
+        {
+          alert("传真号码格式不正确！");
+          form1["user[fax]"].focus();
+          return false;
+        }
+        
+        form1["user[email]"].value = trim(form1["user[email]"].value);
+
+        if(!isMail(form1["user[email]"].value))
+        {
+          alert("电子邮件格式不正确(示例:tom@tom.com)!");
+          form1["user[email]"].focus();
+          return false;
+        }
+        return true;
+    }
+
+//验证组
+function validateGroup()
+{
+     if(isNull(form1.roleid.value))
+      {
+        alert("请选择角色");
+        setTabIndex(2);
+        form1.roleid.focus();
+        return false;
+      }
+     return true;
+}
+
+//验证角色
+function validateRole()
+{
+      form1.groupIDs.value = formAllOptionIds("selSelectedUsers");
+      form1["user[memo]"].value = trim(form1["user[memo]"].value);
+      return true;
+}
+
+//新建用户
+function createUser()
+{
+   if (!validateUser())
+   {
+       return false;
+   }
+    
+   //判断是否重名
+   //if(form1["user[name]"].value=="admin")
+  // {
+  //   alert("该账号已经存在，请重新输入！")
+  //   return false;
+  // }
+
+  window.opener.name = "main";
+  form1.submit();
+  window.opener.setNotice('操作完毕');
+  window.close();
+}
+
+function cancel()
+{
+  close();
+}
+//显示权限信息
+var rightInfos = new Array();
+
+
+
+function displyRoleInfo(obj){
+  var selectIndexOpt = obj.options[obj.selectedIndex].value;
+  for(var i=0;i<rightInfos.length;i++){
+     if(rightInfos[i][0]==selectIndexOpt){
+       for(var j=1;j<rightInfos[i].length;j++){ 
+         document.getElementById("privileges"+j).checked = rightInfos[i][j];
+       }
+     }
+  }
+  if(selectIndexOpt==""){
+     for(var j=1;j<<%=SetOfPrivileges.size%>;j++){
+       document.getElementById("privileges"+j).checked = false;
+     }
+  }
+}
+</script>
+
+
+<div class="tab-pane" id="taskPane1">
+<script language="JavaScript">
+var taskPane = new WebFXTabPane( document.getElementById( "taskPane1" ) ,false);
+function setTabIndex(index){
+  taskPane.setSelectedIndex(index);
+}
+</script>
+     <div class="tab-page">
+        <h2 class="tab">基本信息&nbsp;</h2>
+
+        <input type="hidden" name="groupIDs"/>
+              <table border="0" class="Tbody">
+           
+				<tr>
+                        <td class="TdDark">真实姓名:</td>
+                        <td class="TdLight">
+                        <!--
+                        <%= text_field "user" , "truename"  %><font color=red>&nbsp;*</font>
+                        -->
+                        <%=@user.truename%>
+                        </td>
+                        
+                   </tr>
+                   <tr>
+                   <!--
+                        <td class="TdDark" width=120>开通:</td>
+                        <td class="TdLight"><input type="checkbox" name="validated" checked></td>
+                   -->
+                   </tr>
+			      
+                      <input type="hidden" name="userName">
+					  <input type="hidden" name="validated">
+                   <tr>
+                        <td class="TdDark">新设密码:</td>
+                        <td class="TdLight"><input type="password" name="password"><font color=red>&nbsp;*</font></td>
+                   </tr>
+                   <tr>
+                        <td class="TdDark">确认密码:</td>
+                        <td class="TdLight"><input type="password" name="validatePassword"><font color=red>&nbsp;*</font></td>
+                   </tr>
+                   <tr>
+                        <td class="TdDark">电话:</td>
+                        <td class="TdLight"><%= text_field "user", "contactpersionphone"  %></td>
+                   </tr>
+                   <tr>
+                        <td class="TdDark">手机:</td>
+                        <td class="TdLight"><%= text_field "user", "contactpersionmobile"  %></td>
+                   </tr>
+                   <tr>
+                        <td class="TdDark">传真:</td>
+                        <td class="TdLight"><%= text_field "user", "fax"  %></td>
+                   </tr>
+                   <tr>
+                        <td class="TdDark">电子邮件:</td>
+                        <td class="TdLight"><%= text_field "user", "email"  %></td>
+                   </tr>
+                   <tr>
+                        <td class="TdDark">备注:</td>
+                        <td class="TdLight"><%= text_area "user", "memo", {:rows=>2, :cols=>30}%></textarea></td>
+                   </tr>
+                   <tr height=15><td colspan=2>&nbsp;</td></tr>
+                   <tr>
+                   	<td colspan=2 class="TdDark">说明：“<font color=red>*</font>”为必填项目</td>
+                   </tr>
+              </table>
+      </div>
+
+
+</div>
+
+
+<table border=0 width=100%>
+        <tr>
+                <td height="26" align="center" class="TTitle">
+<button onclick="createUser()">提&nbsp;&nbsp;交</button>
+&nbsp;&nbsp<button onclick="cancel()">取&nbsp;&nbsp;消</button>
+                </td>
+        </tr>
+</table>

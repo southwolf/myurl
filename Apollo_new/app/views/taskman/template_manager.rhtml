@@ -1,0 +1,94 @@
+<%= javascript_include_tag 'dragdrop' %>
+<script language= "javascript">
+var additionalPart = ""; // 打开任务时间选择页面，其他查询字符
+
+function showOrderPage()
+{
+    element = document.getElementById('orderdiv');
+    if (element.style.display == "none") {
+        element.style.display = "block";
+    }
+    else {
+        element.style.display = "none";
+    }
+}
+
+function deleteScalarQueryTemplate(templateID, templateName)
+{
+    var bConfirmed = window.confirm( "确认删除模板 \"" + templateName + "\" 吗？" );
+    
+    if( !bConfirmed )
+    	return;
+    	
+    execTplForm.action = "analyse?operation=deleteScalarQueryTemplate" + "&templateID=" + templateID;
+    execTplForm.submit();
+}
+
+function exportTemplate(templateID)
+{ 
+    execTplForm.action = "/taskman/export_template/" + templateID;
+    execTplForm.submit();
+}
+
+function importScalarQueryTemplate()
+{
+    if(form1.file.value == "")
+    {
+        alert("请选择要导入的指标查询模板文件");
+        return false;
+    }
+    
+    return true;
+}
+
+</script>
+
+
+<table width=100% cellspacing=0 cellpadding=0 border=0>
+	<tr height=26 class="clsTrHeader" >
+		<%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"模板管理"})%>
+	</tr>
+	
+	<tr>
+		<td colspan="4" align="left">
+			<div>
+		<img src="/img/infomation.bmp">&nbsp; 查询模板的发布、导出和删除
+		<br/>
+			</div>
+		</td>
+	</tr>   
+		
+	<tr>
+	<form action="/taskman/uploadtemplate" 
+			method="post" enctype="multipart/form-data" name="form1"
+		 	onsubmit="return importScalarQueryTemplate()">
+                 <td valign="middle" colspan="4">&nbsp;&nbsp;模板文件：&nbsp;&nbsp;
+	                 <input type="file" name="file"/>
+	                 <input type="submit" value="发布模板"/>
+                 </td>
+        </form>
+  	</tr>
+</table>
+
+<div id='info'>
+<%= render_partial 'templatelist' %>
+</div>
+
+<hr>
+<table style="margin-top:-8px"><tr height=25><td><a href="javascript:showOrderPage()" style="color:blue">调整模板顺序</a></td></tr></table>
+<div id='orderdiv' style="display:none">
+    <ul id="templateslist" style="margin-top:-2px">
+    <% for template in @templates %>
+        <li id="item_<%= template.id %>" style="font-size:9pt" width="100%" onmouseover="this.style.backgroundColor ='edebea'"  onmouseout="this.style.color='';this.style.backgroundColor =''"><%=template.templatename%></li>
+    <%end%>
+    </ul>
+</div>
+
+<%= sortable_element 'templateslist', 
+      :update => 'info',  
+      :complete => visual_effect(:highlight, 'templatestable'), 
+      :url => { :action => "template_order" } %>
+
+<div id = 'info'>
+
+</div>

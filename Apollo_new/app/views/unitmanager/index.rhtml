@@ -1,0 +1,59 @@
+<script>
+var unitIDselected = "";
+var unitNameselected = "";
+function unitselect()
+{
+    oPopWin = window.open( "/unitmanager/selectunit?doAfterDone=window.opener.afterSelectUnitIDs();", 
+					null, 
+					"location=no,menubar=no,toolbar=no,height=500,width=800,resizable=yes" );
+
+}
+function afterSelectUnitIDs()
+{
+}
+
+function delete_schema(value)
+{
+    window.location = "/unitmanager/delete_schema/" + value;
+}
+</script>
+<body>
+<table width="100%" height="100%">
+    <tr height=26 class="clsTrHeader" >
+         <%=render(:partial => '/share/subtitle', :locals=>{:title1=>"任务管理->#{session[:task].name}", :title2=>"单位管理"})%>
+    </tr>
+    <tr>
+        <td width="40%">
+            <div id='unittree' class='clsTreeDiv'>
+                <%= GenerateUnitTree(session[:task].id, "", "unitmanager", "edit", 'unitedit', '', false, true) %>
+            </div>
+        </td>
+        <td>
+            <div align="center">
+            
+            单位选择方案：
+            <select name="unitschema">
+			     <% schemas = YtaplUnitschema.find(:all, :conditions=>"taskid=#{session[:task].id}") %>
+			     <%=options_from_collection_for_select(schemas, "content", "name")%>
+			</select>
+			<a href="javascript:unitselect()">增加</a>
+			<a href="javascript:delete_schema(unitschema.value);">删除</a>
+			</div>
+            <div id='unitedit'>
+               <%= start_form_tag({:action => 'create'} ,{:name=>"unitForm"})%>
+               <%= render( :partial => 'form', :locals => {:mode=>'new'})%>
+                <%= end_form_tag %>
+            </div>
+            <div align="center">
+            <%= start_form_tag :action=>'copy_unit', :id=>session[:task].id %>
+                &nbsp;&nbsp;&nbsp;从其他任务复制：
+                <select name="from_task">
+                    <%=options_from_collection_for_select(Task.find(:all, :conditions=>"taskid<>#{session[:task].id}"), 'taskid', 'name')%>
+                </select>
+                <input type="checkbox" name = "delete_pre" value="1">删除原有单位
+                <input type="submit" value="复制"></input>
+            <%= end_form_tag%>
+            </div>
+        </td>
+    </tr>
+</table>

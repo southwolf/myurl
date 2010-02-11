@@ -1,0 +1,6 @@
+<%= start_form_tag %>
+输入表名称：<%=text_field_tag 'name', params['name']%><%= submit_tag '查询' %>
+<%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %>
+<%= end_form_tag %>
+
+<%= render_partial 'list' if params['name'] %>

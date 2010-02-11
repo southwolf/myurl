@@ -1,0 +1,56 @@
+<table class="clsLogo" cellpadding="0" cellspacing="0" border=0>
+<tr>
+
+ <td width=290 background="/img/Logo.gif">
+
+ 
+ <!--
+ <td align="left" width=290>
+   <img src="/img/Logo.gif">
+   -->
+   <marquee height=28.0  behavior="scroll" scrollAmount=2 direction="up" onMouseOver="this.stop();" onMouseOut="this.start()">
+    <%@news=Ytnews.find(:all ,:limit => $SHOW_TOP_NEWS, :order => "id desc" )%>
+    <% for @new in @news%>
+        <%= link_to( @new.title, {:controller => 'ytnews', :action => 'popup_new', :id => @new}, :target=> '_blank'  )%>
+        <br>
+    <% end%>
+    <%= link_to '更多..', :controller=>'ytnews', :action=>'list'%>
+    </marquee>
+ </td>
+
+ 
+ 
+ <td align="left">
+   <img src="/img/logoTitle.gif">
+ </td>
+
+ <td align=right valign=bottom>
+    <table border="0" cellspacing="0" cellpadding="0">
+           <tr>
+                  <td valign="buttom">
+                      <font color=white>欢迎您： <%=session[:user].truename%></font>&nbsp;&nbsp;&nbsp;
+                      <a href='javascript:personManager();'><img src='/img/nav_profile.gif' alt='修改个人信息' border="0" align="absmiddle" width="28" height="25" title='修改个人信息'></a>
+                      <a href='/login/index'><img src="/img/nav_logoff.gif" alt='退出系统' border="0" align="absmiddle" width="25" height="25" title='退出系统'></a>
+                  </td>
+          </tr>
+      </table>
+
+
+ </td>
+ <script language="javascript">
+//修改个人信息
+function personManager(){
+   url = '/user/editprofile/<%=session[:user].id%>';
+   window.open(url,"childAdd","status=no,height=360,width=500,top=75,left=250");
+}
+
+//留言板
+function showBBS(){
+   //url = '../msg/index.jsp';
+   //window.open(url,"childAdd","status=no,height=570,width=500,top=75,left=250");
+   //window.open('../../Andy/msg/index.jsp');
+   window.open('../jsp/andyMessage/index.jsp');
+}
+</script>
+</tr>
+</table>
