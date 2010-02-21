@@ -5,10 +5,12 @@
 
 
 <script>
-//  add_submit("·¢ËÍ");
-//  add_tab_button("/img/iconBack.png", "±£´æµ½²İ¸åÏä", "/email/list");  
+//  add_submit("å‘é€");
+//  add_tab_button("/img/iconBack.png", "ä¿å­˜åˆ°è‰ç¨¿ç®±", "/email/list");  
   
-  $('separator').insert({before:'<td width=2%><a href="javascript:document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSend.png" title="·¢ËÍ" border="0" ></a></td>'});
+  //$('#separator').before('<td width=2%><a href="javascript:document.forms[1].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="ä¿å­˜" border="0" ></a></td>');
+  
+  $('#separator').before('<td width=2%><a href="javascript:document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSend.png" title="å‘é€" border="0" ></a></td>');
   add_sep();
-  $('separator').insert({before:'<td width=2%><a href="javascript:document.forms[0].email_cg.value=1;document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="±£´æµ½²İ¸åÏä" border="0" ></a></td>'});
+  $('#separator').before('<td width=2%><a href="javascript:document.forms[0].email_cg.value=1;document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="ä¿å­˜åˆ°è‰ç¨¿ç®±" border="0" ></a></td>');
 </script>

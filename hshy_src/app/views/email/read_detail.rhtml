@@ -1,7 +1,7 @@
 <table border="1" cellpadding="2" cellspacing="0" bordercolor="#999999" width=100%>
   <tr class="exebar">
-    <th width=70%>пуцШ</th>
-    <th>ря╤а</th>
+    <th width=70%>Е╖⌠Е░█</th>
+    <th>Е╥╡Х╞╩</th>
   </tr>
   <% index = 1 %>
   <% for username in @email.recv.split(',') %>
@@ -9,7 +9,7 @@
     <% index += 1 %>
     <td><%= username%></td>
     <% if @email.readusers.collect{ |u| u.truename }.include?(username) %>
-      <td>ря╤а</td>
+      <td>Е╥╡Х╞╩</td>
     <% else %>
       <td></td>
     <% end %>

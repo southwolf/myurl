@@ -1,14 +1,14 @@
-<font class=color size="3"><strong>ÊÕ¼şÏä</strong></font>
+<font class=color size="3"><strong>æ”¶ä»¶ç®±</strong></font>
 
 <% form_tag :action => 'destroy' do %>
 <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#666666" width=100%>
   <tr class="exebar">
-    <th>ĞÂ</th>
+    <th>æ–°</th>
     <th><%= check_box_tag "select_all", "1", false, :onclick=>"selectall(form, 'email[]');"%></th>
-    <th>·¢ËÍÈË</th>
-    <th width=50%>ÓÊ¼ş±êÌâ</th>
-    <th>ÊÕ¼şÈË</th>
-    <th>·¢ËÍÊ±¼ä</th>
+    <th>å‘é€äºº</th>
+    <th width=50%>æ¶ˆæ¯æ ‡é¢˜</th>
+    <th>æ”¶ä»¶äºº</th>
+    <th>å‘é€æ—¶é—´</th>
   </tr>
 
 <%index=1%>  
@@ -20,14 +20,14 @@
         <td>*</td>
     <% end %>    
     <td align='center'><%= check_box_tag "email[]", email.id, false%></td>
-    <td height=24><%=link_to YtwgUser.find(email.from_id).truename, :action=>"show", :id=>email%></td>
-    <td><%= link_to email.title||"ÎŞ±êÌâ", :action=>"show", :id=>email%></td>
+    <td height=24><%=link_to YtwgUser.find(email.from_id).truename, :action=>"show", :id=>email, :page=>params[:page]%></td>
+    <td><%= link_to email.title||"æ— æ ‡é¢˜", :action=>"show", :id=>email%></td>
     <% if email.recv.index(',') %>
         <td><%=email.recv[0,email.recv.index(',')] + "..." %></td>
     <% else %>
         <td><%=email.recv%></td>
     <% end %>
-    <td><%=email.sendtime.strftime("%mÔÂ%dÈÕ %Hµã%M·Ö") rescue nil%></td>
+    <td><%=email.sendtime.strftime("%mæœˆ%dæ—¥ %Hç‚¹%Måˆ†") rescue nil%></td>
    </tr>
   <%index+=1%>
 <% end %>
@@ -39,7 +39,7 @@
 
 <script>
   //add_dynamic_delete_button("javascript:alert('aa');");  
-  add_tab_button("/img/iconErase.png", "É¾³ı", "javascript:if (confirm('ÄúÈ·¶¨É¾³ı±¾¼ÇÂ¼Âğ?')){ document.forms[0].submit(); }")
+  add_tab_button("/img/iconErase.png", "åˆ é™¤", "javascript:if (confirm('æ‚¨ç¡®å®šåˆ é™¤æœ¬è®°å½•å—?')){ document.forms[0].submit(); }")
   function selectall(form, tagname)
     {
         if ($("select_all").checked)

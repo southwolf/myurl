@@ -1,9 +1,8 @@
-<b>±êÌâ:</b> <%=h @email.title %><br>
-  <b>·¢ËÍÈË:</b> <%=h YtwgUser.find(@email.from_id).truename rescue nil %>
-  <b>·¢ËÍÊ±¼ä:</b> <%=h @email.sendtime.strftime("%Y-%m-%d %H:%M:%S") %><br>
-  <b>ÊÕ¼şÈË:</b> <span width=100% class=colorspan><%=h @email.recv %></span><br>
-  <b>³­ËÍÈË:</b> <span width=100% class=colorspan><%=h @email.cc %></span><br>
-  <b>¸½¼ş:</b><% if @email.attach%>
+<b>æ ‡é¢˜:</b> <%=h @email.title %><br>
+  <b>å‘é€äºº:</b> <%=h YtwgUser.find(@email.from_id).truename rescue nil %>
+  <b>å‘é€æ—¶é—´:</b> <%=h @email.sendtime.strftime("%Y-%m-%d %H:%M:%S") %><br>
+  <b>æ”¶ä»¶äºº:</b> <span width=100% class=colorspan><%=h @email.recv %></span><br>
+  <b>é™„ä»¶:</b><% if @email.attach%>
     <%= link_to File.basename(@email.attach), :action=>"download_attach", :id=>@email.id %>
   <% end %>
   <% if @email.attach2%>
@@ -17,13 +16,11 @@
 </p>
 
 <script>
-  add_tab_button("/img/iconBack.png", "·µ»Ø", "javascript:history.back()");
+  add_tab_button("/img/iconBack.png", "è¿”å›", "javascript:history.back()");
   add_sep();
-  add_tab_button("/img/iconRelay.png", "×ª·¢", "/email/relay/<%=@email.id%>");
+  add_tab_button("/img/iconRelay.png", "è½¬å‘", "/email/relay/<%=@email.id%>");
   add_sep();
-  add_tab_button("/img/iconReply.png", "»Ø¸´", "/email/reply/<%=@email.id%>");
-  add_sep();
-  add_tab_button("/img/iconReplyAll.png", "»Ø¸´ËùÓĞÈË", "/email/replyall/<%=@email.id%>");
+  add_tab_button("/img/iconReply.png", "å›å¤", "/email/reply/<%=@email.id%>");
 </script>
 
 

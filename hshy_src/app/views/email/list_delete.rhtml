@@ -1,11 +1,11 @@
-<font class=color size="3"><strong>ÒÑÉ¾³ýÓÊ¼þ</strong></font>
+<font class=color size="3"><strong>å·²åˆ é™¤æ¶ˆæ¯</strong></font>
 <table border="1" cellpadding="2" cellspacing="0" bordercolor="#666666" width=100%>
   <tr class="exebar">
-    <th>ÐÂ</th>
-    <th>·¢ËÍÈË</th>
-    <th width=50%>ÓÊ¼þ±êÌâ</th>
-    <th>ÊÕ¼þÈË</th>
-    <th>½¨Á¢Ê±¼ä</th>
+    <th>æ–°</th>
+    <th>å‘é€äºº</th>
+    <th width=50%>æ¶ˆæ¯æ ‡é¢˜</th>
+    <th>æ”¶ä»¶äºº</th>
+    <th>å»ºç«‹æ—¶é—´</th>
   </tr>
 
 <%index=1%>  
@@ -17,13 +17,13 @@
         <td>*</td>
     <% end %>    
     <td  height=24><%=link_to YtwgUser.find(email.from_id).truename, :action=>"show", :id=>email%></td>
-    <td><%= link_to email.title||"ÎÞ±êÌâ", :action=>"show", :id=>email%></td>
+    <td><%= link_to email.title||"æ— æ ‡é¢˜", :action=>"show", :id=>email%></td>
     <% if email.recv.index(',') %>
         <td><%=email.recv[0,email.recv.index(',')] + "..." %></td>
     <% else %>
         <td><%=email.recv%></td>
     <% end %>
-    <td><%=email.sendtime.strftime("%mÔÂ%dÈÕ %Hµã%M·Ö") rescue nil%></td>
+    <td><%=email.sendtime.strftime("%mæœˆ%dæ—¥ %Hç‚¹%Måˆ†") rescue nil%></td>
    </tr>
   <%index+=1%>
 <% end %>

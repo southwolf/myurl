@@ -1,12 +1,10 @@
-<%= javascript_include_tag 'dragdrop' %>
 
-<%= error_messages_for 'email' %>
 
 <!--[form:email]-->
-±ê&nbsp;&nbsp;Ìâ
+æ ‡&nbsp;&nbsp;é¢˜
 <%= text_field 'email', 'title', :size=>50, :class=>"required dojoValidateEmpty"  %>
 <br>
-<a href="javascript:show_users(this, 'users')" id="flag">ÊÕ¼þÈË:</a>
+<a href="javascript:show_users(this, 'users')" id="flag">æ”¶ä»¶äºº:</a>
 <span id="recv" width=100% style="background-color:pink">
 <% if @address && @address.size > 0 %>
   <% users = YtwgUser.find(:all, :conditions=>"id in (#{@address.join(',')})") %>
@@ -14,44 +12,33 @@
 <% end %>
 </span>
 <br>
-<a href="javascript:show_users(this, 'ccusers')" id="flag">³­ËÍ:</a>
-<span id="cc" style="background-color:pink">
-<% if @ccaddress && @ccaddress.size > 0 %>
-  <% users = YtwgUser.find(:all, :conditions=>"id in (#{@ccaddress.join(',')})") %>
-  <%= users.collect{|u| u.truename}.join(',') %>
-<% end %>
-</span>
-<br>
+
 
 <%= fckeditor_textarea("email", "content",  :toolbarSet => 'Basic', :width => '100%', :height => '360px') %>
 
 <%= hidden_field("email", "cg")  %>
 
 
-¸½&nbsp;&nbsp;¼þ<br>
+é™„&nbsp;&nbsp;ä»¶<br>
 <%= file_column_field 'email', 'attach' %><br>
 <%= file_column_field 'email', 'attach2' %><br>
 <%= file_column_field 'email', 'attach3' %><br>
 <!--[eoform:email]-->
 
 <%= render :partial =>"/share/user_select", :locals=>{:address=>@address, :divid=>"users", :name=>"email[user_ids][]", :accept=>"recv"} %>
-<%= render :partial =>"/share/user_select", :locals=>{:address=>@ccaddress, :divid=>"ccusers", :name=>"email[ccuser_ids][]", :accept=>"cc"} %>
 
-<%= draggable_element("users", :handle => "handle_users")%>
-<%= draggable_element("ccusers", :handle => 'handle_ccusers')%>
 <script>
     function show_users(obj, divid)
     {
-        var div = $(divid);
-        var flag = $('flag');
+        var div = $("#" + divid).get(0);
+        var flag = $('#flag').get(0);
         div.style.pixelLeft = flag.offsetLeft;
         div.style.pixelTop = flag.offsetTop+35;
-        Effect.BlindDown(divid);
+        $("#" + divid).slideDown("slow"); 
     }
     
     function hide_users(username, tagname, divid)
     {
-        //alert(document.forms[0]);
         var users = document.getElementsByName(username);
         var recv = "";
         for(var i=0; i<users.length; i++)
@@ -64,12 +51,13 @@
                     recv = recv + "," + users[i].text;
             }
         }
-        $(tagname).innerHTML = recv;
-        Effect.BlindUp(divid);   
+        $("#" + tagname).text(recv);
+        $("#" + divid).slideUp("slow"); 
     }
     function select_all(form, tagname)
     {
-        if ($("selectall"+tagname).checked)
+        check = document.getElementsByName("selectall"+tagname)[0];
+        if (check.checked)
         {
             for(var i=0; i<form.elements.length-1; i++)
             {
@@ -91,7 +79,7 @@
     function select_dep(departmentid)
     {
         checks = document.getElementsByTagName("INPUT");
-        if ($(departmentid).checked)
+        if ($('#'+departmentid).get(0).checked)
         {
             for(var i=0; i<checks.length-1; i++)
             {

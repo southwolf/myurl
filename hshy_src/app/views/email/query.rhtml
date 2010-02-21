@@ -3,24 +3,24 @@
 <% form_tag :action => 'find' do %>
 <table align='center' height=200 width=400>
   <tr>
-    <td>Ö÷Ìâ¹Ø¼ü×Ö£º</td>
+    <td>ä¸»é¢˜å…³é”®å­—ï¼š</td>
     <td><%=  text_field_tag "title" %></td>
   </tr>
   <tr>
-    <td>ÄÚÈİ¹Ø¼ü×Ö£º</td>
+    <td>å†…å®¹å…³é”®å­—ï¼š</td>
     <td><%=  text_field_tag "text" %></td>
   </tr>
   <tr>
-    <td><a href="javascript:show_users(this, 'users')" id="flag">·¢¼şÈË:</a></td>
-    <td><span id="recv" width=100% ><a href="javascript:show_users(this, 'users')">Ñ¡Ôñ</a></span></td>
+    <td><a href="javascript:show_users(this, 'users')" id="flag">å‘ä»¶äºº:</a></td>
+    <td><span id="recv" width=100% ><a href="javascript:show_users(this, 'users')">é€‰æ‹©</a></span></td>
   </tr>
   <tr>
-    <td>¸½¼ş°üº¬ÎÄ×Ö£º</td>
+    <td>é™„ä»¶åŒ…å«æ–‡å­—ï¼š</td>
     <td><%=  text_field_tag "attach" %></td>
   </tr>
   <tr>
-    <td>ÓÊÏä£º</td>
-    <td><%= select_tag "box", options_for_select([['ÊÕ¼şÏä', 1], ['ÒÑ·¢ËÍ',2], ['²İ¸åÏä', 3], ['ÒÑÉ¾³ı', 4]]) %></td>
+    <td>é‚®ç®±ï¼š</td>
+    <td><%= select_tag "box", options_for_select([['æ”¶ä»¶ç®±', 1], ['å·²å‘é€',2], ['è‰ç¨¿ç®±', 3], ['å·²åˆ é™¤', 4]]) %></td>
   </tr>
 
 </table>
@@ -101,5 +101,5 @@
         }
     }
 
-  add_submit("²éÕÒ", "/img/iconSearch.png");  
+  add_submit("æŸ¥æ‰¾", "/img/iconSearch.png");  
 </script>

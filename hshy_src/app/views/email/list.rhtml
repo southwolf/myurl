@@ -1,45 +1,31 @@
-<%= stylesheet_link_tag "tab.webfx.css" %>
-<%= javascript_include_tag 'tabpane' %>
 
-<%= stylesheet_link_tag 'default' %> 
-<%= javascript_include_tag 'window'%>
 
 <table width=100% height=100%>
   <tr class=TrLight>
     <td valign=top width=160>
 <table cellpadding="2" cellspacing="0" bordercolor="#666666" height=200>
   <tr align=center>
-    <td onclick='mail.location="/email/list_recent";'><%=image_tag "/img/unread.png"%><%= link_to 'Î´¶ÁÓÊ¼þ', {:action=>'list_recent'}, :target=>'mail' %></td>
-    <td onclick='mail.location="/email/new";'><%=image_tag "/img/iconNew.png"%><%= link_to 'Ð´&nbsp;ÓÊ&nbsp;¼þ', {:action=>'new'}, :target=>'mail' %></td>
+    <td onclick='mail.location="/email/list_recent";'><%=image_tag "/img/unread.png"%><%= link_to 'æœªè¯»æ¶ˆæ¯', {:action=>'list_recent'}, :target=>'mail' %></td>
+    <td onclick='mail.location="/email/new";'><%=image_tag "/img/iconNew.png"%><%= link_to 'å†™&nbsp;æ¶ˆ&nbsp;æ¯', {:action=>'new'}, :target=>'mail' %></td>
   </tr>
   <% index = 1 %>
   <%= ColorRow(index, nil, {:align=>'center', :onclick=>"mail.location=\"/email/list_inbox\";"}) %>
-    <td colspan=2><%=image_tag "/img/inbox.gif"%>&nbsp;<%= link_to 'ÊÕÓÊ¼þ', {:action=>'list_inbox'}, :target=>'mail' %></td>
-  </tr>
-  <%= ColorRow(index, nil, {:align=>'center', :onclick=>"mail.location=\"/email/list_cg\";"}) %>
-    <td colspan=2><%=image_tag "/img/cgbox.gif"%>&nbsp;<%= link_to '²Ý¸åÏä', {:action=>'list_cg'}, :target=>'mail' %></td>
+    <td colspan=2><%=image_tag "/img/inbox.gif"%>&nbsp;<%= link_to 'æ”¶ä»¶ç®±', {:action=>'list_inbox'}, :target=>'mail' %></td>
   </tr>
   <%= ColorRow(index, nil, {:align=>'center', :onclick=>"mail.location=\"/email/list_sent\";"}) %>
-    <td colspan=2><%=image_tag "/img/sentbox.gif"%>&nbsp;<%= link_to 'ÒÑ·¢ËÍ', {:action=>'list_sent'}, :target=>'mail' %></td>
+    <td colspan=2><%=image_tag "/img/sentbox.gif"%>&nbsp;<%= link_to 'å·²å‘é€', {:action=>'list_sent'}, :target=>'mail' %></td>
   </tr>
   <%= ColorRow(index, nil, {:align=>'center', :onclick=>"mail.location=\"/email/list_delete\";"}) %>
-    <td colspan=2><%=image_tag "/img/trash.gif"%>&nbsp;<%= link_to 'ÒÑÉ¾³ý', {:action=>'list_delete'}, :target=>'mail' %></td>
-  </tr>
-  <%= ColorRow(index, nil, {:align=>'center', :onclick=>"mail.location=\"/email/query\";"}) %>
-    <td colspan=2><%=image_tag "/img/find.gif"%>&nbsp;<%= link_to '²é&nbsp;&nbsp;&nbsp;ÕÒ', {:action=>'query'}, :target=>'mail' %></td>
+    <td colspan=2><%=image_tag "/img/trash.gif"%>&nbsp;<%= link_to 'å·²åˆ é™¤', {:action=>'list_delete'}, :target=>'mail' %></td>
   </tr>
 </table>
-
     </td>
     <td valign=top align=left  bgcolor=white>
-      
-      <iframe SCROLLING=yes  FRAMEBORDER="0" height="100%" width="100%" id="mail" name="mail" class=""></iframe>
-     
+     <iframe SCROLLING=yes height="500px" width="100%" frameborder="0"  id="mail" name="mail" ></iframe>
     </td>
 </tr>
 </table>
 
 <script>
-setupAllTabs();
 mail.location = "/email/list_recent";
 </script>
