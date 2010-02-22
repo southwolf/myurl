@@ -1,16 +1,5 @@
+<input type="button" value="发送" onclick="document.forms[0].submit();" class="submit">
 
 <% form_tag({:action => 'create'}, :multipart => true)do %>
   <%= render :partial => 'form' %>
 <% end %>
-
-
-<script>
-//  add_submit("发送");
-//  add_tab_button("/img/iconBack.png", "保存到草稿箱", "/email/list");  
-  
-  //$('#separator').before('<td width=2%><a href="javascript:document.forms[1].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="保存" border="0" ></a></td>');
-  
-  $('#separator').before('<td width=2%><a href="javascript:document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSend.png" title="发送" border="0" ></a></td>');
-  add_sep();
-  $('#separator').before('<td width=2%><a href="javascript:document.forms[0].email_cg.value=1;document.forms[0].submit();" class="Main_ToolBar_Button"><img class="Main_ToolBar_Button_Icon" src="/img/iconSave.png" title="保存到草稿箱" border="0" ></a></td>');
-</script>

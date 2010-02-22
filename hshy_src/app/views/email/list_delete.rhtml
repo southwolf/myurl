@@ -11,7 +11,7 @@
 <%index=1%>  
 <% for email in @emails %>
   <%=ColorRow(index)%>
-    <% if @read_tag[email.id] ==1 || email.readuser_ids.include?(session[:user].id)%>
+    <% if @read_tag[email.id] ==1 || email.readuser_ids.include?(session[:user_id])%>
         <td></td>
     <% else %>
         <td>*</td>

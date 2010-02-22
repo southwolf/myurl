@@ -1,5 +1,5 @@
-<font class=color size="3"><strong>收件箱</strong></font>
-
+<font class=color size="3"><strong>收件箱</strong></font><br/>
+<input type="button" value="删除" onclick="if (confirm('您确定删除本记录吗?')){ document.forms[0].submit(); }" class="submit">
 <% form_tag :action => 'destroy' do %>
 <table id='table' border="1" cellpadding="2" cellspacing="0" bordercolor="#666666" width=100%>
   <tr class="exebar">
@@ -14,7 +14,7 @@
 <%index=1%>  
 <% for email in @emails %>
   <%=ColorRow(index, email.id)%>
-    <% if @read_tag[email.id] ==1 || email.readuser_ids.include?(session[:user].id)%>
+    <% if @read_tag[email.id] ==1 || email.readuser_ids.include?(session[:user_id])%>
         <td></td>
     <% else %>
         <td>*</td>
@@ -38,8 +38,6 @@
  <%= will_paginate @emails %>
 
 <script>
-  //add_dynamic_delete_button("javascript:alert('aa');");  
-  add_tab_button("/img/iconErase.png", "删除", "javascript:if (confirm('您确定删除本记录吗?')){ document.forms[0].submit(); }")
   function selectall(form, tagname)
     {
         if ($("select_all").checked)
