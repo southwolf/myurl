@@ -1,5 +1,4 @@
-<input type="button" value="发送" onclick="document.forms[0].submit();" class="submit">
-
-<% form_tag({:action => 'create'}, :multipart => true)do %>
+<% form_tag({:action => 'create'}, :class=>"validate_form", :multipart => true)do %>
+  <%= submit_tag "发送", :class=>"submit"%>
   <%= render :partial => 'form' %>
 <% end %>

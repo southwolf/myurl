@@ -1,21 +1,27 @@
 
 
 <!--[form:email]-->
-标&nbsp;&nbsp;题
-<%= text_field 'email', 'title', :size=>50, :class=>"required dojoValidateEmpty"  %>
-<br>
-<a href="javascript:show_users(this, 'users')" id="flag">收件人:</a>
-<span id="recv" width=100% style="background-color:pink">
-<% if @address && @address.size > 0 %>
-  <% users = YtwgUser.find(:all, :conditions=>"id in (#{@address.join(',')})") %>
-  <%= users.collect{|u| u.truename}.join(',') %>
-<% end %>
-</span>
-<br>
+<div style="height:30px">标&nbsp;&nbsp;题:
+<%= text_field 'email', 'title', :title=>"消息标题", :size=>50, :validate=>"required:true", :class=>"required dojoValidateEmpty"  %>
+</div>
+<div  style="height:30px">
+  <% if current_user.user_type == 1%>
+    <a href="javascript:show_users(this, 'users')" id="flag">收件人:</a>
+    <span id="recv" width=100% style="background-color:pink">
+    <% if @address && @address.size > 0 %>
+      <% users = YtwgUser.find(:all, :conditions=>"id in (#{@address.join(',')})") %>
+      <%= users.collect{|u| u.truename}.join(',') %>
+    <% end %>
+    </span>
+    <%= render :partial =>"/share/user_select", :locals=>{:address=>@address, :divid=>"users", :name=>"email[user_ids][]", :accept=>"recv"} %>
+  <% else%>
+    收件人:<%= text_field_tag "recv", params[:recv], :title=>"收件人", :size=>50, :validate=>"required:true", :class=>"required dojoValidateEmpty"%>
+  <% end %>
+</div>
 
 
-<%= fckeditor_textarea("email", "content",  :toolbarSet => 'Basic', :width => '100%', :height => '360px') %>
-
+<%= fckeditor_textarea("email", "content",  :toolbarSet => 'Basic', :width => '97%', :height => '260px') %>
+<br/>
 <%= hidden_field("email", "cg")  %>
 
 
@@ -25,7 +31,6 @@
 <%= file_column_field 'email', 'attach3' %><br>
 <!--[eoform:email]-->
 
-<%= render :partial =>"/share/user_select", :locals=>{:address=>@address, :divid=>"users", :name=>"email[user_ids][]", :accept=>"recv"} %>
 
 <script>
     function show_users(obj, divid)
